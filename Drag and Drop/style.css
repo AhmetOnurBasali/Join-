@@ -1,0 +1,24 @@
+body {
+    background-color: rgb(100, 82, 58);
+}
+
+.drag-area{
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px dashed black;
+    margin-bottom: 50px; 
+    display: flex;
+    align-items: flex-start;
+}
+
+.todo{
+border: 1px solid gray;
+background-color: white;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+}
+
+.drag-area-highlight{
+    background-color: rgba(0, 0, 0, 0.2);
+}
