@@ -1,4 +1,4 @@
-setURL("https://davide-niola.developerakademie.net/smallest_backend_ever");
+setURL("https://gruppe-446.developerakademie.net/smallest_backend_ever");
 let users = [];
 
 async function init() {
