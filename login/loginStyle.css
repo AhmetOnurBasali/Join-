@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  background-color: darkgoldenrod;
+}
+
+.d-none {
+  display: none;
+}
+.loginMainContainer {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.signUpContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loginLogoAndSignUp {
+  display: flex;
+  justify-content: space-between;
+}
+.signUpLogo {
+  position: absolute;
+  top: 0;
+}
+.logoLogin {
+  position: absolute;
+  top: 0;
+}
+.signButtonPosition {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.loginFormContainer {
+  position: relative;
+  background: aliceblue;
+  padding: 75px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signUpFormContainer {
+  position: relative;
+  background: aliceblue;
+  padding: 75px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loginTextPosi {
+  display: flex;
+}

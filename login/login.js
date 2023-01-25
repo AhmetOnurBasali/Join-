@@ -1,7 +1,4 @@
-setURL("https://gruppe-446.developerakademie.net/smallest_backend_ever");
-let users = [];
-
-async function init() {
+async function loadUsers() {
   await downloadFromServer();
   let item = backend.getItem("users");
   if (typeof item === "string") {
@@ -11,7 +8,6 @@ async function init() {
   }
   await backend.setItem("users", users);
 }
-
 
 async function addUser() {
   let newEmail = document.getElementById("email");
@@ -23,10 +19,9 @@ async function addUser() {
   newPassword.value = "";
   setTimeout(() => {
     window.location.href =
-      "login.html?msg=Du hast dich erfolgreich Regrestiert";
-  }, 3000);
+      "/login.html?msg=Du hast dich erfolgreich Regrestiert";
+  }, 2000);
 }
-
 
 function login() {
   let email = document.getElementById("email");
@@ -38,7 +33,9 @@ function login() {
   if (user) {
     console.log("user gefunden");
     setTimeout(() => {
-      window.location.href = "dashboard.html";
-    }, 3000);
+      window.location.href = "dashboard.html"; // <---- TODO : wird später summary.html
+    }, 2000);
   }
 }
+
+
