@@ -23,7 +23,7 @@ async function addUser() { // private-daten hashen? proof für vor und nachname 
   newPassword.value = "";
   setTimeout(() => {
     window.location.href =
-      "/login.html?msg=Du hast dich erfolgreich Regrestiert";
+      "/index.html?msg=Du hast dich erfolgreich Regrestiert";
   }, 1500);
 }
 
