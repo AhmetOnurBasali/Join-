@@ -36,7 +36,8 @@
                 </div>
                 <div>
                     <button>Login!</button>
-                    <button onclick="TODO()">Guest Log in</button> <!--Wird wahrscheinlich probleme geben wegen form-->
+                    <button onclick="lsRememberMe()">Guest Log in</button>
+                    <!--Wird wahrscheinlich probleme geben wegen form-->
                 </div>
             </form>
         </div>
@@ -50,6 +51,20 @@
 
 
     <script>
+
+        const rmCheck = document.getElementById("rememberMe"),
+            emailInput = document.getElementById("email");
+        passwordInput = document.getElementById("password");
+
+        if (localStorage.checkbox && localStorage.checkbox && localStorage.checkbox !== "") {
+            rmCheck.setAttribute("checked", "checked");
+            emailInput.value = localStorage.username;
+            passwordInput.value = localStorage.password;
+        } else {
+            rmCheck.removeAttribute("checked");
+            emailInput.value = "";
+            passwordInput.value = "";
+        }
 
         const urlParams = new URLSearchParams(window.location.search)
         const msg = urlParams.get('msg')
