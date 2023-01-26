@@ -9,18 +9,22 @@ async function loadUsers() {
   await backend.setItem("users", users);
 }
 
-async function addUser() {
+async function addUser() { // private-daten hashen? proof für vor und nachname Optimieren 
+  let newColor = assignColorOnRegistration()
+  let newName = document.getElementById("name")
   let newEmail = document.getElementById("email");
   let newPassword = document.getElementById("password");
-  users.push({ email: newEmail.value, password: newPassword.value });
+  assignColorOnRegistration()
+  users.push({name: newName.value, email: newEmail.value, password: newPassword.value, color: newColor});
   await backend.setItem("users", users);
   console.log(users);
+  newName.value = "";
   newEmail.value = "";
   newPassword.value = "";
   setTimeout(() => {
     window.location.href =
       "/login.html?msg=Du hast dich erfolgreich Regrestiert";
-  }, 2000);
+  }, 1500);
 }
 
 function login() {
@@ -34,8 +38,36 @@ function login() {
     console.log("user gefunden");
     setTimeout(() => {
       window.location.href = "dashboard.html"; // <---- TODO : wird später summary.html
-    }, 2000);
+    }, 1500);
   }
 }
 
+
+function proofName(){ 
+  let regName = /^\w+(?: \w+)+$/
+  let name = document.getElementById('name').value;
+  if(!regName.test(name)){
+      console.log('Please enter your full name (first & last name).')
+      document.getElementById('name').focus();
+      document.getElementById('name').classList.add('falseInput')
+      return false;
+  }else{
+      console.log('Valid name given.')
+      document.getElementById('name').classList.remove('falseInput')
+      return true;
+  }
+}
+
+
+
+
+function getRandomColor() {
+  const colors = ["red", "orange", "yellow", "green", "blue", "purple"]; // TODO: mehr variationen 
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function assignColorOnRegistration() {
+  newColor = getRandomColor();
+  return newColor
+}
 

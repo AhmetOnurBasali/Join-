@@ -62,3 +62,11 @@ body {
 .loginTextPosi {
   display: flex;
 }
+
+.falseInput{
+border-color: red;
+}
+
+.outlineNone{
+outline: none;
+}

@@ -20,7 +20,7 @@
     <div class="signUpLogo">
       <a href="signUp.html"><img src="">(LOGO)</a>
     </div>
-    
+
     <div class="signUpFormContainer">
 
       <form onsubmit="addUser(); return false" class="signUpContainer">
@@ -30,9 +30,9 @@
         <div>
           <h1>Sign up</h1>
         </div>
-        <input type="text" id="name" placeholder="Vor- und Nachname" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Password" required>
+        <input class="outlineNone" onchange="proofName()" type="text" id="name" placeholder="Vor- und Nachname" required>
+        <input class="outlineNone" type="email" id="email" placeholder="Email" required>
+        <input class="outlineNone" type="password" id="password" placeholder="Password" required>
         <button>Sign up</button>
       </form>
 
