@@ -1,5 +1,5 @@
 body {
-  font-family: 'inter';
+  font-family: "inter";
   margin: 0;
   background-color: whitesmoke;
 }
@@ -164,7 +164,7 @@ input[type="submit"] {
 }
 .checkboxContainer {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding-top: 16px;
   padding-bottom: 16px;
 }
@@ -186,14 +186,14 @@ input[type="submit"] {
   justify-content: center;
 }
 
-.backIconContainer{
+.backIconContainer {
   position: absolute;
   top: 0;
   left: 0;
   padding: 22px;
 }
 
-.logoSize{
+.logoSize {
   display: flex;
   height: 100px;
 }
