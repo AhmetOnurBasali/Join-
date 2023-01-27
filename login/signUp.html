@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign up</title>
   <link rel="stylesheet" href="loginStyle.css">
+  <link rel="stylesheet" href="../fonts.css">
   <script src="../js/login.js"></script>
   <script src="../js/mini_backend.js"></script>
   <script src="../script.js"></script>
@@ -18,22 +19,26 @@
   <div class="loginMainContainer">
 
     <div class="signUpLogo">
-      <a href="signUp.html"><img src="">(LOGO)</a>
+      <a href="signUp.html"><img class="logoSize" src="../assets/img/logo.svg"></a>
     </div>
 
     <div class="signUpFormContainer">
 
       <form onsubmit="addUser(); return false" class="signUpContainer">
-        <div>
-          <a href="../index.html"> <img alt="">Back</a>
+        <div class="backIconContainer">
+          <a href="../index.html"> <img src="../assets/img/Vector.png"></a>
         </div>
-        <div>
-          <h1>Sign up</h1>
+        <div class="signUpTextPosi">
+          <b>Sign up</b>
+          
         </div>
+        <div class="blueLineContainer">
+          <div class="blueLine"></div>
+      </div>
         <input class="outlineNone" onchange="proofName()" type="text" id="name" placeholder="Vor- und Nachname" required>
         <input class="outlineNone" type="email" id="email" placeholder="Email" required>
         <input class="outlineNone" type="password" id="password" placeholder="Password" required>
-        <button>Sign up</button>
+        <button class="signUpBlueBtn">Sign up</button>
       </form>
     </div>
   </div>

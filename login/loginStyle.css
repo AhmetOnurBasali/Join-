@@ -1,6 +1,7 @@
 body {
+  font-family: 'inter';
   margin: 0;
-  background-color: darkgoldenrod;
+  background-color: whitesmoke;
 }
 
 .d-none {
@@ -15,13 +16,18 @@ body {
 .signUpContainer {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 61%;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 .loginContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100%;
+  width: 61%;
+  justify-content: space-evenly;
 }
 .loginLogoAndSignUp {
   display: flex;
@@ -30,75 +36,81 @@ body {
 .signUpLogo {
   position: absolute;
   top: 0;
+  left: 0;
+  padding: 75px;
 }
 .logoLogin {
   position: absolute;
   top: 0;
+  padding: 75px;
 }
 .signButtonPosition {
   position: absolute;
   right: 0;
   top: 0;
+  padding: 75px;
 }
 .loginFormContainer {
   position: relative;
-  background: aliceblue;
-  padding: 75px;
+  background: white;
   border-radius: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  width: 500px;
+  height: 400px;
+  align-items: center;
+  border: unset;
+  box-shadow: 0px 0px 20px 0px rgb(28 11 127 / 10%);
 }
 
 .signUpFormContainer {
   position: relative;
-  background: aliceblue;
-  padding: 75px;
+  background: white;
   border-radius: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  width: 500px;
+  height: 400px;
+  align-items: center;
+  border: unset;
+  box-shadow: 0px 0px 20px 0px rgb(28 11 127 / 10%);
 }
 .loginTextPosi {
   display: flex;
+  font-size: 50px;
+  justify-content: center;
 }
 
-.falseInput{
-border-color: red;
+.falseInput {
+  border-color: red;
 }
 
-.outlineNone{
-outline: none;
+.outlineNone {
+  outline: none;
 }
-
-
-
-
 
 input {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;
   border: 1px solid #ccc;
-  border-radius: .1875rem;
+  border-radius: 6px;
   box-sizing: border-box;
   display: block;
-  font-size: .875rem;
-  margin-bottom: 1rem;
-  padding: .275rem;
+  font-size: 0.875rem;
+  margin-bottom: 19px;
+  padding: 8px;
   width: 100%;
 }
 
 input[type="checkbox"] {
   -webkit-appearance: checkbox;
-     -moz-appearance: checkbox;
-          appearance: checkbox;
+  -moz-appearance: checkbox;
+  appearance: checkbox;
   display: inline-block;
   width: auto;
 }
 
 input[type="password"] {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 input[type="submit"] {
@@ -106,10 +118,82 @@ input[type="submit"] {
   border: none;
   color: #fff;
   font-size: 1rem;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
-label {
-  color: #666;
-  font-size: .875rem;
+.loginBlueBtn {
+  background: #2a3647;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 2px solid #2a3647;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+}
+.loginWhiteBtn {
+  background: #ffffff;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 2px solid #2a3647;
+  border-radius: 6px;
+  color: #2a3647;
+  cursor: pointer;
+}
+
+.blueLine {
+  display: flex;
+  width: 46%;
+  background: #29abe2;
+  height: 2px;
+  border-radius: 10px;
+}
+
+.blueLineContainer {
+  display: flex;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  justify-content: center;
+}
+
+.loginBtnContainer {
+  display: flex;
+  justify-content: space-around;
+}
+.checkboxContainer {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.signUpBlueBtn {
+  background: #2a3647;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 2px solid #2a3647;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.signUpTextPosi {
+  display: flex;
+  font-size: 50px;
+  justify-content: center;
+}
+
+.backIconContainer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 22px;
+}
+
+.logoSize{
+  display: flex;
+  height: 100px;
 }
