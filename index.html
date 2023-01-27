@@ -14,6 +14,7 @@
 </head>
 
 <body onload="loadUsers()">
+
     <div class="loginLogoAndSignUp">
         <div class="logoLogin">
             <a href="login.html"><img src="">(Logo)</a>
@@ -31,12 +32,12 @@
                 <input type="password" id="password" placeholder="Password" required>
                 <div id="msgBox"></div>
                 <div>
-                    <input type="checkbox" id="rememberMe"><label for="rememberMe">Remember me</label>
-                    <a href="forgotMyPassword">Forgot my password</a>
+                    <input onclick="lsRememberMe()" type="checkbox" id="rememberMe"><label for="rememberMe">Remember me</label>
+                    <a href="/login/forgotPassword.html">Forgot my password</a>
                 </div>
                 <div>
                     <button>Login!</button>
-                    <button onclick="lsRememberMe()">Guest Log in</button>
+                    <button onclick="TODO()">Guest Log in</button> 
                     <!--Wird wahrscheinlich probleme geben wegen form-->
                 </div>
             </form>
@@ -44,21 +45,14 @@
     </div>
 
 
-
-
-
-
-
-
     <script>
-
-        const rmCheck = document.getElementById("rememberMe"),
+      const rmCheck = document.getElementById("rememberMe"),
             emailInput = document.getElementById("email");
         passwordInput = document.getElementById("password");
 
         if (localStorage.checkbox && localStorage.checkbox && localStorage.checkbox !== "") {
             rmCheck.setAttribute("checked", "checked");
-            emailInput.value = localStorage.username;
+            emailInput.value = localStorage.email;
             passwordInput.value = localStorage.password;
         } else {
             rmCheck.removeAttribute("checked");
@@ -66,6 +60,7 @@
             passwordInput.value = "";
         }
 
+        
         const urlParams = new URLSearchParams(window.location.search)
         const msg = urlParams.get('msg')
         if (msg) {

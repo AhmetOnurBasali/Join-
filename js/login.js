@@ -1,3 +1,18 @@
+async function loadCurrentUser() {
+  await downloadFromServer();
+  let item = backend.getItem("currentUser");
+  if (typeof item === "string") {
+    currentUser = JSON.parse(item) || [];
+  } else {
+    currentUser = item;
+  }
+  setGreatingName();
+}
+
+function setGreatingName() {
+  let greatingName = document.getElementById("greatingName");
+  greatingName.innerHTML = currentUser["name"];
+}
 
 async function loadUsers() {
   await downloadFromServer();
@@ -7,54 +22,57 @@ async function loadUsers() {
   } else {
     users = item;
   }
-  await backend.setItem("users", users);
 }
 
 async function addUser() {
   // private-daten hashen?
+  let newName = setUserName();
   let newColor = setUserColor();
-  let newName = document.getElementById("name");
-  let newEmail = document.getElementById("email");
+  let newEmail = setUserEmail();
   let newPassword = document.getElementById("password");
 
-  if (proofName() === true) {// proof Optimieren
-    
-    let currentID = users.length
+  if (proofName() === true) {
+    // proof Optimieren
+
+    let currentID = users.length;
     let newID = currentID + 1;
 
     users.push({
-      name: newName.value,
-      email: newEmail.value,
+      name: newName,
+      email: newEmail,
       password: newPassword.value,
       color: newColor,
       id: newID,
     });
 
     await backend.setItem("users", users);
-   
+
     newName.value = "";
     newEmail.value = "";
     newPassword.value = "";
     console.log(users);
-    
+
     setTimeout(() => {
       window.location.href =
         "/index.html?msg=Du hast dich erfolgreich Regrestiert";
     }, 1500);
   } else {
-    alert("Überprüfe die Daten");//TODO: vielleicht als text untern dem jeweiligen input
+    alert("Überprüfe deine Angaben"); //TODO: vielleicht als text untern dem jeweiligen input
   }
 }
 
-function login() {
-  let email = document.getElementById("email");
+async function login() {
+  let email = setUserEmail();
   let password = document.getElementById("password");
-  let user = users.find((u) => u.email == email.value && u.password == password.value);
-  console.log(user);
+  let user = users.find(
+    (u) => u.email == email && u.password == password.value
+  );
   if (user) {
-    console.log("user gefunden");
+    console.log("user gefunden:", user);
+    currentUser.push(user);
+    await backend.setItem("currentUser", user);
     setTimeout(() => {
-      window.location.href = "test.html"; // <---- TODO : wird später summary.html
+      window.location.href = "../Summary/summary.html";
     }, 1500);
   }
 }
@@ -84,14 +102,26 @@ function setUserColor() {
   return newColor;
 }
 
+function setUserName() {
+  let name = document.getElementById("name").value.toLowerCase();
+  let newName = name.replace(/\b\w/g, (l) => l.toUpperCase());
+  return newName;
+}
+
+function setUserEmail() {
+  let email = document.getElementById("email").value.toLowerCase();
+  let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
+  return newEmail;
+}
+
 function lsRememberMe() {
   if (rmCheck.checked && emailInput.value && passwordInput.value !== "") {
-      localStorage.username = emailInput.value;
-      localStorage.password = passwordInput.value;
-      localStorage.checkbox = rmCheck.value;
+    localStorage.email = emailInput.value;
+    localStorage.password = passwordInput.value;
+    localStorage.checkbox = rmCheck.value;
   } else {
-      localStorage.username = "";
-      localStorage.password = ""
-      localStorage.checkbox = "";
+    localStorage.email = "";
+    localStorage.password = "";
+    localStorage.checkbox = "";
   }
 }

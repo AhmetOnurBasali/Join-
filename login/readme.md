@@ -9,3 +9,11 @@ async function deleteUser() {
   await backend.deleteItem('users', users);
 }
 -
+
+
+-Add a user with this function:
+
+function addUser() {
+    users.push('John');
+    backend.setItem('users', JSON.stringify(users));
+}
