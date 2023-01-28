@@ -24,6 +24,7 @@ async function loadUsers() {
   }
   proofUsers();
 }
+
 async function setNullUser() {
   let users = [{ name: "", email: "", password: "", color: "", id: 0 }];
   await backend.setItem("users", users);
@@ -69,7 +70,7 @@ async function addUser() {
 }
 
 async function login() {
-  let email = setUserEmail();
+  let email = setLoginEmail();
   let password = document.getElementById("password");
   let user = users.find(
     (u) => u.email == email && u.password == password.value
@@ -113,6 +114,19 @@ function setUserName() {
   let name = document.getElementById("name").value.toLowerCase();
   let newName = name.replace(/\b\w/g, (l) => l.toUpperCase());
   return newName;
+}
+
+function setLoginEmail() {
+  let email = document.getElementById("email").value.toLowerCase();
+  let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
+  let emailFound = users.find((u) => u.email == newEmail);
+  if (emailFound) {
+    console.log("email exist");
+    return newEmail;
+   } else {
+    console.log("invalid email or password");
+    return;
+  }
 }
 
 function setUserEmail() {
