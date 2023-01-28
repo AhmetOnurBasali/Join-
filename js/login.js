@@ -22,6 +22,37 @@ async function loadUsers() {
   } else {
     users = item;
   }
+  proofUsers();
+}
+async function setNullUser() {
+  let users = [{ name: "", email: "", password: "", color: "", id: 0 }];
+  await backend.setItem("users", users);
+}
+
+async function setNewUser(newName, newColor, newEmail, newPassword) {
+  let currentID = users.length;
+  let newID = currentID + 1;
+  users.push({
+    name: newName,
+    email: newEmail,
+    password: newPassword.value,
+    color: newColor,
+    id: newID,
+  });
+  await backend.setItem("users", users);
+  newName.value = "";
+  newEmail.value = "";
+  newPassword.value = "";
+  console.log(users);
+  setTimeout(() => {
+    window.location.href =
+      "/index.html?msg=Du hast dich erfolgreich Regrestiert";
+  }, 1500);
+}
+async function proofUsers() {
+  if (users === null) {
+    await setNullUser();
+  }
 }
 
 async function addUser() {
@@ -30,32 +61,8 @@ async function addUser() {
   let newColor = setUserColor();
   let newEmail = setUserEmail();
   let newPassword = document.getElementById("password");
-
-  if (proofName() === true) {
-    // proof Optimieren
-
-    let currentID = users.length;
-    let newID = currentID + 1;
-
-    users.push({
-      name: newName,
-      email: newEmail,
-      password: newPassword.value,
-      color: newColor,
-      id: newID,
-    });
-
-    await backend.setItem("users", users);
-
-    newName.value = "";
-    newEmail.value = "";
-    newPassword.value = "";
-    console.log(users);
-
-    setTimeout(() => {
-      window.location.href =
-        "/index.html?msg=Du hast dich erfolgreich Regrestiert";
-    }, 1500);
+  if (newEmail && proofName() === true) {
+    await setNewUser(newName, newColor, newEmail, newPassword);
   } else {
     alert("Überprüfe deine Angaben"); //TODO: vielleicht als text untern dem jeweiligen input
   }
@@ -111,7 +118,17 @@ function setUserName() {
 function setUserEmail() {
   let email = document.getElementById("email").value.toLowerCase();
   let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
-  return newEmail;
+  let emailFound = users.find((u) => u.email == newEmail);
+  let emailRegex = /^[A-Za-z0-9]{2,}@[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
+  if (emailFound) {
+    console.log("email exist");
+    return;
+  } else if (emailRegex.test(newEmail)) {
+    return newEmail;
+  } else {
+    console.log("invalid email");
+    return;
+  }
 }
 
 function lsRememberMe() {
