@@ -73,29 +73,13 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .Sidebar {
     position: absolute;
     width: 232px;
     height: 1024px;
     left: 0px;
     top: 0px;
-
     background: #2A3647;
-    /* nuevo */
-
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 0px;
 
