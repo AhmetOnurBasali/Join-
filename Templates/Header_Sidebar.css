@@ -1,5 +1,61 @@
+body{
+    margin: 0;
+}
+
+
 .header{
     width: 100%;
     height: 100px;
-    background-color: red;
+    box-shadow: 5px 5px 9px 6px rgba(0,0,0,0.56);
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.Parent-Kanban{
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.help-log-parent{
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 32px;
+}
+
+
+.log-in{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.log-in-img{
+    border-radius: 100%;
+    width: 49px;
+    height: 49px;
+    border: 3px solid rgb(42,54,71);
+   
+
+}
+
+
+.help-img{
+    border-radius: 100%;
+}
+
+
+.Sidebar{
+    position: absolute;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: 200px;
+    background-color: rgb(42,54,71);
+
 }
