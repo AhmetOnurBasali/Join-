@@ -3,9 +3,13 @@ body {
   margin: 0;
   background-color: whitesmoke;
 }
+a {
+  text-decoration: unset;
+ color: #29abe2;
+}
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 .loginMainContainer {
   display: flex;
@@ -22,14 +26,13 @@ body {
   justify-content: space-evenly;
 }
 
-.loginContainer 
-  {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 61%;
-    justify-content: space-evenly;
-    align-items: center;
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 68%;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .loginLogoAndSignUp {
@@ -48,7 +51,9 @@ body {
   padding: 75px;
 }
 .signButtonPosition {
+  display: flex;
   position: absolute;
+  align-items: center;
   right: 0;
   top: 0;
   padding: 75px;
@@ -68,7 +73,7 @@ body {
 
 .signUpFormContainer {
   position: relative;
-  background: white;
+  background: #ffffff;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -84,45 +89,7 @@ body {
   justify-content: center;
 }
 
-.falseInput {
-  border-color: red;
-}
 
-.outlineNone {
-  outline: none;
-}
-
-input {
-  box-sizing: border-box;
-  display: flex;
-  padding: 13px 21px;
-  width: 422px;
-  height: 51px;
-  background: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  flex: none;
-}
-
-input[type="checkbox"] {
-  -webkit-appearance: checkbox;
-  -moz-appearance: checkbox;
-  appearance: checkbox;
-  display: inline-block;
-  width: auto;
-}
-
-input[type="password"] {
-  margin-bottom: 0.5rem;
-}
-
-input[type="submit"] {
-  background-color: #015294;
-  border: none;
-  color: #fff;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-}
 
 .loginBlueBtn {
   background: #2a3647;
@@ -133,6 +100,13 @@ input[type="submit"] {
   border-radius: 6px;
   color: #ffffff;
   cursor: pointer;
+}
+
+.loginBlueBtn:hover {
+  transition: none;
+  background-color: #29abe2;
+  border-color: #29abe2;
+  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
 }
 .loginWhiteBtn {
   background: #ffffff;
@@ -145,9 +119,15 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+.loginWhiteBtn:hover {
+  color: #29abe2;
+  border-color: #29abe2;
+  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
+}
+
 .blueLine {
   display: flex;
-  width: 46%;
+  width: 124px;
   background: #29abe2;
   height: 2px;
   border-radius: 10px;
@@ -164,14 +144,18 @@ input[type="submit"] {
 .loginBtnContainer {
   display: flex;
   justify-content: space-around;
+  width: 100%;
 }
 .checkboxContainer {
   display: flex;
   justify-content: space-between;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  width: 100%;
+  align-items: center;
 }
-
+.checkbocPosi {
+  display: flex;
+  align-items: center;
+}
 .signUpBlueBtn {
   background: #2a3647;
   padding: 10px;
@@ -181,6 +165,12 @@ input[type="submit"] {
   border-radius: 6px;
   color: #ffffff;
   cursor: pointer;
+}
+.signUpBlueBtn:hover {
+  transition: none;
+  border-color: #29abe2;
+  background-color: #29abe2;
+  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
 }
 
 .signUpTextPosi {
@@ -228,13 +218,13 @@ input[type="submit"] {
   width: 90%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .fargotPasswordTextPosi {
   display: flex;
-  font-size: 37px;
+  font-size: 50px;
   justify-content: center;
 }
 
@@ -242,4 +232,161 @@ input[type="submit"] {
   width: 656px;
   font-size: 21px;
   text-align: center;
+}
+
+.forgotBtn {
+  width: max-content;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+.forgotBtn:hover {
+  background-color: #29abe2;
+  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
+}
+.notUserTextPosi {
+  display: flex;
+  padding-right: 40px;
+}
+
+.warningPassword{
+    display: flex;
+    width: 123%;
+    color: red;
+    font-size: 12px;
+    margin-top: -20px;
+}
+
+.warningResetPassword {
+  display: flex;
+  width: 416px;
+  color: red;
+  font-size: 12px;
+  margin-top: -20px;
+}
+
+.showPassword{
+  position: absolute;
+  right: 17px;
+  top: 10px;
+  opacity: 0;
+  height: 24px;
+  width: 19px !important;
+}
+
+.passwordChangePopup{
+  position: absolute;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background: #3079b952;
+}
+
+.sendEmailPopup{
+  position: absolute;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background: #3079b952;
+}
+.passwordChangePopupIMG{
+  height: 55px;
+}
+.sendEmailPopupIMG{
+  height: 55px;
+}
+
+.relative{
+  position: relative;
+}
+
+input {
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  padding: 13px 21px;
+  width: 422px;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid #d1d1d1b6;
+  border-radius: 10px;
+  flex: none;
+  cursor: pointer;
+}
+
+
+input[type="checkbox"] {
+  appearance: checkbox;
+  display: inline-block;
+  width: auto;
+}
+
+
+input[type="submit"] {
+  background-color: #2a3647;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+
+.inputEmail {
+  background-image: url(../assets/img/email.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-x: 95%;
+}
+
+input[type="password"] {
+  background-image: url(../assets/img/password.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-x: 95%;
+}
+
+
+input[type="text"] {
+  background-image: url(../assets/img/dontShow.png)!important; 
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-x: 95%;
+  background-size: 20px;
+}
+
+
+.inputText {
+  background-image: url(../assets/img/user.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-x: 95%;
+}
+
+.falseInput {
+  border-color: #ff0000;
+}
+.rightInput {
+  background-color: #e8f0fe;
+}
+
+
+
+@keyframes slide-in-bottom {
+  0% {
+            transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-bottom {
+	        animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }

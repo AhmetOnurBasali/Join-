@@ -11,16 +11,22 @@
     <script src="../js/login.js"></script>
     <script src="../js/mini_backend.js"></script>
     <script src="script.js"></script>
-
 </head>
 
 <body onload="loadUsers()">
     <div class="loginLogoAndSignUp">
         <div class="logoLogin">
-            <a href="index.html"><img class="logoSize" src="assets/img/logo.svg"></a>
+            <a href="index.html">
+                <img class="logoSize" src="assets/img/logo.svg">
+            </a>
         </div>
-        <div class="signButtonPosition"><span><b>Not a Join user?</b></span>
-            <a href="/login/signUp.html"><button class="loginBlueBtn">Sign up</button></a>
+        <div class="signButtonPosition">
+            <span class="notUserTextPosi">
+                <b>Not a Join user?</b>
+            </span>
+            <a href="/login/signUp.html">
+                <button class="loginBlueBtn">Sign up</button>
+            </a>
         </div>
     </div>
     <div class="loginMainContainer">
@@ -30,20 +36,27 @@
                 <div class="blueLineContainer">
                     <div class="blueLine"></div>
                 </div>
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
+                <input class="inputEmail" type="" id="email" placeholder="Email" required>
+                <div class="relative">
+                    <input onfocus="showEye()" onblur="showLock()" type="password" id="password" placeholder="Password" required>
+                    <input onclick="showPassword()" type="checkbox" class="showPassword">
+                </div>
                 <div id="msgBox"></div>
+                <div id="msgBox2" class="warningPassword"></div>
                 <div class="checkboxContainer">
-                    <div><input onclick="lsRememberMe()" type="checkbox" id="rememberMe">
+                    <div class="checkbocPosi">
+                        <input onclick="lsRememberMe()" type="checkbox" id="rememberMe">
                         <label for="rememberMe">Remember me</label>
                     </div>
-                    <a href="/login/forgotPassword.html">Forgot my password</a>
+                    <div>
+                        <a href="/login/forgotPassword.html">Forgot my password</a>
+                    </div>
                 </div>
                 <div class="loginBtnContainer">
                     <button class="loginBlueBtn">
                         <b>Login</b>
                     </button>
-                    <button class="loginWhiteBtn" onclick="TODO()">
+                    <button class="loginWhiteBtn" onclick="loginAsGuest()">
                         <b>Guest Log in</b>
                     </button>
                     <!--Wird wahrscheinlich probleme geben wegen form-->
@@ -51,7 +64,6 @@
             </form>
         </div>
     </div>
-
 
     <script>
         const rmCheck = document.getElementById("rememberMe"),
@@ -77,7 +89,18 @@
             document.getElementById('msgBox').classList.add('d-none')
         }
 
+
+        const urlParams2 = new URLSearchParams(window.location.search)
+        const msg2 = urlParams2.get('msg2')
+        if (msg2) {
+            msgBox2.innerHTML = msg2;
+            passwordInput.value = ""
+            passwordInput.placeholder = "Ups! Try again"
+        } else {
+            document.getElementById('msgBox2').classList.add('d-none')
+        }
     </script>
+
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 async function loadCurrentUser() {
   await downloadFromServer();
-  let item = backend.getItem("currentUser");
+  let item = localStorage.getItem("currentUser");
   if (typeof item === "string") {
     currentUser = JSON.parse(item) || [];
   } else {
@@ -9,10 +9,6 @@ async function loadCurrentUser() {
   setGreatingName();
 }
 
-function setGreatingName() {
-  let greatingName = document.getElementById("greatingName");
-  greatingName.innerHTML = currentUser["name"];
-}
 
 async function loadUsers() {
   await downloadFromServer();
@@ -25,125 +21,160 @@ async function loadUsers() {
   proofUsers();
 }
 
-async function setNullUser() {
-  let users = [{ name: "", email: "", password: "", color: "", id: 0 }];
-  await backend.setItem("users", users);
-}
 
-async function setNewUser(newName, newColor, newEmail, newPassword) {
-  let currentID = users.length;
-  let newID = currentID + 1;
-  users.push({
-    name: newName,
-    email: newEmail,
-    password: newPassword.value,
-    color: newColor,
-    id: newID,
-  });
-  await backend.setItem("users", users);
-  newName.value = "";
-  newEmail.value = "";
-  newPassword.value = "";
-  console.log(users);
-  setTimeout(() => {
-    window.location.href =
-      "/index.html?msg=Du hast dich erfolgreich Regrestiert";
-  }, 1500);
-}
 async function proofUsers() {
   if (users === null) {
-    await setNullUser();
+    await setGuestUser();
   }
 }
 
+
 async function addUser() {
   // private-daten hashen?
-  let newName = setUserName();
-  let newColor = setUserColor();
-  let newEmail = setUserEmail();
+  let newName = addUserName();
+  let newColor = addUserColor();
+  let newEmail = addUserEmail();
   let newPassword = document.getElementById("password");
   if (newEmail && proofName() === true) {
     await setNewUser(newName, newColor, newEmail, newPassword);
   } else {
-    alert("Überprüfe deine Angaben"); //TODO: vielleicht als text untern dem jeweiligen input
+    console.log();
+    ("Überprüfe deine Angaben"); //TODO: vielleicht als text untern dem jeweiligen input
   }
 }
 
+
+async function setNewUser(newName, newColor, newEmail, newPassword) {
+  let currentID = users.length;
+  let newID = currentID + 1;
+  let userData = {name: newName, email: newEmail, password: newPassword.value, color: newColor, id: newID};
+  await saveNewUser(userData);
+  setTimeout(() => {
+    window.location.href = "/index.html?msg=Your regrestation was successful";
+  }, 500);
+}
+
+
+async function saveNewUser(userData) {
+  users.push(userData);
+  await backend.setItem("users", users);
+}
+
+
 async function login() {
   let email = setLoginEmail();
-  let password = document.getElementById("password");
-  let user = users.find(
-    (u) => u.email == email && u.password == password.value
-  );
-  if (user) {
-    console.log("user gefunden:", user);
-    currentUser.push(user);
-    await backend.setItem("currentUser", user);
-    setTimeout(() => {
-      window.location.href = "../Summary/summary.html";
-    }, 1500);
+  if (email) {
+    let password = setLoginPassword();
+    let user = users.find((u) => u.email == email && u.password == password);
+    if (user) {
+      setCurrentUser(user);
+      setTimeout(() => {
+        window.location.href = "../Summary/summary.html";
+      }, 500);}
+  } else {
+    window.location.href = "/index.html?msg=Email not Found";
   }
 }
+
 
 function proofName() {
   let regName = /^\w+(?: \w+)+$/;
   let name = document.getElementById("name").value;
   if (!regName.test(name)) {
-    console.log("Please enter your full name (first & last name).");
     document.getElementById("name").focus();
     document.getElementById("name").classList.add("falseInput");
     return false;
   } else {
-    console.log("Valid name given.");
     document.getElementById("name").classList.remove("falseInput");
     return true;
   }
 }
+
 
 function getRandomColor() {
   const colors = ["red", "orange", "yellow", "green", "blue", "purple"]; // TODO: mehr variationen?
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-function setUserColor() {
+
+function addUserColor() {
   newColor = getRandomColor();
   return newColor;
 }
 
-function setUserName() {
+
+function addUserName() {
   let name = document.getElementById("name").value.toLowerCase();
   let newName = name.replace(/\b\w/g, (l) => l.toUpperCase());
   return newName;
 }
 
+
+function setLoginPassword() {
+  let inputPassword = document.getElementById("password").value;
+  let user = users.find((u) => u.password == password.value);
+  if (user) {
+    return inputPassword;
+  } else {
+    window.location.href = "/index.html?msg2=wrong password";
+  }
+}
+
+
+function setCurrentUser(user) {
+  currentUser.push(user);
+  console.log("user gefunden:", user);
+  let userJSON = JSON.stringify(user);
+  localStorage.setItem("currentUser", userJSON);
+}
+
+
 function setLoginEmail() {
   let email = document.getElementById("email").value.toLowerCase();
   let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
   let emailFound = users.find((u) => u.email == newEmail);
-  if (emailFound) {
-    console.log("email exist");
-    return newEmail;
-   } else {
-    console.log("invalid email or password");
-    return;
-  }
-}
-
-function setUserEmail() {
-  let email = document.getElementById("email").value.toLowerCase();
-  let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
-  let emailFound = users.find((u) => u.email == newEmail);
-  let emailRegex = /^[A-Za-z0-9]{2,}@[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
-  if (emailFound) {
-    console.log("email exist");
-    return;
-  } else if (emailRegex.test(newEmail)) {
+  let emailRegex = getEmailRegEx();
+  if (emailFound && emailRegex.test(newEmail)) {
     return newEmail;
   } else {
     console.log("invalid email");
     return;
   }
 }
+
+
+function proofEmail() {
+  let regEmail = getEmailRegEx();
+  let email = document.getElementById("email").value;
+  if (!regEmail.test(email)) {
+    document.getElementById("email").focus();
+    document.getElementById("email").classList.add("falseInput");
+    return false;
+  } else {
+    document.getElementById("email").classList.remove("falseInput");
+    return true;
+  }
+}
+
+
+function addUserEmail() {
+  let email = document.getElementById("email").value.toLowerCase();
+  let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
+  let emailFound = users.find((u) => u.email == newEmail);
+  let emailRegex = getEmailRegEx();
+  if (!emailRegex.test(newEmail)) {
+    proofEmail();
+    return;
+  }
+  if (emailFound) {
+    window.location.href =
+      "signUp.html?msg=The email is already registered here";
+    return;
+  } else {
+    return newEmail;
+  }
+}
+
 
 function lsRememberMe() {
   if (rmCheck.checked && emailInput.value && passwordInput.value !== "") {
@@ -155,4 +186,71 @@ function lsRememberMe() {
     localStorage.password = "";
     localStorage.checkbox = "";
   }
+}
+
+
+function loginAsGuest() {
+  let email = document.getElementById("email");
+  email.value = users[0]["email"];
+  let password = document.getElementById("password");
+  password.value = users[0]["password"];
+}
+
+
+async function setGuestUser() {
+  let users = [
+    {
+      name: "Guest User",
+      email: "Xxx@xxx.xx",
+      password: "v67rR§F$",
+      color: "Black",
+      id: 0,
+    },
+  ];
+  await backend.setItem("users", users);
+}
+
+
+function showLock() {
+  var input = document.getElementById("password");
+  if (input.type === "password") {
+    input.style =
+      "background-image: url(../assets/img/password.svg); background-repeat: no-repeat; background-position: right;   background-position-x: 95%; background-size: 20px;";
+  } else {
+    input.type = "password";
+  }
+}
+
+
+function showEye() {
+  var input = document.getElementById("password");
+  if (input.type === "password") {
+    input.style =
+      "background-image: url(../assets/img/show.png); background-repeat: no-repeat; background-position: right;   background-position-x: 95%; background-size: 20px;";
+  } else {
+    input.type = "password";
+  }
+}
+
+
+function showPassword() {
+  let input = document.getElementById("password");
+  let checkbox = document.querySelector(".showPassword");
+  if (checkbox.checked) {
+    input.type = "text";
+  } else {
+    input.type = "password";
+  }
+}
+
+
+function getEmailRegEx() {
+  let emailRegex = /^[.-\wäöüÄÖÜ_]+@[A-Za-z]+\.[A-Za-z]{2,}$/;
+  return emailRegex;
+}
+
+
+function setGreatingName() {
+  let greatingName = document.getElementById("greatingName");
+  greatingName.innerHTML = currentUser["name"];
 }
