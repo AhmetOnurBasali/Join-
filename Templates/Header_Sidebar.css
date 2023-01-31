@@ -4,7 +4,7 @@ body {
 
 
 .d-none{
-    display: none;
+    display: none !important;
 }
 
 
@@ -155,6 +155,7 @@ a {
     height: 100vh;
     width: 100%;
 }
+
 
 .help{
     width: 40%;
