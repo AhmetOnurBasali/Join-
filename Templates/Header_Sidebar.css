@@ -8,6 +8,10 @@ body {
 }
 
 
+.dark-blue{
+    background-color: rgb(9,25,49);
+
+}
 .header {
     position: absolute;
     top: 0;
@@ -21,7 +25,7 @@ body {
 
 
 .Parent-Kanban {
-    width: 50%;
+    width: 45%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
