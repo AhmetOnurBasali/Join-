@@ -37,6 +37,20 @@ header {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
+h1 {
+    font-family: 'Inter';
+    font-size: 52px;
+    margin-right: 50px;
+}
+
+h2 {
+    font-family: 'Inter';
+    font-size: 24px;
+    padding: 10px 30px;
+    border-left: 3px solid #29ABE2;
+    margin-block-start: unset;
+    margin-block-end: unset;
+}
 
 .board {
     position: absolute;
@@ -53,7 +67,7 @@ header {
     margin-bottom: 80px;
 }
 
-.find-task{
+.find-task {
     width: 200px;
     padding-right: 50px;
     padding-left: 20px;
@@ -62,16 +76,16 @@ header {
     border: 1px solid #A8A8A8;
     font-size: 16px;
     font-weight: 400;
-   
+
     background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 95% 50%;
     background-color: white;
 }
 
-.find-task::placeholder{
+.find-task::placeholder {
     color: #A8A8A8;
 }
 
-.parting-line{
+.parting-line {
     position: relative;
     left: -40px;
     border-left: 1px solid #A8A8A8;
@@ -89,27 +103,35 @@ header {
     font-size: 22px;
     font-weight: 700;
     margin-left: 20px;
-    border:#2A3647
+    border: #2A3647
 }
 
 .add-task:hover {
     background-color: #29ABE2;
     cursor: pointer;
-    
+
 }
 
+.board-tasks-section {}
 
-h1 {
-    font-family: 'Inter';
-    font-size: 52px;
-    margin-right: 50px;
+.tasks-headlines {
+    display: flex;
+    gap: 20px;
 }
 
-h2 {
-    font-family: 'Inter';
-    font-size: 24px;
-    padding: 10px 30px;
-    border-left: 3px solid #29ABE2;
-    margin-block-start: unset;
-    margin-block-end: unset;
+.tasks-headlines div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+}
+.button-add-task path:hover{
+    stroke: #29ABE2;
+}
+.button-add-task:hover .button-add-task rect{
+    stroke: #29ABE2;
+}
+
+.tasks {
+
 }
