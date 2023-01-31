@@ -18,8 +18,8 @@
                 Kanban Project Management Tool
             </span>
         </div>
-        <div onclick="loadHelp()" class="help-log-parent">
-            <div class="help-img"><img src="../assets/img/Vector-.png"></div>
+        <div class="help-log-parent">
+            <div onclick="loadHelp()" id="help-img" class="help-img"><img src="../assets/img/Vector-.png"></div>
             <div class="log-in">
                 <div class="log-in-img"><img style="width: 45px;" src="../assets/img/twitter-48.png"></div>
             </div>
@@ -36,17 +36,16 @@
                 <img src="../assets/img/Capa 2.png">
             </div>
             <div>
-                <a onclick="loadSummary()" id="0" href="#"><img class="link-img"
+                <a id="Summary" onclick="loadSummary()" id="0" href="../Summary/summary.html"><img class="link-img"
                         src="../assets/img/Summary.png">Summary</a><br>
-                <a onclick="loadBoard()" id="1" href="#"><img class="link-img"
+                <a id="Board" onclick="loadBoard()" id="1" href='../Board/Board.html'><img class="link-img"
                         src="../assets/img/Board.png">Board</a><br>
-                <a onclick="loadAddTask()" id="2" href="#"><img style="margin-right: 10px;" class="link-img"
+                <a id="Add-Task" onclick="loadAddTask()" id="2" href="../Add_Task/Add_Task.html"><img style="margin-right: 10px;" class="link-img"
                         src="../assets/img/Add_Task.png">Add Task</a><br>
-                <a onclick="loadContacts()" id="3" href="#"><img class="link-img"
+                <a id="Contacts" onclick="loadContacts()" id="3" href="../Contacts/contacts.html"><img class="link-img"
                         src="../assets/img/Contacts.png">Contacts</a><br>
             </div>
         </div>
-
 
 
 
@@ -60,8 +59,8 @@
 
 
 
-    <div class="notice-help d-none">
-        <div class="help">
+    <div id="notice-help" class="notice-help d-none">
+        <div id="help" class="help d-none">
             <div>
                 <h1 style="font-size: 61px;">Help</h1>
             </div>
@@ -94,9 +93,7 @@
         </div>
 
 
-
-
-        <div class="notice-info">
+        <div id="notice-info" class="notice-info d-none">
             <h1 style="font-size: 61px;">Legal Notice</h1>
             <div>
                 <h2>Subtitle</h2>
@@ -112,17 +109,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 
