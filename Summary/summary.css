@@ -43,14 +43,7 @@ aside {
     border-radius: 0px;
 }
 
-.summary {
-    position: absolute;
-    top: 129px;
-    left: 272px;
-    margin: 50px 0px 50px 80px;
-    /* top - right - bottom - left*/
 
-}
 
 .headline {
     display: flex;
