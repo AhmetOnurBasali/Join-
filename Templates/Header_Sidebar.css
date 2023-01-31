@@ -3,8 +3,18 @@ body {
 }
 
 
+.d-none{
+    display: none;
+}
+
+
+.dark-blue{
+    background-color: rgb(9,25,49);
+
+}
 .header {
-    position: fixed;
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 89px;
     background: #FFFFFF;
@@ -15,7 +25,7 @@ body {
 
 
 .Parent-Kanban {
-    width: 50%;
+    width: 45%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -73,7 +83,7 @@ body {
 .Sidebar {
     position: absolute;
     width: 232px;
-    height: 1024px;
+    height: 100vh;
     left: 0px;
     top: 0px;
     background: #2A3647;
@@ -85,6 +95,7 @@ body {
 
 .Parent-Logo {
     margin: 66px;
+    margin-bottom: 112px;
 
 }
 
@@ -94,4 +105,76 @@ a {
     color: #FFFFFF;
     font-size: 16px;
     font-style: normal;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+.link-img{
+    margin-left: 54px;
+    margin-right: 16px;
+}
+
+
+.notice-parent{
+    height: calc(100% - 536px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+
+.notice{
+    margin-bottom: 126px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-style: normal;
+    display: flex;
+}
+
+
+.notice-img{
+    padding-right: 26px;
+}
+
+
+.notice-help{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+
+.help{
+    width: 40%;
+}
+
+
+.how-use-it{
+    display: flex;
+    align-items: center;
+}
+
+
+.how-use-it-bold{
+    margin-right: 35px;
+    font-size: 27px;
+}
+
+
+.notice-info{
+    width: 40%;
+    justify-content: flex-start;
+
 }

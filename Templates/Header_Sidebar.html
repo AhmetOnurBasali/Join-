@@ -19,18 +19,12 @@
             </span>
         </div>
         <div class="help-log-parent">
-            <div class="help-img"><img src="../assets/img/Vector-.png"></div>
+            <div onclick="loadHelp()" id="help-img" class="help-img"><img src="../assets/img/Vector-.png"></div>
             <div class="log-in">
                 <div class="log-in-img"><img style="width: 45px;" src="../assets/img/twitter-48.png"></div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
 
 
@@ -42,24 +36,79 @@
                 <img src="../assets/img/Capa 2.png">
             </div>
             <div>
-                <a href="#"><img src="../assets/img/Summary.png"><span>Summary</span></a><br>
-                <a href="#"><img src="../assets/img/Board.png"><span>Board</span></a><br>
-                <a href="#"><img src="../assets/img/Add_Task.png"><span>Add Task</span></a><br>
-                <a href="#"><img src="../assets/img/Contacts.png"><span>Contacts</span></a><br>
+                <a id="Summary" onclick="loadSummary()" id="0" href="../Summary/summary.html"><img class="link-img"
+                        src="../assets/img/Summary.png">Summary</a><br>
+                <a id="Board" onclick="loadBoard()" id="1" href='../Board/Board.html'><img class="link-img"
+                        src="../assets/img/Board.png">Board</a><br>
+                <a id="Add-Task" onclick="loadAddTask()" id="2" href="../Add_Task/Add_Task.html"><img style="margin-right: 10px;" class="link-img"
+                        src="../assets/img/Add_Task.png">Add Task</a><br>
+                <a id="Contacts" onclick="loadContacts()" id="3" href="../Contacts/contacts.html"><img class="link-img"
+                        src="../assets/img/Contacts.png">Contacts</a><br>
             </div>
         </div>
-        <div></div>
 
 
+
+        <div class="notice-parent">
+            <div onclick="loadNotice()" onclick="" id="4" class="notice"><img class="notice-img"
+                    src="../assets/img/Group 4.png">
+                <span>Legal Notice</span>
+            </div>
+        </div>
     </div>
 
 
 
+    <div id="notice-help" class="notice-help d-none">
+        <div id="help" class="help d-none">
+            <div>
+                <h1 style="font-size: 61px;">Help</h1>
+            </div>
+            <div>
+                <h2>what is Join?</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam illum, aperiam dignissimos tempore
+                    ducimus
+                    omnis culpa fugit quam recusandae maiores alias sit iure molestiae amet nobis porro consequatur
+                    debitis
+                    minima.</p>
+                <h2>How to use it</h2>
+
+                <div class="how-use-it">
+                    <b class="how-use-it-bold">1.</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+                </div>
+                <div class="how-use-it">
+                    <b class="how-use-it-bold">2.</b>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur vitae repudiandae, quae
+                        debitis
+                        aut aliquam obcaecati eaque dolor nemo optio repellendus quam,</p>
+                </div>
+                <div class="how-use-it">
+                    <b class="how-use-it-bold">3.</b>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium dolore odio ducimus fugit
+                        inventore sapiente sit illum maiores voluptatum possimus error fugiat ipsa,</p>
+                </div>
+            </div>
+        </div>
 
 
-
-
-
+        <div id="notice-info" class="notice-info d-none">
+            <h1 style="font-size: 61px;">Legal Notice</h1>
+            <div>
+                <h2>Subtitle</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, laudantium aperiam optio sunt quae
+                    molestias consequatur alias, ducimus voluptates minus culpa. Nesciunt facere consectetur eum
+                    recusandae fuga molestiae obcaecati numquam.</p>
+            </div>
+            <div>
+                <h2>Subtitle</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, laudantium aperiam optio sunt quae
+                    molestias consequatur alias, ducimus voluptates minus culpa. Nesciunt facere consectetur eum
+                    recusandae fuga molestiae obcaecati numquam.</p>
+            </div>
+        </div>
+    </div>
 
 </body>
 
