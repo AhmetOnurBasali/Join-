@@ -12,11 +12,16 @@ async function includeHTML() {
   }
 }
 
-async function initTemplate() {
+async function initTemplates() {
   await includeHTML();
-  document.getElementById("addTask").innerHTML = addTaskHTML();
-  document.getElementById("header").innerHTML = headerHTML();
-  document.getElementById("sidebar").innerHTML = sidebarHTML();
+  try {
+    document.getElementById("addTask").innerHTML = addTaskHTML();
+    document.getElementById("header").innerHTML = headerHTML();
+    document.getElementById("sidebar").innerHTML = sidebarHTML();
+  } catch (error) {
+    document.getElementById("header").innerHTML = headerHTML();
+    document.getElementById("sidebar").innerHTML = sidebarHTML();
+  }
 }
 
 function headerHTML() {
