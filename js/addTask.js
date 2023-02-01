@@ -6,8 +6,6 @@ let contacts = [
   },
 ];
 
-let tasksData = [];
-
 function createNewTask(event) {
   event.preventDefault();
   let creator = currentUser["name"];
@@ -36,6 +34,7 @@ function createNewTask(event) {
 
 async function setTaskData(taskData) {
   await backend.setItem("tasksData", taskData);
+  taskData.push(tasksData);
   console.log("taskData is", taskData);
 }
 

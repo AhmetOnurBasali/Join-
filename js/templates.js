@@ -44,26 +44,22 @@ function headerHTML() {
 
 function sidebarHTML() {
   return `
-
   <div class="Sidebar">
   <div>
       <div class="Parent-Logo">
           <img src="../assets/img/Capa 2.png">
       </div>
       <div>
-          <a id="Summary" onclick="loadSummary()" id="0" href="../Summary/summary.html"><img class="link-img"
+          <a id="Summary" onclick="loadSummary()" id="0" href="../html/summary.html"><img class="link-img"
                   src="../assets/img/Summary.png">Summary</a><br>
-          <a id="Board" onclick="loadBoard()" id="1" href='../Board/Board.html'><img class="link-img"
+          <a id="Board" onclick="loadBoard()" id="1" href='../html/Board.html'><img class="link-img"
                   src="../assets/img/Board.png">Board</a><br>
-          <a id="Add-Task" onclick="loadAddTask()" id="2" href="../Add_Task/Add_Task.html"><img style="margin-right: 10px;" class="link-img"
+          <a id="Add-Task" onclick="loadAddTask()" id="2" href="../html/addTask.html"><img style="margin-right: 10px;" class="link-img"
                   src="../assets/img/Add_Task.png">Add Task</a><br>
-          <a id="Contacts" onclick="loadContacts()" id="3" href="../Contacts/contacts.html"><img class="link-img"
+          <a id="Contacts" onclick="loadContacts()" id="3" href="../html/contacts.html"><img class="link-img"
                   src="../assets/img/Contacts.png">Contacts</a><br>
       </div>
   </div>
-
-
-
   <div class="notice-parent">
       <div onclick="loadNotice()" onclick="" id="4" class="notice"><img class="notice-img"
               src="../assets/img/Group 4.png">

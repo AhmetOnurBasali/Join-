@@ -6,13 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="Header_Sidebar.js"></script>
-    <link rel="stylesheet" href="Header_Sidebar.css">
+    <script src="../js/addTask.js"></script>
+    <script src="../js/mini_backend.js"></script>
+    <script src="../script.js"></script>
+    <script src="../js/templates.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/header_sidebar.js"></script>
+    <link rel="stylesheet" href="../css/header_sidebar.css">
 </head>
 
-<body>
-
-    <div class="header">
+<body onload="initTemplates()">
+    <div id="header"></div>
+    <div id="sidebar"></div>
+  <!--  <div class="header">
         <div class="Parent-Kanban">
             <span class="Kanban">
                 Kanban Project Management Tool
@@ -36,13 +42,13 @@
                 <img src="../assets/img/Capa 2.png">
             </div>
             <div>
-                <a id="Summary" onclick="loadSummary()" id="0" href="../Summary/summary.html"><img class="link-img"
+                <a id="Summary" onclick="loadSummary()" id="0" href="../html/summary.html"><img class="link-img"
                         src="../assets/img/Summary.png">Summary</a><br>
-                <a id="Board" onclick="loadBoard()" id="1" href='../Board/Board.html'><img class="link-img"
+                <a id="Board" onclick="loadBoard()" id="1" href='../html/Board.html'><img class="link-img"
                         src="../assets/img/Board.png">Board</a><br>
-                <a id="Add-Task" onclick="loadAddTask()" id="2" href="../Add_Task/Add_Task.html"><img style="margin-right: 10px;" class="link-img"
+                <a id="Add-Task" onclick="loadAddTask()" id="2" href="../html/Add_Task.html"><img style="margin-right: 10px;" class="link-img"
                         src="../assets/img/Add_Task.png">Add Task</a><br>
-                <a id="Contacts" onclick="loadContacts()" id="3" href="../Contacts/contacts.html"><img class="link-img"
+                <a id="Contacts" onclick="loadContacts()" id="3" href="../html/contacts.html"><img class="link-img"
                         src="../assets/img/Contacts.png">Contacts</a><br>
             </div>
         </div>
@@ -55,11 +61,11 @@
                 <span>Legal Notice</span>
             </div>
         </div>
-    </div>
+    </div>-->
 
 
 
-    <div id="notice-help" class="notice-help d-none">
+    <div id="notice-help" class="notice-help "><!--hier war d-none-->
         <div id="help" class="help d-none">
             <div>
                 <h1 style="font-size: 61px;">Help</h1>
@@ -93,7 +99,7 @@
         </div>
 
 
-        <div id="notice-info" class="notice-info d-none">
+        <div id="notice-info" class="notice-info "><!--hier war d-none-->
             <h1 style="font-size: 61px;">Legal Notice</h1>
             <div>
                 <h2>Subtitle</h2>
