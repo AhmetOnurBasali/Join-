@@ -4,47 +4,13 @@ body {
     font-family: 'Inter';
 }
 
-aside {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 66px 20px;
-    gap: 103px;
-    position: fixed;
-    width: 232px;
-    left: 0px;
-    top: 0px;
-    bottom: 0;
-    background: #2A3647;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 0px;
-}
-
-
-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 36px 20px 348px;
-    gap: 34px;
-    position: absolute;
-    height: 89px;
-    left: 0px;
-    top: 0px;
-    right: 0;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-}
 
 h1 {
-    font-family: 'Inter';
     font-size: 52px;
     margin-right: 50px;
 }
 
 h2 {
-    font-family: 'Inter';
     font-size: 24px;
     padding: 10px 30px;
     border-left: 3px solid #29ABE2;
@@ -103,16 +69,17 @@ h2 {
     font-size: 22px;
     font-weight: 700;
     margin-left: 20px;
-    border: #2A3647
+    border: #2A3647;
+    transition: ease-in-out 200ms;
 }
 
 .add-task:hover {
     background-color: #29ABE2;
     cursor: pointer;
-
+    box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
 }
 
-.board-tasks-section {}
+/* .board-tasks-section {} */
 
 .tasks-headlines {
     display: flex;
@@ -125,13 +92,20 @@ h2 {
     align-items: center;
     width: 200px;
 }
-.button-add-task path:hover{
-    stroke: #29ABE2;
+
+.button-add-task {
+    width: 32px !important;
+    height: 32px !important;
+    cursor: pointer;
 }
-.button-add-task:hover .button-add-task rect{
+
+
+.button-add-task:hover .symbol-color {
     stroke: #29ABE2;
 }
 
-.tasks {
-
+.button-add-task:hover .symbol-color {
+    stroke: #29ABE2;
 }
+
+/* .tasks {} */

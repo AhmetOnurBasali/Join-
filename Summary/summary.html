@@ -12,12 +12,13 @@
     <script src="../js/mini_backend.js"></script>
     <script src="../script.js"></script>
     <script src="../js/summary.js"></script>
-
+    <script src="../js/templates.js"></script>
+    <link rel="stylesheet" href="../Templates/Header_Sidebar.css">
 </head>
 
-<body onload="init()">
-    <header>paceholder</header>
-    <aside>paceholder</aside>
+<body onload="init(), initTemplates()">
+    <div id="header"></div>
+    <div id="sidebar"></div>
 
     <section class="summary">
         <div class="headline">
