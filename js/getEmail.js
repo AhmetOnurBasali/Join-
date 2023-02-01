@@ -35,7 +35,7 @@ async function tryToSendEmail(response) {
 
 
 function action(formData) {
-  const input = "https://gruppe-446.developerakademie.net/login/send_mail.php";
+  const input = "https://gruppe-446.developerakademie.net/html/send_mail.php";
   const requestInit = {
     method: "post",
     body: formData,

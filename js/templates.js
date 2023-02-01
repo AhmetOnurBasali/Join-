@@ -25,7 +25,7 @@ async function initTemplates() {
 }
 
 function headerHTML() {
-  return `
+  return /*html*/`
   <div class="header">
   <div class="Parent-Kanban">
       <span class="Kanban">
@@ -43,7 +43,7 @@ function headerHTML() {
 }
 
 function sidebarHTML() {
-  return `
+  return /*html*/`
   <div class="Sidebar">
   <div>
       <div class="Parent-Logo">
@@ -52,7 +52,7 @@ function sidebarHTML() {
       <div>
           <a id="Summary" onclick="loadSummary()" id="0" href="../html/summary.html"><img class="link-img"
                   src="../assets/img/Summary.png">Summary</a><br>
-          <a id="Board" onclick="loadBoard()" id="1" href='../html/Board.html'><img class="link-img"
+          <a id="Board" onclick="loadBoard()" id="1" href='../html/board.html'><img class="link-img"
                   src="../assets/img/Board.png">Board</a><br>
           <a id="Add-Task" onclick="loadAddTask()" id="2" href="../html/addTask.html"><img style="margin-right: 10px;" class="link-img"
                   src="../assets/img/Add_Task.png">Add Task</a><br>
