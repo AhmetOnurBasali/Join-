@@ -9,11 +9,10 @@ aside {
   left: 0px;
   top: 0px;
   bottom: 0;
-  background: #2A3647;
+  background: #2a3647;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   border-radius: 0px;
 }
-
 
 header {
   display: flex;
@@ -27,12 +26,11 @@ header {
   left: 0px;
   top: 0px;
   right: 0;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
-
-.addTaskMain{
+.addTaskMain {
   position: relative;
   display: flex;
   justify-content: center;
@@ -41,7 +39,7 @@ header {
   padding-left: 272px;
   padding-right: 272px;
 }
-.leftAndRightConatiner{
+.leftAndRightConatiner {
   display: flex;
   height: 50%;
   justify-content: space-evenly;
@@ -49,28 +47,58 @@ header {
   width: 100%;
 }
 
-.leftSection{
+.leftSection {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-
-
-
-.rightSection{
+.rightSection {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 
-.prio{
+.prio {
   display: flex;
   flex-direction: column;
 }
-.addTaskContainer{
+.addTaskContainer {
   padding-top: 200px;
   height: calc(100vh - 200px);
+}
+
+.addTaskBtns {
+  display: flex;
+  padding: 10px;
+}
+
+.addTaskBtn{
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.checkboxContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  background: beige;
+}
+.checkboxPosi {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  opacity: 1;
+  height: max-content;
+  width: 100%;
+}
+
+.zIndex{
+display: flex;
+position: relative;
+z-index: 1;
 }

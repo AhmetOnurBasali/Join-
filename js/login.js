@@ -69,7 +69,7 @@ async function login() {
     if (user) {
       setCurrentUser(user);
       setTimeout(() => {
-        window.location.href = "../Summary/summary.html";
+        window.location.href = "../Add_Task/Add_Task.html";
       }, 500);}
   } else {
     window.location.href = "/index.html?msg=Email not Found";

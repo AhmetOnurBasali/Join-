@@ -6,63 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../js/templates.js"></script>
     <link rel="stylesheet" href="../Templates/Header_Sidebar.css">
     <link rel="stylesheet" href="style.css">
+    <script src="scriptAddTask.js"></script>
+    <script src="../js/mini_backend.js"></script>
+    <script src="../script.js"></script>
+    <script src="../js/templates.js"></script>
+    <script src="../js/login.js"></script>
 </head>
 
-
-<body onload="initTemplate()" sty>
-
-    <header>paceholder</header>
-    <aside>paceholder</aside>
-
-
-
-    <div id="addTask" class="addTaskMain">
+<script>
+    
+    </script>
+    
+<body onload="initTemplate(), loadCurrentUser(), test()">
 
 
-        <div class="addTaskContainer">
-            <div>
-                <h1>Add Task</h1>
-            </div>
-            <div class="leftAndRightConatiner">
-    
-    
-                <div class="leftSection">
-                    <div>Title <input type="text"></div>
-                    <div>Description <input type="text"></div>
-                    <div>Caregory <input type=""></div>
-                    <div>Assigned to <input type=""></div>
-                </div>
-    
-    
-    
-    
-    
-    
-    
-                <div class="rightSection">
-                    <div>Due date 
-                        <input type="date">
-                    </div>
-                    <div class="prio">Prio
-                        <div><button>Urgent</button>
-                            <button>Medium</button>
-                            <button>Low</button>
-                        </div>
-                    </div>
-                    <div>Subtasks 
-                        <input type="">
-                    </div>
-                </div>
-    
-    
-            </div>
-        </div>
-    </div>
+
+    <div class="zIndex" id="header"></div>
+    <div class="zIndex" id="sidebar"></div>
 
 
+
+    <div id="addTask" class="addTaskMain"></div>
 </body>
 
 </html>
