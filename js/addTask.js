@@ -6,55 +6,61 @@ let contacts = [
   },
 ];
 
-function createNewTask(event) {
+
+async function createNewTask(event) {
+  if (allTasks === null) {
+    allTasks = [];
+  }
   event.preventDefault();
-  let creator = currentUser["name"];
-  let prio = checkPrio();
-  let title = document.getElementById("title").value;
-  let description = document.getElementById("description").value;
-  let caregory = document.getElementById("category").value;
-  let assignedTo = document.getElementById("assignedTo").value;
-  let date = document.getElementById("date").value;
-  let subtask = document.getElementById("subtask").value;
+  await downloadFromServer();
+  let creatorNew = currentUser["name"];
+  let prioNew = checkPrio();
+  let titleNew = document.getElementById("title").value;
+  let descriptionNew = document.getElementById("description").value;
+  let caregoryNew = document.getElementById("category").value;
+  let assignedToNew = document.getElementById("assignedTo").value;
+  let dateNew = document.getElementById("date").value;
+  let subtaskNew = document.getElementById("subtask").value;
 
-  let taskData = [
-    {
-      creator,
-      title,
-      description,
-      caregory,
-      assignedTo,
-      date,
-      prio,
-      subtask,
-    },
-  ];
-  setTaskData(taskData);
+  let newTask = {
+    creator: creatorNew,
+    title: titleNew,
+    description: descriptionNew,
+    caregory: caregoryNew,
+    assignedTo: assignedToNew,
+    date: dateNew,
+    prio: prioNew,
+    subtask: subtaskNew,
+  };
+  setTaskData(newTask);
 }
 
-async function setTaskData(taskData) {
-  await backend.setItem("tasksData", taskData);
-  taskData.push(tasksData);
-  console.log("taskData is", taskData);
+
+async function setTaskData(newTask) {
+  allTasks.push(newTask);
+  await backend.setItem("allTasks", allTasks);
+  console.log("new task is", newTask);
+  setTimeout(() => {
+    window.location.href = "../html/board.html";
+  }, 1000);
 }
+
 
 function checkPrio() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
   let lowBtn = document.getElementById("lowBtn");
   if (urgentBtn.checked === true) {
-    console.log("prio is: Urgent");
     return "Urgent";
   }
   if (mediumBtn.checked === true) {
-    console.log("prio is: Medium");
     return "Medium";
   }
   if (lowBtn.checked === true) {
-    console.log("prio is: Low");
     return "Low";
   }
 }
+
 
 function lowBtnCheckBox() {
   let urgentBtn = document.getElementById("urgentBtn");
@@ -67,6 +73,7 @@ function lowBtnCheckBox() {
   }
 }
 
+
 function mediumBtnCheckBox() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
@@ -77,6 +84,7 @@ function mediumBtnCheckBox() {
     urgentBtn.checked = false;
   }
 }
+
 
 function urgentBtnCheckBox() {
   let urgentBtn = document.getElementById("urgentBtn");
@@ -89,12 +97,13 @@ function urgentBtnCheckBox() {
   }
 }
 
-async function test() {
+
+async function loadTasks() {
   await downloadFromServer();
-  let item = await backend.getItem("tasksData");
+  let item = await backend.getItem("allTasks");
   if (typeof item === "string") {
-    tasksData = JSON.parse(item) || [];
+    allTasks = JSON.parse(item) || [];
   } else {
-    tasksData = item;
+    allTasks = item;
   }
 }

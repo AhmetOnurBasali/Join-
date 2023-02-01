@@ -5,11 +5,20 @@ https://github.com/JunusErgin/smallest_backend_ever
 Live server & Allow CORS nicht vergessen zu aktivieren!!
 
 
--VORSICHT-
--ALLE DATEN VOM BACKENDLÖSCHEN
+-VORSICHT--DATEN VOM BACKENDLÖSCHEN-
 deleteUser('users')
 async function deleteUser() {
-  await backend.deleteItem('users', users);
+  await backend.deleteItem('users', currentUser);
+}
+
+deleteUser('allTasks')
+async function deleteUser() {
+  await backend.deleteItem('allTasks');
+}
+
+deleteUser('users')
+async function deleteUser() {
+  await backend.deleteItem('users');
 }
 -
 

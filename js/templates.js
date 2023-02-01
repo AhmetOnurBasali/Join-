@@ -81,35 +81,35 @@ function addTaskHTML() {
             <div class="leftAndRightConatiner">    
                 <div class="leftSection">
                     <div>Title 
-                    <input id="title" type="text">
+                    <input id="title" type="text" required>
                     </div>
                     <div>Description
-                     <input id="description" type="text">
+                     <input id="description" type="text" required>
                      </div>
                     <div>Category 
-                    <input id="category" type="">
+                    <input id="category" type="" required>
                     </div>
                     <div>Assigned to 
-                    <input id="assignedTo" type="">
+                    <input id="assignedTo" type="" required>
                     </div>
                 </div>
 
                 <div class="rightSection">
                     <div >Due date 
-                        <input id="date" type="date">
+                        <input id="date" type="date" required>
                     </div>
                     <div class="prio">Prio
                         <div style="display:flex">
                           <div class="checkboxContainer">
-                            <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox">Urgent</div>
+                            <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox">Urgent</div><!--required Problem-->
                             <div class="checkboxContainer">
-                              <input onclick="mediumBtnCheckBox()" id="mediumBtn" class="checkboxPosi" type="checkbox">Medium</div>
+                              <input onclick="mediumBtnCheckBox()" id="mediumBtn" class="checkboxPosi" type="checkbox">Medium</div><!--required Problem-->
                             <div class="checkboxContainer">
-                              <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">Low</div>
+                              <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">Low</div><!--required Problem-->
                         </div>
                     </div>
                     <div >Subtasks 
-                        <input id="subtask" type="">
+                        <input id="subtask" type="" required>
                     </div>
                 </div>
             </div>
