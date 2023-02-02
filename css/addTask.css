@@ -1,9 +1,9 @@
-body{
+body {
   margin: 0;
-  font-family: 'inter';
-  background: #F5F5F5;
+  font-family: "inter";
+  background: #f5f5f5;
 }
-h1{
+h1 {
   font-size: 50px;
 }
 .addTaskMain {
@@ -34,7 +34,7 @@ h1{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-left: 1px solid #D1D1D1;
+  border-left: 1px solid #d1d1d1;
   padding-left: 40px;
   padding-right: 40px;
   width: 100%;
@@ -52,13 +52,13 @@ h1{
   width: 1000px;
 }
 
-.addTaskBtns  {
-    display: flex;
-    padding: 40px;
-    justify-content: flex-end;
+.addTaskBtns {
+  display: flex;
+  padding: 40px;
+  justify-content: flex-end;
 }
 
-.addTaskBtn{
+.addTaskBtn {
   border: 1px solid black;
   padding: 8px;
 }
@@ -66,30 +66,39 @@ h1{
 .checkboxContainer {
   position: relative;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
   align-items: center;
   background: white;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 26%;
+  justify-content: center;
 }
+.checkboxContainer:hover {
+  background-color: #2a3647;
+  color: white;
+  cursor: pointer;
+  padding: 11px;
+  transition: 175ms ease-in-out;
+}
+
 .checkboxPosi {
   display: flex;
   align-items: center;
   position: absolute;
-  opacity: 1;
-  height: max-content;
+  opacity: 0;
   width: 100%;
+  height: 100%;
 }
 
-.paddLeRe40px{
-      padding-left: 40px;
-    padding-right: 40px;
+.paddLeRe40px {
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
-.inputContainer{
-  
-    display: flex;
-    flex-direction: column;
-
+.inputContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 input {
@@ -100,7 +109,7 @@ input {
   width: 422px;
   height: auto;
   background: #ffffff;
-  border: 1px solid #D1D1D1;
+  border: 1px solid #d1d1d1;
   border-radius: 10px;
   flex: none;
   cursor: pointer;
@@ -121,7 +130,7 @@ input {
   transition: none;
   background-color: #29abe2;
   border-color: #29abe2;
-  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
 .whiteBtn {
@@ -138,5 +147,5 @@ input {
 .whiteBtn:hover {
   color: #29abe2;
   border-color: #29abe2;
-  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }

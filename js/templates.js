@@ -61,8 +61,7 @@ function sidebarHTML() {
       </div>
   </div>
   <div class="notice-parent">
-      <div onclick="loadNotice()" onclick="" id="4" class="notice"><img class="notice-img"
-              src="../assets/img/Group 4.png">
+      <div onclick="loadNotice()" onclick="" id="4" class="notice"><img class="notice-img" src="../assets/img/Group 4.png">
           <span>Legal Notice</span>
       </div>
   </div>
@@ -72,57 +71,65 @@ function sidebarHTML() {
 
 function addTaskHTML() {
   return /*html*/ `
-    <div >
-            <form class="addTaskContainer" onsubmit="createNewTask(event)"div>
-            <div class="paddLeRe40px">
-                <h1>Add Task</h1>
-            </div>
-
-            <div class="leftAndRightConatiner">    
-                <div class="leftSection">
-                    <div class="inputContainer">Title 
-                    <input id="title" type="text" required>
-                    </div>
-                    <div class="inputContainer">Description
-                     <input id="description" type="text" required>
-                     </div>
-                    <div class="inputContainer">Category 
-                    <input id="category" type="" required>
-                    </div>
-                    <div class="inputContainer">Assigned to 
-                    <input id="assignedTo" type="" required>
-                    </div>
-                </div>
-                <div class="rightSection">
-                    <div class="inputContainer" >Due date 
-                        <input id="date" type="date" required>
-                    </div>
-                    <div class="prio">Prio
-                        <div style="display:flex">
-                          <div class="checkboxContainer">
-                            <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox">Urgent</div><!--required Problem-->
-                            <div class="checkboxContainer">
-                              <input onclick="mediumBtnCheckBox()" id="mediumBtn" class="checkboxPosi" type="checkbox">Medium</div><!--required Problem-->
-                            <div class="checkboxContainer">
-                              <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">Low</div><!--required Problem-->
-                        </div>
-                    </div>
-                    <div class="inputContainer" >Subtasks 
-                        <input id="subtask" type="" required>
-                    </div>
-                </div>
-            </div>
-       <div class="addTaskBtns">
-          <div class="paddLeRe40px">
-            <div class="whiteBtn" onclick="clearTask()">Clear x</div>
+  <div >
+    <form class="addTaskContainer" onsubmit="createNewTask(event)">
+      <div class="paddLeRe40px">
+        <h1>Add Task</h1>
+      </div>
+      <div class="leftAndRightConatiner">    
+        <div class="leftSection">
+          <div class="inputContainer">
+            <b>Title</b> 
+            <input id="title" type="text" required>
           </div>
+          <div class="inputContainer">
+            <b>Description</b>
+            <input id="description" type="text" required>
+          </div>
+          <div class="inputContainer">
+            <b>Category</b> 
+            <input id="category" type="" required>
+          </div>
+          <div class="inputContainer">
+            <b>Assigned to</b> 
+            <input id="assignedTo" type="" required>
+          </div>
+        </div>
+        <div class="rightSection">
+          <div class="inputContainer" >
+            <b>Due date</b> 
+            <input id="date" type="date" required>
+          </div>
+          <div class="prio">
+            <b>Prio</b>
+            <div style="display:flex">
+              <div class="checkboxContainer">
+                <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox">Urgent
+              </div><!--required Problem-->
+              <div class="checkboxContainer">
+                <input onclick="mediumBtnCheckBox()" id="mediumBtn" class="checkboxPosi" type="checkbox">Medium
+              </div><!--required Problem-->
+              <div class="checkboxContainer">
+                <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">Low
+              </div><!--required Problem-->
+          </div>
+        </div>
+        <div class="inputContainer" >
+          <b>Subtasks</b> 
+            <input id="subtask" type="" required>
+        </div>
+      </div>
+    </div>
+      <div class="addTaskBtns">
+        <div class="paddLeRe40px">
+          <div class="whiteBtn" onclick="clearTask()">Clear x</div>
+        </div>
           <div>
             <button class="blueBtn">Create Task</button>
           </div>
         </div> 
       </div>
-            </form>
-        
-      </div>
+    </form>
+  </div>
         `;
 }

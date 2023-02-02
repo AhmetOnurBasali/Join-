@@ -106,6 +106,7 @@ async function loadTasks() {
 }
 
 function clearTask() {
+  
   let titleInput = document.getElementById("title");
   let descriptionInput = document.getElementById("description");
   let caregoryInput = document.getElementById("category");
@@ -119,4 +120,23 @@ function clearTask() {
     assignedToInput.value = ""
     dateInput.value = ""
     subtaskInput.value = ""
+    clearPrio()
 }
+
+
+function clearPrio() {
+    let urgentBtn = document.getElementById("urgentBtn");
+    let mediumBtn = document.getElementById("mediumBtn");
+    let lowBtn = document.getElementById("lowBtn");
+    if (urgentBtn.checked === true) {
+      urgentBtn.checked = false;
+    }
+    if (mediumBtn.checked === true) {
+      mediumBtn.checked = false;
+    }
+    if (lowBtn.checked === true) {
+    lowBtn.checked = false;
+    }
+}
+
+
