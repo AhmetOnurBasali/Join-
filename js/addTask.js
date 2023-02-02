@@ -139,4 +139,9 @@ function clearPrio() {
     }
 }
 
+//category section//
+
+function openCategory() {
+  
+}
 

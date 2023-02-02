@@ -88,7 +88,7 @@ function addTaskHTML() {
           </div>
           <div class="inputContainer">
             <b>Category</b> 
-            <input id="category" type="" required>
+            <input onclick="openCategory()" id="category" placeholder="Select task category"  required>
           </div>
           <div class="inputContainer">
             <b>Assigned to</b> 
@@ -102,15 +102,18 @@ function addTaskHTML() {
           </div>
           <div class="prio">
             <b>Prio</b>
-            <div style="display:flex">
+            <div style="display: flex; justify-content: space-between;">
               <div class="checkboxContainer">
-                <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox">Urgent
+                <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox"> 
+                <img class="checkboxContainerimg" src="../assets/img/urgentPrio.svg" >
               </div><!--required Problem-->
               <div class="checkboxContainer">
-                <input onclick="mediumBtnCheckBox()" id="mediumBtn" class="checkboxPosi" type="checkbox">Medium
+                <input onclick="mediumBtnCheckBox()" id="mediumBtn" class="checkboxPosi" type="checkbox">
+                <img class="checkboxContainerimg" src="../assets/img/mediumPrio.svg" >
               </div><!--required Problem-->
               <div class="checkboxContainer">
-                <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">Low
+                <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">
+                <img class="checkboxContainerimg" src="../assets/img/lowPrio.svg" >
               </div><!--required Problem-->
           </div>
         </div>

@@ -10,7 +10,9 @@ h1 {
   display: flex;
   justify-content: center;
 }
-
+b{
+  padding: 4px;
+}
 .leftAndRightConatiner {
   display: flex;
   height: 50%;
@@ -68,18 +70,24 @@ h1 {
   display: flex;
   align-items: center;
   background: white;
-  padding: 10px;
-  border: 1px solid black;
   border-radius: 10px;
-  width: 26%;
+  width: 31%;
   justify-content: center;
 }
+
+.checkboxContainerimg{
+  display: flex;
+  border: none;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  background: #f5f5f5;
+}
+
 .checkboxContainer:hover {
-  background-color: #2a3647;
-  color: white;
   cursor: pointer;
-  padding: 11px;
-  transition: 175ms ease-in-out;
+  width: 32%;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
 .checkboxPosi {
@@ -113,6 +121,25 @@ input {
   border-radius: 10px;
   flex: none;
   cursor: pointer;
+}
+#category{
+  background-image: url(../assets/img/arrayBottom.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-x: 95%;
+}
+#assignedTo{
+  background-image: url(../assets/img/arrayBottom.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-x: 95%;
+}
+
+#subtask{
+  background-image: url(../assets/img/plusSubtask.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-x: 95%;
 }
 
 .blueBtn {
