@@ -1,16 +1,16 @@
 body{
   margin: 0;
   font-family: 'inter';
+  background: #F5F5F5;
 }
-
+h1{
+  font-size: 50px;
+}
 .addTaskMain {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding-left: 272px;
-  padding-right: 272px;
 }
+
 .leftAndRightConatiner {
   display: flex;
   height: 50%;
@@ -24,6 +24,9 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-left: 40px;
+  padding-right: 40px;
+  width: 100%;
 }
 
 .rightSection {
@@ -31,6 +34,10 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-left: 1px solid #D1D1D1;
+  padding-left: 40px;
+  padding-right: 40px;
+  width: 100%;
 }
 
 .prio {
@@ -38,13 +45,17 @@ body{
   flex-direction: column;
 }
 .addTaskContainer {
-  padding-top: 200px;
-  height: calc(100vh - 200px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 1000px;
 }
 
-.addTaskBtns {
-  display: flex;
-  padding: 10px;
+.addTaskBtns  {
+    display: flex;
+    padding: 40px;
+    justify-content: flex-end;
 }
 
 .addTaskBtn{
@@ -58,7 +69,7 @@ body{
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  background: beige;
+  background: white;
 }
 .checkboxPosi {
   display: flex;
@@ -69,3 +80,63 @@ body{
   width: 100%;
 }
 
+.paddLeRe40px{
+      padding-left: 40px;
+    padding-right: 40px;
+}
+
+.inputContainer{
+  
+    display: flex;
+    flex-direction: column;
+
+}
+
+input {
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  padding: 13px 21px;
+  width: 422px;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid #D1D1D1;
+  border-radius: 10px;
+  flex: none;
+  cursor: pointer;
+}
+
+.blueBtn {
+  background: #2a3647;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 2px solid #2a3647;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.blueBtn:hover {
+  transition: none;
+  background-color: #29abe2;
+  border-color: #29abe2;
+  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
+}
+
+.whiteBtn {
+  background: #ffffff;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 2px solid #2a3647;
+  border-radius: 6px;
+  color: #2a3647;
+  cursor: pointer;
+}
+
+.whiteBtn:hover {
+  color: #29abe2;
+  border-color: #29abe2;
+  box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
+}

@@ -6,13 +6,14 @@ let contacts = [
   },
 ];
 
-
 async function createNewTask(event) {
   if (allTasks === null) {
     allTasks = [];
   }
   event.preventDefault();
   await downloadFromServer();
+  let currentID = allTasks.length;
+  let newID = currentID + 1;
   let creatorNew = currentUser["name"];
   let prioNew = checkPrio();
   let titleNew = document.getElementById("title").value;
@@ -31,6 +32,7 @@ async function createNewTask(event) {
     date: dateNew,
     prio: prioNew,
     subtask: subtaskNew,
+    id: newID
   };
   setTaskData(newTask);
 }
@@ -44,7 +46,6 @@ async function setTaskData(newTask) {
     window.location.href = "../html/board.html";
   }, 1000);
 }
-
 
 function checkPrio() {
   let urgentBtn = document.getElementById("urgentBtn");
@@ -61,7 +62,6 @@ function checkPrio() {
   }
 }
 
-
 function lowBtnCheckBox() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
@@ -72,7 +72,6 @@ function lowBtnCheckBox() {
     urgentBtn.checked = false;
   }
 }
-
 
 function mediumBtnCheckBox() {
   let urgentBtn = document.getElementById("urgentBtn");
@@ -85,7 +84,6 @@ function mediumBtnCheckBox() {
   }
 }
 
-
 function urgentBtnCheckBox() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
@@ -97,7 +95,6 @@ function urgentBtnCheckBox() {
   }
 }
 
-
 async function loadTasks() {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
@@ -106,4 +103,20 @@ async function loadTasks() {
   } else {
     allTasks = item;
   }
+}
+
+function clearTask() {
+  let titleInput = document.getElementById("title");
+  let descriptionInput = document.getElementById("description");
+  let caregoryInput = document.getElementById("category");
+  let assignedToInput = document.getElementById("assignedTo");
+  let dateInput = document.getElementById("date");
+  let subtaskInput = document.getElementById("subtask");
+
+    titleInput.value = ""
+    descriptionInput.value = ""
+    caregoryInput.value = ""
+    assignedToInput.value = ""
+    dateInput.value = ""
+    subtaskInput.value = ""
 }

@@ -74,28 +74,27 @@ function addTaskHTML() {
   return /*html*/ `
     <div >
             <form class="addTaskContainer" onsubmit="createNewTask(event)"div>
-            <div>
+            <div class="paddLeRe40px">
                 <h1>Add Task</h1>
             </div>
 
             <div class="leftAndRightConatiner">    
                 <div class="leftSection">
-                    <div>Title 
+                    <div class="inputContainer">Title 
                     <input id="title" type="text" required>
                     </div>
-                    <div>Description
+                    <div class="inputContainer">Description
                      <input id="description" type="text" required>
                      </div>
-                    <div>Category 
+                    <div class="inputContainer">Category 
                     <input id="category" type="" required>
                     </div>
-                    <div>Assigned to 
+                    <div class="inputContainer">Assigned to 
                     <input id="assignedTo" type="" required>
                     </div>
                 </div>
-
                 <div class="rightSection">
-                    <div >Due date 
+                    <div class="inputContainer" >Due date 
                         <input id="date" type="date" required>
                     </div>
                     <div class="prio">Prio
@@ -108,17 +107,17 @@ function addTaskHTML() {
                               <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">Low</div><!--required Problem-->
                         </div>
                     </div>
-                    <div >Subtasks 
+                    <div class="inputContainer" >Subtasks 
                         <input id="subtask" type="" required>
                     </div>
                 </div>
             </div>
        <div class="addTaskBtns">
-          <div>
-            <button onclick="clearTask()">Clear x</button>
+          <div class="paddLeRe40px">
+            <div class="whiteBtn" onclick="clearTask()">Clear x</div>
           </div>
           <div>
-            <button>Create Task</button>
+            <button class="blueBtn">Create Task</button>
           </div>
         </div> 
       </div>
