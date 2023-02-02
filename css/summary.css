@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background: #F5F5F5;
+    font-family: 'Inter';
 }
 
 
@@ -20,13 +21,11 @@ body {
 }
 
 h1 {
-    font-family: 'Inter';
     font-size: 52px;
     margin-right: 50px;
 }
 
 h2 {
-    font-family: 'Inter';
     font-size: 24px;
     padding: 10px 30px;
     border-left: 3px solid #29ABE2;

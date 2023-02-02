@@ -102,7 +102,7 @@ function addTaskHTML() {
           </div>
           <div class="prio">
             <b>Prio</b>
-            <div style="display:flex">
+            <div style="display: flex; justify-content: space-between;">
               <div class="checkboxContainer">
                 <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox">Urgent
               </div><!--required Problem-->
