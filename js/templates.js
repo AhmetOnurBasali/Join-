@@ -87,8 +87,10 @@ function addTaskHTML() {
             <input id="description" type="text" required>
           </div>
           <div class="inputContainer">
-            <b>Category</b> 
-            <input onclick="openCategory()" id="category" placeholder="Select task category"  required>
+            <label for="category"><b>Category</b></label>
+            <select onclick="openCategory()" id="category" required>
+              <option>Select task category</option>
+            </select>
           </div>
           <div class="inputContainer">
             <b>Assigned to</b> 
@@ -103,17 +105,20 @@ function addTaskHTML() {
           <div class="prio">
             <b>Prio</b>
             <div style="display: flex; justify-content: space-between;">
-              <div class="checkboxContainer">
+              <div id="highBtnContainer" class="checkboxContainer">
                 <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox"> 
-                <img class="checkboxContainerimg" src="../assets/img/urgentPrio.svg" >
+                <span id="highPrioText" class="prioTextPosi">Urgent</span> 
+                <img src="../assets/img/prio-high.svg">
               </div><!--required Problem-->
-              <div class="checkboxContainer">
+              <div id="normalBtnContainer" class="checkboxContainer">
                 <input onclick="mediumBtnCheckBox()" id="mediumBtn" class="checkboxPosi" type="checkbox">
-                <img class="checkboxContainerimg" src="../assets/img/mediumPrio.svg" >
+                <span id="normalPrioText" class="prioTextPosi">Medium</span> 
+                <img src="../assets/img/prio-normal.svg">
               </div><!--required Problem-->
-              <div class="checkboxContainer">
+              <div id="lowBtnContainer" class="checkboxContainer">
                 <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">
-                <img class="checkboxContainerimg" src="../assets/img/lowPrio.svg" >
+                <span id="lowPrioText" class="prioTextPosi">Low</span> 
+                <img src="../assets/img/prio-low.svg">
               </div><!--required Problem-->
           </div>
         </div>
