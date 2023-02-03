@@ -72,7 +72,7 @@ function sidebarHTML() {
 function addTaskHTML() {
   return /*html*/ `
   <div >
-    <form class="addTaskContainer" onsubmit="createNewTask(event)">
+    <form class="addTaskContainer" onsubmit="createNewTask(event, 'todo')">
       <div class="paddLeRe40px">
         <h1>Add Task</h1>
       </div>

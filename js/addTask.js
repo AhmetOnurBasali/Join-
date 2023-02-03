@@ -16,10 +16,12 @@ async function loadTasks() {
   }
 }
 
-async function createNewTask(event) {
+
+async function createNewTask(event, newAera) {
   if (allTasks === null) {
     allTasks = [];
   }
+  console.log(test);
   event.preventDefault();
   await downloadFromServer();
   let currentID = allTasks.length;
@@ -28,7 +30,7 @@ async function createNewTask(event) {
   let prioNew = checkPrio();
   let titleNew = document.getElementById("title").value;
   let descriptionNew = document.getElementById("description").value;
-  let caregoryNew = document.getElementById("category").value;
+  let categoryNew = document.getElementById("category").value;
   let assignedToNew = document.getElementById("assignedTo").value;
   let dateNew = document.getElementById("date").value;
   let subtaskNew = document.getElementById("subtask").value;
@@ -37,12 +39,13 @@ async function createNewTask(event) {
     creator: creatorNew,
     title: titleNew,
     description: descriptionNew,
-    caregory: caregoryNew,
+    category: categoryNew,
     assignedTo: assignedToNew,
     date: dateNew,
     prio: prioNew,
     subtask: subtaskNew,
     id: newID,
+    area: newAera,
   };
   setTaskData(newTask);
 }
@@ -116,14 +119,14 @@ function urgentBtnCheckBox() {
 function clearTask() {
   let titleInput = document.getElementById("title");
   let descriptionInput = document.getElementById("description");
-  let caregoryInput = document.getElementById("category");
+  let categoryInput = document.getElementById("category");
   let assignedToInput = document.getElementById("assignedTo");
   let dateInput = document.getElementById("date");
   let subtaskInput = document.getElementById("subtask");
 
   titleInput.value = "";
   descriptionInput.value = "";
-  caregoryInput.value = "";
+  categoryInput.value = "";
   assignedToInput.value = "";
   dateInput.value = "";
   subtaskInput.value = "";
