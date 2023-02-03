@@ -113,8 +113,8 @@ h2 {
 
 .tasks {
     display: flex;
-    flex-direction: column;
-    gap: 35px;
+    justify-content: space-between;
+    height: 1000px;
 }
 
 .task-columns {
