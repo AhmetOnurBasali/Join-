@@ -2,10 +2,10 @@ let allTaskss = [
     {
         area: "todo",
         assignedTo: "Philipp, Davide",
-        caregory: "Development",
+        category: "Development",
         creator: "Guest User",
         date: "2023-02-24",
-        description: "lorem lorem lorem lorem",
+        description: "lorem development",
         id: 1,
         prio: "High",
         subtask: "",
@@ -13,35 +13,35 @@ let allTaskss = [
     },
     {
         area: "inProgress",
-        assignedTo: "Philipp, Davide",
-        caregory: "Development",
+        assignedTo: "Meier",
+        category: "Sales",
         creator: "Guest User",
         date: "2023-02-24",
-        description: "lorem lorem lorem lorem",
+        description: "lorem Sales",
         id: 2,
         prio: "Low",
         subtask: "",
-        title: "Website building",
+        title: "Call potencial clients",
     },
     {
         area: "awaitingFeedback",
-        assignedTo: "Philipp, Davide",
-        caregory: "Check",
+        assignedTo: "Ahmet, Nick",
+        category: "Check",
         creator: "Guest User",
         date: "2023-02-24",
-        description: "lorem lorem lorem lorem",
+        description: "lorem Check",
         id: 3,
         prio: "Normal",
         subtask: "",
-        title: "Website building",
+        title: "Website checking",
     },
     {
         area: "done",
         assignedTo: "Alina",
-        caregory: "Design",
+        category: "Design",
         creator: "Guest User",
         date: "2023-02-24",
-        description: "lorem lorem lorem lorem",
+        description: "lorem Design",
         id: 4,
         prio: "High",
         subtask: "Website building",
@@ -101,8 +101,8 @@ function renderCreatedTasksInnerHTML(task) {
         return /*html*/`
     <div class="task">
         <span class="task-category" id="task-category">${task['category']}</span>
-        <span class="task-title" id="task-title">Title</span>
-        <span class="task-description" id="task-description">Description Lorem ipsum dolor, sit amet consectetur adipisicing elit.</span>
+        <span class="task-title" id="task-title">${task['title']}</span>
+        <span class="task-description" id="task-description">${task['description']}</span>
     <div class="task-subtasks">
         <div class="task-subtasks-progressbar">
             <div></div>
