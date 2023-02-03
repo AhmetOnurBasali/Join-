@@ -183,10 +183,12 @@ input {
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
-input:checked .checkboxContainer{
-  border: none;
-  background:  deeppink;
+.checkboxContainer:hover .test path{
+  fill: white;
 }
+
+
+
 
 .prioLowContainerOnClick:checked{
   background: #7ae229; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);

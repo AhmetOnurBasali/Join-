@@ -192,9 +192,12 @@ h2 {
     transition: 175ms ease-in-out;
 }
 
+
 .task-todo-done:hover .todo-done-img {
     background-color: white;
 }
+
+
 
 .task-todo-done:hover .todo-done-img svg {
     stroke: #2A3647;

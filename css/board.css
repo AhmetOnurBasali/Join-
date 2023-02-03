@@ -204,6 +204,9 @@ h2 {
     justify-content: center;
     align-items: center;
     color: white;
+    border: 1px solid #ffffff;
+    font-weight: 400;
+    font-size: 12px;
 }
 
 .task-prio {
