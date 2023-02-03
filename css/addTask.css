@@ -58,6 +58,7 @@ b{
   display: flex;
   padding: 40px;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .addTaskBtn {
@@ -168,7 +169,7 @@ input {
 
 .whiteBtn {
   background: #ffffff;
-  padding: 10px;
+  padding: 8px;
   padding-left: 20px;
   padding-right: 20px;
   border: 2px solid #2a3647;
@@ -183,25 +184,17 @@ input {
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
-input:checked .checkboxContainer{
-  border: none;
-  background:  deeppink;
-}
-
-.prioLowContainerOnClick:checked{
+.prioLowContainerOnClick{
   background: #7ae229; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
 .prioNormalContainerOnClick{
-  background: #7ae229; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
+  background: #ffa800; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 .prioHighContainerOnClick{
-  background: #7ae229; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
+  background: #ff3d00; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
-.rightColorTextBtn{
-
-}
-.rightColorTextBtn{
-
+.prioIconWhite path{
+  fill: white;
 }

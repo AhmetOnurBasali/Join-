@@ -6,6 +6,16 @@ let contacts = [
   },
 ];
 
+async function loadTasks() {
+  await downloadFromServer();
+  let item = await backend.getItem("allTasks");
+  if (typeof item === "string") {
+    allTasks = JSON.parse(item) || [];
+  } else {
+    allTasks = item;
+  }
+}
+
 async function createNewTask(event) {
   if (allTasks === null) {
     allTasks = [];
@@ -32,11 +42,10 @@ async function createNewTask(event) {
     date: dateNew,
     prio: prioNew,
     subtask: subtaskNew,
-    id: newID
+    id: newID,
   };
   setTaskData(newTask);
 }
-
 
 async function setTaskData(newTask) {
   allTasks.push(newTask);
@@ -70,6 +79,9 @@ function lowBtnCheckBox() {
     lowBtn.checked = true;
     mediumBtn.checked = false;
     urgentBtn.checked = false;
+    setLowPrioSvgColor();
+    setLowPrioTextColor();
+    setLowPrioBtnColor();
   }
 }
 
@@ -81,6 +93,9 @@ function mediumBtnCheckBox() {
     mediumBtn.checked = true;
     lowBtn.checked = false;
     urgentBtn.checked = false;
+    setNormalPrioSvgColor();
+    setNormalPrioTextColor();
+    setNormalPrioBtnColor();
   }
 }
 
@@ -92,21 +107,13 @@ function urgentBtnCheckBox() {
     urgentBtn.checked = true;
     mediumBtn.checked = false;
     lowBtn.checked = false;
-  }
-}
-
-async function loadTasks() {
-  await downloadFromServer();
-  let item = await backend.getItem("allTasks");
-  if (typeof item === "string") {
-    allTasks = JSON.parse(item) || [];
-  } else {
-    allTasks = item;
+    setHighPrioSvgColor();
+    setHighPrioTextColor();
+    setHighPrioBtnColor();
   }
 }
 
 function clearTask() {
-  
   let titleInput = document.getElementById("title");
   let descriptionInput = document.getElementById("description");
   let caregoryInput = document.getElementById("category");
@@ -114,34 +121,111 @@ function clearTask() {
   let dateInput = document.getElementById("date");
   let subtaskInput = document.getElementById("subtask");
 
-    titleInput.value = ""
-    descriptionInput.value = ""
-    caregoryInput.value = ""
-    assignedToInput.value = ""
-    dateInput.value = ""
-    subtaskInput.value = ""
-    clearPrio()
+  titleInput.value = "";
+  descriptionInput.value = "";
+  caregoryInput.value = "";
+  assignedToInput.value = "";
+  dateInput.value = "";
+  subtaskInput.value = "";
+  clearPrio();
 }
 
-
 function clearPrio() {
-    let urgentBtn = document.getElementById("urgentBtn");
-    let mediumBtn = document.getElementById("mediumBtn");
-    let lowBtn = document.getElementById("lowBtn");
-    if (urgentBtn.checked === true) {
-      urgentBtn.checked = false;
-    }
-    if (mediumBtn.checked === true) {
-      mediumBtn.checked = false;
-    }
-    if (lowBtn.checked === true) {
+  let urgentBtn = document.getElementById("urgentBtn");
+  let mediumBtn = document.getElementById("mediumBtn");
+  let lowBtn = document.getElementById("lowBtn");
+  if (urgentBtn.checked === true) {
+    urgentBtn.checked = false;
+  }
+  if (mediumBtn.checked === true) {
+    mediumBtn.checked = false;
+  }
+  if (lowBtn.checked === true) {
     lowBtn.checked = false;
-    }
+  }
+}
+
+function setLowPrioSvgColor() {
+  let svgLowColor = document.getElementById("svgLow");
+  let svgNormalColor = document.getElementById("svgNormal");
+  let svgHighColor = document.getElementById("svgHigh");
+  svgLowColor.classList.add("prioIconWhite");
+  svgNormalColor.classList.remove("prioIconWhite");
+  svgHighColor.classList.remove("prioIconWhite");
+}
+
+function setLowPrioTextColor() {
+  let lowPrioText = document.getElementById("lowPrioText");
+  let normalPrioText = document.getElementById("normalPrioText");
+  let highPrioText = document.getElementById("highPrioText");
+  lowPrioText.style = "color: white;";
+  normalPrioText.style = "color: black;";
+  highPrioText.style = "color: black;";
+}
+
+function setLowPrioBtnColor() {
+  let highBtnContainer = document.getElementById("highBtnContainer");
+  let normalBtnContainer = document.getElementById("normalBtnContainer");
+  let lowContainer = document.getElementById("lowBtnContainer");
+  lowContainer.classList.add("prioLowContainerOnClick");
+  highBtnContainer.classList.remove("prioHighContainerOnClick");
+  normalBtnContainer.classList.remove("prioNormalContainerOnClick");
+}
+
+function setNormalPrioSvgColor() {
+  let svgLowColor = document.getElementById("svgLow");
+  let svgNormalColor = document.getElementById("svgNormal");
+  let svgHighColor = document.getElementById("svgHigh");
+  svgLowColor.classList.remove("prioIconWhite");
+  svgNormalColor.classList.add("prioIconWhite");
+  svgHighColor.classList.remove("prioIconWhite");
+}
+
+function setNormalPrioTextColor() {
+  let lowPrioText = document.getElementById("lowPrioText");
+  let normalPrioText = document.getElementById("normalPrioText");
+  let highPrioText = document.getElementById("highPrioText");
+  lowPrioText.style = "color: black;";
+  normalPrioText.style = "color: white;";
+  highPrioText.style = "color: black;";
+}
+
+function setNormalPrioBtnColor() {
+  let highBtnContainer = document.getElementById("highBtnContainer");
+  let normalBtnContainer = document.getElementById("normalBtnContainer");
+  let lowBtnContainer = document.getElementById("lowBtnContainer");
+  normalBtnContainer.classList.add("prioNormalContainerOnClick");
+  lowBtnContainer.classList.remove("prioLowContainerOnClick");
+  highBtnContainer.classList.remove("prioHighContainerOnClick");
+}
+
+function setHighPrioSvgColor() {
+  let svgLowColor = document.getElementById("svgLow");
+  let svgNormalColor = document.getElementById("svgNormal");
+  let svgHighColor = document.getElementById("svgHigh");
+  svgLowColor.classList.remove("prioIconWhite");
+  svgNormalColor.classList.remove("prioIconWhite");
+  svgHighColor.classList.add("prioIconWhite");
+}
+
+function setHighPrioTextColor() {
+  let lowPrioText = document.getElementById("lowPrioText");
+  let normalPrioText = document.getElementById("normalPrioText");
+  let highPrioText = document.getElementById("highPrioText");
+  lowPrioText.style = "color: black;";
+  normalPrioText.style = "color: black;";
+  highPrioText.style = "color: white;";
+}
+
+function setHighPrioBtnColor() {
+  let highBtnContainer = document.getElementById("highBtnContainer");
+  let normalBtnContainer = document.getElementById("normalBtnContainer");
+  let lowBtnContainer = document.getElementById("lowBtnContainer");
+  normalBtnContainer.classList.remove("prioNormalContainerOnClick");
+  lowBtnContainer.classList.remove("prioLowContainerOnClick");
+  highBtnContainer.classList.add("prioHighContainerOnClick");
 }
 
 //category section//
 
-function openCategory() {
-  
-}
-
+function openCategory() {}
