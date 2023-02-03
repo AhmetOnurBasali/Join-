@@ -21,7 +21,6 @@ async function createNewTask(event, newAera) {
   if (allTasks === null) {
     allTasks = [];
   }
-  console.log(test);
   event.preventDefault();
   await downloadFromServer();
   let currentID = allTasks.length;
