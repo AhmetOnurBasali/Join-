@@ -6,17 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../Board/board.css">
+    <link rel="stylesheet" href="../css/board.css">
     <link rel="stylesheet" href="../fonts.css">
-    <link rel="stylesheet" href="../Templates/Header_Sidebar.css">
+    <link rel="stylesheet" href="../css/header_sidebar.css">
+    <script src="../js/mini_backend.js"></script>
     <script src="../js/templates.js"></script>
     <script src="../script.js"></script>
+
+    <script src="../js/addTask.js"></script>
+    <script src="../js/login.js"></script>
 </head>
 
-<body onload="initTemplates()">
+<body onload="initTemplates(), init(), loadTasks(), initBoard()">
     <div id="header"></div>
     <div id="sidebar"></div>
-    
+
 
     <section class="board">
         <div class="headline">
@@ -27,61 +31,81 @@
         </div>
         <div class="board-tasks-section">
             <div class="tasks-headlines">
-                <div>
+                <div onclick="createNewTask('todo')">
                     <span>To do</span>
                     <div class="button-add-task">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="symbol-color" d="M15 7.5V22.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path class="symbol-color" d="M15 7.5V22.5" stroke="#2A3647" stroke-width="2"
+                                stroke-linecap="round" />
                             <path class="symbol-color" d="M22.5 15.1416L7.5 15.1416" stroke="#2A3647" stroke-width="2"
                                 stroke-linecap="round" />
-                            <rect class="symbol-color" x="1" y="1" width="28" height="28" rx="9" stroke="#2A3647" stroke-width="2" />
+                            <rect class="symbol-color" x="1" y="1" width="28" height="28" rx="9" stroke="#2A3647"
+                                stroke-width="2" />
                         </svg>
                     </div>
 
                 </div>
-                <div>
+                <div onclick="createNewTask('inProgress')">
                     <span>In progress</span>
                     <div class="button-add-task">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="symbol-color" d="M15 7.5V22.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path class="symbol-color" d="M15 7.5V22.5" stroke="#2A3647" stroke-width="2"
+                                stroke-linecap="round" />
                             <path class="symbol-color" d="M22.5 15.1416L7.5 15.1416" stroke="#2A3647" stroke-width="2"
                                 stroke-linecap="round" />
-                            <rect class="symbol-color" x="1" y="1" width="28" height="28" rx="9" stroke="#2A3647" stroke-width="2" />
+                            <rect class="symbol-color" x="1" y="1" width="28" height="28" rx="9" stroke="#2A3647"
+                                stroke-width="2" />
                         </svg>
                     </div>
 
                 </div>
-                <div>
+                <div onclick="createNewTask('awaitingFeedback')">
                     <span>Awaiting Feedback</span>
                     <div class="button-add-task">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="symbol-color" d="M15 7.5V22.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path class="symbol-color" d="M15 7.5V22.5" stroke="#2A3647" stroke-width="2"
+                                stroke-linecap="round" />
                             <path class="symbol-color" d="M22.5 15.1416L7.5 15.1416" stroke="#2A3647" stroke-width="2"
                                 stroke-linecap="round" />
-                            <rect class="symbol-color" x="1" y="1" width="28" height="28" rx="9" stroke="#2A3647" stroke-width="2" />
+                            <rect class="symbol-color" x="1" y="1" width="28" height="28" rx="9" stroke="#2A3647"
+                                stroke-width="2" />
                         </svg>
                     </div>
 
                 </div>
-                <div>
+                <div onclick="createNewTask('done')">
                     <span>Done</span>
                     <div class="button-add-task">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="symbol-color" d="M15 7.5V22.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path class="symbol-color" d="M15 7.5V22.5" stroke="#2A3647" stroke-width="2"
+                                stroke-linecap="round" />
                             <path class="symbol-color" d="M22.5 15.1416L7.5 15.1416" stroke="#2A3647" stroke-width="2"
                                 stroke-linecap="round" />
-                            <rect class="symbol-color" x="1" y="1" width="28" height="28" rx="9" stroke="#2A3647" stroke-width="2" />
+                            <rect class="symbol-color" x="1" y="1" width="28" height="28" rx="9" stroke="#2A3647"
+                                stroke-width="2" />
                         </svg>
                     </div>
 
                 </div>
             </div>
             <div class="tasks">
+                <div class="task-columns" id="tasks-to-do" ondrop="moveTo('inProgress')" ondragover="allowDrop(event)">
+                    
+                </div>
+                <div class="task-columns" id="tasks-in-progress" ondrop="moveTo('awaitingFeedback')" ondragover="allowDrop(event)">
 
+                </div>
+                <div class="task-columns" id="tasks-awaiting-feedback" ondrop="moveTo('done')" ondragover="allowDrop(event)">
+
+                </div>
+                <div class="task-columns" id="tasks-done" ondrop="moveTo('todo')" ondragover="allowDrop(event)">
+
+                </div>
             </div>
         </div>
 
     </section>
+    <script src="../js/board.js"></script>
 </body>
 
 </html>

@@ -69,7 +69,7 @@ async function login() {
     if (user) {
       setCurrentUser(user);
       setTimeout(() => {
-        window.location.href = "../Add_Task/Add_Task.html";
+        window.location.href = "../html/summary.html";
       }, 500);}
   } else {
     window.location.href = "/index.html?msg=Email not Found";
@@ -251,6 +251,11 @@ function getEmailRegEx() {
 
 
 function setGreatingName() {
-  let greatingName = document.getElementById("greatingName");
+  try {
+    let greatingName = document.getElementById("greatingName");
   greatingName.innerHTML = currentUser["name"];
+  } catch (error) {
+    console.log("no greating on this page");
+  }
+  
 }

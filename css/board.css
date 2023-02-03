@@ -76,7 +76,7 @@ h2 {
 .add-task:hover {
     background-color: #29ABE2;
     cursor: pointer;
-    box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.33);
+    box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
 /* .board-tasks-section {} */
@@ -84,19 +84,21 @@ h2 {
 .tasks-headlines {
     display: flex;
     gap: 20px;
+    margin-bottom: 40px;
 }
 
 .tasks-headlines div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 200px;
+    width: 250px;
+    cursor: pointer;
 }
 
 .button-add-task {
     width: 32px !important;
     height: 32px !important;
-    cursor: pointer;
+
 }
 
 
@@ -108,4 +110,109 @@ h2 {
     stroke: #29ABE2;
 }
 
-/* .tasks {} */
+
+.tasks {
+    display: flex;
+    justify-content: space-between;
+    height: 1000px;
+}
+
+.task-columns {
+    width: 250px;
+
+}
+
+.task {
+    /* height: 180px; */
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    border-radius: 30px;
+    gap: 12px;
+    background: #FFFFFF;
+}
+
+.task-category {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.task-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* .task-description {} */
+
+.task-subtasks {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-subtasks-progressbar {
+    width: 138px;
+    height: 8px;
+    background: #F4F4F4;
+    border-radius: 2px;
+}
+
+.task-subtasks-progressbar div {
+    border-radius: 2px;
+    width: 50%;
+    height: 100%;
+    background-color: #29ABE2;
+}
+
+.task-subtasks-progress {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.task-assigned-prio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-assigned-to {
+    display: flex;
+
+}
+
+.task-assigned-to div:not(:first-child) {
+    margin-left: -5px;
+}
+
+.task-assigned-to div:nth-child(2) {
+    background-color: #29ABE2 !important;
+}
+
+.task-assigned-to div:nth-child(3) {
+    background-color: #2A3647 !important;
+}
+
+.task-assigned-to div {
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 1px solid #ffffff;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.task-prio {
+    padding: 10px;
+}
