@@ -25,7 +25,7 @@ async function initTemplates() {
 }
 
 function headerHTML() {
-  return `
+  return /*html*/`
   <div class="header">
   <div class="Parent-Kanban">
       <span class="Kanban">
@@ -43,7 +43,7 @@ function headerHTML() {
 }
 
 function sidebarHTML() {
-  return `
+  return /*html*/`
 
   <div class="Sidebar">
   <div>
