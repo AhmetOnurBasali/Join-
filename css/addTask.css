@@ -10,7 +10,7 @@ h1 {
   display: flex;
   justify-content: center;
 }
-b{
+b {
   padding: 4px;
 }
 .leftAndRightConatiner {
@@ -66,22 +66,22 @@ b{
   padding: 8px;
 }
 
-.checkboxContainer{
+.checkboxContainer {
   position: relative;
   display: flex;
   align-items: center;
   background: white;
   border-radius: 10px;
-  Width: 136px;
-  Height: 52px;
+  width: 136px;
+  height: 52px;
   justify-content: space-evenly;
   box-shadow: 0px 0px 4px rgb(0 0 0 / 10%);
 }
 
 .checkboxContainer:hover {
   cursor: pointer;
-  Width: 138px;
-  Height:54px;
+  width: 138px;
+  height: 54px;
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
@@ -102,8 +102,9 @@ b{
 .inputContainer {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
-select{
+select {
   outline: none;
   box-sizing: border-box;
   display: flex;
@@ -129,20 +130,93 @@ input {
   flex: none;
   cursor: pointer;
 }
-#category{
+
+.openCategoryContainer {
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  padding: 13px 21px;
+  width: 422px;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  flex: none;
+  cursor: pointer;
+  flex-direction: column;
+  height: 41px;
+  display: flex;
+  justify-content: center;
+  padding-left: 17px;
+}
+
+.openCategory {
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  padding: 13px 21px;
+  width: 422px;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  flex: none;
+  cursor: pointer;
+  flex-direction: column;
+}
+
+.newCategory {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.newCategoryDiv {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+.acceptNewCategory {
+  position: absolute;
+  right: 10px;
+  padding: 6px;
+  background-color: white;
+  border: none;
+  border-left: 1px solid gray;
+  cursor: pointer;
+}
+.closeNewCategory {
+  position: absolute;
+  right: 34px;
+  padding: 6px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+.newCategory:hover {
+  background-color: grey;
+}
+
+.allCategorysContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#category {
   background-image: url(../assets/img/arrayBottom.svg);
   background-repeat: no-repeat;
   background-position: right;
   background-position-x: 95%;
 }
-#assignedTo{
+#assignedTo {
   background-image: url(../assets/img/arrayBottom.svg);
   background-repeat: no-repeat;
   background-position: right;
   background-position-x: 95%;
 }
 
-#subtask{
+#subtask {
   background-image: url(../assets/img/plusSubtask.svg);
   background-repeat: no-repeat;
   background-position: right;
@@ -183,18 +257,100 @@ input {
   border-color: #29abe2;
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
-
-.prioLowContainerOnClick{
-  background: #7ae229; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
+.colorCategoryContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 225px;
+  padding: 10px;
+}
+.colorCategoryLightBlue {
+  background-color: lightskyblue;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.colorCategoryRed {
+  background-color: red;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.colorCategoryGreen {
+  background-color: green;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.colorCategoryOrange {
+  background-color: orange;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.colorCategoryPurple {
+  background-color: purple;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.colorCategoryBlue {
+  background-color: blue;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  cursor: pointer;
 }
 
-.prioNormalContainerOnClick{
-  background: #ffa800; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
-}
-.prioHighContainerOnClick{
-  background: #ff3d00; width: 138px; height:54px; box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
+.prioLowContainerOnClick {
+  background: #7ae229;
+  width: 138px;
+  height: 54px;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
-.prioIconWhite path{
+.prioNormalContainerOnClick {
+  background: #ffa800;
+  width: 138px;
+  height: 54px;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
+}
+.prioHighContainerOnClick {
+  background: #ff3d00;
+  width: 138px;
+  height: 54px;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
+}
+
+.prioIconWhite path {
   fill: white;
+}
+
+@-webkit-keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+  }
+}
+@keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+  }
+}
+.slide-top {
+  -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
