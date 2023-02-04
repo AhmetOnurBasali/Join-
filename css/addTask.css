@@ -104,6 +104,21 @@ b {
   flex-direction: column;
   position: relative;
 }
+
+.selectedCategoryText{
+    padding: 0 20px;
+    display: flex;
+    height: 16px;
+    align-items: center;
+}
+
+.selectedCategoryTextOpen{
+    padding: 0 20px;
+    display: flex;
+    height: 34px;
+    align-items: center;
+}
+
 select {
   outline: none;
   box-sizing: border-box;
@@ -165,6 +180,21 @@ input {
   flex-direction: column;
 }
 
+.categoryIsOpen {
+    outline: none;
+    box-sizing: border-box;
+    display: flex;
+    width: 422px;
+    height: auto;
+    background: #ffffff;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    flex: none;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+
 .newCategory {
   height: 34px;
   display: flex;
@@ -198,10 +228,10 @@ input {
   background-color: grey;
 }
 
-.allCategorysContainer {
+.allCategorysContainer  {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 0px 20px;
 }
 #category {
   background-image: url(../assets/img/arrayBottom.svg);

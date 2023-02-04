@@ -45,7 +45,7 @@ async function addUser() {
 
 
 async function setNewUser(newName, newColor, newEmail, newPassword) {
-  let currentID = users.length;
+  let currentID = users.length -1;
   let newID = currentID + 1;
   let userData = {name: newName, email: newEmail, password: newPassword.value, color: newColor, id: newID};
   await saveNewUser(userData);

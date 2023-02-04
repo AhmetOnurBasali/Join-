@@ -93,9 +93,9 @@ function addTaskHTML() {
           </div>
           <div id="openCategoryContainer" class="inputContainer">
             <span><b>Category</b></span>
-            <div class="openCategory">
-              <span id="selectedCategory" onclick="openCategory()">select a category</span>
-              <span id="newCategory" class="newCategory d-none" onclick="newCategory()">new category</span>
+            <div id="categoryIsOpen"class="openCategory">
+              <span id="selectedCategory" class="selectedCategoryText " onclick="openCategory()">select a category</span>
+              <span id="newCategory" class="allCategorysContainer newCategory d-none" onclick="newCategory()">new category</span>
               <span id="allCategorys" class="d-none"></span>
             </div>
           </div>

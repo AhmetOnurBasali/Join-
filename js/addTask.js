@@ -20,34 +20,32 @@ async function createNewTask(newAera, event) {
   if (event) {
     event.preventDefault();
   }
-  if (allTasks === null) {
-    allTasks = [];
+    await downloadFromServer();
+    let currentID = allTasks.length - 1;
+    let newID = currentID + 1;
+    let creatorNew = currentUser["name"];
+    let prioNew = checkPrio();
+    let titleNew = document.getElementById("title").value;
+    let descriptionNew = document.getElementById("description").value;
+    let categoryNew = document.getElementById("selectedCategory").textContent;
+    let assignedToNew = document.getElementById("assignedTo").value;
+    let dateNew = document.getElementById("date").value;
+    let subtaskNew = document.getElementById("subtask").value;
+    let newTask = {
+      creator: creatorNew,
+      title: titleNew,
+      description: descriptionNew,
+      category: categoryNew,
+      assignedTo: assignedToNew,
+      date: dateNew,
+      prio: prioNew,
+      subtask: subtaskNew,
+      id: newID,
+      area: newAera,
+    };
+    setTaskData(newTask);
   }
-  await downloadFromServer();
-  let currentID = allTasks.length;
-  let newID = currentID + 1;
-  let creatorNew = currentUser["name"];
-  let prioNew = checkPrio();
-  let titleNew = document.getElementById("title").value;
-  let descriptionNew = document.getElementById("description").value;
-  let categoryNew = document.getElementById("selectedCategory").textContent;
-  let assignedToNew = document.getElementById("assignedTo").value;
-  let dateNew = document.getElementById("date").value;
-  let subtaskNew = document.getElementById("subtask").value;
-  let newTask = {
-    creator: creatorNew,
-    title: titleNew,
-    description: descriptionNew,
-    category: categoryNew,
-    assignedTo: assignedToNew,
-    date: dateNew,
-    prio: prioNew,
-    subtask: subtaskNew,
-    id: newID,
-    area: newAera,
-  };
-  setTaskData(newTask);
-}
+
 
 async function setTaskData(newTask) {
   allTasks.push(newTask);
@@ -253,49 +251,54 @@ async function loadCategory() {
 
 async function openCategory() {
   let selectedCategory = document.getElementById("selectedCategory");
-  selectedCategory.innerHTML = "select a category"
+  selectedCategory.innerHTML = "select a category";
+  selectedCategory.classList.add("selectedCategoryTextOpen");
   let newCategory = document.getElementById("newCategory");
   newCategory.classList.toggle("d-none");
   let allCategorys = document.getElementById("allCategorys");
   allCategorys.classList.toggle("d-none");
+  let openCategory = document.getElementById("categoryIsOpen");
+  openCategory.classList.remove("openCategory");
+  openCategory.classList.add("categoryIsOpen");
+
   renderCategorys();
 }
 
 function newCategory() {
-  let openCategory = document.getElementById("openCategory");
+  let openCategory = document.getElementById("openCategoryContainer");
   let createCategory = document.getElementById("createCategoryContainer");
   openCategory.classList.add("d-none");
   createCategory.classList.remove("d-none");
 }
 
 function closeNewCategory() {
-  let openCategorys = document.getElementById("openCategory");
+  let openCategorys = document.getElementById("openCategoryContainer");
   let createCategory = document.getElementById("createCategoryContainer");
   openCategorys.classList.remove("d-none");
   createCategory.classList.add("d-none");
 }
 
 async function setNewCategory() {
-  let openCategorys = document.getElementById("openCategory");
+  let openCategorys = document.getElementById("openCategoryContainer");
   let categoryContainer = document.getElementById("createCategoryContainer");
   openCategorys.classList.remove("d-none");
   categoryContainer.classList.add("d-none");
 
-  let newCategory = document.getElementById('newCategory')
+  let newCategory = document.getElementById("newCategory");
   newCategory.classList.add("d-none");
-let allCategorys = document.getElementById('allCategorys')
-allCategorys.classList.add("d-none");
+  let allCategorys = document.getElementById("allCategorys");
+  allCategorys.classList.add("d-none");
   let createCategory = document.getElementById("createCategory").value;
   categorys.push(createCategory);
 
   let selectedCategory = document.getElementById("selectedCategory");
-  selectedCategory.innerHTML = createCategory
+  selectedCategory.innerHTML = createCategory;
 
   await backend.setItem("categorys", JSON.stringify(categorys));
 }
 
 async function renderCategorys() {
-  await loadCategory()
+  await loadCategory();
   if (!categorys) {
     categorys = [];
   }
@@ -307,22 +310,19 @@ async function renderCategorys() {
     <div class="allCategorysContainer newCategory">
     <div id="category${c}" class="newCategory">${category}</div> 
     <div onclick="deleteCategory(${c})">X</div>
-    </div>`;//TODO: choose color section
+    </div>`; //TODO: choose color section
   }
 }
-
 
 async function deleteCategory(c) {
-  let categorys = await backend.getItem('categorys');
+  let categorys = await backend.getItem("categorys");
   if (typeof categorys === "string") {
-  categorys = JSON.parse(categorys);
+    categorys = JSON.parse(categorys);
   }
   categorys.splice(c, 1);
-  await backend.setItem('categorys', JSON.stringify(categorys));
+  await backend.setItem("categorys", JSON.stringify(categorys));
   renderCategorys();
-  }
-
-function test(color) {
-  
 }
-  //Assigned to section//
+
+function test(color) {}
+//Assigned to section//
