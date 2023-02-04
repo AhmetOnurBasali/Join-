@@ -20,34 +20,38 @@ async function createNewTask(newAera, event) {
   if (event) {
     event.preventDefault();
   }
-if (!allTasks) {
-  allTasks = []
-}
-    await downloadFromServer();
-    let currentID = allTasks.length - 1;
-    let newID = currentID + 1;
-    let creatorNew = currentUser["name"];
-    let prioNew = checkPrio();
-    let titleNew = document.getElementById("title").value;
-    let descriptionNew = document.getElementById("description").value;
-    let categoryNew = document.getElementById("selectedCategory").textContent;
-    let assignedToNew = document.getElementById("assignedTo").value;
-    let dateNew = document.getElementById("date").value;
-    let subtaskNew = document.getElementById("subtask").value;
-    let newTask = {
-      creator: creatorNew,
-      title: titleNew,
-      description: descriptionNew,
-      category: categoryNew,
-      assignedTo: assignedToNew,
-      date: dateNew,
-      prio: prioNew,
-      subtask: subtaskNew,
-      id: newID,
-      area: newAera,
-    };
-    setTaskData(newTask);
+  if (!allTasks) {
+    allTasks = [
+      {
+        id: 0,
+      }
+    ];
   }
+  await downloadFromServer();
+  let currentID = allTasks.length;
+  let creatorNew = currentUser["name"];
+  let prioNew = checkPrio();
+  let titleNew = document.getElementById("title").value;
+  let descriptionNew = document.getElementById("description").value;
+  let categoryNew = document.getElementById("selectedCategory").textContent;
+  let assignedToNew = document.getElementById("assignedTo").value;
+  let dateNew = document.getElementById("date").value;
+  let subtaskNew = document.getElementById("subtask").value;
+  let newTask = {
+    creator: creatorNew,
+    title: titleNew,
+    description: descriptionNew,
+    category: categoryNew,
+    assignedTo: assignedToNew,
+    date: dateNew,
+    prio: prioNew,
+    subtask: subtaskNew,
+    id: currentID,
+    area: newAera,
+  };
+  setTaskData(newTask);
+  currentID + 1;
+}
 
 
 async function setTaskData(newTask) {
@@ -327,5 +331,5 @@ async function deleteCategory(c) {
   renderCategorys();
 }
 
-function test(color) {}
+function test(color) { }
 //Assigned to section//
