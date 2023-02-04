@@ -1,5 +1,5 @@
 
-function loadHelp() {
+function loadHelp() {jsdoc 
     document.getElementById("notice-help").classList.add('d-none');
     document.getElementById("help").classList.add('d-none');
 
