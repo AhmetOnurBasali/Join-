@@ -3,7 +3,6 @@ let users = [];
 let allTasks = [
     {
         id: 0,
-        area: 'todo'
       }
 ];
 let currentUser = [];

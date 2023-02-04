@@ -54,7 +54,12 @@ let currentAreaOndragover;
  * This function is used to initialise all functions thats needed for the board page.
  * 
  */
-function initBoard() {
+async function initBoard() {
+    await loadTasks(),
+    await init(), 
+    initTemplates(), 
+    
+    
     renderBoard();
     
 }
