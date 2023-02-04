@@ -1,53 +1,53 @@
-let allTaskss = [
-    {
-        area: "todo",
-        assignedTo: "Philipp, Davide",
-        category: "Development",
-        creator: "Guest User",
-        date: "2023-02-24",
-        description: "lorem development lorem development lorem development lorem development lorem development",
-        id: 0,
-        prio: "High",
-        subtask: "",
-        title: "Website building",
-    },
-    {
-        area: "inProgress",
-        assignedTo: "Meier",
-        category: "Sales",
-        creator: "Guest User",
-        date: "2023-02-24",
-        description: "lorem Sales lorem Sales lorem Sales lorem Sales",
-        id: 1,
-        prio: "Low",
-        subtask: "",
-        title: "Call potencial clients",
-    },
-    {
-        area: "awaitingFeedback",
-        assignedTo: "Ahmet, Nick",
-        category: "Check",
-        creator: "Guest User",
-        date: "2023-02-24",
-        description: "lorem Check",
-        id: 2,
-        prio: "Normal",
-        subtask: "",
-        title: "Website checking",
-    },
-    {
-        area: "done",
-        assignedTo: "Alina",
-        category: "Design",
-        creator: "Guest User",
-        date: "2023-02-24",
-        description: "lorem Design lorem Design lorem Design",
-        id: 3,
-        prio: "High",
-        subtask: "Website building",
-        title: "Website design",
-    },
-]
+// let allTaskss = [
+//     {
+//         area: "todo",
+//         assignedTo: "Philipp, Davide",
+//         category: "Development",
+//         creator: "Guest User",
+//         date: "2023-02-24",
+//         description: "lorem development lorem development lorem development lorem development lorem development",
+//         id: 0,
+//         prio: "High",
+//         subtask: "",
+//         title: "Website building",
+//     },
+//     {
+//         area: "inProgress",
+//         assignedTo: "Meier",
+//         category: "Sales",
+//         creator: "Guest User",
+//         date: "2023-02-24",
+//         description: "lorem Sales lorem Sales lorem Sales lorem Sales",
+//         id: 1,
+//         prio: "Low",
+//         subtask: "",
+//         title: "Call potencial clients",
+//     },
+//     {
+//         area: "awaitingFeedback",
+//         assignedTo: "Ahmet, Nick",
+//         category: "Check",
+//         creator: "Guest User",
+//         date: "2023-02-24",
+//         description: "lorem Check",
+//         id: 2,
+//         prio: "Normal",
+//         subtask: "",
+//         title: "Website checking",
+//     },
+//     {
+//         area: "done",
+//         assignedTo: "Alina",
+//         category: "Design",
+//         creator: "Guest User",
+//         date: "2023-02-24",
+//         description: "lorem Design lorem Design lorem Design",
+//         id: 3,
+//         prio: "High",
+//         subtask: "Website building",
+//         title: "Website design",
+//     },
+// ]
 let currentDraggedElement;
 let currentAreaOndragover;
 /**
@@ -69,7 +69,7 @@ function renderBoard() {
     areaAwaitingFeedback.innerHTML = "";
     areaDone.innerHTML = "";
 
-    debugger;
+
 
     let todo = allTasks.filter((t) => t["area"] == "todo");
     for (let i = 0; i < todo.length; i++) {
