@@ -56,6 +56,7 @@ let currentAreaOndragover;
  */
 function initBoard() {
     renderBoard();
+    
 }
 
 function renderBoard() {
@@ -68,24 +69,24 @@ function renderBoard() {
     areaAwaitingFeedback.innerHTML = "";
     areaDone.innerHTML = "";
 
+    debugger;
 
-
-    let todo = allTaskss.filter((t) => t["area"] == "todo");
+    let todo = allTasks.filter((t) => t["area"] == "todo");
     for (let i = 0; i < todo.length; i++) {
         const task = todo[i];
         renderCreatedTasks(areaToDo, task);
     }
-    let inProgress = allTaskss.filter((t) => t["area"] == "inProgress");
+    let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
     for (let i = 0; i < inProgress.length; i++) {
         const task = inProgress[i];
         renderCreatedTasks(areaInProgress, task);
     }
-    let awaitingFeedback = allTaskss.filter((t) => t["area"] == "awaitingFeedback");
+    let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
     for (let i = 0; i < awaitingFeedback.length; i++) {
         const task = awaitingFeedback[i];
         renderCreatedTasks(areaAwaitingFeedback, task);
     }
-    let done = allTaskss.filter((t) => t["area"] == "done");
+    let done = allTasks.filter((t) => t["area"] == "done");
     for (let i = 0; i < done.length; i++) {
         const task = done[i];
         renderCreatedTasks(areaDone, task);
@@ -117,7 +118,7 @@ function startDragging(id) {
 }
 
 function moveTo() {
-    allTaskss[currentDraggedElement]['area'] = currentAreaOndragover;
+    allTasks[currentDraggedElement]['area'] = currentAreaOndragover;
     renderBoard();
 }
 
