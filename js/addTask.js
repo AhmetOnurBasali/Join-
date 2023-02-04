@@ -28,8 +28,7 @@ async function createNewTask(newAera, event) {
     ];
   }
   await downloadFromServer();
-  let currentID = allTasks.length - 1;
-  let newID = currentID + 1;
+  let currentID = allTasks.length;
   let creatorNew = currentUser["name"];
   let prioNew = checkPrio();
   let titleNew = document.getElementById("title").value;
@@ -47,10 +46,11 @@ async function createNewTask(newAera, event) {
     date: dateNew,
     prio: prioNew,
     subtask: subtaskNew,
-    id: newID,
+    id: currentID,
     area: newAera,
   };
   setTaskData(newTask);
+  currentID + 1;
 }
 
 
