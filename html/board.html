@@ -89,16 +89,16 @@
                 </div>
             </div>
             <div class="tasks">
-                <div class="task-columns" id="tasks-to-do" ondrop="moveTo('inProgress')" ondragover="allowDrop(event)">
+                <div class="task-columns" id="tasks-to-do" ondrop="moveTo()" ondragover="allowDrop(event, 'todo')">
                     
                 </div>
-                <div class="task-columns" id="tasks-in-progress" ondrop="moveTo('awaitingFeedback')" ondragover="allowDrop(event)">
+                <div class="task-columns" id="tasks-in-progress" ondrop="moveTo()" ondragover="allowDrop(event, 'inProgress')">
 
                 </div>
-                <div class="task-columns" id="tasks-awaiting-feedback" ondrop="moveTo('done')" ondragover="allowDrop(event)">
+                <div class="task-columns" id="tasks-awaiting-feedback" ondrop="moveTo()" ondragover="allowDrop(event, 'awaitingFeedback')">
 
                 </div>
-                <div class="task-columns" id="tasks-done" ondrop="moveTo('todo')" ondragover="allowDrop(event)">
+                <div class="task-columns" id="tasks-done" ondrop="moveTo()" ondragover="allowDrop(event, 'done')">
 
                 </div>
             </div>

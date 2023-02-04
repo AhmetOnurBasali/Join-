@@ -6,7 +6,7 @@ let allTaskss = [
         creator: "Guest User",
         date: "2023-02-24",
         description: "lorem development lorem development lorem development lorem development lorem development",
-        id: 1,
+        id: 0,
         prio: "High",
         subtask: "",
         title: "Website building",
@@ -18,7 +18,7 @@ let allTaskss = [
         creator: "Guest User",
         date: "2023-02-24",
         description: "lorem Sales lorem Sales lorem Sales lorem Sales",
-        id: 2,
+        id: 1,
         prio: "Low",
         subtask: "",
         title: "Call potencial clients",
@@ -30,7 +30,7 @@ let allTaskss = [
         creator: "Guest User",
         date: "2023-02-24",
         description: "lorem Check",
-        id: 3,
+        id: 2,
         prio: "Normal",
         subtask: "",
         title: "Website checking",
@@ -42,13 +42,14 @@ let allTaskss = [
         creator: "Guest User",
         date: "2023-02-24",
         description: "lorem Design lorem Design lorem Design",
-        id: 4,
+        id: 3,
         prio: "High",
         subtask: "Website building",
         title: "Website design",
     },
 ]
 let currentDraggedElement;
+let currentAreaOndragover;
 /**
  * This function is used to initialise all functions thats needed for the board page.
  * 
@@ -96,23 +97,34 @@ function renderCreatedTasks(area, task) {
     area.innerHTML += renderCreatedTasksInnerHTML(task);
 }
 
-function allowDrop(ev) {
+function allowDrop(ev, area) {
     ev.preventDefault();
-  }
+    currentAreaOndragover = area;
+}
 
-  function startDragging(id){
+function startDragging(id) {
     currentDraggedElement = id;
-  }
+    // document.getElementById(`taskNumber_${id}`).animate([
+    //     // keyframes
+    //     { transform: 'rotate(20deg)' },
+    //     // { transform: 'translateY(-300px)' }
+    //   ], {
+    //     // timing options
+    //     duration: 100,
+    //     iterations: 1
+    //   });
+    
+}
 
-  function moveTo(area){
-    allTaskss[currentDraggedElement]['area'] = area;
+function moveTo() {
+    allTaskss[currentDraggedElement]['area'] = currentAreaOndragover;
     renderBoard();
-  }
+}
 
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div class="task" draggable="true" ondragstart="startDragging(${task['id']})">
+    <div id="taskNumber_${task['id']}" class="task" draggable="true" ondragstart="startDragging(${task['id']})">
         <span class="task-category" id="task-category">${task['category']}</span>
         <span class="task-title" id="task-title">${task['title']}</span>
         <span class="task-description" id="task-description">${task['description']}</span>

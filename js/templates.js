@@ -25,11 +25,7 @@ async function initTemplates() {
 }
 
 function headerHTML() {
-<<<<<<< HEAD
   return /*html*/`
-=======
-  return /*html*/ `
->>>>>>> 73c99b1e6c830cd865f3eb610a3a8660108d5ac0
   <div class="header">
   <div class="Parent-Kanban">
       <span class="Kanban">
@@ -47,12 +43,8 @@ function headerHTML() {
 }
 
 function sidebarHTML() {
-<<<<<<< HEAD
   return /*html*/`
 
-=======
-  return /*html*/ `
->>>>>>> 73c99b1e6c830cd865f3eb610a3a8660108d5ac0
   <div class="Sidebar">
   <div>
       <div class="Parent-Logo">
