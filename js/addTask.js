@@ -20,6 +20,9 @@ async function createNewTask(newAera, event) {
   if (event) {
     event.preventDefault();
   }
+if (!allTasks) {
+  allTasks = []
+}
     await downloadFromServer();
     let currentID = allTasks.length - 1;
     let newID = currentID + 1;
