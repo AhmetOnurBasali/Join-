@@ -16,12 +16,13 @@ async function loadTasks() {
   }
 }
 
-
-async function createNewTask(event, newAera) {
+async function createNewTask(newAera, event) {
+  if (event) {
+    event.preventDefault();
+  }
   if (allTasks === null) {
     allTasks = [];
   }
-  event.preventDefault();
   await downloadFromServer();
   let currentID = allTasks.length;
   let newID = currentID + 1;
@@ -29,11 +30,10 @@ async function createNewTask(event, newAera) {
   let prioNew = checkPrio();
   let titleNew = document.getElementById("title").value;
   let descriptionNew = document.getElementById("description").value;
-  let categoryNew = document.getElementById("category").value;
+  let categoryNew = document.getElementById("selectedCategory").textContent;
   let assignedToNew = document.getElementById("assignedTo").value;
   let dateNew = document.getElementById("date").value;
   let subtaskNew = document.getElementById("subtask").value;
-
   let newTask = {
     creator: creatorNew,
     title: titleNew,
@@ -52,7 +52,6 @@ async function createNewTask(event, newAera) {
 async function setTaskData(newTask) {
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
-  console.log("new task is", newTask);
   setTimeout(() => {
     window.location.href = "../html/board.html";
   }, 1000);
@@ -73,7 +72,19 @@ function checkPrio() {
   }
 }
 
-function lowBtnCheckBox() {
+function setPrioCheckBox(prio) {
+  if (prio === "low") {
+    setLowPrioBtn();
+  }
+  if (prio === "normal") {
+    setNormalPrioBtn();
+  }
+  if (prio === "high") {
+    setHighPrioBtn();
+  }
+}
+
+function setLowPrioBtn() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
   let lowBtn = document.getElementById("lowBtn");
@@ -87,7 +98,7 @@ function lowBtnCheckBox() {
   }
 }
 
-function mediumBtnCheckBox() {
+function setNormalPrioBtn() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
   let lowBtn = document.getElementById("lowBtn");
@@ -101,7 +112,7 @@ function mediumBtnCheckBox() {
   }
 }
 
-function urgentBtnCheckBox() {
+function setHighPrioBtn() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
   let lowBtn = document.getElementById("lowBtn");
@@ -230,4 +241,88 @@ function setHighPrioBtnColor() {
 
 //category section//
 
-function openCategory() {}
+async function loadCategory() {
+  await downloadFromServer();
+  let item = await backend.getItem("categorys");
+  if (typeof item === "string") {
+    categorys = JSON.parse(item) || [];
+  } else {
+    categorys = item;
+  }
+}
+
+async function openCategory() {
+  let selectedCategory = document.getElementById("selectedCategory");
+  selectedCategory.innerHTML = "select a category"
+  let newCategory = document.getElementById("newCategory");
+  newCategory.classList.toggle("d-none");
+  let allCategorys = document.getElementById("allCategorys");
+  allCategorys.classList.toggle("d-none");
+  renderCategorys();
+}
+
+function newCategory() {
+  let openCategory = document.getElementById("openCategory");
+  let createCategory = document.getElementById("createCategoryContainer");
+  openCategory.classList.add("d-none");
+  createCategory.classList.remove("d-none");
+}
+
+function closeNewCategory() {
+  let openCategorys = document.getElementById("openCategory");
+  let createCategory = document.getElementById("createCategoryContainer");
+  openCategorys.classList.remove("d-none");
+  createCategory.classList.add("d-none");
+}
+
+async function setNewCategory() {
+  let openCategorys = document.getElementById("openCategory");
+  let categoryContainer = document.getElementById("createCategoryContainer");
+  openCategorys.classList.remove("d-none");
+  categoryContainer.classList.add("d-none");
+
+  let newCategory = document.getElementById('newCategory')
+  newCategory.classList.add("d-none");
+let allCategorys = document.getElementById('allCategorys')
+allCategorys.classList.add("d-none");
+  let createCategory = document.getElementById("createCategory").value;
+  categorys.push(createCategory);
+
+  let selectedCategory = document.getElementById("selectedCategory");
+  selectedCategory.innerHTML = createCategory
+
+  await backend.setItem("categorys", JSON.stringify(categorys));
+}
+
+async function renderCategorys() {
+  await loadCategory()
+  if (!categorys) {
+    categorys = [];
+  }
+  let allCategorys = document.getElementById(`allCategorys`);
+  allCategorys.innerHTML = "";
+  for (let c = 0; c < categorys.length; c++) {
+    let category = categorys[c];
+    allCategorys.innerHTML += `
+    <div class="allCategorysContainer newCategory">
+    <div id="category${c}" class="newCategory">${category}</div> 
+    <div onclick="deleteCategory(${c})">X</div>
+    </div>`;//TODO: choose color section
+  }
+}
+
+
+async function deleteCategory(c) {
+  let categorys = await backend.getItem('categorys');
+  if (typeof categorys === "string") {
+  categorys = JSON.parse(categorys);
+  }
+  categorys.splice(c, 1);
+  await backend.setItem('categorys', JSON.stringify(categorys));
+  renderCategorys();
+  }
+
+function test(color) {
+  
+}
+  //Assigned to section//

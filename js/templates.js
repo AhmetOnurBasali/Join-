@@ -12,6 +12,7 @@ async function includeHTML() {
   }
 }
 
+
 async function initTemplates() {
   await includeHTML();
   try {
@@ -23,6 +24,7 @@ async function initTemplates() {
     document.getElementById("sidebar").innerHTML = sidebarHTML();
   }
 }
+
 
 function headerHTML() {
   return /*html*/`
@@ -41,6 +43,7 @@ function headerHTML() {
 </div>
     `;
 }
+
 
 function sidebarHTML() {
   return /*html*/`
@@ -70,10 +73,11 @@ function sidebarHTML() {
     `;
 }
 
+
 function addTaskHTML() {
   return /*html*/ `
   <div >
-    <form class="addTaskContainer" onsubmit="createNewTask(event, 'todo')">
+    <form class="addTaskContainer" onsubmit="createNewTask('todo', event);">
       <div class="paddLeRe40px">
         <h1>Add Task</h1>
       </div>
@@ -87,11 +91,29 @@ function addTaskHTML() {
             <b>Description</b>
             <input id="description" type="text" required>
           </div>
-          <div class="inputContainer">
-            <label for="category"><b>Category</b></label>
-            <select onclick="openCategory()" id="category" required>
-              <option>Select task category</option>
-            </select>
+          <div id="openCategoryContainer" class="inputContainer">
+            <span><b>Category</b></span>
+            <div class="openCategory">
+              <span id="selectedCategory" onclick="openCategory()">select a category</span>
+              <span id="newCategory" class="newCategory d-none" onclick="newCategory()">new category</span>
+              <span id="allCategorys" class="d-none"></span>
+            </div>
+          </div>
+          <div class="d-none" id="createCategoryContainer">
+          <span><b>Category</b></span>
+            <div class="newCategoryDiv">
+              <input id="createCategory" placeholder="New category name">
+              <div onclick="closeNewCategory()" class="closeNewCategory">x</div>
+              <div onclick="setNewCategory()" class="acceptNewCategory">></div>
+            </div>
+            <div class="colorCategoryContainer">
+              <div onclick="test('lightBlue')" class="colorCategoryLightBlue"></div>
+              <div onclick="test('red')" id="categoryRed" class="colorCategoryRed"></div>
+              <div onclick="test('green')" id="categoryGreen" class="colorCategoryGreen"></div>
+              <div onclick="test('orange')" id="categoryOrange" class="colorCategoryOrange"></div>
+              <div onclick="test('purple')" id="categoryPurple" class="colorCategoryPurple"></div>
+              <div onclick="test('blue')" id="categoryBlue" class="colorCategoryBlue"></div>
+            </div>
           </div>
           <div class="inputContainer">
             <b>Assigned to</b> 
@@ -107,7 +129,7 @@ function addTaskHTML() {
             <b>Prio</b>
             <div style="display: flex; justify-content: space-between;">
               <div id="highBtnContainer" class="checkboxContainer">
-                <input onclick="urgentBtnCheckBox()" id="urgentBtn" class="checkboxPosi" type="checkbox"> 
+                <input onclick="setPrioCheckBox('high')" id="urgentBtn" class="checkboxPosi" type="checkbox"> 
                 <span id="highPrioText" class="prioTextPosi">Urgent</span> 
                 <svg id="svgHigh" width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.00026 5.25476C9.19969 5.25443 9.39397 5.31633 9.55451 5.43137L17.123 10.8653C17.2215 10.9361 17.3046 11.025 17.3678 11.127C17.4309 11.2291 17.4727 11.3422 17.4909 11.4599C17.5276 11.6977 17.4656 11.9399 17.3186 12.1333C17.1716 12.3266 16.9516 12.4553 16.7071 12.4909C16.4625 12.5266 16.2134 12.4664 16.0145 12.3234L9.00026 7.2925L1.98602 12.3234C1.88754 12.3942 1.7757 12.4454 1.65687 12.4742C1.53803 12.5029 1.41455 12.5086 1.29345 12.4909C1.17235 12.4733 1.05602 12.4326 0.951088 12.3712C0.846159 12.3099 0.754691 12.229 0.681906 12.1333C0.609122 12.0375 0.556445 11.9288 0.526885 11.8132C0.497325 11.6977 0.491459 11.5776 0.509623 11.4599C0.527789 11.3422 0.569626 11.2291 0.632752 11.127C0.695876 11.025 0.779049 10.9361 0.877524 10.8653L8.44602 5.43137C8.60656 5.31633 8.80083 5.25443 9.00026 5.25476Z" fill="#FF3D00"/>
@@ -115,7 +137,7 @@ function addTaskHTML() {
                 </svg>
               </div><!--required Problem-->
               <div id="normalBtnContainer" class="checkboxContainer">
-                <input onclick="mediumBtnCheckBox()" id="mediumBtn" class="checkboxPosi" type="checkbox">
+                <input onclick="setPrioCheckBox('normal')" id="mediumBtn" class="checkboxPosi" type="checkbox">
                 <span id="normalPrioText" class="prioTextPosi">Medium</span> 
                 <svg id="svgNormal" width="18" height="7" viewBox="0 0 18 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16.5685 6.66658L1.43151 6.66658C1.18446 6.66658 0.947523 6.56773 0.772832 6.39177C0.598141 6.21581 0.5 5.97716 0.5 5.72831C0.5 5.47947 0.598141 5.24081 0.772832 5.06485C0.947523 4.88889 1.18446 4.79004 1.43151 4.79004L16.5685 4.79004C16.8155 4.79004 17.0525 4.88889 17.2272 5.06485C17.4019 5.24081 17.5 5.47947 17.5 5.72831C17.5 5.97716 17.4019 6.21581 17.2272 6.39177C17.0525 6.56773 16.8155 6.66658 16.5685 6.66658Z" fill="#FFA800"/>
@@ -123,7 +145,7 @@ function addTaskHTML() {
                 </svg>
               </div><!--required Problem-->
               <div id="lowBtnContainer" class="checkboxContainer">
-                <input onclick="lowBtnCheckBox()" id="lowBtn" class="checkboxPosi" type="checkbox">
+                <input onclick="setPrioCheckBox('low')" id="lowBtn" class="checkboxPosi" type="checkbox">
                 <span id="lowPrioText" class="prioTextPosi">Low</span> 
                 <svg id="svgLow" width="17" height="13" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.49974 7.74524C8.30031 7.74557 8.10603 7.68367 7.94549 7.56863L0.376998 2.13467C0.278524 2.06391 0.195351 1.97498 0.132227 1.87296C0.069103 1.77094 0.0272642 1.65784 0.00909954 1.5401C-0.0275856 1.30232 0.0343859 1.06011 0.181381 0.866747C0.328377 0.67339 0.548355 0.544725 0.792923 0.509057C1.03749 0.47339 1.28661 0.533642 1.48549 0.676559L8.49974 5.7075L15.514 0.67656C15.6125 0.605795 15.7243 0.55458 15.8431 0.52584C15.962 0.4971 16.0855 0.491398 16.2066 0.509058C16.3277 0.526719 16.444 0.567397 16.5489 0.628769C16.6538 0.690142 16.7453 0.771007 16.8181 0.866748C16.8909 0.962489 16.9436 1.07123 16.9731 1.18677C17.0027 1.3023 17.0085 1.42236 16.9904 1.5401C16.9722 1.65784 16.9304 1.77094 16.8672 1.87296C16.8041 1.97498 16.721 2.06391 16.6225 2.13467L9.05398 7.56863C8.89344 7.68367 8.69917 7.74557 8.49974 7.74524Z" fill="#7AE229"/>
