@@ -44,7 +44,7 @@ async function createNewTask(newAera, event) {
     title: titleNew,
     description: descriptionNew,
     category: categoryNew,
-    background: currentCategoryColor[0],
+    titleBg: currentCategoryColor[0],
     assignedTo: assignedToNew,
     date: dateNew,
     prio: prioNew,
