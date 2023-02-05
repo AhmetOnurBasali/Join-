@@ -199,10 +199,10 @@ input {
   align-items: center;
   justify-content: space-between;
 }
-.categoryTextColorPosi{
+.categoryTextColorPosi {
   display: flex;
   align-items: center;
-  width: 33%;
+  width: 61%;
   justify-content: space-between;
 }
 .newCategoryDiv {

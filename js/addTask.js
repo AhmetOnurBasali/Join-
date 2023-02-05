@@ -302,13 +302,12 @@ async function setNewCategory() {
   allCategorys.classList.add("d-none");
 
   let createCategory = document.getElementById("createCategory").value;
-  
 
   let selectedCategory = document.getElementById("selectedCategory");
   selectedCategory.innerHTML = `
   <div class="categoryTextColorPosi">
-  <span>${createCategory} </span>
-  <div class="colorCategory${color}"></div>
+    <span>${createCategory}</span>
+    <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
    </div>`    ;
 
  // await backend.setItem("categorys", JSON.stringify(categorys));
@@ -324,7 +323,7 @@ async function renderCategorys() {
     <div class="allCategorysContainer newCategory">
       <div style="width: 100%" onclick="chooseCategory('${category}','${color}')" id="category${c}" class="newCategory">${category}</div> 
       <div class="categoryTextColorPosi">
-        <div class="colorCategory${color}"></div>
+      <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
       </div>
       <div onclick="deleteCategory(${c})">X</div>
     </div>`; //TODO: choose color section
@@ -332,12 +331,13 @@ async function renderCategorys() {
 }
 
 function chooseCategory(category,color) {
- 
   let selectedCategory = document.getElementById("selectedCategory");
   selectedCategory.innerHTML = 
        `<div class="categoryTextColorPosi">
-       <span>${category} </span>
-       <div class="colorCategory${color}"></div>
+          <span>${category} </span>
+          <div class="categoryTextColorPosi">
+            <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
+          </div>
         </div>`
   setOldCategory();
 }
