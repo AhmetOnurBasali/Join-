@@ -127,8 +127,7 @@ function startDragging(id) {
 async function moveTo() {
     allTasks[currentDraggedElement]['area'] = currentAreaOndragover;
     renderBoard();
-    debugger;
-    await backend.setItem("allTasks", allTasks[currentDraggedElement]);
+    await backend.setItem("allTasks", allTasks);
 }
 
 
