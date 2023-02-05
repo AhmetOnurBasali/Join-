@@ -99,7 +99,7 @@ function addTaskHTML() {
           <div class="d-none" id="createCategoryContainer">
           <span><b>Category</b></span>
             <div class="newCategoryDiv">
-              <input oninput="setColorInInput()" id="createCategory" placeholder="New category name" required>             
+              <input oninput="dropColorInInput()" id="createCategory" placeholder="New category name" required>             
               <div onclick="closeNewCategory()" class="closeNewCategory">x</div>
               <div onclick="setNewCategory()" class="acceptNewCategory">></div>
               <div class="dropColorContainer d-none" id="dropColorContainer"></div>

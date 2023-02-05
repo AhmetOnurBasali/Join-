@@ -25,7 +25,7 @@ async function createNewTask(newAera, event) {
       {
         id: 0,
         category:"design",
-        background:"Red"
+        titleBg:"Red"
       },
     ];
   }
@@ -319,7 +319,7 @@ async function renderCategorys() {
   allCategorys.innerHTML = "";
   for (let c = 0; c < allTasks.length; c++) {
     let category = allTasks[c].category;
-    let color = allTasks[c].background;
+    let color = allTasks[c].titleBg;
     allCategorys.innerHTML += `
     <div class="allCategorysContainer newCategory">
       <div style="width: 100%" onclick="chooseCategory('${category}','${color}')" id="category${c}" class="newCategory">${category}</div> 
@@ -354,15 +354,16 @@ function setOldCategory() {
   allCategorys.classList.add("d-none");
 }
 
-async function deleteCategory(c) {
-  let categorys = await backend.getItem("allTasks");
-  if (typeof categorys === "string") {
-    categorys = JSON.parse(categorys);
-  }
-  categorys.splice(c, 1);
-  await backend.setItem("allTasks", JSON.stringify(categorys));
-  renderCategorys();
-}
+//-später für done Task-//
+//async function deleteCategory(c) {
+//  let categorys = await backend.getItem("allTasks");
+//  if (typeof categorys === "string") {
+//    categorys = JSON.parse(categorys);
+//  }
+//  categorys.splice(c, 1);
+//  await backend.setItem("allTasks", JSON.stringify(categorys));
+//  renderCategorys();
+//}
 
 function setColor(color) {
   categoryColor.splice(color);
@@ -378,7 +379,7 @@ function setColor(color) {
   currentCategoryColor.push(color);
 }
 
-function setColorInInput() {
+function dropColorInInput() {
   let categoryInput = document.getElementById("createCategory");
   let dropColorContainer = document.getElementById("dropColorContainer");
   if (categoryInput.value == "") {
