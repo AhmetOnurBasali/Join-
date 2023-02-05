@@ -70,6 +70,7 @@ function sidebarHTML() {
     `;
 }
 
+
 function addTaskHTML() {
   return /*html*/ `
   <div >
@@ -99,7 +100,7 @@ function addTaskHTML() {
           <div class="d-none" id="createCategoryContainer">
           <span><b>Category</b></span>
             <div class="newCategoryDiv">
-              <input oninput="dropColorInInput()" id="createCategory" placeholder="New category name" required>             
+              <input name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name">             
               <div onclick="closeNewCategory()" class="closeNewCategory">x</div>
               <div onclick="setNewCategory()" class="acceptNewCategory">></div>
               <div class="dropColorContainer d-none" id="dropColorContainer"></div>
@@ -171,3 +172,54 @@ function addTaskHTML() {
   </div>
         `;
 }
+
+
+function renderNewCategoryHTML() {
+  let createCategory = document.getElementById("createCategory").value;
+  let color = currentCategoryColor[0];
+  categoryColor.push({color});
+  return `
+  <div style="width:100%" class="categoryTextColorPosi">
+    <span>${createCategory}</span>
+    <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
+  </div>`
+}
+
+
+function renderCategorysHTML(c, category, color) {
+  return `
+  <div class="allCategorysContainer newCategory">
+    <div style="width: 100%" onclick="chooseCategory('${category}','${color}')" id="category${c}" class="newCategory">${category}</div> 
+    <div class="categoryTextColorPosi">
+    <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
+    </div>
+    <div onclick="deleteCategory(${c})">X</div>
+  </div>`
+}
+
+
+function chooseCategoryHTML(category, color) {
+  return   `
+  <div class="categoryTextColorPosi">
+    <span onclick="openCategory()">${category}</span>
+    <div class="categoryTextColorPosi">
+      <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
+    </div>
+  </div>`
+}
+
+
+function renderOldCategoryHTML(category, color) {
+  return `
+  <div style="width:100%" class="categoryTextColorPosi">
+    <span>${category}</span>
+    <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
+  </div>`
+}
+
+
+
+
+
+
+
