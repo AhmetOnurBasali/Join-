@@ -5,7 +5,7 @@ let contacts = [
     phone: 99999999999,
   },
 ];
-
+let currentCategoryColor =[];
 async function loadTasks() {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
@@ -24,7 +24,9 @@ async function createNewTask(newAera, event) {
     allTasks = [
       {
         id: 0,
-      }
+        category:"design",
+        background:"Red"
+      },
     ];
   }
   await downloadFromServer();
@@ -33,7 +35,7 @@ async function createNewTask(newAera, event) {
   let prioNew = checkPrio();
   let titleNew = document.getElementById("title").value;
   let descriptionNew = document.getElementById("description").value;
-  let categoryNew = document.getElementById("selectedCategory").textContent;
+  let categoryNew = document.getElementById("selectedCategory").outerText;
   let assignedToNew = document.getElementById("assignedTo").value;
   let dateNew = document.getElementById("date").value;
   let subtaskNew = document.getElementById("subtask").value;
@@ -42,6 +44,7 @@ async function createNewTask(newAera, event) {
     title: titleNew,
     description: descriptionNew,
     category: categoryNew,
+    background: currentCategoryColor[0],
     assignedTo: assignedToNew,
     date: dateNew,
     prio: prioNew,
@@ -52,7 +55,6 @@ async function createNewTask(newAera, event) {
   setTaskData(newTask);
   currentID + 1;
 }
-
 
 async function setTaskData(newTask) {
   allTasks.push(newTask);
@@ -286,6 +288,9 @@ function closeNewCategory() {
 }
 
 async function setNewCategory() {
+  let color = currentCategoryColor[0]
+  categoryColor.push({ color });
+
   let openCategorys = document.getElementById("openCategoryContainer");
   let categoryContainer = document.getElementById("createCategoryContainer");
   openCategorys.classList.remove("d-none");
@@ -295,41 +300,92 @@ async function setNewCategory() {
   newCategory.classList.add("d-none");
   let allCategorys = document.getElementById("allCategorys");
   allCategorys.classList.add("d-none");
+
   let createCategory = document.getElementById("createCategory").value;
-  categorys.push(createCategory);
+  
 
   let selectedCategory = document.getElementById("selectedCategory");
-  selectedCategory.innerHTML = createCategory;
+  selectedCategory.innerHTML = `
+  <div class="categoryTextColorPosi">
+  <span>${createCategory} </span>
+  <div class="colorCategory${color}"></div>
+   </div>`    ;
 
-  await backend.setItem("categorys", JSON.stringify(categorys));
+ // await backend.setItem("categorys", JSON.stringify(categorys));
 }
 
 async function renderCategorys() {
-  await loadCategory();
-  if (!categorys) {
-    categorys = [];
-  }
   let allCategorys = document.getElementById(`allCategorys`);
   allCategorys.innerHTML = "";
-  for (let c = 0; c < categorys.length; c++) {
-    let category = categorys[c];
+  for (let c = 0; c < allTasks.length; c++) {
+    let category = allTasks[c].category;
+    let color = allTasks[c].background;
     allCategorys.innerHTML += `
     <div class="allCategorysContainer newCategory">
-    <div id="category${c}" class="newCategory">${category}</div> 
-    <div onclick="deleteCategory(${c})">X</div>
+      <div style="width: 100%" onclick="chooseCategory('${category}','${color}')" id="category${c}" class="newCategory">${category}</div> 
+      <div class="categoryTextColorPosi">
+        <div class="colorCategory${color}"></div>
+      </div>
+      <div onclick="deleteCategory(${c})">X</div>
     </div>`; //TODO: choose color section
   }
 }
 
+function chooseCategory(category,color) {
+ 
+  let selectedCategory = document.getElementById("selectedCategory");
+  selectedCategory.innerHTML = 
+       `<div class="categoryTextColorPosi">
+       <span>${category} </span>
+       <div class="colorCategory${color}"></div>
+        </div>`
+  setOldCategory();
+}
+
+function setOldCategory() {
+  let openCategorys = document.getElementById("openCategoryContainer");
+  let categoryContainer = document.getElementById("createCategoryContainer");
+  openCategorys.classList.remove("d-none");
+  categoryContainer.classList.add("d-none");
+
+  let newCategory = document.getElementById("newCategory");
+  newCategory.classList.add("d-none");
+  let allCategorys = document.getElementById("allCategorys");
+  allCategorys.classList.add("d-none");
+}
+
 async function deleteCategory(c) {
-  let categorys = await backend.getItem("categorys");
+  let categorys = await backend.getItem("allTasks");
   if (typeof categorys === "string") {
     categorys = JSON.parse(categorys);
   }
   categorys.splice(c, 1);
-  await backend.setItem("categorys", JSON.stringify(categorys));
+  await backend.setItem("allTasks", JSON.stringify(categorys));
   renderCategorys();
 }
 
-function test(color) { }
+function setColor(color) {
+  categoryColor.splice(color);
+  let colorSelection = document.querySelectorAll(".colorCategoryContainer div");
+  for (let i = 0; i < colorSelection.length; i++) {
+    colorSelection[i].style.border = "";
+  }
+  let selectColor = document.getElementById("category" + color);
+  selectColor.style.border = "2px solid " + color;
+
+  let dropColorContainer = document.getElementById("dropColorContainer");
+  dropColorContainer.innerHTML = `<div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>`;
+  currentCategoryColor.push(color);
+}
+
+function setColorInInput() {
+  let categoryInput = document.getElementById("createCategory");
+  let dropColorContainer = document.getElementById("dropColorContainer");
+  if (categoryInput.value == "") {
+    dropColorContainer.classList.add("d-none");
+  } else {
+    dropColorContainer.classList.remove("d-none");
+  }
+}
+
 //Assigned to section//

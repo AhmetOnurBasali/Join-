@@ -12,7 +12,6 @@ async function includeHTML() {
   }
 }
 
-
 async function initTemplates() {
   await includeHTML();
   try {
@@ -25,9 +24,8 @@ async function initTemplates() {
   }
 }
 
-
 function headerHTML() {
-  return /*html*/`
+  return /*html*/ `
   <div class="header">
   <div class="Parent-Kanban">
       <span class="Kanban">
@@ -44,9 +42,8 @@ function headerHTML() {
     `;
 }
 
-
 function sidebarHTML() {
-  return /*html*/`
+  return /*html*/ `
 
   <div class="Sidebar">
   <div>
@@ -73,7 +70,6 @@ function sidebarHTML() {
     `;
 }
 
-
 function addTaskHTML() {
   return /*html*/ `
   <div >
@@ -94,6 +90,7 @@ function addTaskHTML() {
           <div id="openCategoryContainer" class="inputContainer">
             <span><b>Category</b></span>
             <div id="categoryIsOpen"class="openCategory">
+              <div class="dropColorContainerSet d-none" id="dropColorContainerSet"></div>
               <span id="selectedCategory" class="selectedCategoryText " onclick="openCategory()">select a category</span>
               <span id="newCategory" class="allCategorysContainer newCategory d-none" onclick="newCategory()">new category</span>
               <span id="allCategorys" class="d-none"></span>
@@ -102,17 +99,18 @@ function addTaskHTML() {
           <div class="d-none" id="createCategoryContainer">
           <span><b>Category</b></span>
             <div class="newCategoryDiv">
-              <input id="createCategory" placeholder="New category name">
+              <input oninput="setColorInInput()" id="createCategory" placeholder="New category name" required>             
               <div onclick="closeNewCategory()" class="closeNewCategory">x</div>
               <div onclick="setNewCategory()" class="acceptNewCategory">></div>
+              <div class="dropColorContainer d-none" id="dropColorContainer"></div>
             </div>
             <div class="colorCategoryContainer">
-              <div onclick="test('lightBlue')" class="colorCategoryLightBlue"></div>
-              <div onclick="test('red')" id="categoryRed" class="colorCategoryRed"></div>
-              <div onclick="test('green')" id="categoryGreen" class="colorCategoryGreen"></div>
-              <div onclick="test('orange')" id="categoryOrange" class="colorCategoryOrange"></div>
-              <div onclick="test('purple')" id="categoryPurple" class="colorCategoryPurple"></div>
-              <div onclick="test('blue')" id="categoryBlue" class="colorCategoryBlue"></div>
+              <div onclick="setColor('LightBlue')" id="categoryLightBlue" class="colorCategoryLightBlue"></div>
+              <div onclick="setColor('Red')" id="categoryRed" class="colorCategoryRed"></div>
+              <div onclick="setColor('Green')" id="categoryGreen" class="colorCategoryGreen"></div>
+              <div onclick="setColor('Orange')" id="categoryOrange" class="colorCategoryOrange"></div>
+              <div onclick="setColor('Purple')" id="categoryPurple" class="colorCategoryPurple"></div>
+              <div onclick="setColor('Blue')" id="categoryBlue" class="colorCategoryBlue"></div>
             </div>
           </div>
           <div class="inputContainer">

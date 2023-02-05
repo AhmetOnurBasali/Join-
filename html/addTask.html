@@ -17,10 +17,17 @@
 </head>
 
 <script>
-    
-    </script>
-    
-<body onload="initTemplates(), loadCurrentUser(), loadTasks(), loadCategory()">
+    async function initTask() {
+        await loadCurrentUser()
+        await loadTasks()
+        await loadCategory()
+        initTemplates()
+    }
+
+
+</script>
+
+<body onload="initTask()">
 
 
 
@@ -31,4 +38,5 @@
 
     <div id="addTask" class="addTaskMain"></div>
 </body>
+
 </html>
