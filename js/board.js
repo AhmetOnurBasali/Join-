@@ -60,7 +60,6 @@ async function initBoard() {
     await init(), 
     initTemplates(), 
     
-    
     renderBoard();
     
 }
@@ -74,7 +73,6 @@ function renderBoard() {
     areaInProgress.innerHTML = "";
     areaAwaitingFeedback.innerHTML = "";
     areaDone.innerHTML = "";
-
 
 
     let todo = allTasks.filter((t) => t["area"] == "todo");
@@ -97,7 +95,6 @@ function renderBoard() {
         const task = done[i];
         renderCreatedTasks(areaDone, task);
     }
-
 }
 
 function renderCreatedTasks(area, task) {
@@ -127,14 +124,16 @@ function startDragging(id) {
 }
 
 
-function moveTo() {
+async function moveTo() {
     allTasks[currentDraggedElement]['area'] = currentAreaOndragover;
     renderBoard();
+    debugger;
+    await backend.setItem("allTasks", allTasks[currentDraggedElement]);
 }
 
 
 function setTitleBg(task){
-    document.getElementById('task-category').style.backgroundColor = `${task['titleBg']}`;
+    document.getElementById(`task-category${task['id']}`).style.backgroundColor = `${task['titleBg']}`;
 }
 
 
@@ -143,7 +142,7 @@ function setTitleBg(task){
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
     <div id="taskNumber_${task['id']}" class="task" draggable="true" ondragstart="startDragging(${task['id']})">
-        <span class="task-category" id="task-category">${task['category']}</span>
+        <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title" id="task-title">${task['title']}</span>
         <span class="task-description" id="task-description">${task['description']}</span>
         <div class="task-subtasks">

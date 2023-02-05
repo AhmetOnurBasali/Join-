@@ -3,7 +3,8 @@ let users = [];
 let currentUser = [];
 //let categorys = [];
 let allTasks = [{id: 0}];
-let categoryColor =[];
+let categoryColor = [];
+
 
 function init() {
     loadCurrentUser()
