@@ -48,6 +48,7 @@
 //         title: "Website design",
 //     },
 // ]
+
 let currentDraggedElement;
 let currentAreaOndragover;
 /**
@@ -101,12 +102,15 @@ function renderBoard() {
 
 function renderCreatedTasks(area, task) {
     area.innerHTML += renderCreatedTasksInnerHTML(task);
+    setTitleBg(task);
 }
+
 
 function allowDrop(ev, area) {
     ev.preventDefault();
     currentAreaOndragover = area;
 }
+
 
 function startDragging(id) {
     currentDraggedElement = id;
@@ -122,10 +126,18 @@ function startDragging(id) {
     
 }
 
+
 function moveTo() {
     allTasks[currentDraggedElement]['area'] = currentAreaOndragover;
     renderBoard();
 }
+
+
+function setTitleBg(task){
+    document.getElementById('task-category').style.backgroundColor = `${task['titleBg']}`;
+}
+
+
 
 
 function renderCreatedTasksInnerHTML(task) {
