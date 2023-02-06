@@ -19,6 +19,7 @@
 <script>
     async function initTask() {
         await loadCurrentUser()
+        await loadUsers()
         await loadTasks()
         await loadCategory()
         initTemplates()

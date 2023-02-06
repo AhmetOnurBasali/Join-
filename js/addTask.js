@@ -1,12 +1,22 @@
 let currentCategoryColor = [];
-
-let contacts = [
-  {
-    name: "david",
-    email: "test@test.de",
-    phone: 99999999999,
-  },
-];
+let selectedContacts = [];
+// let allContacts = [
+//   {
+//     name: "Davide Goku",
+//     email: "test@test.de",
+//     phone: 99999999999,
+//   },
+//   {
+//     name: "Ahmet Vegeta",
+//     email: "test@test.de",
+//     phone: 99999999999,
+//   },
+//   {
+//     name: "Philipp Joise",
+//     email: "test@test.de",
+//     phone: 99999999999,
+//   },
+// ];
 
 async function loadTasks() {
   await downloadFromServer();
@@ -377,6 +387,45 @@ function dropColorInInput() {
 
 //
 //Assigned to section//
+function openAssignedTo() {
+  let contactList = document.getElementById("contactList");
+  contactList.classList.toggle("d-none");
+  renderOpenAssignedTo()
+}
+
+function renderOpenAssignedTo() {
+  let contacts = document.getElementById("contacts");
+  contacts.innerHTML = "";
+  for (let i = 0; i < users.length; i++) {
+    let contact = users[i].name;
+    contacts.innerHTML += `
+      <div>
+        <input type="checkbox" id="contact${i}" onclick="selectContact(event,'${contact}')"> ${contact}
+      </div>`;
+  }
+}
+
+function selectContact(event, contact) {
+  let checkbox = event.target;
+  if (checkbox.checked) {
+    selectedContacts.push(contact);
+  } else {
+    selectedContacts.splice(contact, 1);
+  }
+  renderSelectContact();
+}
+
+function renderSelectContact() {
+  let selectedContact = document.getElementById("selectedContact");
+  selectedContact.innerHTML = ``;
+  for (let i = 0; i < selectedContacts.length; i++) {
+    let bgColor = users[i].color
+    selectedContact.innerHTML += `
+    <div class="assignBubble">
+      <div style="background: ${bgColor};">${users[i].initialLetters}</div>
+    </div>`;
+  }
+}
 
 //clear current task//
 function clearTask() {
