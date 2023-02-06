@@ -86,7 +86,7 @@ function addTaskHTML() {
           </div>
           <div class="inputContainer">
             <b>Description</b>
-            <input id="description" type="text" required>
+            <textarea id="description" type="text" required></textarea>
           </div>
           <div id="openCategoryContainer" class="inputContainer">
             <span><b>Category</b></span>
@@ -114,11 +114,23 @@ function addTaskHTML() {
               <div onclick="setColor('Blue')" id="categoryBlue" class="colorCategoryBlue"></div>
             </div>
           </div>
+
+
+
           <div class="inputContainer">
             <b>Assigned to</b> 
-            <input id="assignedTo" type="" required>
+            <div onclick="openAssignedTo()" id="contactDiv" class="openCategoryContainer">Select contact to assign</div>
+              <div id="contactList" class="d-none">
+              <ul id="contacts"></ul>
+            </div>
+            <div id="selectedContact" class="newCategoryDiv"> 
+              <div id="contactInitials"></div>
+            </div>
           </div>
         </div>
+
+        
+
         <div class="rightSection">
           <div class="inputContainer" >
             <b>Due date</b> 

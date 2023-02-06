@@ -9,7 +9,6 @@ async function loadCurrentUser() {
   setGreatingName();
 }
 
-
 async function loadUsers() {
   await downloadFromServer();
   let item = backend.getItem("users");
@@ -21,45 +20,56 @@ async function loadUsers() {
   proofUsers();
 }
 
-
 async function proofUsers() {
   if (users === null) {
     await setGuestUser();
   }
 }
 
-
 async function addUser() {
   // private-daten hashen?
   let newName = addUserName();
   let newColor = addUserColor();
   let newEmail = addUserEmail();
+   let newInitialLetters = getInitialLetters(newName)
   let newPassword = document.getElementById("password");
   if (newEmail && proofName() === true) {
-    await setNewUser(newName, newColor, newEmail, newPassword);
+    await setNewUser(newName, newColor, newEmail, newPassword, newInitialLetters);
   } else {
     console.log();
     ("Überprüfe deine Angaben"); //TODO: vielleicht als text untern dem jeweiligen input
   }
 }
 
+function getInitialLetters(newName) {
 
-async function setNewUser(newName, newColor, newEmail, newPassword) {
-  let currentID = users.length -1;
+let initialFirstName = newName.split(" ")[0][0];
+let initialLastName = newName.split(" ")[1][0];
+let newInitialLetters = initialFirstName + initialLastName;
+   return newInitialLetters
+}
+
+async function setNewUser(newName, newColor, newEmail, newPassword, newInitialLetters) {
+  let currentID = users.length - 1;
   let newID = currentID + 1;
-  let userData = {name: newName, email: newEmail, password: newPassword.value, color: newColor, id: newID};
+  let userData = {
+    name: newName,
+    email: newEmail,
+    password: newPassword.value,
+    color: newColor,
+    id: newID,
+    initialLetters: newInitialLetters
+  };
   await saveNewUser(userData);
   setTimeout(() => {
     window.location.href = "/index.html?msg=Your regrestation was successful";
   }, 500);
 }
 
-
 async function saveNewUser(userData) {
   users.push(userData);
   await backend.setItem("users", users);
 }
-
 
 async function login() {
   let email = setLoginEmail();
@@ -70,12 +80,12 @@ async function login() {
       setCurrentUser(user);
       setTimeout(() => {
         window.location.href = "../html/summary.html";
-      }, 500);}
+      }, 500);
+    }
   } else {
     window.location.href = "/index.html?msg=Email not Found";
   }
 }
-
 
 function proofName() {
   let regName = /^\w+(?: \w+)+$/;
@@ -90,25 +100,21 @@ function proofName() {
   }
 }
 
-
 function getRandomColor() {
   const colors = ["red", "orange", "yellow", "green", "blue", "purple"]; // TODO: mehr variationen?
   return colors[Math.floor(Math.random() * colors.length)];
 }
-
 
 function addUserColor() {
   newColor = getRandomColor();
   return newColor;
 }
 
-
 function addUserName() {
   let name = document.getElementById("name").value.toLowerCase();
   let newName = name.replace(/\b\w/g, (l) => l.toUpperCase());
   return newName;
 }
-
 
 function setLoginPassword() {
   let inputPassword = document.getElementById("password").value;
@@ -120,14 +126,12 @@ function setLoginPassword() {
   }
 }
 
-
 function setCurrentUser(user) {
   currentUser.push(user);
   console.log("user gefunden:", user);
   let userJSON = JSON.stringify(user);
   localStorage.setItem("currentUser", userJSON);
 }
-
 
 function setLoginEmail() {
   let email = document.getElementById("email").value.toLowerCase();
@@ -142,7 +146,6 @@ function setLoginEmail() {
   }
 }
 
-
 function proofEmail() {
   let regEmail = getEmailRegEx();
   let email = document.getElementById("email").value;
@@ -155,7 +158,6 @@ function proofEmail() {
     return true;
   }
 }
-
 
 function addUserEmail() {
   let email = document.getElementById("email").value.toLowerCase();
@@ -175,7 +177,6 @@ function addUserEmail() {
   }
 }
 
-
 function lsRememberMe() {
   if (rmCheck.checked && emailInput.value && passwordInput.value !== "") {
     localStorage.email = emailInput.value;
@@ -188,14 +189,12 @@ function lsRememberMe() {
   }
 }
 
-
 function loginAsGuest() {
   let email = document.getElementById("email");
   email.value = users[0]["email"];
   let password = document.getElementById("password");
   password.value = users[0]["password"];
 }
-
 
 async function setGuestUser() {
   let users = [
@@ -205,11 +204,11 @@ async function setGuestUser() {
       password: "v67rR§F$",
       color: "Black",
       id: 0,
+      initialLetters: "GU"
     },
   ];
   await backend.setItem("users", users);
 }
-
 
 function showLock() {
   var input = document.getElementById("password");
@@ -221,7 +220,6 @@ function showLock() {
   }
 }
 
-
 function showEye() {
   var input = document.getElementById("password");
   if (input.type === "password") {
@@ -231,7 +229,6 @@ function showEye() {
     input.type = "password";
   }
 }
-
 
 function showPassword() {
   let input = document.getElementById("password");
@@ -243,19 +240,16 @@ function showPassword() {
   }
 }
 
-
 function getEmailRegEx() {
   let emailRegex = /^[.-\wäöüÄÖÜ_]+@[A-Za-z]+\.[A-Za-z]{2,}$/;
   return emailRegex;
 }
 
-
 function setGreatingName() {
   try {
     let greatingName = document.getElementById("greatingName");
-  greatingName.innerHTML = currentUser["name"];
+    greatingName.innerHTML = currentUser["name"];
   } catch (error) {
     console.log("no greating on this page");
   }
-  
 }

@@ -13,6 +13,9 @@ h1 {
 b {
   padding: 4px;
 }
+li{
+  list-style-type: none;
+}
 .leftAndRightConatiner {
   display: flex;
   height: 50%;
@@ -144,6 +147,20 @@ input {
   flex: none;
   cursor: pointer;
 }
+textarea{
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  padding: 13px 21px;
+  width: 422px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  flex: none;
+  cursor: pointer;
+}
 
 .openCategoryContainer {
   outline: none;
@@ -151,14 +168,13 @@ input {
   display: flex;
   padding: 13px 21px;
   width: 422px;
-  height: auto;
   background: #ffffff;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
   flex: none;
   cursor: pointer;
   flex-direction: column;
-  height: 41px;
+  height: 43px;
   display: flex;
   justify-content: center;
   padding-left: 17px;
@@ -170,7 +186,7 @@ input {
   display: flex;
   padding-left: 21px;
   width: 422px;
-  height: 42px;
+  height: 43px;
   background: #ffffff;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
@@ -246,6 +262,38 @@ input {
 .dropColorContainerSet{
   position: absolute;
   right: 15%;
+}
+
+
+.assignBubble {
+  display: flex;
+
+}
+
+.assignBubble div:not(:first-child) {
+  margin-left: -5px;
+}
+
+.assignBubble div:nth-child(2) {
+  background-color: #29ABE2 !important;
+}
+
+.assignBubble div:nth-child(3) {
+  background-color: #2A3647 !important;
+}
+
+.assignBubble div {
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid #ffffff;
+  font-weight: 400;
+  font-size: 12px;
 }
 
 #selectedCategory {
@@ -427,4 +475,15 @@ input {
 .slide-top {
   -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: whitesmoke;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2a3647;
+  border-radius: 10px;
 }
