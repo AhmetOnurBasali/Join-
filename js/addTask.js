@@ -54,7 +54,7 @@ function getTaskData(newAera) {
   let titleNew = document.getElementById("title").value;
   let descriptionNew = document.getElementById("description").value;
   let categoryNew = document.getElementById("selectedCategory").innerText;
-  let assignedToNew = document.getElementById("assignedTo").value;
+  let assignedToNew = document.getElementById("contactDiv").innerText;
   let dateNew = document.getElementById("date").value;
   let subtaskNew = document.getElementById("subtask").value;
   return {
@@ -400,29 +400,36 @@ function renderOpenAssignedTo() {
     let contact = users[i].name;
     contacts.innerHTML += `
       <div>
-        <input type="checkbox" id="contact${i}" onclick="selectContact(event,'${contact}')"> ${contact}
+        <input type="checkbox" id="contact" onclick="selectContact(event,'${contact}',${i})"> ${contact}
       </div>`;
   }
 }
 
-function selectContact(event, contact) {
+function selectContact(event, contact, i) {
   let checkbox = event.target;
   if (checkbox.checked) {
     selectedContacts.push(contact);
   } else {
-    selectedContacts.splice(contact, 1);
+    selectedContacts[i].splice(contact);
   }
-  renderSelectContact();
+  renderSelectContact(contact);
 }
+function initialLettersAssignTo(contact) {
 
-function renderSelectContact() {
+  let initialFirstName = contact.split(" ")[0][0];
+  let initialLastName = contact.split(" ")[1][0];
+  let newInitialLetters = initialFirstName + initialLastName;
+     return newInitialLetters
+  }
+function renderSelectContact(contact) {
+    let initials = initialLettersAssignTo(contact) 
   let selectedContact = document.getElementById("selectedContact");
   selectedContact.innerHTML = ``;
   for (let i = 0; i < selectedContacts.length; i++) {
     let bgColor = users[i].color
     selectedContact.innerHTML += `
     <div class="assignBubble">
-      <div style="background: ${bgColor};">${users[i].initialLetters}</div>
+      <div id="assignUsers${i}" name="${users[i].name}" style="background: ${bgColor};">${initials}</div>
     </div>`;
   }
 }

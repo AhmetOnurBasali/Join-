@@ -265,22 +265,17 @@ textarea{
 }
 
 
+
 .assignBubble {
   display: flex;
-
+  padding-left: 6px;
 }
 
 .assignBubble div:not(:first-child) {
   margin-left: -5px;
 }
 
-.assignBubble div:nth-child(2) {
-  background-color: #29ABE2 !important;
-}
 
-.assignBubble div:nth-child(3) {
-  background-color: #2A3647 !important;
-}
 
 .assignBubble div {
   border-radius: 100%;
