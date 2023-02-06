@@ -160,10 +160,6 @@ function highlightArea(areaID){
 }
 
 function disregardArea(){
-    // document.getElementById('tasks-to-do').style.backgroundColor = '#F5F5F5';
-    // document.getElementById('tasks-in-progress').style.backgroundColor = '#F5F5F5';
-    // document.getElementById('tasks-awaiting-feedback').style.backgroundColor = '#F5F5F5';
-    // document.getElementById('tasks-done').style.backgroundColor = '#F5F5F5';
     taskPreview = false;
 }
 
