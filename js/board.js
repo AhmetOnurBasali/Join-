@@ -58,11 +58,11 @@ let taskPreview;
  */
 async function initBoard() {
     await loadTasks(),
-    await init(), 
-    initTemplates(), 
-    
-    renderBoard();
-    
+        await init(),
+        initTemplates(),
+
+        renderBoard();
+
 }
 /**
  * 
@@ -78,27 +78,32 @@ function renderBoard() {
     areaAwaitingFeedback.innerHTML = "";
     areaDone.innerHTML = "";
 
+    try {
+        let todo = allTasks.filter((t) => t["area"] == "todo");
+        for (let i = 0; i < todo.length; i++) {
+            const task = todo[i];
+            renderCreatedTasks(areaToDo, task);
+        }
+        let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
+        for (let i = 0; i < inProgress.length; i++) {
+            const task = inProgress[i];
+            renderCreatedTasks(areaInProgress, task);
+        }
+        let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
+        for (let i = 0; i < awaitingFeedback.length; i++) {
+            const task = awaitingFeedback[i];
+            renderCreatedTasks(areaAwaitingFeedback, task);
+        }
+        let done = allTasks.filter((t) => t["area"] == "done");
+        for (let i = 0; i < done.length; i++) {
+            const task = done[i];
+            renderCreatedTasks(areaDone, task);
+        }
+    } catch (error) {
+        console.log('no Tasks avialable');
+    }
 
-    let todo = allTasks.filter((t) => t["area"] == "todo");
-    for (let i = 0; i < todo.length; i++) {
-        const task = todo[i];
-        renderCreatedTasks(areaToDo, task);
-    }
-    let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
-    for (let i = 0; i < inProgress.length; i++) {
-        const task = inProgress[i];
-        renderCreatedTasks(areaInProgress, task);
-    }
-    let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
-    for (let i = 0; i < awaitingFeedback.length; i++) {
-        const task = awaitingFeedback[i];
-        renderCreatedTasks(areaAwaitingFeedback, task);
-    }
-    let done = allTasks.filter((t) => t["area"] == "done");
-    for (let i = 0; i < done.length; i++) {
-        const task = done[i];
-        renderCreatedTasks(areaDone, task);
-    }
+
 }
 
 function renderCreatedTasks(area, task) {
@@ -107,15 +112,30 @@ function renderCreatedTasks(area, task) {
 }
 
 
-function allowDrop(ev, area) {
+function allowDrop(ev, area, areaID) {
     ev.preventDefault();
     currentAreaOndragover = area;
+    if (area != allTasks[currentDraggedElement]['area'] && taskPreview == false) {
+        highlightArea(areaID);
+    }
+    
+}
+
+function disregardArea() {
+    taskPreview = false;
+}
+
+function highlightArea(areaID) {
+
+    document.getElementById(`${areaID}`).innerHTML += `<div class="task-preview" id="test"></div>`;
+    taskPreview = true;
+
 }
 
 
 function startDragging(id) {
     currentDraggedElement = id;
-    
+
     dragAnimation(id);
 }
 
@@ -128,12 +148,12 @@ async function moveTo() {
 }
 
 
-function setTitleBg(task){
+function setTitleBg(task) {
     document.getElementById(`task-category${task['id']}`).style.backgroundColor = `${task['titleBg']}`;
 }
 
 
-function dragAnimation(id){
+function dragAnimation(id) {
     // document.getElementById(`taskNumber_${task['id']}`).style.backgroundColor = `${task['titleBg']}`;
     // document.getElementById(`taskNumber_${id}`).animate([
     //     // keyframes
@@ -148,25 +168,10 @@ function dragAnimation(id){
 }
 
 
-function highlightArea(areaID){
-    // disregardArea();
-    document.getElementById(`${areaID}`).style.backgroundColor = 'grey';
-    
-    if (taskPreview == false) {
-        document.getElementById(`${areaID}`).innerHTML = `<div class="task-preview" id="test"></div>`;
-        taskPreview = true;
-    }
-    
-}
 
-function disregardArea(){
-    document.getElementById('tasks-to-do').style.backgroundColor = '#F5F5F5';
-    document.getElementById('tasks-in-progress').style.backgroundColor = '#F5F5F5';
-    document.getElementById('tasks-awaiting-feedback').style.backgroundColor = '#F5F5F5';
-    document.getElementById('tasks-done').style.backgroundColor = '#F5F5F5';
-    taskPreview = false;
-    document.getElementById(`${areaID}`).innerHTML = '';
-}
+
+
+
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
