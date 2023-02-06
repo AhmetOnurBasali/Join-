@@ -120,6 +120,7 @@ function startDragging(id) {
     //     duration: 100,
     //     iterations: 1
     //   });
+<<<<<<< HEAD
     
 }
 
@@ -128,6 +129,29 @@ async function moveTo() {
     allTasks[currentDraggedElement]['area'] = currentAreaOndragover;
     renderBoard();
     await backend.setItem("allTasks", allTasks);
+=======
+    // document.getElementById(`taskNumber_${id}`).style.rotate = '10deg';
+}
+
+
+function highlightArea(areaID){
+    // disregardArea();
+    // document.getElementById(`${areaID}`).style.backgroundColor = 'grey';
+    
+    if (taskPreview == false) {
+        document.getElementById(`${areaID}`).innerHTML += `<div class="task-preview" id="test"></div>`;
+        taskPreview = true;
+    }
+    
+}
+
+function disregardArea(){
+    // document.getElementById('tasks-to-do').style.backgroundColor = '#F5F5F5';
+    // document.getElementById('tasks-in-progress').style.backgroundColor = '#F5F5F5';
+    // document.getElementById('tasks-awaiting-feedback').style.backgroundColor = '#F5F5F5';
+    // document.getElementById('tasks-done').style.backgroundColor = '#F5F5F5';
+    taskPreview = false;
+>>>>>>> 561b50aa3478b16c98da27e99f2797f27312c551
 }
 
 
