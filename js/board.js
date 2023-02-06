@@ -51,6 +51,7 @@
 
 let currentDraggedElement;
 let currentAreaOndragover;
+let taskPreview;
 /**
  * This function is used to initialise all functions thats needed for the board page.
  * 
@@ -63,7 +64,10 @@ async function initBoard() {
     renderBoard();
     
 }
-
+/**
+ * 
+ * 
+ */
 function renderBoard() {
     let areaToDo = document.getElementById('tasks-to-do');
     let areaInProgress = document.getElementById('tasks-in-progress');
@@ -111,22 +115,15 @@ function allowDrop(ev, area) {
 
 function startDragging(id) {
     currentDraggedElement = id;
-    // document.getElementById(`taskNumber_${id}`).animate([
-    //     // keyframes
-    //     { transform: 'rotate(20deg)' },
-    //     // { transform: 'translateY(-300px)' }
-    //   ], {
-    //     // timing options
-    //     duration: 100,
-    //     iterations: 1
-    //   });
     
+    dragAnimation(id);
 }
 
 
 async function moveTo() {
     allTasks[currentDraggedElement]['area'] = currentAreaOndragover;
     renderBoard();
+
     await backend.setItem("allTasks", allTasks);
 }
 
@@ -136,11 +133,44 @@ function setTitleBg(task){
 }
 
 
+function dragAnimation(id){
+    // document.getElementById(`taskNumber_${task['id']}`).style.backgroundColor = `${task['titleBg']}`;
+    // document.getElementById(`taskNumber_${id}`).animate([
+    //     // keyframes
+    //     { transform: 'rotate(20deg)' },
+    //     // { transform: 'translateY(-300px)' }
+    //   ], {
+    //     // timing options
+    //     duration: 100,
+    //     iterations: 1
+    //   });
+    // document.getElementById(`taskNumber_${id}`).style.rotate = '10deg';
+}
 
+
+function highlightArea(areaID){
+    // disregardArea();
+    document.getElementById(`${areaID}`).style.backgroundColor = 'grey';
+    
+    if (taskPreview == false) {
+        document.getElementById(`${areaID}`).innerHTML = `<div class="task-preview" id="test"></div>`;
+        taskPreview = true;
+    }
+    
+}
+
+function disregardArea(){
+    document.getElementById('tasks-to-do').style.backgroundColor = '#F5F5F5';
+    document.getElementById('tasks-in-progress').style.backgroundColor = '#F5F5F5';
+    document.getElementById('tasks-awaiting-feedback').style.backgroundColor = '#F5F5F5';
+    document.getElementById('tasks-done').style.backgroundColor = '#F5F5F5';
+    taskPreview = false;
+    document.getElementById(`${areaID}`).innerHTML = '';
+}
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div id="taskNumber_${task['id']}" class="task" draggable="true" ondragstart="startDragging(${task['id']})">
+    <div id="taskNumber_${task['id']}" class="task" draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']})">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title" id="task-title">${task['title']}</span>
         <span class="task-description" id="task-description">${task['description']}</span>
