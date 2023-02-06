@@ -150,22 +150,21 @@ function dragAnimation(id){
 
 function highlightArea(areaID){
     // disregardArea();
-    document.getElementById(`${areaID}`).style.backgroundColor = 'grey';
+    // document.getElementById(`${areaID}`).style.backgroundColor = 'grey';
     
     if (taskPreview == false) {
-        document.getElementById(`${areaID}`).innerHTML = `<div class="task-preview" id="test"></div>`;
+        document.getElementById(`${areaID}`).innerHTML += `<div class="task-preview" id="test"></div>`;
         taskPreview = true;
     }
     
 }
 
 function disregardArea(){
-    document.getElementById('tasks-to-do').style.backgroundColor = '#F5F5F5';
-    document.getElementById('tasks-in-progress').style.backgroundColor = '#F5F5F5';
-    document.getElementById('tasks-awaiting-feedback').style.backgroundColor = '#F5F5F5';
-    document.getElementById('tasks-done').style.backgroundColor = '#F5F5F5';
+    // document.getElementById('tasks-to-do').style.backgroundColor = '#F5F5F5';
+    // document.getElementById('tasks-in-progress').style.backgroundColor = '#F5F5F5';
+    // document.getElementById('tasks-awaiting-feedback').style.backgroundColor = '#F5F5F5';
+    // document.getElementById('tasks-done').style.backgroundColor = '#F5F5F5';
     taskPreview = false;
-    document.getElementById(`${areaID}`).innerHTML = '';
 }
 
 function renderCreatedTasksInnerHTML(task) {
