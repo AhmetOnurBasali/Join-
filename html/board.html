@@ -91,16 +91,16 @@
                 </div>
             </div>
             <div class="tasks">
-                <div class="task-columns" id="tasks-to-do" ondrop="moveTo()" ondragover="allowDrop(event, 'todo', 'tasks-to-do')">
+                <div class="task-columns" id="tasks-to-do" ondrop="moveTo()" ondragleave="disregardArea()" ondragover="allowDrop(event, 'todo', 'tasks-to-do')">
                     
                 </div>
-                <div class="task-columns" id="tasks-in-progress"  ondrop="moveTo()" ondragover="allowDrop(event, 'inProgress', 'tasks-in-progress')">
+                <div class="task-columns" id="tasks-in-progress"  ondrop="moveTo()" ondragleave="disregardArea()" ondragover="allowDrop(event, 'inProgress', 'tasks-in-progress')">
 
                 </div>
-                <div class="task-columns" id="tasks-awaiting-feedback" ondrop="moveTo()" ondragover="allowDrop(event, 'awaitingFeedback', 'tasks-awaiting-feedback')">
+                <div class="task-columns" id="tasks-awaiting-feedback" ondrop="moveTo()" ondragleave="disregardArea()" ondragover="allowDrop(event, 'awaitingFeedback', 'tasks-awaiting-feedback')">
 
                 </div>
-                <div class="task-columns" id="tasks-done" ondrop="moveTo()" ondragover="allowDrop(event, 'done', 'tasks-done')">
+                <div class="task-columns" id="tasks-done" ondrop="moveTo()" ondragleave="disregardArea()" ondragover="allowDrop(event, 'done', 'tasks-done')">
 
                 </div>
             </div>

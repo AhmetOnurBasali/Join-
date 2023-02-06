@@ -52,6 +52,7 @@
 let currentDraggedElement;
 let currentAreaOndragover;
 let taskPreview;
+let taskPreviewRemoved;
 /**
  * This function is used to initialise all functions thats needed for the board page.
  * 
@@ -112,22 +113,36 @@ function renderCreatedTasks(area, task) {
 }
 
 
+function taskPreviewLoaded(){
+    taskPreviewLoaded = true;
+    if (taskPreviewLoaded == true) {
+        
+    }
+}
+
 function allowDrop(ev, area, areaID) {
     ev.preventDefault();
     currentAreaOndragover = area;
     if (area != allTasks[currentDraggedElement]['area'] && taskPreview == false) {
+        if (document.getElementById('task-preview') != null) {
+            document.getElementById('task-preview').remove();
+        }
         highlightArea(areaID);
+    }else if(area == allTasks[currentDraggedElement]['area'] && document.getElementById('task-preview') != null){
+        document.getElementById('task-preview').remove();
+
     }
     
 }
 
 function disregardArea() {
     taskPreview = false;
+    taskPreviewRemoved = true;
 }
 
 function highlightArea(areaID) {
 
-    document.getElementById(`${areaID}`).innerHTML += `<div class="task-preview" id="test"></div>`;
+    document.getElementById(`${areaID}`).innerHTML += `<div class="task-preview" id="task-preview"></div>`;
     taskPreview = true;
 
 }
