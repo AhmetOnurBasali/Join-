@@ -143,9 +143,10 @@ h2 {
 
 .task-preview {
     width: 247px;
-    min-height: 230px;
+    /* min-height: 230px; */
     border-radius: 30px;
-    border: 2px dotted black;
+    border: 2px black;
+    border-style: dashed;
 }
 
 .task-category {
@@ -159,9 +160,12 @@ h2 {
 .task-title {
     font-weight: 700;
     font-size: 16px;
+    word-wrap: break-word;
 }
 
-/* .task-description {} */
+.task-description {
+    word-wrap: break-word;
+}
 
 .task-subtasks {
     display: flex;
