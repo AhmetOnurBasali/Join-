@@ -92,9 +92,9 @@ function addTaskHTML() {
             <span><b>Category</b></span>
             <div id="categoryIsOpen"class="openCategory">
               <div class="dropColorContainerSet d-none" id="dropColorContainerSet"></div>
-              <span id="selectedCategory" class="selectedCategoryText " onclick="openCategory()">select a category</span>
+              <span id="selectedCategory" class="selectedCategoryText" onclick="openCategory()">select a category</span>
               <span id="newCategory" class="allCategorysContainer newCategory d-none" onclick="newCategory()">new category</span>
-              <span id="allCategorys" class="d-none"></span>
+              <span id="allCategorys" class="d-none slide-in-top"></span>
             </div>
           </div>
           <div class="d-none" id="createCategoryContainer">
@@ -120,14 +120,14 @@ function addTaskHTML() {
           <div class="inputContainer">
             <b>Assigned to</b> 
             <div onclick="openAssignedTo()" id="contactDiv" class="openCategoryContainer">Select contact to assign</div>
-              <div id="contactList" class="d-none">
-              <ul id="contacts"></ul>
+              <div class="contactContainer d-none" id="contactList">
+                <div id="contacts"></div>
+                <div id="selectedContact" class="newCategoryDiv"></div>
+              </div>
             </div>
-            <div id="selectedContact" class="newCategoryDiv"> 
-              <div id="contactInitials"></div>
-            </div>
+            <div style="display:flex;" id="contactInitials"></div>
           </div>
-        </div>
+           
 
         
 

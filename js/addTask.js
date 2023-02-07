@@ -1,22 +1,9 @@
+let slideAssignTo = false;
+let slideCategory = false;
+
 let currentCategoryColor = [];
 let selectedContacts = [];
-// let allContacts = [
-//   {
-//     name: "Davide Goku",
-//     email: "test@test.de",
-//     phone: 99999999999,
-//   },
-//   {
-//     name: "Ahmet Vegeta",
-//     email: "test@test.de",
-//     phone: 99999999999,
-//   },
-//   {
-//     name: "Philipp Joise",
-//     email: "test@test.de",
-//     phone: 99999999999,
-//   },
-// ];
+let allContacts = [];
 
 async function loadTasks() {
   await downloadFromServer();
@@ -54,7 +41,6 @@ function getTaskData(newAera) {
   let titleNew = document.getElementById("title").value;
   let descriptionNew = document.getElementById("description").value;
   let categoryNew = document.getElementById("selectedCategory").innerText;
-  let assignedToNew = document.getElementById("contactDiv").innerText;
   let dateNew = document.getElementById("date").value;
   let subtaskNew = document.getElementById("subtask").value;
   return {
@@ -63,7 +49,7 @@ function getTaskData(newAera) {
     description: descriptionNew,
     category: categoryNew,
     titleBg: currentCategoryColor[0],
-    assignedTo: assignedToNew,
+    assignedTo: selectedContacts,
     date: dateNew,
     prio: prioNew,
     subtask: subtaskNew,
@@ -86,7 +72,7 @@ function proofInputs(newTask) {
     console.log("proof creator");
     return false;
   }
-  if (!newTask.assignedTo || !newTask.date || !newTask.subtask) {
+  if (selectedContacts.length === 0 || !newTask.date || !newTask.subtask) {
     console.log("proof assignedTo, subtask");
     return false;
   }
@@ -282,10 +268,38 @@ async function openCategory() {
 
 function toggleOpenFunction() {
   let newCategory = document.getElementById("newCategory");
-  newCategory.classList.toggle("d-none");
   let allCategorys = document.getElementById("allCategorys");
-  allCategorys.classList.toggle("d-none");
+  if (slideCategory === false) {
+    newCategory.classList.toggle("d-none");
+    allCategorys.classList.toggle("d-none");
+    slideInCategory(newCategory, allCategorys);
+  } else {
+    slideOutCategory(newCategory, allCategorys);
+    setTimeout(() => {
+      newCategory.classList.toggle("d-none");
+      allCategorys.classList.toggle("d-none");
+    }, 200);
+  }
 }
+
+
+function slideOutCategory(newCategory, allCategorys) {
+  newCategory.classList.add("slide-out-top");
+  newCategory.classList.remove("slide-in-top");
+  allCategorys.classList.add("slide-out-top");
+  allCategorys.classList.remove("slide-in-top");
+  slideCategory = false;
+}
+
+
+function slideInCategory(newCategory, allCategorys) {
+  newCategory.classList.remove("slide-out-top");
+  newCategory.classList.add("slide-in-top");
+  allCategorys.classList.remove("slide-out-top");
+  allCategorys.classList.add("slide-in-top");
+  slideCategory = true;
+}
+
 
 function newCategory() {
   let openCategory = document.getElementById("openCategoryContainer");
@@ -298,12 +312,14 @@ function newCategory() {
   createCategoryContainer.classList.remove("d-none");
 }
 
+
 function closeNewCategory() {
   let openCategorys = document.getElementById("openCategoryContainer");
   openCategorys.classList.remove("d-none");
   let createCategory = document.getElementById("createCategoryContainer");
   createCategory.classList.add("d-none");
 }
+
 
 async function setNewCategory() {
   let categoryContainer = document.getElementById("createCategoryContainer");
@@ -388,48 +404,77 @@ function dropColorInInput() {
 //
 //Assigned to section//
 function openAssignedTo() {
+  if (slideAssignTo === false) {
+    slideInAssignTo();
+    renderOpenAssignedTo();
+    slideAssignTo = true;
+  } else {
+    slideOutAssignTo();
+  }
+}
+
+function slideOutAssignTo() {
+  let contactDiv = document.getElementById("contactDiv");
+  contactDiv.classList.toggle("noneBottomBorder");
   let contactList = document.getElementById("contactList");
+  contactList.classList.add("slide-out-top");
+  setTimeout(() => {
+    contactList.classList.remove("slide-in-top");
+    contactList.classList.toggle("d-none");
+    slideAssignTo = false;
+  }, 200);
+}
+
+function slideInAssignTo() {
+  let contactDiv = document.getElementById("contactDiv");
+  contactDiv.classList.toggle("noneBottomBorder");
+  let contactList = document.getElementById("contactList");
+  contactList.classList.remove("slide-out-top");
+  contactList.classList.add("slide-in-top");
   contactList.classList.toggle("d-none");
-  renderOpenAssignedTo()
 }
 
 function renderOpenAssignedTo() {
   let contacts = document.getElementById("contacts");
   contacts.innerHTML = "";
   for (let i = 0; i < users.length; i++) {
-    let contact = users[i].name;
+    let contactName = users[i].name;
+    let contactColor = users[i].color;
+    let contactInitials = users[i].initialLetters;
     contacts.innerHTML += `
-      <div>
-        <input type="checkbox" id="contact" onclick="selectContact(event,'${contact}',${i})"> ${contact}
+      <div class="contact">
+        <input type="checkbox" id="contact${i}" onclick="selectContact(event,'${contactName}', '${contactColor}','${contactInitials} ')"> 
+        <div>${contactName}</div>
       </div>`;
   }
 }
 
-function selectContact(event, contact, i) {
+function selectContact(event, contactName, contactColor, contactInitials) {
   let checkbox = event.target;
   if (checkbox.checked) {
+    let contact = {
+      name: contactName,
+      color: contactColor,
+      initial: contactInitials,
+    };
     selectedContacts.push(contact);
   } else {
-    selectedContacts[i].splice(contact);
+    selectedContacts = selectedContacts.filter(
+      (contact) => contact.name !== contactName
+    );
   }
-  renderSelectContact(contact);
+  renderSelectContact();
 }
-function initialLettersAssignTo(contact) {
 
-  let initialFirstName = contact.split(" ")[0][0];
-  let initialLastName = contact.split(" ")[1][0];
-  let newInitialLetters = initialFirstName + initialLastName;
-     return newInitialLetters
-  }
-function renderSelectContact(contact) {
-    let initials = initialLettersAssignTo(contact) 
-  let selectedContact = document.getElementById("selectedContact");
-  selectedContact.innerHTML = ``;
+function renderSelectContact() {
+  let contactInitials = document.getElementById("contactInitials");
+  contactInitials.innerHTML = ``;
   for (let i = 0; i < selectedContacts.length; i++) {
-    let bgColor = users[i].color
-    selectedContact.innerHTML += `
+    let color = selectedContacts[i].color;
+    let initials = selectedContacts[i].initial;
+    contactInitials.innerHTML += `
     <div class="assignBubble">
-      <div id="assignUsers${i}" name="${users[i].name}" style="background: ${bgColor};">${initials}</div>
+      <div style="background: ${color};">${initials}</div>
     </div>`;
   }
 }

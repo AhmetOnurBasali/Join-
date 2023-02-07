@@ -13,7 +13,7 @@ h1 {
 b {
   padding: 4px;
 }
-li{
+li {
   list-style-type: none;
 }
 .leftAndRightConatiner {
@@ -28,7 +28,7 @@ li{
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 48px;
   padding-left: 40px;
   padding-right: 40px;
   width: 100%;
@@ -126,7 +126,6 @@ select {
   box-sizing: border-box;
   display: flex;
   padding: 13px 21px;
-  width: 422px;
   height: auto;
   background: #ffffff;
   border: 1px solid #d1d1d1b6;
@@ -139,7 +138,6 @@ input {
   box-sizing: border-box;
   display: flex;
   padding: 13px 21px;
-  width: 422px;
   height: auto;
   background: #ffffff;
   border: 1px solid #d1d1d1;
@@ -147,13 +145,13 @@ input {
   flex: none;
   cursor: pointer;
 }
-textarea{
+textarea {
   resize: vertical;
   outline: none;
   box-sizing: border-box;
   display: flex;
   padding: 13px 21px;
-  width: 422px;
+  min-height: 43px;
   height: 43px;
   background: #ffffff;
   border: 1px solid #d1d1d1;
@@ -167,7 +165,6 @@ textarea{
   box-sizing: border-box;
   display: flex;
   padding: 13px 21px;
-  width: 422px;
   background: #ffffff;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
@@ -185,7 +182,6 @@ textarea{
   box-sizing: border-box;
   display: flex;
   padding-left: 21px;
-  width: 422px;
   height: 43px;
   background: #ffffff;
   border: 1px solid #d1d1d1;
@@ -200,7 +196,6 @@ textarea{
   outline: none;
   box-sizing: border-box;
   display: flex;
-  width: 422px;
   height: auto;
   background: #ffffff;
   border: 1px solid #d1d1d1;
@@ -254,17 +249,15 @@ textarea{
   padding: 0px 20px;
 }
 
-.dropColorContainer{
+.dropColorContainer {
   position: absolute;
   right: 15%;
 }
 
-.dropColorContainerSet{
+.dropColorContainerSet {
   position: absolute;
   right: 15%;
 }
-
-
 
 .assignBubble {
   display: flex;
@@ -275,7 +268,33 @@ textarea{
   margin-left: -5px;
 }
 
+.contact {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  align-items: center;
+  padding: 0px 20px;
+  height: 34px;
+}
+.contact:hover {
+  background: gray;
+}
+.contactContainer {
+  border: 1px solid #8080805c;
+  border-top: none;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background: white;
+}
 
+.noneBottomBorder {
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom: 0 !important;
+}
 
 .assignBubble div {
   border-radius: 100%;
@@ -447,29 +466,35 @@ textarea{
   fill: white;
 }
 
-@-webkit-keyframes slide-top {
+
+@keyframes slide-in-top {
   0% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
+    transform: translateY(-30px);
+    opacity: 0.75;
   }
   100% {
-    -webkit-transform: translateY(-100px);
-    transform: translateY(-100px);
+    transform: translateY(0);
+    opacity: 1;
   }
 }
-@keyframes slide-top {
+
+.slide-in-top {
+  animation: slide-in-top 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.slide-out-top {
+  animation: slide-out-top 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+@keyframes slide-out-top {
   0% {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
+    opacity: 1;
   }
   100% {
-    -webkit-transform: translateY(-100px);
-    transform: translateY(-100px);
+    transform: translateY(-30px);
+    opacity: 0.75;
   }
-}
-.slide-top {
-  -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 ::-webkit-scrollbar {
