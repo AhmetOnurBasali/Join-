@@ -78,6 +78,10 @@ function progressSubtasks(task){
     return 100/task['subtask'].length*0;
 }
 
+function taskDetails(taskID){
+   document.getElementById(`${taskID}`)
+}
+
 
 function taskPreviewLoaded() {
     taskPreviewLoaded = true;

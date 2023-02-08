@@ -15,7 +15,7 @@ async function includeHTML() {
 async function initTemplates() {
   await includeHTML();
   try {
-    document.getElementById("addTask").innerHTML = addTaskHTML();
+    document.getElementById("addTask").innerHTML = addTaskHTML('todo');
     document.getElementById("header").innerHTML = headerHTML();
     document.getElementById("sidebar").innerHTML = sidebarHTML();
   } catch (error) {
@@ -70,10 +70,11 @@ function sidebarHTML() {
     `;
 }
 
-function addTaskHTML() {
+function addTaskHTML(area) {
+  debugger;
   return /*html*/ `
   <div >
-    <form class="addTaskContainer" onsubmit="createNewTask('todo', event);">
+    <form class="addTaskContainer" onsubmit="createNewTask(area, event);">
       <div class="paddLeRe40px">
         <h1>Add Task</h1>
       </div>
