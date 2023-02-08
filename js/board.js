@@ -75,7 +75,7 @@ function renderAssignTo(task){
 
 
 function progressSubtasks(task){
-    return 100/task['subtask'].length*0;
+    return 100/task['openSubtask'].length*0;
 }
 
 function taskDetails(taskID){
@@ -199,7 +199,7 @@ function renderCreatedTasksInnerHTML(task) {
             <div class="task-subtasks-progressbar">
                 <div style="width: ${progressSubtasks(task)}%;"></div>
             </div>
-            <span class="task-subtasks-progress">1/${task['subtask'].length} Done</span>
+            <span class="task-subtasks-progress">1/${task['openSubtask'].length} Done</span>
         </div>
         <div class="task-assigned-prio">
             <div class="task-assigned-to" id="task-assigned-to${task['id']}">
