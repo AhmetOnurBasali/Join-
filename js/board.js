@@ -1,53 +1,3 @@
-// let allTaskss = [
-//     {
-//         area: "todo",
-//         assignedTo: "Philipp, Davide",
-//         category: "Development",
-//         creator: "Guest User",
-//         date: "2023-02-24",
-//         description: "lorem development lorem development lorem development lorem development lorem development",
-//         id: 0,
-//         prio: "High",
-//         subtask: "",
-//         title: "Website building",
-//     },
-//     {
-//         area: "inProgress",
-//         assignedTo: "Meier",
-//         category: "Sales",
-//         creator: "Guest User",
-//         date: "2023-02-24",
-//         description: "lorem Sales lorem Sales lorem Sales lorem Sales",
-//         id: 1,
-//         prio: "Low",
-//         subtask: "",
-//         title: "Call potencial clients",
-//     },
-//     {
-//         area: "awaitingFeedback",
-//         assignedTo: "Ahmet, Nick",
-//         category: "Check",
-//         creator: "Guest User",
-//         date: "2023-02-24",
-//         description: "lorem Check",
-//         id: 2,
-//         prio: "Normal",
-//         subtask: "",
-//         title: "Website checking",
-//     },
-//     {
-//         area: "done",
-//         assignedTo: "Alina",
-//         category: "Design",
-//         creator: "Guest User",
-//         date: "2023-02-24",
-//         description: "lorem Design lorem Design lorem Design",
-//         id: 3,
-//         prio: "High",
-//         subtask: "Website building",
-//         title: "Website design",
-//     },
-// ]
 
 let currentDraggedElement;
 let currentAreaOndragover;
@@ -106,9 +56,26 @@ function renderBoard() {
 
 }
 
-function renderCreatedTasks(area, task) {
-    area.innerHTML += renderCreatedTasksInnerHTML(task);
+
+async function renderCreatedTasks(area, task) {
+    area.innerHTML +=  renderCreatedTasksInnerHTML(task);
+    renderAssignTo(task);
+    
     setTitleBg(task);
+}
+
+
+function renderAssignTo(task){
+    document.getElementById(`task-assigned-to${task['id']}`).innerHTML = '';
+    for (let i = 0; i < task['assignedTo'].length; i++) {
+        const assignetTo = task['assignedTo'][i]['initial'];
+        document.getElementById(`task-assigned-to${task['id']}`).innerHTML += `<div style="background-color:${task['assignedTo'][i]['color']};">${assignetTo}</div>`;
+    }
+}
+
+
+function progressSubtasks(task){
+    return 100/task['subtask'].length*0;
 }
 
 
@@ -118,6 +85,7 @@ function taskPreviewLoaded() {
 
     }
 }
+
 
 function allowDrop(ev, area, areaID) {
     ev.preventDefault();
@@ -134,10 +102,12 @@ function allowDrop(ev, area, areaID) {
 
 }
 
+
 function disregardArea() {
     taskPreview = false;
     taskPreviewRemoved = true;
 }
+
 
 function highlightArea(areaID) {
     document.getElementById(`${areaID}`).innerHTML += `<div class="task-preview" id="task-preview"></div>`;
@@ -182,7 +152,10 @@ function dragAnimation(id) {
     //     duration: 100,
     //     iterations: 1
     //   });
-    document.getElementById(`taskNumber_${id}`).style.rotate = '10deg';
+    // document.getElementById(`taskNumber_${id}`).style.rotate = '3deg';
+    // document.getElementById(`taskNumber_${id}`).style.opacity = '1';
+    // document.getElementById(`taskNumber_${id}`).style.backgroundColor = 'blue';
+    // document.getElementById(`taskNumber_${id}`).target.style.backgroundColor = "#59F2F7";
     // endDragAnimation();
 }
 
@@ -214,23 +187,23 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div id="taskNumber_${task['id']}" class="task" draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']})">
+    <div onclick="taskDetails('taskNumber_${task['id']}')" id="taskNumber_${task['id']}" class="task" draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
-        <span class="task-title" id="task-title">${task['title']}</span>
-        <span class="task-description" id="task-description">${task['description']}</span>
+        <span class="task-title">${task['title']}</span>
+        <span class="task-description">${task['description']}</span>
         <div class="task-subtasks">
             <div class="task-subtasks-progressbar">
-                <div></div>
+                <div style="width: ${progressSubtasks(task)}%;"></div>
             </div>
-            <span class="task-subtasks-progress">1/2 Done</span>
+            <span class="task-subtasks-progress">1/${task['subtask'].length} Done</span>
         </div>
         <div class="task-assigned-prio">
-            <div class="task-assigned-to">
+            <div class="task-assigned-to" id="task-assigned-to${task['id']}">
                 <div>U1</div>
                 <div>U2</div>
                 <div>U3</div>
             </div>
-            <div class="task-prio" id="task-prio">
+            <div class="task-prio">
                 ${taskPrio(task['prio'])}
             </div>
         </div>

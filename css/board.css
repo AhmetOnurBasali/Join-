@@ -149,6 +149,11 @@ h2 {
     border-style: dashed;
 }
 
+.task:-webkit-drag {
+    background-color: grey !important;
+}
+
+
 .task-category {
     background-color: rgba(0, 0, 0, 0.2);
     color: white;
@@ -182,7 +187,6 @@ h2 {
 
 .task-subtasks-progressbar div {
     border-radius: 2px;
-    width: 50%;
     height: 100%;
     background-color: #29ABE2;
 }
