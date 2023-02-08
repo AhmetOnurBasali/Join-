@@ -133,6 +133,7 @@ select {
   flex: none;
   cursor: pointer;
 }
+
 input {
   outline: none;
   box-sizing: border-box;
@@ -145,6 +146,21 @@ input {
   flex: none;
   cursor: pointer;
 }
+
+.createCategoryInput {
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  padding: 13px 21px;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  flex: none;
+  cursor: pointer;
+}
+
 textarea {
   resize: vertical;
   outline: none;
@@ -249,6 +265,11 @@ textarea {
   padding: 0px 20px;
 }
 
+.overflow{
+    max-height: 140px;
+    overflow: auto;
+}
+
 .dropColorContainer {
   position: absolute;
   right: 15%;
@@ -296,6 +317,44 @@ textarea {
   border-bottom: 0 !important;
 }
 
+.subtaskInputBtnsContainer {
+  position: absolute;
+  display: flex;
+  right: 0;
+  height: 100%;
+  align-items: center;
+}
+
+.acceptNewSubtask {
+  position: absolute;
+  right: 10px;
+  padding: 6px;
+  background-color: white;
+  border: none;
+  border-left: 1px solid gray;
+  cursor: pointer;
+}
+
+.subtaskCheckboxArea {
+  display: flex;
+  padding: 6px 0;
+  flex-direction: column;
+  gap: 6px;
+}
+.closeNewSubtask {
+  position: absolute;
+  right: 34px;
+  padding: 6px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.subtaskPosi {
+  display: flex;
+  grid-gap: 10px;
+}
+
 .assignBubble div {
   border-radius: 100%;
   background-color: rgba(0, 0, 0, 0.2);
@@ -310,6 +369,12 @@ textarea {
   font-size: 12px;
 }
 
+#contactDiv {
+  background-image: url(../assets/img/arrayBottom.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-x: 95%;
+}
 #selectedCategory {
   background-image: url(../assets/img/arrayBottom.svg);
   background-repeat: no-repeat;
@@ -466,6 +531,20 @@ textarea {
   fill: white;
 }
 
+.slide-in-bottom {
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 @keyframes slide-in-top {
   0% {
@@ -499,11 +578,38 @@ textarea {
 
 ::-webkit-scrollbar {
   width: 10px;
-  background-color: whitesmoke;
+  background-color: white;
   border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #2a3647;
   border-radius: 10px;
+}
+
+@media (max-width: 1400px) {
+  .rightSection {
+    width: 300px;
+  }
+  .leftSection {
+    width: 300px;
+  }
+  .checkboxContainer {
+    width: 82px;
+    height: 40px;
+  }
+  .checkboxContainer:hover {
+    width: 83px;
+    height: 40px;
+  }
+
+  .addTaskContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 700px;
+  }
+}
+@media (max-width: 800px) {
 }

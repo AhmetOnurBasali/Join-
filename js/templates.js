@@ -70,7 +70,6 @@ function sidebarHTML() {
     `;
 }
 
-
 function addTaskHTML() {
   return /*html*/ `
   <div >
@@ -90,17 +89,17 @@ function addTaskHTML() {
           </div>
           <div id="openCategoryContainer" class="inputContainer">
             <span><b>Category</b></span>
-            <div id="categoryIsOpen"class="openCategory">
+            <div id="categoryIsOpen"class="openCategory inputContainer">
               <div class="dropColorContainerSet d-none" id="dropColorContainerSet"></div>
               <span id="selectedCategory" class="selectedCategoryText" onclick="openCategory()">select a category</span>
               <span id="newCategory" class="allCategorysContainer newCategory d-none" onclick="newCategory()">new category</span>
-              <span id="allCategorys" class="d-none slide-in-top"></span>
+              <span id="allCategorys" class="d-none slide-in-top overflow"></span>
             </div>
           </div>
           <div class="d-none" id="createCategoryContainer">
           <span><b>Category</b></span>
             <div class="newCategoryDiv">
-              <input name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name">             
+              <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name">             
               <div onclick="closeNewCategory()" class="closeNewCategory">x</div>
               <div onclick="setNewCategory()" class="acceptNewCategory">></div>
               <div class="dropColorContainer d-none" id="dropColorContainer"></div>
@@ -120,7 +119,7 @@ function addTaskHTML() {
           <div class="inputContainer">
             <b>Assigned to</b> 
             <div onclick="openAssignedTo()" id="contactDiv" class="openCategoryContainer">Select contact to assign</div>
-              <div class="contactContainer d-none" id="contactList">
+              <div class="contactContainer d-none overflow" id="contactList">
                 <div id="contacts"></div>
                 <div id="selectedContact" class="newCategoryDiv"></div>
               </div>
@@ -134,7 +133,9 @@ function addTaskHTML() {
         <div class="rightSection">
           <div class="inputContainer" >
             <b>Due date</b> 
+            <!-- maybe switch to div and set regex -->
             <input id="date" type="date" required>
+            <!-- background img Problem -->
           </div>
           <div class="prio">
             <b>Prio</b>
@@ -165,10 +166,21 @@ function addTaskHTML() {
               </div><!--required Problem-->
           </div>
         </div>
-        <div class="inputContainer" >
+
+
+        <div class="inputContainer">
           <b>Subtasks</b> 
-            <input id="subtask" type="" required>
+          <div class="inputContainer">
+            <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text">
+            <div id="subtaskInputBtnsContainer" class="subtaskInputBtnsContainer d-none">
+              <div onclick="closeNewSubtask()" class="closeNewSubtask">x</div>
+              <div onclick="acceptNewSubtask()" class="acceptNewSubtask">></div>
+            </div>
+          </div>
+          <div class="subtaskCheckboxArea overflow" id="subtaskCheckboxArea"></div>
         </div>
+
+
       </div>
     </div>
       <div class="addTaskBtns">
@@ -185,18 +197,16 @@ function addTaskHTML() {
         `;
 }
 
-
 function renderNewCategoryHTML() {
   let createCategory = document.getElementById("createCategory").value;
   let color = currentCategoryColor[0];
-  categoryColor.push({color});
+  categoryColor.push({ color });
   return `
   <div style="width:100%" class="categoryTextColorPosi">
     <span>${createCategory}</span>
     <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
-  </div>`
+  </div>`;
 }
-
 
 function renderCategorysHTML(c, category, color) {
   return `
@@ -206,32 +216,23 @@ function renderCategorysHTML(c, category, color) {
     <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
     </div>
     <div onclick="deleteCategory(${c})">X</div>
-  </div>`
+  </div>`;
 }
 
-
 function chooseCategoryHTML(category, color) {
-  return   `
+  return `
   <div class="categoryTextColorPosi">
     <span onclick="openCategory()">${category}</span>
     <div class="categoryTextColorPosi">
       <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
     </div>
-  </div>`
+  </div>`;
 }
-
 
 function renderOldCategoryHTML(category, color) {
   return `
   <div style="width:100%" class="categoryTextColorPosi">
     <span>${category}</span>
     <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
-  </div>`
+  </div>`;
 }
-
-
-
-
-
-
-

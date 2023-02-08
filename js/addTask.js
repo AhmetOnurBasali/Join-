@@ -2,6 +2,10 @@ let slideAssignTo = false;
 let slideCategory = false;
 
 let currentCategoryColor = [];
+
+let newCreateSubtask = [];
+let newSubtask = [];
+
 let selectedContacts = [];
 let allContacts = [];
 
@@ -42,7 +46,7 @@ function getTaskData(newAera) {
   let descriptionNew = document.getElementById("description").value;
   let categoryNew = document.getElementById("selectedCategory").innerText;
   let dateNew = document.getElementById("date").value;
-  let subtaskNew = document.getElementById("subtask").value;
+  // let subtaskNew = document.getElementById("subtask").value;
   return {
     creator: creatorNew,
     title: titleNew,
@@ -52,7 +56,7 @@ function getTaskData(newAera) {
     assignedTo: selectedContacts,
     date: dateNew,
     prio: prioNew,
-    subtask: subtaskNew,
+    subtask: newSubtask,
     id: currentID,
     area: newAera,
   };
@@ -72,7 +76,11 @@ function proofInputs(newTask) {
     console.log("proof creator");
     return false;
   }
-  if (selectedContacts.length === 0 || !newTask.date || !newTask.subtask) {
+  if (
+    selectedContacts.length === 0 ||
+    !newTask.date ||
+    newSubtask.length === 0
+  ) {
     console.log("proof assignedTo, subtask");
     return false;
   }
@@ -282,7 +290,6 @@ function toggleOpenFunction() {
   }
 }
 
-
 function slideOutCategory(newCategory, allCategorys) {
   newCategory.classList.add("slide-out-top");
   newCategory.classList.remove("slide-in-top");
@@ -291,7 +298,6 @@ function slideOutCategory(newCategory, allCategorys) {
   slideCategory = false;
 }
 
-
 function slideInCategory(newCategory, allCategorys) {
   newCategory.classList.remove("slide-out-top");
   newCategory.classList.add("slide-in-top");
@@ -299,7 +305,6 @@ function slideInCategory(newCategory, allCategorys) {
   allCategorys.classList.add("slide-in-top");
   slideCategory = true;
 }
-
 
 function newCategory() {
   let openCategory = document.getElementById("openCategoryContainer");
@@ -312,14 +317,12 @@ function newCategory() {
   createCategoryContainer.classList.remove("d-none");
 }
 
-
 function closeNewCategory() {
   let openCategorys = document.getElementById("openCategoryContainer");
   openCategorys.classList.remove("d-none");
   let createCategory = document.getElementById("createCategoryContainer");
   createCategory.classList.add("d-none");
 }
-
 
 async function setNewCategory() {
   let categoryContainer = document.getElementById("createCategoryContainer");
@@ -441,9 +444,18 @@ function renderOpenAssignedTo() {
     let contactName = users[i].name;
     let contactColor = users[i].color;
     let contactInitials = users[i].initialLetters;
+    let checked = false;
+    for (let j = 0; j < selectedContacts.length; j++) {
+      if (selectedContacts[j].name === contactName) {
+        checked = true;
+        break;
+      }
+    }
     contacts.innerHTML += `
       <div class="contact">
-        <input type="checkbox" id="contact${i}" onclick="selectContact(event,'${contactName}', '${contactColor}','${contactInitials} ')"> 
+        <input type="checkbox" onclick="selectContact(event,'${contactName}', '${contactColor}','${contactInitials} ')" ${
+      checked ? "checked" : ""
+    }> 
         <div>${contactName}</div>
       </div>`;
   }
@@ -474,8 +486,59 @@ function renderSelectContact() {
     let initials = selectedContacts[i].initial;
     contactInitials.innerHTML += `
     <div class="assignBubble">
-      <div style="background: ${color};">${initials}</div>
+      <div class="slide-in-bottom" style="background: ${color};">${initials}</div>
     </div>`;
+  }
+}
+
+//Subtask section//
+function setNewSubtask() {
+  let subtask = document.getElementById("subtask");
+  let subtaskBtns = document.getElementById("subtaskInputBtnsContainer");
+  if (subtask.value === "") {
+    subtask.style = "background-image: url(../assets/img/plusSubtask.svg);";
+    subtaskBtns.classList.add("d-none");
+  } else {
+    subtaskInputBtnsContainer;
+    subtask.style = "background-image: url();";
+    subtaskBtns.classList.remove("d-none");
+  }
+}
+
+function closeNewSubtask() {
+  let subtaskInput = document.getElementById("subtask");
+  subtaskInput.value = "";
+  setNewSubtask();
+}
+
+function acceptNewSubtask() {
+  let subtaskInput = document.getElementById("subtask");
+  let subtask = subtaskInput.value;
+  if (subtask) {
+    newCreateSubtask.push(subtask);
+  }
+  renderNewSubtask();
+}
+
+function renderNewSubtask() {
+  let subtaskCheckboxArea = document.getElementById("subtaskCheckboxArea");
+  subtaskCheckboxArea.innerHTML = "";
+  for (let i = 0; i < newCreateSubtask.length; i++) {
+    const subtask = newCreateSubtask[i];
+    subtaskCheckboxArea.innerHTML += `
+  <div class="subtaskPosi">
+    <input onclick="checkSubtask(event,'${subtask}')" type="checkbox">
+    <div>${subtask}</div>
+  </div>
+  `;
+  }
+  closeNewSubtask();
+}
+
+function checkSubtask(event, subtask) {
+  let checkbox = event.target;
+  if (checkbox.checked) {
+    newSubtask.push(subtask);
   }
 }
 
@@ -484,17 +547,21 @@ function clearTask() {
   let titleInput = document.getElementById("title");
   let descriptionInput = document.getElementById("description");
   let categoryInput = document.getElementById("createCategory");
-  let assignedToInput = document.getElementById("assignedTo");
   let dateInput = document.getElementById("date");
-  let subtaskInput = document.getElementById("subtask");
+
+  newSubtask = [];
+  newCreateSubtask = [];
+  selectedContacts = [];
   titleInput.value = "";
   descriptionInput.value = "";
   categoryInput.value = "";
-  assignedToInput.value = "";
   dateInput.value = "";
-  subtaskInput.value = "";
   clearPrio(); //TODO: btn´s?
   newCategory();
+  renderSelectContact();
+  renderOpenAssignedTo();
+  closeNewSubtask();
+  acceptNewSubtask();
 }
 
 function clearPrio() {
