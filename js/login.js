@@ -101,7 +101,7 @@ function proofName() {
 }
 
 function getRandomColor() {
-  const colors = ["red", "orange", "yellow", "green", "blue", "purple"]; // TODO: mehr variationen?
+  const colors = ["red", "orange", "chocolate", "green", "blue", "purple"]; // TODO: mehr variationen?
   return colors[Math.floor(Math.random() * colors.length)];
 }
 

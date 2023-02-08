@@ -46,7 +46,9 @@ function getTaskData(newAera) {
   let descriptionNew = document.getElementById("description").value;
   let categoryNew = document.getElementById("selectedCategory").innerText;
   let dateNew = document.getElementById("date").value;
-  // let subtaskNew = document.getElementById("subtask").value;
+  newCreateSubtask = newCreateSubtask.filter(
+    (subtask) => !newSubtask.includes(subtask)
+  );
   return {
     creator: creatorNew,
     title: titleNew,
@@ -56,7 +58,8 @@ function getTaskData(newAera) {
     assignedTo: selectedContacts,
     date: dateNew,
     prio: prioNew,
-    subtask: newSubtask,
+    closedSubtask: newSubtask,
+    openSubtask: newCreateSubtask,
     id: currentID,
     area: newAera,
   };
@@ -278,14 +281,14 @@ function toggleOpenFunction() {
   let newCategory = document.getElementById("newCategory");
   let allCategorys = document.getElementById("allCategorys");
   if (slideCategory === false) {
-    newCategory.classList.toggle("d-none");
-    allCategorys.classList.toggle("d-none");
+    newCategory.classList.remove("d-none");
+    allCategorys.classList.remove("d-none");
     slideInCategory(newCategory, allCategorys);
   } else {
     slideOutCategory(newCategory, allCategorys);
     setTimeout(() => {
-      newCategory.classList.toggle("d-none");
-      allCategorys.classList.toggle("d-none");
+      newCategory.classList.add("d-none");
+      allCategorys.classList.add("d-none");
     }, 200);
   }
 }
@@ -441,34 +444,34 @@ function renderOpenAssignedTo() {
   let contacts = document.getElementById("contacts");
   contacts.innerHTML = "";
   for (let i = 0; i < users.length; i++) {
-    let contactName = users[i].name;
-    let contactColor = users[i].color;
-    let contactInitials = users[i].initialLetters;
-    let checked = false;
-    for (let j = 0; j < selectedContacts.length; j++) {
-      if (selectedContacts[j].name === contactName) {
-        checked = true;
-        break;
-      }
-    }
-    contacts.innerHTML += `
-      <div class="contact">
-        <input type="checkbox" onclick="selectContact(event,'${contactName}', '${contactColor}','${contactInitials} ')" ${
-      checked ? "checked" : ""
-    }> 
-        <div>${contactName}</div>
-      </div>`;
+    checked = false;
+    let assignedData = getAssignedContacts(i);
+    filterRenderBubble(assignedData);
+    contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked);
   }
 }
+
+function filterRenderBubble(assignedData) {
+  for (let j = 0; j < selectedContacts.length; j++) {
+    if (selectedContacts[j].name === assignedData.contactName) {
+      checked = true;
+      break;
+    }
+  }
+}
+
+function getAssignedContacts(i) {
+  let contactName = users[i].name;
+  let contactColor = users[i].color;
+  let contactInitials = users[i].initialLetters;
+  return { contactName, contactColor, contactInitials };
+}
+
 
 function selectContact(event, contactName, contactColor, contactInitials) {
   let checkbox = event.target;
   if (checkbox.checked) {
-    let contact = {
-      name: contactName,
-      color: contactColor,
-      initial: contactInitials,
-    };
+    let contact = {name: contactName, color: contactColor, initial: contactInitials};
     selectedContacts.push(contact);
   } else {
     selectedContacts = selectedContacts.filter(
@@ -478,18 +481,17 @@ function selectContact(event, contactName, contactColor, contactInitials) {
   renderSelectContact();
 }
 
+
 function renderSelectContact() {
   let contactInitials = document.getElementById("contactInitials");
   contactInitials.innerHTML = ``;
   for (let i = 0; i < selectedContacts.length; i++) {
     let color = selectedContacts[i].color;
     let initials = selectedContacts[i].initial;
-    contactInitials.innerHTML += `
-    <div class="assignBubble">
-      <div class="slide-in-bottom" style="background: ${color};">${initials}</div>
-    </div>`;
+    contactInitials.innerHTML += renderSelectContactHTML(color, initials);
   }
 }
+
 
 //Subtask section//
 function setNewSubtask() {
@@ -525,12 +527,7 @@ function renderNewSubtask() {
   subtaskCheckboxArea.innerHTML = "";
   for (let i = 0; i < newCreateSubtask.length; i++) {
     const subtask = newCreateSubtask[i];
-    subtaskCheckboxArea.innerHTML += `
-  <div class="subtaskPosi">
-    <input onclick="checkSubtask(event,'${subtask}')" type="checkbox">
-    <div>${subtask}</div>
-  </div>
-  `;
+    subtaskCheckboxArea.innerHTML += renderNewSubtaskHTML(subtask);
   }
   closeNewSubtask();
 }
@@ -544,11 +541,20 @@ function checkSubtask(event, subtask) {
 
 //clear current task//
 function clearTask() {
+  clearPrio();
+  newCategory();
+  closeNewSubtask();
+  acceptNewSubtask();
+  clearDataAndInputs();
+  renderSelectContact();
+  renderOpenAssignedTo();
+}
+
+function clearDataAndInputs() {
   let titleInput = document.getElementById("title");
   let descriptionInput = document.getElementById("description");
   let categoryInput = document.getElementById("createCategory");
   let dateInput = document.getElementById("date");
-
   newSubtask = [];
   newCreateSubtask = [];
   selectedContacts = [];
@@ -556,27 +562,45 @@ function clearTask() {
   descriptionInput.value = "";
   categoryInput.value = "";
   dateInput.value = "";
-  clearPrio(); //TODO: btn´s?
-  newCategory();
-  renderSelectContact();
-  renderOpenAssignedTo();
-  closeNewSubtask();
-  acceptNewSubtask();
 }
 
 function clearPrio() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
   let lowBtn = document.getElementById("lowBtn");
-  if (urgentBtn.checked === true) {
-    urgentBtn.checked = false;
-  }
-  if (mediumBtn.checked === true) {
-    mediumBtn.checked = false;
-  }
-  if (lowBtn.checked === true) {
-    lowBtn.checked = false;
-  }
+  urgentBtn.checked = false;
+  mediumBtn.checked = false;
+  lowBtn.checked = false;
+  clearPrioText();
+  clearPrioBtnWhite();
+  clearPrioSVG();
+}
+
+function clearPrioText() {
+  let lowPrioText = document.getElementById("lowPrioText");
+  let normalPrioText = document.getElementById("normalPrioText");
+  let highPrioText = document.getElementById("highPrioText");
+  lowPrioText.style = "color: black;";
+  normalPrioText.style = "color: black;";
+  highPrioText.style = "color: black;";
+}
+
+function clearPrioBtnWhite() {
+  let highBtnContainer = document.getElementById("highBtnContainer");
+  let normalBtnContainer = document.getElementById("normalBtnContainer");
+  let lowContainer = document.getElementById("lowBtnContainer");
+  lowContainer.classList.remove("prioLowContainerOnClick");
+  highBtnContainer.classList.remove("prioHighContainerOnClick");
+  normalBtnContainer.classList.remove("prioNormalContainerOnClick");
+}
+
+function clearPrioSVG() {
+  let svgLowColor = document.getElementById("svgLow");
+  let svgNormalColor = document.getElementById("svgNormal");
+  let svgHighColor = document.getElementById("svgHigh");
+  svgLowColor.classList.remove("prioIconWhite");
+  svgNormalColor.classList.remove("prioIconWhite");
+  svgHighColor.classList.remove("prioIconWhite");
 }
 
 //-später für Task done-//

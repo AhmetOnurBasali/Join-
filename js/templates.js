@@ -236,3 +236,32 @@ function renderOldCategoryHTML(category, color) {
     <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
   </div>`;
 }
+
+
+function renderNewSubtaskHTML(subtask) {
+  return `
+  <div class="subtaskPosi">
+    <input onclick="checkSubtask(event,'${subtask}')" type="checkbox">
+    <div>${subtask}</div>
+  </div>
+  `;
+}
+
+
+function renderSelectContactHTML(color, initials) {
+  return `
+  <div class="assignBubble">
+    <div class="slide-in-bottom" style="background: ${color};">${initials}</div>
+  </div>`;
+}
+
+function renderOpenAssignedToHTML(assignedData, checked) {
+  let contactName = assignedData.contactName
+  let contactColor = assignedData.contactColor
+  let contactInitials = assignedData.contactInitials
+  return `
+  <div class="contact">
+    <input type="checkbox" onclick="selectContact(event,'${contactName}', '${contactColor}','${contactInitials} ')" ${checked ? "checked" : ""}> 
+    <div>${contactName}</div>
+  </div>`;
+}
