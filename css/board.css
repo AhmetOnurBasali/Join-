@@ -236,3 +236,10 @@ h2 {
 .task-prio {
     padding: 10px;
 }
+
+.add-Task-Popup {
+    /* display: flex;
+    justify-content: center; */
+    z-index: 3;
+
+}

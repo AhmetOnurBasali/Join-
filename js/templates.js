@@ -71,7 +71,6 @@ function sidebarHTML() {
 }
 
 function addTaskHTML(area) {
-  debugger;
   return /*html*/ `
   <div >
     <form class="addTaskContainer" onsubmit="createNewTask(area, event);">
