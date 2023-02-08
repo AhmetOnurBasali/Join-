@@ -159,6 +159,7 @@ input {
   border-radius: 10px;
   flex: none;
   cursor: pointer;
+  padding-right: 100px;
 }
 
 textarea {

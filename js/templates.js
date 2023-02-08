@@ -71,9 +71,8 @@ function sidebarHTML() {
 }
 
 function addTaskHTML(area) {
-  debugger;
   return /*html*/ `
-  <div >
+  <div>
     <form class="addTaskContainer" onsubmit="createNewTask(area, event);">
       <div class="paddLeRe40px">
         <h1>Add Task</h1>
@@ -184,15 +183,7 @@ function addTaskHTML(area) {
 
       </div>
     </div>
-      <div class="addTaskBtns">
-        <div class="paddLeRe40px">
-          <div class="whiteBtn" onclick="clearTask()">Clear x</div>
-        </div>
-          <div>
-            <button class="blueBtn">Create Task</button>
-          </div>
-        </div> 
-      </div>
+     
     </form>
   </div>
         `;
