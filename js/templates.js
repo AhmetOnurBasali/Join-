@@ -99,7 +99,7 @@ function addTaskHTML(area) {
           <div class="d-none" id="createCategoryContainer">
           <span><b>Category</b></span>
             <div class="newCategoryDiv">
-              <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name">             
+              <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name" maxlength="20">             
               <div onclick="closeNewCategory()" class="closeNewCategory">x</div>
               <div onclick="setNewCategory()" class="acceptNewCategory">></div>
               <div class="dropColorContainer d-none" id="dropColorContainer"></div>
@@ -171,7 +171,7 @@ function addTaskHTML(area) {
         <div class="inputContainer">
           <b>Subtasks</b> 
           <div class="inputContainer">
-            <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text">
+            <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text" maxlength="20">
             <div id="subtaskInputBtnsContainer" class="subtaskInputBtnsContainer d-none">
               <div onclick="closeNewSubtask()" class="closeNewSubtask">x</div>
               <div onclick="acceptNewSubtask()" class="acceptNewSubtask">></div>
@@ -261,7 +261,7 @@ function renderOpenAssignedToHTML(assignedData, checked) {
   let contactInitials = assignedData.contactInitials
   return `
   <div class="contact">
-    <input type="checkbox" onclick="selectContact(event,'${contactName}', '${contactColor}','${contactInitials} ')" ${checked ? "checked" : ""}> 
+    <input id="contact" class="contactCheckbox" type="checkbox" onclick="selectContact(event,'${contactName}', '${contactColor}','${contactInitials} ')" ${checked ? "checked" : ""}> 
     <div>${contactName}</div>
   </div>`;
 }
