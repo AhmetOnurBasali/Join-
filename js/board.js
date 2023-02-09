@@ -164,6 +164,20 @@ function dragAnimation(id) {
 }
 
 
+function addTaskBoard(){
+    document.getElementById('popup-add-task-board').classList.remove('d-none');
+    document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
+}
+
+
+function addTaskHTMLBoard(){
+    return `<div class="whiteBtn" onclick="closeAddTaskBoard()">Close <img src="../assets/img/clear.svg"></div>`;
+}
+
+
+function closeAddTaskBoard(){
+    document.getElementById('popup-add-task-board').classList.add('d-none');
+}
 
 function taskPrio(prio) {
     switch (prio) {
@@ -199,7 +213,7 @@ function renderCreatedTasksInnerHTML(task) {
             <div class="task-subtasks-progressbar">
                 <div style="width: ${progressSubtasks(task)}%;"></div>
             </div>
-            <span class="task-subtasks-progress">1/${task['openSubtask'].length} Done</span>
+            <span class="task-subtasks-progress">0/${task['openSubtask'].length+task['closedSubtask'].length} Done</span>
         </div>
         <div class="task-assigned-prio">
             <div class="task-assigned-to" id="task-assigned-to${task['id']}">

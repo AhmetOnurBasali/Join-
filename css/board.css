@@ -237,9 +237,34 @@ h2 {
     padding: 10px;
 }
 
-.add-Task-Popup {
-    /* display: flex;
-    justify-content: center; */
+.bg-popup{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
     z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-task-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1200px;
+    height: 950px;
+    background-color: white;
+    border-radius: 30px;
+}
+
+
+@media(max-width:1200px){
+    .add-task-popup{
+        width: 800px;
+        height: 800px;
+    }
 
 }
