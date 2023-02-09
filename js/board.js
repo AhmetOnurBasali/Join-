@@ -7,11 +7,12 @@ let taskPreview;
  * 
  */
 async function initBoard() {
-    await loadTasks(),
-        await init(),
-        initTemplates(),
-
-        renderBoard();
+    await loadTasks();
+    await init();
+    await loadUsers();
+    await initTemplates();
+    
+    renderBoard();
 
 }
 /**
@@ -58,14 +59,14 @@ function renderBoard() {
 
 
 async function renderCreatedTasks(area, task) {
-    area.innerHTML +=  renderCreatedTasksInnerHTML(task);
+    area.innerHTML += renderCreatedTasksInnerHTML(task);
     renderAssignTo(task);
-    
+
     setTitleBg(task);
 }
 
 
-function renderAssignTo(task){
+function renderAssignTo(task) {
     document.getElementById(`task-assigned-to${task['id']}`).innerHTML = '';
     for (let i = 0; i < task['assignedTo'].length; i++) {
         const assignetTo = task['assignedTo'][i]['initial'];
@@ -74,12 +75,12 @@ function renderAssignTo(task){
 }
 
 
-function progressSubtasks(task){
-    return 100/task['openSubtask'].length*0;
+function progressSubtasks(task) {
+    return 100 / task['openSubtask'].length * 0;
 }
 
-function taskDetails(taskID){
-   document.getElementById(`${taskID}`)
+function taskDetails(taskID) {
+    document.getElementById(`${taskID}`)
 }
 
 
@@ -164,19 +165,23 @@ function dragAnimation(id) {
 }
 
 
-function addTaskBoard(){
+function addTaskBoard() {
     document.getElementById('popup-add-task-board').classList.remove('d-none');
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 }
 
 
-function addTaskHTMLBoard(){
+function addTaskHTMLBoard() {
     return `<div class="whiteBtn" onclick="closeAddTaskBoard()">Close <img src="../assets/img/clear.svg"></div>`;
 }
 
 
-function closeAddTaskBoard(){
+function closeAddTaskBoard() {
     document.getElementById('popup-add-task-board').classList.add('d-none');
+}
+
+function doNotCloseAddTaskBoard(event) {
+    event.stopPropagation();
 }
 
 function taskPrio(prio) {
@@ -213,7 +218,7 @@ function renderCreatedTasksInnerHTML(task) {
             <div class="task-subtasks-progressbar">
                 <div style="width: ${progressSubtasks(task)}%;"></div>
             </div>
-            <span class="task-subtasks-progress">0/${task['openSubtask'].length+task['closedSubtask'].length} Done</span>
+            <span class="task-subtasks-progress">0/${task['openSubtask'].length + task['closedSubtask'].length} Done</span>
         </div>
         <div class="task-assigned-prio">
             <div class="task-assigned-to" id="task-assigned-to${task['id']}">

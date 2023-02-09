@@ -17,19 +17,6 @@
     <script src="../js/login.js"></script>
 </head>
 
-<script>
-    let area = "todo"
-    
-    async function initTask() {
-        await loadCurrentUser()
-        await loadUsers()
-        await loadTasks()
-        await loadCategory()
-       await initTemplates()
-    }
-</script>
-
-
 
 <body onload="initTask()">
 
