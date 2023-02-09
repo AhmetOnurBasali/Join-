@@ -12,10 +12,10 @@ async function includeHTML() {
   }
 }
 
-async function initTemplates() {
+async function initTemplates(area) { 
   await includeHTML();
   try {
-    document.getElementById("addTask").innerHTML = addTaskHTML('todo');
+    document.getElementById("addTask").innerHTML = addTaskHTML(area);
     document.getElementById("header").innerHTML = headerHTML();
     document.getElementById("sidebar").innerHTML = sidebarHTML();
   } catch (error) {
@@ -183,7 +183,15 @@ function addTaskHTML(area) {
 
       </div>
     </div>
-     
+      <div class="addTaskBtns">
+        <div class="paddLeRe40px">
+          <div class="whiteBtn" onclick="clearTask()">Clear x</div>
+        </div>
+          <div>
+            <button class="blueBtn">Create Task</button>
+          </div>
+        </div> 
+      </div>
     </form>
   </div>
         `;
