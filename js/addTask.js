@@ -613,6 +613,3 @@ function clearPrioSVG() {
 //  await backend.setItem("allTasks", JSON.stringify(categorys));
 //  renderCategorys();
 //}
-document.getElementById("datepicker").addEventListener("click", function() {
-  this.type = "date";
-});

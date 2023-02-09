@@ -18,6 +18,10 @@ b {
   padding: 4px;
 }
 
+.padd4px{
+  padding: 4px;
+}
+
 li {
   list-style-type: none;
 }
@@ -48,7 +52,7 @@ li {
   padding-left: 40px;
   padding-right: 40px;
   width: 100%;
-  gap: 42px
+  gap: 48px
 }
 
 .prio {
@@ -83,7 +87,7 @@ li {
   background: white;
   border-radius: 10px;
   width: 136px;
-  height: 52px;
+  height: 47px;
   justify-content: space-evenly;
   box-shadow: 0px 0px 4px rgb(0 0 0 / 10%);
 }
@@ -91,7 +95,7 @@ li {
 .checkboxContainer:hover {
   cursor: pointer;
   width: 138px;
-  height: 54px;
+  height: 48px;
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
@@ -401,7 +405,7 @@ textarea {
   background-repeat: no-repeat;
   background-position: right;
   background-position-x: 95%;
-  height: 47px;
+  min-height: 47px;
 }
 
 #assignedTo {

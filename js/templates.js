@@ -88,7 +88,9 @@ function addTaskHTML(area) {
             <textarea id="description" type="text" required></textarea>
           </div>
           <div id="openCategoryContainer" class="inputContainer">
-            <span><b>Category</b></span>
+            <span class="padd4px">
+              <b>Category</b>
+            </span>
             <div id="categoryIsOpen"class="openCategory inputContainer">
               <div class="dropColorContainerSet d-none" id="dropColorContainerSet"></div>
               <span id="selectedCategory" class="selectedCategoryText" onclick="openCategory()">select a category</span>
