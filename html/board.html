@@ -24,7 +24,7 @@
 <body onload="initBoard()">
     <div id="header"></div>
     <div id="sidebar"></div>
-    <section class="bg-popup">
+    <section id="popup-add-task-board" class="bg-popup d-none">
     <div id="addTask" class="add-task-popup"></div>
     </section>
 
@@ -33,11 +33,11 @@
             <h1>Board</h1>
             <input class="find-task" type="search" placeholder="Find Task">
             <div class="parting-line"></div>
-            <button class="add-task">Add task +</button>
+            <button onclick="addTaskHTML('todo'), addTaskBoard()" class="add-task">Add task +</button>
         </div>
         <div class="board-tasks-section">
             <div class="tasks-headlines">
-                <div onclick="addTaskHTML('todo')">
+                <div onclick="addTaskHTML('todo'), addTaskBoard()">
                     <span>To do</span>
                     <div class="button-add-task">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +51,7 @@
                     </div>
 
                 </div>
-                <div onclick="addTaskHTML('inProgress')">
+                <div onclick="addTaskHTML('inProgress'), addTaskBoard()">
                     <span>In progress</span>
                     <div class="button-add-task">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +65,7 @@
                     </div>
 
                 </div>
-                <div onclick="addTaskHTML('awaitingFeedback')">
+                <div onclick="addTaskHTML('awaitingFeedback'), addTaskBoard()">
                     <span>Awaiting Feedback</span>
                     <div class="button-add-task">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +79,7 @@
                     </div>
 
                 </div>
-                <div onclick="addTaskHTML('done')">
+                <div onclick="addTaskHTML('done'), addTaskBoard()">
                     <span>Done</span>
                     <div class="button-add-task">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

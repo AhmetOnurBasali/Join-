@@ -77,7 +77,7 @@ function addTaskHTML(area) {
       <div class="paddLeRe40px">
         <h1>Add Task</h1>
       </div>
-      <div class="leftAndRightConatiner">    
+      <div class="leftAndRightContainer">    
         <div class="leftSection">
           <div class="inputContainer">
             <b>Title</b> 
@@ -184,11 +184,11 @@ function addTaskHTML(area) {
       </div>
     </div>
       <div class="addTaskBtns">
-        <div class="paddLeRe40px">
-          <div class="whiteBtn" onclick="clearTask()">Clear x</div>
+        <div class="paddLeRe40px" id="close-add-task">
+          <div class="whiteBtn" onclick="clearTask()">Clear <img src="../assets/img/clear.svg"></div>
         </div>
           <div>
-            <button class="blueBtn">Create Task</button>
+            <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
           </div>
         </div> 
       </div>

@@ -259,3 +259,12 @@ h2 {
     background-color: white;
     border-radius: 30px;
 }
+
+
+@media(max-width:1200px){
+    .add-task-popup{
+        width: 800px;
+        height: 800px;
+    }
+
+}
