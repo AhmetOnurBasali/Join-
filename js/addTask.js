@@ -9,19 +9,19 @@ let newSubtask = [];
 let selectedContacts = [];
 let allContacts = [];
 
-let newArea;
+// 
 
-async function initTask() {
-  await loadCurrentUser();
-  await loadUsers();
-  await loadTasks();
-  await loadCategory();
-  await initTemplates();
-}
+// async function initTask() {
+//   await loadCurrentUser();
+//   await loadUsers();
+//   await loadTasks();
+//   await loadCategory();
+//   await initTemplates();
+// }
 
-function loadAddTask() {
-  newArea = "todo";
-}
+// function loadAddTask() {
+//   newArea = "todo";
+// }
 
 async function loadTasks() {
   await downloadFromServer();
@@ -37,10 +37,10 @@ async function createNewTask(event) {
   await proofEventAndTasksJSON(event);
   let newTask = getTaskData(newArea);
   let proof = proofInputs(newTask);
-  if (proof === true) {
+ // if (proof === true) {
     setTaskData(newTask);
   }
-}
+//}
 
 async function proofEventAndTasksJSON(event) {
   if (event) {

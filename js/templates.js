@@ -12,10 +12,10 @@ async function includeHTML() {
   }
 }
 
-async function initTemplates(area) { 
+async function initTemplates() { 
   await includeHTML();
   try {
-    document.getElementById("addTask").innerHTML = addTaskHTML(area);
+    document.getElementById("addTask").innerHTML = addTaskHTML();
     document.getElementById("header").innerHTML = headerHTML();
     document.getElementById("sidebar").innerHTML = sidebarHTML();
   } catch (error) {
@@ -70,10 +70,10 @@ function sidebarHTML() {
     `;
 }
 
-function addTaskHTML(area) {
+function addTaskHTML() {
   return /*html*/ `
   <div>
-    <form class="addTaskContainer" onsubmit="createNewTask(area, event);">
+    <form class="addTaskContainer" onsubmit="createNewTask(event);">
       <div class="paddLeRe40px">
         <h1>Add Task</h1>
       </div>
@@ -265,5 +265,6 @@ function renderOpenAssignedToHTML(assignedData, checked, i) {
   <div id="contact${i}" class="contact" onclick="document.getElementById('contactCheckbox${i}').click(); ">
     <input id="contactCheckbox${i}" onclick="selectContact('${contactName}','${contactColor}','${contactInitials}',${i})" class="contactCheckbox" type="checkbox" ${checked ? "checked" : ""}> 
     <div>${contactName}</div>
-  </div>`;
+  </div>
+  `;
 }

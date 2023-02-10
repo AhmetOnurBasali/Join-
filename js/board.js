@@ -2,6 +2,7 @@
 let currentDraggedElement;
 let currentAreaOndragover;
 let taskPreview;
+let newArea;
 /**
  * This function is used to initialise all functions thats needed for the board page.
  * 
