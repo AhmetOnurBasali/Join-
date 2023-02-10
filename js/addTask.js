@@ -9,19 +9,6 @@ let newSubtask = [];
 let selectedContacts = [];
 let allContacts = [];
 
-// 
-
-// async function initTask() {
-//   await loadCurrentUser();
-//   await loadUsers();
-//   await loadTasks();
-//   await loadCategory();
-//   await initTemplates();
-// }
-
-// function loadAddTask() {
-//   newArea = "todo";
-// }
 
 async function loadTasks() {
   await downloadFromServer();

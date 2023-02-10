@@ -24,9 +24,14 @@
 <body onload="initBoard()">
     <div id="header"></div>
     <div id="sidebar"></div>
+    <!-- Add new task -->
     <section onclick="closeAddTaskBoard()" id="popup-add-task-board" class="bg-popup d-none">
     <div onclick="event.stopPropagation()" id="addTask" class="add-task-popup"></div>
     </section>
+    <!-- Open selected task details -->
+    <section onclick="closeTaskDetails()" id="popup-task-details" class="bg-popup d-none">
+        <div onclick="event.stopPropagation()" id="task-details" class="task-details-popup"></div>
+        </section>
 
     <section class="board">
         <div class="headline">
