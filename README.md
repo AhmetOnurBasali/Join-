@@ -41,5 +41,4 @@ function addUser() {
 3. Onclick Funktion von Aside Header 'loadAddTask()' verwendet um globale variable -> newArea Zeile 12 von addTask.js standardmäßig Zeile 22-24 "todo" zuzuweisen und 
 
 
-
 5. Header und Aside header z-index auf 2 damit immer über text

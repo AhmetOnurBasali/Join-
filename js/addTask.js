@@ -505,15 +505,8 @@ function renderSelectContact() {
   }
 }
 
-
 //Subtask section//
-// function renderCheckBox(i, contactName, contactColor, contactInitials){
-//   let eventSet = document.getElementById(`contactCheckbox${i}`)
-//   eventSet.checked = true
-//   let event = eventSet
-//   console.log(event);
-//   selectContact(event, contactName, contactColor, contactInitials)
-//  }
+
 function setNewSubtask() {
   let subtask = document.getElementById("subtask");
   let subtaskBtns = document.getElementById("subtaskInputBtnsContainer");
