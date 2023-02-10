@@ -102,8 +102,8 @@ function addTaskHTML(area) {
           <span><b>Category</b></span>
             <div class="newCategoryDiv">
               <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name" maxlength="20">             
-              <div onclick="closeNewCategory()" class="closeNewCategory">x</div>
-              <div onclick="setNewCategory()" class="acceptNewCategory">></div>
+              <div onclick="closeNewCategory()" class="closeNewCategory">x<img src="../assets/img/inputBack.svg"></div>
+              <div onclick="setNewCategory()" class="acceptNewCategory">><img src="../assets/img/inputAccept.svg"></div>
               <div class="dropColorContainer d-none" id="dropColorContainer"></div>
             </div>
             <div class="colorCategoryContainer">
@@ -175,8 +175,8 @@ function addTaskHTML(area) {
           <div class="inputContainer">
             <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text" maxlength="20">
             <div id="subtaskInputBtnsContainer" class="subtaskInputBtnsContainer d-none">
-              <div onclick="closeNewSubtask()" class="closeNewSubtask">x</div>
-              <div onclick="acceptNewSubtask()" class="acceptNewSubtask">></div>
+              <div onclick="closeNewSubtask()" class="closeNewSubtask">x<img src="../assets/img/inputBack.svg"></div>
+              <div onclick="acceptNewSubtask()" class="acceptNewSubtask">><img src="../assets/img/inputAccept.svg"></div>
             </div>
           </div>
           <div class="subtaskCheckboxArea overflow" id="subtaskCheckboxArea"></div>
@@ -187,7 +187,7 @@ function addTaskHTML(area) {
     </div>
       <div class="addTaskBtns">
         <div class="paddLeRe40px" id="close-add-task">
-          <div class="whiteBtn" onclick="clearTask()">Clear <img src="../assets/img/clear.svg"></div>
+          <div class="whiteBtn" onclick="clearTask()">Clear<img src="../assets/img/clear.svg"></div>
         </div>
           <div>
             <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
@@ -257,13 +257,13 @@ function renderSelectContactHTML(color, initials) {
   </div>`;
 }
 
-function renderOpenAssignedToHTML(assignedData, checked) {
+function renderOpenAssignedToHTML(assignedData, checked, i) {
   let contactName = assignedData.contactName
   let contactColor = assignedData.contactColor
   let contactInitials = assignedData.contactInitials
   return `
-  <div class="contact">
-    <input id="contact" class="contactCheckbox" type="checkbox" onclick="selectContact(event,'${contactName}', '${contactColor}','${contactInitials} ')" ${checked ? "checked" : ""}> 
-    <div>${contactName}</div>
-  </div>`;
+  <div id="contact${i}" class="contact" onclick="document.getElementById('contactCheckbox${i}').click(); selectContact('${contactName}','${contactColor}','${contactInitials}',${i})">
+  <input id="contactCheckbox${i}" class="contactCheckbox" type="checkbox" ${checked ? "checked" : ""}> 
+  <div>${contactName}</div>
+</div>`;
 }

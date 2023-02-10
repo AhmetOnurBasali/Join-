@@ -447,7 +447,7 @@ function renderOpenAssignedTo() {
     checked = false;
     let assignedData = getAssignedContacts(i);
     filterRenderBubble(assignedData);
-    contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked);
+    contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i);
   }
 }
 
@@ -468,8 +468,8 @@ function getAssignedContacts(i) {
 }
 
 
-function selectContact(event, contactName, contactColor, contactInitials) {
-  let checkbox = event.target;
+function selectContact(contactName, contactColor, contactInitials, i) {
+  let checkbox = document.getElementById(`contactCheckbox${i}`);
   if (checkbox.checked) {
     let contact = {name: contactName, color: contactColor, initial: contactInitials};
     selectedContacts.push(contact);
@@ -480,7 +480,6 @@ function selectContact(event, contactName, contactColor, contactInitials) {
   }
   renderSelectContact();
 }
-
 
 function renderSelectContact() {
   let contactInitials = document.getElementById("contactInitials");
@@ -494,6 +493,13 @@ function renderSelectContact() {
 
 
 //Subtask section//
+// function renderCheckBox(i, contactName, contactColor, contactInitials){
+//   let eventSet = document.getElementById(`contactCheckbox${i}`)
+//   eventSet.checked = true
+//   let event = eventSet
+//   console.log(event);
+//   selectContact(event, contactName, contactColor, contactInitials)
+//  }
 function setNewSubtask() {
   let subtask = document.getElementById("subtask");
   let subtaskBtns = document.getElementById("subtaskInputBtnsContainer");
