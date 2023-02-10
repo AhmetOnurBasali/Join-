@@ -166,11 +166,18 @@ function dragAnimation(id) {
 }
 
 
-function addTaskBoard() {
+function addTaskBoard(area) {
+    addTaskHTML();
+    selectArea(area);
+
     document.getElementById('popup-add-task-board').classList.remove('d-none');
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 }
 
+
+function selectArea(area){
+    newArea = area;
+}
 
 function addTaskHTMLBoard() {
     return `<div class="whiteBtn" onclick="closeAddTaskBoard()">Close <img src="../assets/img/clear.svg"></div>`;
