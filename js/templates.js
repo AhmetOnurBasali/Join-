@@ -102,8 +102,8 @@ function addTaskHTML() {
           <span><b>Category</b></span>
             <div class="newCategoryDiv">
               <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name" maxlength="20">             
-              <div onclick="closeNewCategory()" class="closeNewCategory">x<img src="../assets/img/inputBack.svg"></div>
-              <div onclick="setNewCategory()" class="acceptNewCategory">><img src="../assets/img/inputAccept.svg"></div>
+              <div onclick="closeNewCategory()" class="closeNewCategory"><img src="../assets/img/clear.svg"></div>
+              <div onclick="setNewCategory()" class="acceptNewCategory"><img src="../assets/img/check.svg"></div>
               <div class="dropColorContainer d-none" id="dropColorContainer"></div>
             </div>
             <div class="colorCategoryContainer">
@@ -175,8 +175,8 @@ function addTaskHTML() {
           <div class="inputContainer">
             <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text" maxlength="20">
             <div id="subtaskInputBtnsContainer" class="subtaskInputBtnsContainer d-none">
-              <div onclick="closeNewSubtask()" class="closeNewSubtask">x<img src="../assets/img/inputBack.svg"></div>
-              <div onclick="acceptNewSubtask()" class="acceptNewSubtask">><img src="../assets/img/inputAccept.svg"></div>
+              <div onclick="closeNewSubtask()" class="closeNewSubtask"><img src="../assets/img/clear.svg"></div>
+              <div onclick="acceptNewSubtask()" class="acceptNewSubtask"><img src="../assets/img/check.svg"></div>
             </div>
           </div>
           <div class="subtaskCheckboxArea overflow" id="subtaskCheckboxArea"></div>
@@ -240,10 +240,10 @@ function renderOldCategoryHTML(category, color) {
 }
 
 
-function renderNewSubtaskHTML(subtask) {
+function renderNewSubtaskHTML(subtask, i) {
   return `
   <div class="subtaskPosi">
-    <input onclick="checkSubtask(event,'${subtask}')" type="checkbox">
+    <input id="subtask${i}" onclick="checkSubtask(event,'${subtask}')" type="checkbox">
     <div>${subtask}</div>
   </div>
   `;

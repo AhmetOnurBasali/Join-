@@ -540,7 +540,7 @@ function renderNewSubtask() {
   subtaskCheckboxArea.innerHTML = "";
   for (let i = 0; i < newCreateSubtask.length; i++) {
     const subtask = newCreateSubtask[i];
-    subtaskCheckboxArea.innerHTML += renderNewSubtaskHTML(subtask);
+    subtaskCheckboxArea.innerHTML += renderNewSubtaskHTML(subtask, i);
   }
   closeNewSubtask();
 }
