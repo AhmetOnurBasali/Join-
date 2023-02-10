@@ -9,6 +9,20 @@ let newSubtask = [];
 let selectedContacts = [];
 let allContacts = [];
 
+let newArea;
+
+async function initTask() {
+  await loadCurrentUser();
+  await loadUsers();
+  await loadTasks();
+  await loadCategory();
+  await initTemplates();
+}
+
+function loadAddTask() {
+  newArea = "todo";
+}
+
 async function loadTasks() {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
@@ -19,9 +33,9 @@ async function loadTasks() {
   }
 }
 
-async function createNewTask(newAera, event) {
+async function createNewTask(event) {
   await proofEventAndTasksJSON(event);
-  let newTask = getTaskData(newAera);
+  let newTask = getTaskData(newArea);
   let proof = proofInputs(newTask);
   if (proof === true) {
     setTaskData(newTask);
@@ -38,7 +52,7 @@ async function proofEventAndTasksJSON(event) {
   await downloadFromServer();
 }
 
-function getTaskData(newAera) {
+function getTaskData(newArea) {
   let prioNew = checkPrio();
   let currentID = allTasks.length;
   let creatorNew = currentUser["name"];
@@ -61,7 +75,7 @@ function getTaskData(newAera) {
     closedSubtask: newSubtask,
     openSubtask: newCreateSubtask,
     id: currentID,
-    area: newAera,
+    area: newArea,
   };
 }
 
@@ -471,7 +485,7 @@ function getAssignedContacts(i) {
 function selectContact(contactName, contactColor, contactInitials, i) {
   let checkbox = document.getElementById(`contactCheckbox${i}`);
   if (checkbox.checked) {
-    let contact = {name: contactName, color: contactColor, initial: contactInitials};
+    let contact = { name: contactName, color: contactColor, initial: contactInitials };
     selectedContacts.push(contact);
   } else {
     selectedContacts = selectedContacts.filter(
@@ -547,6 +561,7 @@ function checkSubtask(event, subtask) {
 
 //clear current task//
 function clearTask() {
+  loadAddTask();
   clearPrio();
   newCategory();
   closeNewSubtask();
