@@ -37,10 +37,10 @@ async function createNewTask(event) {
   await proofEventAndTasksJSON(event);
   let newTask = getTaskData(newArea);
   let proof = proofInputs(newTask);
- // if (proof === true) {
+ if (proof === true) {
     setTaskData(newTask);
   }
-//}
+}
 
 async function proofEventAndTasksJSON(event) {
   if (event) {
@@ -96,7 +96,7 @@ function proofInputs(newTask) {
   if (
     selectedContacts.length === 0 ||
     !newTask.date ||
-    newSubtask.length === 0
+    newSubtask.length === 0 && newCreateSubtask.length === 0
   ) {
     console.log("proof assignedTo, subtask");
     return false;
@@ -554,7 +554,6 @@ function checkSubtask(event, subtask) {
 
 //clear current task//
 function clearTask() {
-  loadAddTask();
   clearPrio();
   newCategory();
   closeNewSubtask();
