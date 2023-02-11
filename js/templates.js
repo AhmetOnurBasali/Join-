@@ -1,3 +1,5 @@
+
+
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
   for (let i = 0; i < includeElements.length; i++) {
@@ -72,6 +74,9 @@ function sidebarHTML() {
 
 function addTaskHTML() {
   return /*html*/ `
+  <div id="slidePopup" class="addTaskPopup slidePopup d-none">
+    <img src="../assets/img/addTaskPopup.svg">
+  </div>
   <div>
     <form class="addTaskContainer" onsubmit="createNewTask(event);">
       <div class="paddLeRe40px">
@@ -80,16 +85,23 @@ function addTaskHTML() {
       <div class="leftAndRightContainer">    
         <div class="leftSection">
           <div class="inputContainer">
-            <b>Title</b> 
-            <input id="title" type="text" required>
+            <b class="padd4px">Title</b> 
+            <input id="title" type="text" oninput="proofInput('msgBoxTitle')" >
+            <div class="transparentDiv">
+              <div class="requiredText" id="msgBoxTitle"></div>
+            </div>  
           </div>
+          
           <div class="inputContainer">
-            <b>Description</b>
-            <textarea id="description" type="text" required></textarea>
+            <b class="padd4px">Description</b>
+            <textarea oninput="proofInput('msgBoxDescription')" id="description" type="text"></textarea>
+            <div class="transparentDiv">
+              <div class="requiredText" id="msgBoxDescription"></div>  
+            </div>
           </div>
-          <div id="openCategoryContainer" class="inputContainer">
+          <div onclick="proofInput('msgBoxCategory')" id="openCategoryContainer" class="inputContainer">
             <span class="padd4px">
-              <b>Category</b>
+              <b >Category</b>
             </span>
             <div id="categoryIsOpen"class="openCategory inputContainer">
               <div class="dropColorContainerSet d-none" id="dropColorContainerSet"></div>
@@ -97,13 +109,27 @@ function addTaskHTML() {
               <span id="newCategory" class="allCategorysContainer newCategory d-none" onclick="newCategory()">new category</span>
               <span id="allCategorys" class="d-none slide-in-top overflow"></span>
             </div>
+            <div class="transparentDiv">
+              <div class="requiredText" id="msgBoxCategory"></div>  
+            </div>
           </div>
+          
           <div class="d-none" id="createCategoryContainer">
-          <span><b>Category</b></span>
+          <span>
+            <b class="padd4px">Category</b>
+          </span>
             <div class="newCategoryDiv">
               <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name" maxlength="20">             
-              <div onclick="closeNewCategory()" class="closeNewCategory"><img src="../assets/img/clear.svg"></div>
-              <div onclick="setNewCategory()" class="acceptNewCategory"><img src="../assets/img/check.svg"></div>
+              <div onclick="closeNewCategory()" class="closeNewCategory">
+                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div onclick="setNewCategory()" class="acceptNewCategory">
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 12.5L10 18.5L20 6.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
               <div class="dropColorContainer d-none" id="dropColorContainer"></div>
             </div>
             <div class="colorCategoryContainer">
@@ -118,29 +144,34 @@ function addTaskHTML() {
 
 
 
-          <div class="inputContainer">
-            <b>Assigned to</b> 
+          <div  onclick="proofInput('msgBoxAssigned')" class="inputContainer">
+            <b class="padd4px">Assigned to</b> 
             <div onclick="openAssignedTo()" id="contactDiv" class="openCategoryContainer">Select contact to assign</div>
               <div class="contactContainer d-none overflow" id="contactList">
                 <div id="contacts"></div>
                 <div id="selectedContact" class="newCategoryDiv"></div>
               </div>
+              <div class="transparentDiv">
+                <div class="requiredText" id="msgBoxAssigned"></div>
+              </div>
             </div>
             <div style="display:flex;" id="contactInitials"></div>
+            
           </div>
            
 
         
 
         <div class="rightSection">
-          <div class="inputContainer" >
-            <b>Due date</b> 
-            <!-- maybe switch to div and set regex -->
-            <input id="date" type="date" required>
-            <!-- background img Problem -->
+          <div onclick="proofInput('msgBoxDate')" class="inputContainer" >
+            <b class="padd4px">Due date</b> 
+            <input id="date" type="date">
+            <div class="transparentDiv">
+              <div class="requiredText" id="msgBoxDate"></div>
+            </div>
           </div>
-          <div class="prio">
-            <b>Prio</b>
+          <div onclick="proofInput('msgBoxPrio')" class="prio">
+            <b class="padd4px">Prio</b>
             <div style="display: flex; justify-content: space-between;">
               <div id="highBtnContainer" class="checkboxContainer">
                 <input onclick="setPrioCheckBox('high')" id="urgentBtn" class="checkboxPosi" type="checkbox"> 
@@ -167,17 +198,31 @@ function addTaskHTML() {
                 </svg>
               </div><!--required Problem-->
           </div>
+          <div class="transparentDiv">
+            <div class="requiredText" id="msgBoxPrio"></div>
+          </div>
         </div>
 
 
         <div class="inputContainer">
-          <b>Subtasks</b> 
-          <div class="inputContainer">
+          <b class="padd4px">Subtasks</b> 
+          <div oninput="proofInput('msgBoxSubtask')" class="inputContainer">
             <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text" maxlength="20">
             <div id="subtaskInputBtnsContainer" class="subtaskInputBtnsContainer d-none">
-              <div onclick="closeNewSubtask()" class="closeNewSubtask"><img src="../assets/img/clear.svg"></div>
-              <div onclick="acceptNewSubtask()" class="acceptNewSubtask"><img src="../assets/img/check.svg"></div>
+              <div onclick="closeNewSubtask()" class="closeNewSubtask">
+                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div onclick="acceptNewSubtask()" class="acceptNewSubtask">
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 12.5L10 18.5L20 6.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
             </div>
+          </div>
+          <div class="transparentDiv">
+            <div class="requiredText" id="msgBoxSubtask"></div>
           </div>
           <div class="subtaskCheckboxArea overflow" id="subtaskCheckboxArea"></div>
         </div>
@@ -204,7 +249,7 @@ function renderNewCategoryHTML() {
   let color = currentCategoryColor[0];
   categoryColor.push({ color });
   return `
-  <div style="width:100%" class="categoryTextColorPosi">
+  <div class="selectedCategoryPosi">
     <span>${createCategory}</span>
     <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
   </div>`;
@@ -233,7 +278,7 @@ function chooseCategoryHTML(category, color) {
 
 function renderOldCategoryHTML(category, color) {
   return `
-  <div style="width:100%" class="categoryTextColorPosi">
+  <div class="selectedCategoryPosi">
     <span>${category}</span>
     <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
   </div>`;
@@ -243,8 +288,8 @@ function renderOldCategoryHTML(category, color) {
 function renderNewSubtaskHTML(subtask, i) {
   return `
   <div class="subtaskPosi">
-    <input id="subtask${i}" onclick="checkSubtask(event,'${subtask}')" type="checkbox">
-    <div>${subtask}</div>
+    <input class="checkboxSize" id="subtask${i}" onclick="checkSubtask(event,'${subtask}')" type="checkbox">
+    <div class="subtaskTextPosi" onclick="checkSubtastText(${i})">${subtask}</div>
   </div>
   `;
 }
@@ -262,9 +307,9 @@ function renderOpenAssignedToHTML(assignedData, checked, i) {
   let contactColor = assignedData.contactColor
   let contactInitials = assignedData.contactInitials
   return `
-  <div id="contact${i}" class="contact" onclick="document.getElementById('contactCheckbox${i}').click(); ">
-    <input id="contactCheckbox${i}" onclick="selectContact('${contactName}','${contactColor}','${contactInitials}',${i})" class="contactCheckbox" type="checkbox" ${checked ? "checked" : ""}> 
-    <div>${contactName}</div>
+  <div id="contact${i}" class="contact">
+    <input id="contactCheckbox${i}" onclick="selectContact('${contactName}','${contactColor}','${contactInitials}',${i})" class="checkboxSize" type="checkbox" ${checked ? "checked" : ""}> 
+    <div class="assignedContactName"  onclick="selectContactName(${i},'${contactName}')">${contactName}</div>
   </div>
   `;
 }

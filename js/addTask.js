@@ -9,7 +9,6 @@ let newSubtask = [];
 let selectedContacts = [];
 let allContacts = [];
 
-
 async function loadTasks() {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
@@ -24,7 +23,7 @@ async function createNewTask(event) {
   await proofEventAndTasksJSON(event);
   let newTask = getTaskData(newArea);
   let proof = proofInputs(newTask);
- if (proof === true) {
+  if (proof === true) {
     setTaskData(newTask);
   }
 }
@@ -67,37 +66,77 @@ function getTaskData(newArea) {
 }
 
 function proofInputs(newTask) {
-  if (
-    !newTask.prio ||
-    newTask.category == "select a category" ||
-    newTask.category == ""
-  ) {
-    console.log("proof Prio btn or category");
-    return false;
-  }
-  if (!newTask.creator || !newTask.title || !newTask.description) {
+  if (!newTask.creator) {
     // newTask.creator == "Guest User"
-    console.log("proof creator");
+    alert("proof Current user");
     return false;
   }
-  if (
-    selectedContacts.length === 0 ||
-    !newTask.date ||
-    newSubtask.length === 0 && newCreateSubtask.length === 0
-  ) {
-    console.log("proof assignedTo, subtask");
+  if (newTask.id === undefined || !newTask.area) {
+    console.log("proof the id or area undefined");
     return false;
   }
-  if (newTask.id === undefined || !newTask.area || !newTask.titleBg) {
-    console.log("proof id, area or titleBg");
-    return false;
+  if (!newTask.title) {
+    let msgBox = document.getElementById('msgBoxTitle') 
+    msgBox.classList.remove('d-none')
+    msgBox.innerHTML ='This field is required'
+    return false
   }
+  if (!newTask.description) {
+    let msgBox = document.getElementById('msgBoxDescription') 
+    msgBox.classList.remove('d-none')
+    msgBox.innerHTML ='This field is required'
+    return false
+  }
+  if (newTask.category == "select a category" || newTask.category == "" || !newTask.titleBg ) {
+    let msgBox = document.getElementById('msgBoxCategory') 
+    msgBox.classList.remove('d-none')
+    msgBox.innerHTML ='This field is required'
+    return false
+  }
+  if (selectedContacts.length === 0) {
+    let msgBox = document.getElementById('msgBoxAssigned') 
+    msgBox.classList.remove('d-none')
+    msgBox.innerHTML ='This field is required'
+    return false
+  }
+  if (!newTask.date) {
+    let msgBox = document.getElementById('msgBoxDate') 
+    msgBox.classList.remove('d-none')
+    msgBox.innerHTML ='This field is required'
+    return false
+  }
+  if (!newTask.prio) {
+    let msgBox = document.getElementById('msgBoxPrio') 
+    msgBox.classList.remove('d-none')
+    msgBox.innerHTML ='This field is required'
+    return false
+  }
+  if ((newSubtask.length === 0 && newCreateSubtask.length === 0)) {
+    let msgBox = document.getElementById('msgBoxSubtask') 
+    msgBox.classList.remove('d-none')
+    msgBox.innerHTML ='This field is required'
+    return false
+  }
+  debugger
   return true;
 }
 
+function proofInput(id) {
+  let requiredContainer = document.getElementById(id)
+  if (requiredContainer.innerHTML != ""){
+    requiredContainer.classList.add('d-none')
+  } else {
+    requiredContainer.classList.remove('d-none')
+  }
+}
+
+
 async function setTaskData(newTask) {
   allTasks.push(newTask);
+
   await backend.setItem("allTasks", allTasks);
+  clearTask()
+  slidePopup.classList.remove('d-none')
   setTimeout(() => {
     window.location.href = "../html/board.html";
   }, 1000);
@@ -256,7 +295,6 @@ function setHighPrioBtnColor() {
 }
 
 //category section//
-
 async function loadCategory() {
   await downloadFromServer();
   let item = await backend.getItem("categorys");
@@ -346,12 +384,30 @@ function renderNewCategory() {
 }
 
 async function renderCategorys() {
+  await proofEventAndTasksJSON()
   let allCategorys = document.getElementById(`allCategorys`);
   allCategorys.innerHTML = "";
-  for (let c = 0; c < allTasks.length; c++) {
-    let category = allTasks[c].category;
-    let color = allTasks[c].titleBg;
+  for (let i = 0; i < allTasks.length; i++) {
+    let taskCategory = allTasks[i].category;
+    let taskColor = allTasks[i].titleBg;
+    renderCategory(taskCategory , taskColor)
+     }
+    for (let c = 0; c < displayedCategories.length; c++) {
+      const element = displayedCategories[c];
+    let category = element.category
+    let color = element.color;
     allCategorys.innerHTML += renderCategorysHTML(c, category, color);
+    }
+
+}
+
+let displayedCategories = [];
+
+function renderCategory(taskCategory, taskColor) {
+  let categoryTask = {category:taskCategory,
+     color:taskColor}
+  if (displayedCategories.indexOf(taskCategory) === -1) {
+    displayedCategories.push(categoryTask);
   }
 }
 
@@ -468,11 +524,14 @@ function getAssignedContacts(i) {
   return { contactName, contactColor, contactInitials };
 }
 
-
 function selectContact(contactName, contactColor, contactInitials, i) {
   let checkbox = document.getElementById(`contactCheckbox${i}`);
   if (checkbox.checked) {
-    let contact = { name: contactName, color: contactColor, initial: contactInitials };
+    let contact = {
+      name: contactName,
+      color: contactColor,
+      initial: contactInitials,
+    };
     selectedContacts.push(contact);
   } else {
     selectedContacts = selectedContacts.filter(
@@ -480,6 +539,11 @@ function selectContact(contactName, contactColor, contactInitials, i) {
     );
   }
   renderSelectContact();
+}
+
+function selectContactName(i) {
+  let checkbox = document.getElementById(`contactCheckbox${i}`);
+  checkbox.click();
 }
 
 function renderSelectContact() {
@@ -538,16 +602,27 @@ function checkSubtask(event, subtask) {
     newSubtask.push(subtask);
   }
 }
+function checkSubtastText(i) {
+  let checkbox = document.getElementById(`subtask${i}`);
+  checkbox.click();
+}
 
 //clear current task//
 function clearTask() {
   clearPrio();
   newCategory();
+  closeNewCategory();
   closeNewSubtask();
   acceptNewSubtask();
   clearDataAndInputs();
   renderSelectContact();
   renderOpenAssignedTo();
+  if (slideCategory == true) {
+    openCategory();
+  }
+  if (slideAssignTo == true) {
+    openAssignedTo()
+  }
 }
 
 function clearDataAndInputs() {
@@ -603,7 +678,8 @@ function clearPrioSVG() {
   svgHighColor.classList.remove("prioIconWhite");
 }
 
-//-später für Task done-//
+
+//-später vllt für Task done-//
 //async function deleteCategory(c) {
 //  let categorys = await backend.getItem("allTasks");
 //  if (typeof categorys === "string") {
