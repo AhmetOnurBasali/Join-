@@ -68,10 +68,12 @@ async function renderCreatedTasks(area, task) {
 
 
 function renderAssignTo(task, eID) {
-    document.getElementById(`${eID}${task['id']}`).innerHTML = '';
     for (let i = 0; i < task['assignedTo'].length; i++) {
         const assignetTo = task['assignedTo'][i]['initial'];
         document.getElementById(`${eID}${task['id']}`).innerHTML += `<div style="background-color:${task['assignedTo'][i]['color']};">${assignetTo}</div>`;
+        if (eID == 'task-details-assigned-to') {
+            document.getElementById(`task-details-assigned-to-name${task['id']}`).innerHTML += `<div>${task['assignedTo'][i]['name']}</div>`;
+        }
     }
 }
 
@@ -80,25 +82,9 @@ function progressSubtasks(task) {
     return 100 / task['openSubtask'].length * 0;
 }
 
-function openTaskDetails(taskID) {
-    document.getElementById('popup-task-details').classList.remove('d-none');
-    document.getElementById('task-details').innerHTML = renderTaskDetailsHTML(taskID);
-    setTitleBg(allTasks[taskID], 'task-details-category');
-    renderAssignTo(allTasks[taskID], 'task-details-assigned-to');
-    
-}
-
-function closeTaskDetails() {
-    document.getElementById('popup-task-details').classList.add('d-none');
-}
 
 
-function taskPreviewLoaded() {
-    taskPreviewLoaded = true;
-    if (taskPreviewLoaded == true) {
-
-    }
-}
+//---------------------------Drag and Drop Tasks---------------------------
 
 
 function allowDrop(ev, area, areaID) {
@@ -176,7 +162,7 @@ function dragAnimation(id) {
 function addTaskBoard(area) {
     addTaskHTML();
     selectArea(area);
-    
+
     document.getElementById('popup-add-task-board').classList.remove('d-none');
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 }
@@ -199,6 +185,49 @@ function doNotCloseAddTaskBoard(event) {
     event.stopPropagation();
 }
 
+//---------------------------Details Tasks---------------------------
+
+function openTaskDetailsFront(taskID) {
+    document.getElementById('popup-task-details').classList.remove('d-none');
+    document.getElementById('task-details').innerHTML = renderTaskDetailsFrontHTML(taskID);
+    setTitleBg(allTasks[taskID], 'task-details-category');
+    renderAssignTo(allTasks[taskID], 'task-details-assigned-to');
+    setPriorityBg(taskID);
+}
+
+function setPriorityBg(taskID) {
+    document.getElementById(`task-details-prio-sign${taskID}`).style.backgroundColor = `${setPriorityBgColor(taskID)}`;
+}
+
+function setPriorityBgColor(taskID) {
+    switch (allTasks[taskID]['prio']) {
+        case 'Low':
+
+            return '#7AE229'
+        case 'Medium':
+
+            return '#FFA800'
+        case 'Urgent':
+
+            return '#FF3D00'
+
+        default:
+            break;
+    }
+}
+
+function closeTaskDetails() {
+    document.getElementById('popup-task-details').classList.add('d-none');
+}
+
+function editDetailsTask() {
+
+}
+
+
+
+
+//-----------------------Inner html's---------------------------
 function taskPrio(prio) {
     switch (prio) {
         case 'Low':
@@ -225,7 +254,7 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div onclick="openTaskDetails(${task['id']})" id="taskNumber_${task['id']}" class="task" draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
+    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
         <span class="task-description">${task['description']}</span>
@@ -237,9 +266,6 @@ function renderCreatedTasksInnerHTML(task) {
         </div>
         <div class="task-assigned-prio">
             <div class="task-assigned-to" id="task-assigned-to${task['id']}">
-                <div>U1</div>
-                <div>U2</div>
-                <div>U3</div>
             </div>
             <div class="task-prio">
                 ${taskPrio(task['prio'])}
@@ -250,7 +276,7 @@ function renderCreatedTasksInnerHTML(task) {
 }
 
 
-function renderTaskDetailsHTML(taskID) {
+function renderTaskDetailsFrontHTML(taskID) {
     return /*html*/`
     <div class="headline-task-details">
         <span class="task-details-category" id="task-details-category${allTasks[taskID]['id']}">${allTasks[taskID]['category']}</span>
@@ -258,40 +284,33 @@ function renderTaskDetailsHTML(taskID) {
     </div>
     <span class="task-details-title">${allTasks[taskID]['title']}</span>
     <span class="task-details-description">${allTasks[taskID]['description']}</span>
-    <div>
+    <div class="m-t-15 m-b-15">
         <span class="task-details-text">Due date:</span>
         <span class="task-details-due-date">${allTasks[taskID]['date']}</span>
     </div>
-    <div class="task-details-prio">
-            <span class="task-details-text">Priority: </span>
-            <span>${taskPrio(allTasks[taskID]['prio'])}</span>
-    </div>
-    <span class="task-details-text">Assigned To:</span>
-    <div class="task-details-assigned-to" id="task-details-assigned-to${allTasks[taskID]['id']}">
-            <div>U1</div>
-            <div>U2</div>
-            <div>U3</div>
-        </div>
-        
-    <!-- 
-    
-    
-    <div class="task-subtasks">
-        <div class="task-subtasks-progressbar">
-            <div style="width: ${progressSubtasks(allTasks[taskID])}%;"></div>
-        </div>
-        <span class="task-subtasks-progress">0/${allTasks[taskID]['openSubtask'].length + allTasks[taskID]['closedSubtask'].length} Done</span>
-    </div>
-    <div class="task-assigned-prio">
-        <div class="task-assigned-to" id="task-assigned-to${allTasks[taskID]['id']}">
-            <div>U1</div>
-            <div>U2</div>
-            <div>U3</div>
-        </div>
-        <div class="task-prio">
+    <div class="task-details-prio m-b-15">
+        <span class="task-details-text">Priority: </span>
+        <div class="task-details-prio-sign" id="task-details-prio-sign${allTasks[taskID]['id']}">
+            <span>${allTasks[taskID]['prio']}</span>
             ${taskPrio(allTasks[taskID]['prio'])}
         </div>
-    </div> -->
+    </div>
+    <span class="task-details-text m-b-15">Assigned To:</span>
+    <div class="d-flex">
+        <div class="task-details-assigned-to" id="task-details-assigned-to${allTasks[taskID]['id']}">
+        </div>
+        <div class="task-details-assigned-to-name" id="task-details-assigned-to-name${allTasks[taskID]['id']}">
+        </div>
+
+    </div>
+    <div class="task-details-edit" onclick="editDetailsTask()">
+        <div>
+            <svg class="pencil" width="24" height="34" viewBox="0 0 24 34" fill="none"xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.61559 29.262L3.05082 25.8847L17.211 2.55302C17.7841 1.60874 19.0141 1.30784 19.9584 1.88092L22.1037 3.1829C23.0479 3.75598 23.3488 4.98604 22.7758 5.93031L8.61559 29.262Z" fill="white" />
+                <path d="M7.94001 30.3749L2.37524 26.9976L3.23136 30.4972C3.36259 31.0337 3.90387 31.3622 4.44034 31.231L7.94001 30.3749Z" fill="white" />
+            </svg>
+        </div>
+    </div>
     `;
 
 }
