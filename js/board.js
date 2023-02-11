@@ -12,7 +12,7 @@ async function initBoard() {
     await init();
     await loadUsers();
     await initTemplates();
-    
+
     renderBoard();
 
 }
@@ -61,17 +61,17 @@ function renderBoard() {
 
 async function renderCreatedTasks(area, task) {
     area.innerHTML += renderCreatedTasksInnerHTML(task);
-    renderAssignTo(task);
+    renderAssignTo(task, 'task-assigned-to');
 
-    setTitleBg(task);
+    setTitleBg(task, 'task-category');
 }
 
 
-function renderAssignTo(task) {
-    document.getElementById(`task-assigned-to${task['id']}`).innerHTML = '';
+function renderAssignTo(task, eID) {
+    document.getElementById(`${eID}${task['id']}`).innerHTML = '';
     for (let i = 0; i < task['assignedTo'].length; i++) {
         const assignetTo = task['assignedTo'][i]['initial'];
-        document.getElementById(`task-assigned-to${task['id']}`).innerHTML += `<div style="background-color:${task['assignedTo'][i]['color']};">${assignetTo}</div>`;
+        document.getElementById(`${eID}${task['id']}`).innerHTML += `<div style="background-color:${task['assignedTo'][i]['color']};">${assignetTo}</div>`;
     }
 }
 
@@ -80,8 +80,16 @@ function progressSubtasks(task) {
     return 100 / task['openSubtask'].length * 0;
 }
 
-function taskDetails(taskID) {
-    document.getElementById(`${taskID}`)
+function openTaskDetails(taskID) {
+    document.getElementById('popup-task-details').classList.remove('d-none');
+    document.getElementById('task-details').innerHTML = renderTaskDetailsHTML(taskID);
+    setTitleBg(allTasks[taskID], 'task-details-category');
+    renderAssignTo(allTasks[taskID], 'task-details-assigned-to');
+    
+}
+
+function closeTaskDetails() {
+    document.getElementById('popup-task-details').classList.add('d-none');
 }
 
 
@@ -111,7 +119,6 @@ function allowDrop(ev, area, areaID) {
 
 function disregardArea() {
     taskPreview = false;
-    taskPreviewRemoved = true;
 }
 
 
@@ -142,8 +149,8 @@ async function moveTo() {
 }
 
 
-function setTitleBg(task) {
-    document.getElementById(`task-category${task['id']}`).style.backgroundColor = `${task['titleBg']}`;
+function setTitleBg(task, eID) {
+    document.getElementById(`${eID}${task['id']}`).style.backgroundColor = `${task['titleBg']}`;
 }
 
 
@@ -169,13 +176,13 @@ function dragAnimation(id) {
 function addTaskBoard(area) {
     addTaskHTML();
     selectArea(area);
-
+    
     document.getElementById('popup-add-task-board').classList.remove('d-none');
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 }
 
 
-function selectArea(area){
+function selectArea(area) {
     newArea = area;
 }
 
@@ -218,7 +225,7 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div onclick="taskDetails('taskNumber_${task['id']}')" id="taskNumber_${task['id']}" class="task" draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
+    <div onclick="openTaskDetails(${task['id']})" id="taskNumber_${task['id']}" class="task" draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
         <span class="task-description">${task['description']}</span>
@@ -240,4 +247,51 @@ function renderCreatedTasksInnerHTML(task) {
         </div>
     </div>
 `;
+}
+
+
+function renderTaskDetailsHTML(taskID) {
+    return /*html*/`
+    <div class="headline-task-details">
+        <span class="task-details-category" id="task-details-category${allTasks[taskID]['id']}">${allTasks[taskID]['category']}</span>
+        <img onclick="closeTaskDetails()" src="../assets/img/clear.svg" alt="">
+    </div>
+    <span class="task-details-title">${allTasks[taskID]['title']}</span>
+    <span class="task-details-description">${allTasks[taskID]['description']}</span>
+    <div>
+        <span class="task-details-text">Due date:</span>
+        <span class="task-details-due-date">${allTasks[taskID]['date']}</span>
+    </div>
+    <div class="task-details-prio">
+            <span class="task-details-text">Priority: </span>
+            <span>${taskPrio(allTasks[taskID]['prio'])}</span>
+    </div>
+    <span class="task-details-text">Assigned To:</span>
+    <div class="task-details-assigned-to" id="task-details-assigned-to${allTasks[taskID]['id']}">
+            <div>U1</div>
+            <div>U2</div>
+            <div>U3</div>
+        </div>
+        
+    <!-- 
+    
+    
+    <div class="task-subtasks">
+        <div class="task-subtasks-progressbar">
+            <div style="width: ${progressSubtasks(allTasks[taskID])}%;"></div>
+        </div>
+        <span class="task-subtasks-progress">0/${allTasks[taskID]['openSubtask'].length + allTasks[taskID]['closedSubtask'].length} Done</span>
+    </div>
+    <div class="task-assigned-prio">
+        <div class="task-assigned-to" id="task-assigned-to${allTasks[taskID]['id']}">
+            <div>U1</div>
+            <div>U2</div>
+            <div>U3</div>
+        </div>
+        <div class="task-prio">
+            ${taskPrio(allTasks[taskID]['prio'])}
+        </div>
+    </div> -->
+    `;
+
 }
