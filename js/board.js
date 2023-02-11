@@ -194,6 +194,7 @@ function doNotCloseAddTaskBoard(event) {
 function openTaskDetailsFront(taskID) {
     document.getElementById('popup-task-details').classList.remove('d-none');
     document.getElementById('task-details').innerHTML = renderTaskDetailsFrontHTML(taskID);
+    document.getElementById('body').style.overflow = 'hidden';
     setTitleBg(allTasks[taskID], 'task-details-category');
     renderAssignTo(allTasks[taskID], 'task-details-assigned-to');
     setPriorityBg(taskID);
@@ -222,6 +223,7 @@ function setPriorityBgColor(taskID) {
 
 function closeTaskDetails() {
     document.getElementById('popup-task-details').classList.add('d-none');
+    document.getElementById('body').style.overflow = 'auto';
 }
 
 function editDetailsTask() {
@@ -300,7 +302,7 @@ function renderTaskDetailsFrontHTML(taskID) {
         </div>
     </div>
     <span class="task-details-text m-b-15">Assigned To:</span>
-    <div class="d-flex">
+    <div class="d-flex task-details-assigned-to-shell">
         <div class="task-details-assigned-to" id="task-details-assigned-to${allTasks[taskID]['id']}">
         </div>
         <div class="task-details-assigned-to-name" id="task-details-assigned-to-name${allTasks[taskID]['id']}">

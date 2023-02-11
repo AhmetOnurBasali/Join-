@@ -2,7 +2,6 @@ body {
     margin: 0;
     background: #F5F5F5;
     font-family: 'Inter';
-
 }
 
 
@@ -340,6 +339,7 @@ h2 {
 .task-details-prio span{
    display: flex;
    align-items: center;
+   
 }
 
 .task-details-prio-sign {
@@ -362,12 +362,17 @@ h2 {
     margin-right: 10px;
 }
 
+.task-details-assigned-to-shell{
+    overflow: scroll;
+}
+
 .task-details-assigned-to {
     min-height: 260px;
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-right: 15px;
+    min-height: 300px;
 }
 
 .task-details-assigned-to div {
@@ -405,6 +410,7 @@ h2 {
     gap: 15px;
     display: flex;
     flex-direction: column;
+    min-height: 300px;
 }
 
 .task-details-assigned-to-name div {
