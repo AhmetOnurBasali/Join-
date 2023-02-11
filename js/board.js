@@ -68,12 +68,18 @@ async function renderCreatedTasks(area, task) {
 
 
 function renderAssignTo(task, eID) {
-    for (let i = 0; i < task['assignedTo'].length; i++) {
-        const assignetTo = task['assignedTo'][i]['initial'];
-        document.getElementById(`${eID}${task['id']}`).innerHTML += `<div style="background-color:${task['assignedTo'][i]['color']};">${assignetTo}</div>`;
+    let i;
+    for (i = 0; i < task['assignedTo'].length; i++) {
+        const assignedTo = task['assignedTo'][i]['initial'];
+        if (eID == 'task-assigned-to' && i < 2 || eID == 'task-details-assigned-to') {
+            document.getElementById(`${eID}${task['id']}`).innerHTML += `<div style="background-color:${task['assignedTo'][i]['color']};">${assignedTo}</div>`;
+        }
         if (eID == 'task-details-assigned-to') {
             document.getElementById(`task-details-assigned-to-name${task['id']}`).innerHTML += `<div>${task['assignedTo'][i]['name']}</div>`;
         }
+    }
+    if(eID == 'task-assigned-to' && i > 2){
+        document.getElementById(`task-assigned-to${task['id']}`).innerHTML += `<div style="background-color:#2A3647;">${i-2}+</div>`;
     }
 }
 
@@ -85,8 +91,6 @@ function progressSubtasks(task) {
 
 
 //---------------------------Drag and Drop Tasks---------------------------
-
-
 function allowDrop(ev, area, areaID) {
     ev.preventDefault();
     currentAreaOndragover = area;
