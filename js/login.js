@@ -88,7 +88,7 @@ async function login() {
 }
 
 function proofName() {
-  let regName = /^\w+(?: \w+)+$/;
+  let regName = /^[\wäöüÄÖÜ]+(?: [\wäöüÄÖÜ]+)+$/;
   let name = document.getElementById("name").value;
   if (!regName.test(name)) {
     document.getElementById("name").focus();
