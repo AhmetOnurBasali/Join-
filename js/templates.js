@@ -91,7 +91,6 @@ function addTaskHTML() {
               <div class="requiredText" id="msgBoxTitle"></div>
             </div>  
           </div>
-          
           <div class="inputContainer">
             <b class="padd4px">Description</b>
             <textarea oninput="proofInput('msgBoxDescription')" id="description" type="text"></textarea>
@@ -101,11 +100,14 @@ function addTaskHTML() {
           </div>
           <div onclick="proofInput('msgBoxCategory')" id="openCategoryContainer" class="inputContainer">
             <span class="padd4px">
-              <b >Category</b>
+              <b>Category</b>
             </span>
             <div id="categoryIsOpen"class="openCategory inputContainer">
               <div class="dropColorContainerSet d-none" id="dropColorContainerSet"></div>
               <span id="selectedCategory" class="selectedCategoryText" onclick="openCategory()">select a category</span>
+               <svg onclick="openCategory()" id="arrayCategory" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.2 0H1.41421C0.523309 0 0.0771403 1.07714 0.707105 1.70711L6.29289 7.29289C6.68342 7.68342 7.31658 7.68342 7.70711 7.29289L13.2929 1.70711C13.9229 1.07714 13.4767 0 12.5858 0H11.8H7H2.2Z" fill="black"/>
+                </svg>
               <span id="newCategory" class="allCategorysContainer newCategory d-none" onclick="newCategory()">new category</span>
               <span id="allCategorys" class="d-none slide-in-top overflow"></span>
             </div>
@@ -113,7 +115,6 @@ function addTaskHTML() {
               <div class="requiredText" id="msgBoxCategory"></div>  
             </div>
           </div>
-          
           <div class="d-none" id="createCategoryContainer">
           <span>
             <b class="padd4px">Category</b>
@@ -141,12 +142,13 @@ function addTaskHTML() {
               <div onclick="setColor('Blue')" id="categoryBlue" class="colorCategoryBlue"></div>
             </div>
           </div>
-
-
-
           <div  onclick="proofInput('msgBoxAssigned')" class="inputContainer">
             <b class="padd4px">Assigned to</b> 
-            <div onclick="openAssignedTo()" id="contactDiv" class="openCategoryContainer">Select contact to assign</div>
+            <div onclick="openAssignedTo()" id="contactDiv" class="openCategoryContainer">Select contact to assign 
+              <svg id="arrayAssigned" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.2 0H1.41421C0.523309 0 0.0771403 1.07714 0.707105 1.70711L6.29289 7.29289C6.68342 7.68342 7.31658 7.68342 7.70711 7.29289L13.2929 1.70711C13.9229 1.07714 13.4767 0 12.5858 0H11.8H7H2.2Z" fill="black"/>
+              </svg>
+            </div>
               <div class="contactContainer d-none overflow" id="contactList">
                 <div id="contacts"></div>
                 <div id="selectedContact" class="newCategoryDiv"></div>
@@ -156,12 +158,7 @@ function addTaskHTML() {
               </div>
             </div>
             <div style="display:flex;" id="contactInitials"></div>
-            
           </div>
-           
-
-        
-
         <div class="rightSection">
           <div onclick="proofInput('msgBoxDate')" class="inputContainer" >
             <b class="padd4px">Due date</b> 
@@ -202,8 +199,6 @@ function addTaskHTML() {
             <div class="requiredText" id="msgBoxPrio"></div>
           </div>
         </div>
-
-
         <div class="inputContainer">
           <b class="padd4px">Subtasks</b> 
           <div oninput="proofInput('msgBoxSubtask')" class="inputContainer">
@@ -226,8 +221,6 @@ function addTaskHTML() {
           </div>
           <div class="subtaskCheckboxArea overflow" id="subtaskCheckboxArea"></div>
         </div>
-
-
       </div>
     </div>
       <div class="addTaskBtns">
@@ -241,8 +234,9 @@ function addTaskHTML() {
       </div>
     </form>
   </div>
-        `;
+`;
 }
+
 
 function renderNewCategoryHTML() {
   let createCategory = document.getElementById("createCategory").value;
@@ -255,6 +249,7 @@ function renderNewCategoryHTML() {
   </div>`;
 }
 
+
 function renderCategorysHTML(c, category, color) {
   return `
   <div class="allCategorysContainer newCategory">
@@ -266,6 +261,7 @@ function renderCategorysHTML(c, category, color) {
   </div>`;
 }
 
+
 function chooseCategoryHTML(category, color) {
   return `
   <div class="categoryTextColorPosi">
@@ -275,6 +271,7 @@ function chooseCategoryHTML(category, color) {
     </div>
   </div>`;
 }
+
 
 function renderOldCategoryHTML(category, color) {
   return `
@@ -301,6 +298,7 @@ function renderSelectContactHTML(color, initials) {
     <div class="slide-in-bottom" style="background: ${color};">${initials}</div>
   </div>`;
 }
+
 
 function renderOpenAssignedToHTML(assignedData, checked, i) {
   let contactName = assignedData.contactName
