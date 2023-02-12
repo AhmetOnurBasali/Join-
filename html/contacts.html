@@ -54,28 +54,58 @@
         </div>
     </div>
 
+    <div id="editContactPopup" class="d-none popupContactMainContainer">
+        <div class="popupContactContainer">
+            <div class="popupContactBlueSection">
+                <img src="../assets/img/logoWhite.svg" style="width: 55px">
+                <h1 style="font-size: 61px;">Edit contact
+                    <div class="blueLineBottom"></div>
+                </h1>
+            </div>
+            <div class="popupContactWhiteSection">
+                <div class="closePopupContact">
+                    <img onclick="closeEditContact()" style="cursor: pointer;" src="../assets/img/clear.svg">
+                </div>
+                <div class="inputSection">
+                    <div class="contactImgBubbleContainer">
+                        <img class="imgUserWhiteSize" src="../assets/img/userWhite.svg">
+                    </div>
+                    <div class="inputsContainerEditSection">
+                        <input class="input nameIcon" placeholder="Name" type="text">
+                        <input class="input emailIcon" placeholder="Email" type="email">
+                        <input class="input phoneIcon" placeholder="number" type="number">
+                        <div class="saveContactBtnContainer">                    
+                            <button class="saveContactBlueBtn">
+                                <b>Save</b>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="addContactPopup" class="d-none addContactMainContainer">
-        <div class="addContactContainer">
-            <div class="addContactBlueSection">
+    <div id="addContactPopup" class="d-none popupContactMainContainer">
+        <div class="popupContactContainer">
+            <div class="popupContactBlueSection">
                 <img src="../assets/img/logoWhite.svg" style="width: 55px">
                 <h1 style="font-size: 61px;">Add contact</h1>
                 <span style="font-size: 26px;">Tasks are better with a team!</span>
                 <div class="blueLineBottom"></div>
             </div>
-
-            <div class="addContactWhiteSection">
-                <div class="closeAddNewContact">
+            <div class="popupContactWhiteSection">
+                <div class="closePopupContact">
                     <img onclick="closeAddNewContact()" style="cursor: pointer;" src="../assets/img/clear.svg">
                 </div>
                 <div class="inputSection">
                     <div class="contactImgBubbleContainer">
                         <img class="imgUserWhiteSize" src="../assets/img/userWhite.svg">
                     </div>
+                   <form onsubmit="createNewContact(event)">
                     <div class="inputsContainer">
-                        <input class="input nameIcon" placeholder="Name" type="text">
-                        <input class="input emailIcon" placeholder="Email" type="email">
-                        <input class="input phoneIcon" placeholder="number" type="number">
+                        <input id="inputName" class="input nameIcon" placeholder="Name" type="text" required>
+                        <input id="inputEmail" class="input emailIcon" placeholder="Email" type="email">
+                        <input id="inputNumber" class="input phoneIcon" placeholder="number" type="number">
                         <div class="addContactBtnContainer">
                             <button class="cancelContactWhiteBtn">
                                 <b>Cancel</b>
@@ -89,6 +119,7 @@
                             </button>
                         </div>
                     </div>
+                   </form>
                 </div>
             </div>
         </div>
