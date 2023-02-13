@@ -363,23 +363,25 @@ h2 {
 }
 
 .task-details-assigned-to-shell{
-    overflow: scroll;
+    overflow-y: auto;
+    width: 520px;
+    height: 250px;
 }
 
 .task-details-assigned-to {
-    min-height: 260px;
+    /* min-height: 260px; */
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-right: 15px;
-    min-height: 300px;
+    /* min-height: 300px; */
 }
 
 .task-details-assigned-to div {
     border-radius: 100%;
     /* background-color: rgba(0, 0, 0, 0.2); */
     width: 35px;
-    height: 35px;
+    /* height: 35px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -387,13 +389,14 @@ h2 {
     border: 1px solid #ffffff;
     font-weight: 400;
     font-size: 12px;
+    min-height: 35px;
 }
 
 .task-details-edit {
     display: flex;
     justify-content: flex-end;
     cursor: pointer;
-    margin-top: -30px;
+    margin-top: -20px;
 }
 
 .task-details-edit div {
@@ -410,11 +413,11 @@ h2 {
     gap: 15px;
     display: flex;
     flex-direction: column;
-    min-height: 300px;
+    /* min-height: 300px; */
 }
 
 .task-details-assigned-to-name div {
-    height: 37px;
+    min-height: 37px;
     display: flex;
     align-items: center;
 }
