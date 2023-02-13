@@ -384,13 +384,13 @@ function renderDetailsTaskHTML(taskID){
         </div>
         <div onclick="proofInput('msgBoxAssigned')" class="inputContainer">
             <b class="padd4px">Assigned to</b>
-            <div onclick="openAssignedTo()" id="contactDiv" class="openCategoryContainer">Select contact to assign 
-                <svg id="arrayAssigned" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div onclick="openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit')" id="contactDivEdit" class="openCategoryContainer">Select contact to assign 
+                <svg id="arrayAssignedEdit" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2.2 0H1.41421C0.523309 0 0.0771403 1.07714 0.707105 1.70711L6.29289 7.29289C6.68342 7.68342 7.31658 7.68342 7.70711 7.29289L13.2929 1.70711C13.9229 1.07714 13.4767 0 12.5858 0H11.8H7H2.2Z" fill="black"></path>
                 </svg>
             </div>
-            <div class="contactContainer d-none overflow" id="contactList">
-                <div id="contacts"></div>
+            <div class="contactContainer d-none overflow" id="contactListEdit">
+                <div id="contactsEdit"></div>
                 <div id="selectedContact" class="newCategoryDiv"></div>
             </div>
             <div class="transparentDiv">

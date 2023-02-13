@@ -572,23 +572,23 @@ function dropColorInInput() {
 
 
 //Assigned to section//
-function openAssignedTo() {
-  let arrayAssigned = document.getElementById("arrayAssigned");
+function openAssignedTo(assignedToIconID, hideBoarderID, expandContactsID, showContactsID) {
+  let arrayAssigned = document.getElementById(assignedToIconID);
   arrayAssigned.classList.toggle("rotateIcon");
   if (slideAssignTo === false) {
-    slideInAssignTo();
-    renderOpenAssignedTo();
+    slideInAssignTo(hideBoarderID, expandContactsID);
+    renderOpenAssignedTo(showContactsID);
     slideAssignTo = true;
   } else {
-    slideOutAssignTo();
+    slideOutAssignTo(hideBoarderID, expandContactsID);
   }
 }
 
 
-function slideOutAssignTo() {
-  let contactDiv = document.getElementById("contactDiv");
+function slideOutAssignTo(hideBoarderID, expandContactsID) {
+  let contactDiv = document.getElementById(hideBoarderID);
   contactDiv.classList.toggle("noneBottomBorder");
-  let contactList = document.getElementById("contactList");
+  let contactList = document.getElementById(expandContactsID);
   contactList.classList.add("slide-out-top");
   setTimeout(() => {
     contactList.classList.remove("slide-in-top");
@@ -598,18 +598,18 @@ function slideOutAssignTo() {
 }
 
 
-function slideInAssignTo() {
-  let contactDiv = document.getElementById("contactDiv");
+function slideInAssignTo(hideBoarderID, expandContactsID) {
+  let contactDiv = document.getElementById(hideBoarderID);
   contactDiv.classList.toggle("noneBottomBorder");
-  let contactList = document.getElementById("contactList");
+  let contactList = document.getElementById(expandContactsID);
   contactList.classList.remove("slide-out-top");
   contactList.classList.add("slide-in-top");
   contactList.classList.toggle("d-none");
 }
 
 
-function renderOpenAssignedTo() {
-  let contacts = document.getElementById("contacts");
+function renderOpenAssignedTo(showContactsID) {
+  let contacts = document.getElementById(showContactsID);
   contacts.innerHTML = "";
   for (let i = 0; i < users.length; i++) {
     checked = false;
