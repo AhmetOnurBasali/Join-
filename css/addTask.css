@@ -121,8 +121,10 @@ li {
 
 .selectedCategoryText {
   display: flex;
-  height: 16px;
-  align-items: center;
+    height: 16px;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 18px;
 }
 
 .selectedCategoryTextOpen {
@@ -431,27 +433,17 @@ textarea {
   cursor: pointer;
 }
 
-#contactDiv {
-  background-image: url(../assets/img/arrayBottom.svg);
-  background-repeat: no-repeat;
-  background-position: right;
-  background-position-x: 95%;
+.openArrayIcon{
+  display: flex;
+  position: absolute;
+  right: 8px;
+  height: 42px;
 }
 
-#selectedCategory {
-  background-image: url(../assets/img/arrayBottom.svg);
-  background-repeat: no-repeat;
-  background-position: right;
-  background-position-x: 95%;
-  min-height: 47px;
+.rotateIcon{
+  transform: rotate(180deg);
 }
 
-#assignedTo {
-  background-image: url(../assets/img/arrayBottom.svg);
-  background-repeat: no-repeat;
-  background-position: right;
-  background-position-x: 95%;
-}
 
 #subtask {
   background-image: url(../assets/img/plusSubtask.svg);

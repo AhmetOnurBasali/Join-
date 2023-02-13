@@ -2,6 +2,8 @@ let slideAssignTo = false;
 let slideCategory = false;
 
 let currentCategoryColor = [];
+let displayedCategories = [];
+let displayedCategoriesColor = [];
 
 let newCreateSubtask = [];
 let newSubtask = [];
@@ -19,14 +21,16 @@ async function loadTasks() {
   }
 }
 
+
 async function createNewTask(event) {
   await proofEventAndTasksJSON(event);
   let newTask = getTaskData(newArea);
-  let proof = proofInputs(newTask);
+  let proof = taskProofSection(newTask);
   if (proof === true) {
     setTaskData(newTask);
   }
 }
+
 
 async function proofEventAndTasksJSON(event) {
   if (event) {
@@ -37,6 +41,7 @@ async function proofEventAndTasksJSON(event) {
   }
   await downloadFromServer();
 }
+
 
 function getTaskData(newArea) {
   let prioNew = checkPrio();
@@ -65,7 +70,38 @@ function getTaskData(newArea) {
   };
 }
 
-function proofInputs(newTask) {
+
+function taskProofSection(newTask) {
+  let data = proofTaskData(newTask);
+  let title = proofTitle(newTask);
+  let description = proofDescription(newTask);
+  let category = proofCategory(newTask);
+  let assigned = proofAssigned(newTask);
+  let date = proofDate(newTask);
+  let prio = proofPrio(newTask);
+  let subtask = proofSubtask(newTask);
+  if (checkProofOf( data, title, description, category, assigned, date, prio, subtask) === true) {
+    return true;
+  }
+  return false;
+}
+
+
+function checkProofOf(data, title, description, category, assigned, date, prio, subtask) {
+  return (
+    data === true &&
+    title === true &&
+    description === true &&
+    category === true &&
+    assigned === true &&
+    date === true &&
+    prio === true &&
+    subtask === true
+  );
+}
+
+
+function proofTaskData(newTask) {
   if (!newTask.creator) {
     // newTask.creator == "Guest User"
     alert("proof Current user");
@@ -75,75 +111,108 @@ function proofInputs(newTask) {
     console.log("proof the id or area undefined");
     return false;
   }
-  if (!newTask.title) {
-    let msgBox = document.getElementById('msgBoxTitle') 
-    msgBox.classList.remove('d-none')
-    msgBox.innerHTML ='This field is required'
-    return false
-  }
-  if (!newTask.description) {
-    let msgBox = document.getElementById('msgBoxDescription') 
-    msgBox.classList.remove('d-none')
-    msgBox.innerHTML ='This field is required'
-    return false
-  }
-  if (newTask.category == "select a category" || newTask.category == "" || !newTask.titleBg ) {
-    let msgBox = document.getElementById('msgBoxCategory') 
-    msgBox.classList.remove('d-none')
-    msgBox.innerHTML ='This field is required'
-    return false
-  }
-  if (selectedContacts.length === 0) {
-    let msgBox = document.getElementById('msgBoxAssigned') 
-    msgBox.classList.remove('d-none')
-    msgBox.innerHTML ='This field is required'
-    return false
-  }
-  if (!newTask.date) {
-    let msgBox = document.getElementById('msgBoxDate') 
-    msgBox.classList.remove('d-none')
-    msgBox.innerHTML ='This field is required'
-    return false
-  }
-  if (!newTask.prio) {
-    let msgBox = document.getElementById('msgBoxPrio') 
-    msgBox.classList.remove('d-none')
-    msgBox.innerHTML ='This field is required'
-    return false
-  }
-  if ((newSubtask.length === 0 && newCreateSubtask.length === 0)) {
-    let msgBox = document.getElementById('msgBoxSubtask') 
-    msgBox.classList.remove('d-none')
-    msgBox.innerHTML ='This field is required'
-    return false
-  }
-  debugger
   return true;
 }
 
+
+function proofTitle(newTask) {
+  if (!newTask.title) {
+    let msgBox = document.getElementById("msgBoxTitle");
+    showRequiredText(msgBox);
+    return false;
+  }
+  return true;
+}
+
+
+function proofDescription(newTask) {
+  if (!newTask.description) {
+    let msgBox = document.getElementById("msgBoxDescription");
+    showRequiredText(msgBox);
+    return false;
+  }
+  return true;
+}
+
+
+function proofCategory(newTask) {
+  if (newTask.category == "select a category" || newTask.category == "" || !newTask.titleBg) {
+    let msgBox = document.getElementById("msgBoxCategory");
+    showRequiredText(msgBox);
+    return false;
+  }
+  return true;
+}
+
+
+function proofAssigned() {
+  if (selectedContacts.length === 0) {
+    let msgBox = document.getElementById("msgBoxAssigned");
+    showRequiredText(msgBox);
+    return false;
+  }
+  return true;
+}
+
+
+function proofDate(newTask) {
+  if (!newTask.date) {
+    let msgBox = document.getElementById("msgBoxDate");
+    showRequiredText(msgBox);
+    return false;
+  }
+  return true;
+}
+
+
+function proofPrio(newTask) {
+  if (!newTask.prio) {
+    let msgBox = document.getElementById("msgBoxPrio");
+    showRequiredText(msgBox);
+    return false;
+  }
+  return true;
+}
+
+
+function proofSubtask() {
+  if (newSubtask.length === 0 && newCreateSubtask.length === 0) {
+    let msgBox = document.getElementById("msgBoxSubtask");
+    showRequiredText(msgBox);
+    return false;
+  }
+  return true;
+}
+
+
+function showRequiredText(msgBox) {
+  msgBox.classList.remove("d-none");
+  msgBox.innerHTML = "This field is required";
+}
+
+
 function proofInput(id) {
-  let requiredContainer = document.getElementById(id)
-  if (requiredContainer.innerHTML != ""){
-    requiredContainer.classList.add('d-none')
+  let requiredContainer = document.getElementById(id);
+  if (requiredContainer.innerHTML != "") {
+    requiredContainer.classList.add("d-none");
   } else {
-    requiredContainer.classList.remove('d-none')
+    requiredContainer.classList.remove("d-none");
   }
 }
 
 
 async function setTaskData(newTask) {
   allTasks.push(newTask);
-
   await backend.setItem("allTasks", allTasks);
-  clearTask()
-  slidePopup.classList.remove('d-none')
+  clearTask();
+  slidePopup.classList.remove("d-none");
   setTimeout(() => {
     window.location.href = "../html/board.html";
   }, 1000);
 }
 
-//Prio section//
 
+//Prio section//
 function setPrioCheckBox(prio) {
   if (prio === "low") {
     setLowPrioBtn();
@@ -155,6 +224,7 @@ function setPrioCheckBox(prio) {
     setHighPrioBtn();
   }
 }
+
 
 function checkPrio() {
   let urgentBtn = document.getElementById("urgentBtn");
@@ -171,6 +241,7 @@ function checkPrio() {
   }
 }
 
+
 function setLowPrioBtn() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
@@ -184,6 +255,7 @@ function setLowPrioBtn() {
     setLowPrioBtnColor();
   }
 }
+
 
 function setNormalPrioBtn() {
   let urgentBtn = document.getElementById("urgentBtn");
@@ -199,6 +271,7 @@ function setNormalPrioBtn() {
   }
 }
 
+
 function setHighPrioBtn() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
@@ -213,6 +286,7 @@ function setHighPrioBtn() {
   }
 }
 
+
 function setLowPrioSvgColor() {
   let svgLowColor = document.getElementById("svgLow");
   let svgNormalColor = document.getElementById("svgNormal");
@@ -222,6 +296,7 @@ function setLowPrioSvgColor() {
   svgHighColor.classList.remove("prioIconWhite");
 }
 
+
 function setLowPrioTextColor() {
   let lowPrioText = document.getElementById("lowPrioText");
   let normalPrioText = document.getElementById("normalPrioText");
@@ -230,6 +305,7 @@ function setLowPrioTextColor() {
   normalPrioText.style = "color: black;";
   highPrioText.style = "color: black;";
 }
+
 
 function setLowPrioBtnColor() {
   let highBtnContainer = document.getElementById("highBtnContainer");
@@ -249,6 +325,7 @@ function setNormalPrioSvgColor() {
   svgHighColor.classList.remove("prioIconWhite");
 }
 
+
 function setNormalPrioTextColor() {
   let lowPrioText = document.getElementById("lowPrioText");
   let normalPrioText = document.getElementById("normalPrioText");
@@ -257,6 +334,7 @@ function setNormalPrioTextColor() {
   normalPrioText.style = "color: white;";
   highPrioText.style = "color: black;";
 }
+
 
 function setNormalPrioBtnColor() {
   let highBtnContainer = document.getElementById("highBtnContainer");
@@ -267,6 +345,7 @@ function setNormalPrioBtnColor() {
   highBtnContainer.classList.remove("prioHighContainerOnClick");
 }
 
+
 function setHighPrioSvgColor() {
   let svgLowColor = document.getElementById("svgLow");
   let svgNormalColor = document.getElementById("svgNormal");
@@ -275,6 +354,7 @@ function setHighPrioSvgColor() {
   svgNormalColor.classList.remove("prioIconWhite");
   svgHighColor.classList.add("prioIconWhite");
 }
+
 
 function setHighPrioTextColor() {
   let lowPrioText = document.getElementById("lowPrioText");
@@ -285,6 +365,7 @@ function setHighPrioTextColor() {
   highPrioText.style = "color: white;";
 }
 
+
 function setHighPrioBtnColor() {
   let highBtnContainer = document.getElementById("highBtnContainer");
   let normalBtnContainer = document.getElementById("normalBtnContainer");
@@ -293,6 +374,7 @@ function setHighPrioBtnColor() {
   lowBtnContainer.classList.remove("prioLowContainerOnClick");
   highBtnContainer.classList.add("prioHighContainerOnClick");
 }
+
 
 //category section//
 async function loadCategory() {
@@ -305,6 +387,7 @@ async function loadCategory() {
   }
 }
 
+
 async function openCategory() {
   let openCategory = document.getElementById("categoryIsOpen");
   openCategory.classList.remove("openCategory");
@@ -313,18 +396,18 @@ async function openCategory() {
   selectedCategory.classList.add("selectedCategoryTextOpen");
   selectedCategory.innerHTML = "select a category";
   toggleOpenFunction();
-  renderCategorys();
+  getCategorys();
 }
 
+
 function toggleOpenFunction() {
+  let arrayCategory = document.getElementById("arrayCategory");
   let newCategory = document.getElementById("newCategory");
   let allCategorys = document.getElementById("allCategorys");
   if (slideCategory === false) {
-    newCategory.classList.remove("d-none");
-    allCategorys.classList.remove("d-none");
-    slideInCategory(newCategory, allCategorys);
+    slideInCategory(newCategory, allCategorys, arrayCategory);
   } else {
-    slideOutCategory(newCategory, allCategorys);
+    slideOutCategory(newCategory, allCategorys, arrayCategory);
     setTimeout(() => {
       newCategory.classList.add("d-none");
       allCategorys.classList.add("d-none");
@@ -332,7 +415,9 @@ function toggleOpenFunction() {
   }
 }
 
+
 function slideOutCategory(newCategory, allCategorys) {
+  arrayCategory.classList.remove("rotateIcon");
   newCategory.classList.add("slide-out-top");
   newCategory.classList.remove("slide-in-top");
   allCategorys.classList.add("slide-out-top");
@@ -340,13 +425,18 @@ function slideOutCategory(newCategory, allCategorys) {
   slideCategory = false;
 }
 
+
 function slideInCategory(newCategory, allCategorys) {
+  newCategory.classList.remove("d-none");
+  allCategorys.classList.remove("d-none");
+  arrayCategory.classList.add("rotateIcon");
   newCategory.classList.remove("slide-out-top");
   newCategory.classList.add("slide-in-top");
   allCategorys.classList.remove("slide-out-top");
   allCategorys.classList.add("slide-in-top");
   slideCategory = true;
 }
+
 
 function newCategory() {
   let openCategory = document.getElementById("openCategoryContainer");
@@ -359,6 +449,7 @@ function newCategory() {
   createCategoryContainer.classList.remove("d-none");
 }
 
+
 function closeNewCategory() {
   let openCategorys = document.getElementById("openCategoryContainer");
   openCategorys.classList.remove("d-none");
@@ -366,7 +457,10 @@ function closeNewCategory() {
   createCategory.classList.add("d-none");
 }
 
+
 async function setNewCategory() {
+  let arrayCategory = document.getElementById("arrayCategory");
+  arrayCategory.classList.remove("rotateIcon");
   let categoryContainer = document.getElementById("createCategoryContainer");
   categoryContainer.classList.add("d-none");
   let openCategorys = document.getElementById("openCategoryContainer");
@@ -378,45 +472,53 @@ async function setNewCategory() {
   renderNewCategory();
 }
 
+
 function renderNewCategory() {
   let selectedCategory = document.getElementById("selectedCategory");
   selectedCategory.innerHTML = renderNewCategoryHTML();
 }
 
-async function renderCategorys() {
-  await proofEventAndTasksJSON()
+
+async function getCategorys() {
+  await proofEventAndTasksJSON();
   let allCategorys = document.getElementById(`allCategorys`);
   allCategorys.innerHTML = "";
   for (let i = 0; i < allTasks.length; i++) {
     let taskCategory = allTasks[i].category;
     let taskColor = allTasks[i].titleBg;
-    renderCategory(taskCategory , taskColor)
-     }
-    for (let c = 0; c < displayedCategories.length; c++) {
-      const element = displayedCategories[c];
-    let category = element.category
-    let color = element.color;
-    allCategorys.innerHTML += renderCategorysHTML(c, category, color);
-    }
-
+    indexOfCategory(taskCategory, taskColor);
+  }
+  renderCategorys();
 }
 
-let displayedCategories = [];
 
-function renderCategory(taskCategory, taskColor) {
-  let categoryTask = {category:taskCategory,
-     color:taskColor}
-  if (displayedCategories.indexOf(taskCategory) === -1) {
-    displayedCategories.push(categoryTask);
+function renderCategorys() {
+  for (let c = 0; c < displayedCategories.length; c++) {
+    const element = displayedCategories[c];
+    let category = element;
+    let color = displayedCategoriesColor[c];
+    allCategorys.innerHTML += renderCategorysHTML(c, category, color);
   }
 }
 
+
+function indexOfCategory(taskCategory, taskColor) {
+  if (displayedCategories.indexOf(taskCategory) === -1) {
+    displayedCategories.push(taskCategory);
+    displayedCategoriesColor.push(taskColor);
+  }
+}
+
+
 function chooseCategory(category, color) {
+  let arrayCategory = document.getElementById("arrayCategory");
+  arrayCategory.classList.remove("rotateIcon");
   let selectedCategory = document.getElementById("selectedCategory");
   selectedCategory.innerHTML = chooseCategoryHTML(category, color);
   setOldCategory(category, color);
   renderOldCategory(category, color);
 }
+
 
 function setOldCategory() {
   let createCategory = document.getElementById("createCategory");
@@ -431,11 +533,13 @@ function setOldCategory() {
   allCategorys.classList.add("d-none");
 }
 
+
 function renderOldCategory(category, color) {
   currentCategoryColor.push(color);
   let selectedCategory = document.getElementById("selectedCategory");
   selectedCategory.innerHTML = renderOldCategoryHTML(category, color);
 }
+
 
 function setColor(color) {
   clearColors(color);
@@ -446,6 +550,7 @@ function setColor(color) {
   currentCategoryColor.push(color);
 }
 
+
 function clearColors(color) {
   let colorSelection = document.querySelectorAll(".colorCategoryContainer div");
   for (let i = 0; i < colorSelection.length; i++) {
@@ -453,6 +558,7 @@ function clearColors(color) {
   }
   currentCategoryColor.splice(color);
 }
+
 
 function dropColorInInput() {
   let categoryInput = document.getElementById("createCategory");
@@ -464,9 +570,11 @@ function dropColorInInput() {
   }
 }
 
-//
+
 //Assigned to section//
 function openAssignedTo() {
+  let arrayAssigned = document.getElementById("arrayAssigned");
+  arrayAssigned.classList.toggle("rotateIcon");
   if (slideAssignTo === false) {
     slideInAssignTo();
     renderOpenAssignedTo();
@@ -475,6 +583,7 @@ function openAssignedTo() {
     slideOutAssignTo();
   }
 }
+
 
 function slideOutAssignTo() {
   let contactDiv = document.getElementById("contactDiv");
@@ -488,6 +597,7 @@ function slideOutAssignTo() {
   }, 200);
 }
 
+
 function slideInAssignTo() {
   let contactDiv = document.getElementById("contactDiv");
   contactDiv.classList.toggle("noneBottomBorder");
@@ -496,6 +606,7 @@ function slideInAssignTo() {
   contactList.classList.add("slide-in-top");
   contactList.classList.toggle("d-none");
 }
+
 
 function renderOpenAssignedTo() {
   let contacts = document.getElementById("contacts");
@@ -508,6 +619,7 @@ function renderOpenAssignedTo() {
   }
 }
 
+
 function filterRenderBubble(assignedData) {
   for (let j = 0; j < selectedContacts.length; j++) {
     if (selectedContacts[j].name === assignedData.contactName) {
@@ -517,12 +629,14 @@ function filterRenderBubble(assignedData) {
   }
 }
 
+
 function getAssignedContacts(i) {
   let contactName = users[i].name;
   let contactColor = users[i].color;
   let contactInitials = users[i].initialLetters;
   return { contactName, contactColor, contactInitials };
 }
+
 
 function selectContact(contactName, contactColor, contactInitials, i) {
   let checkbox = document.getElementById(`contactCheckbox${i}`);
@@ -541,10 +655,12 @@ function selectContact(contactName, contactColor, contactInitials, i) {
   renderSelectContact();
 }
 
+
 function selectContactName(i) {
   let checkbox = document.getElementById(`contactCheckbox${i}`);
   checkbox.click();
 }
+
 
 function renderSelectContact() {
   let contactInitials = document.getElementById("contactInitials");
@@ -556,8 +672,8 @@ function renderSelectContact() {
   }
 }
 
-//Subtask section//
 
+//Subtask section//
 function setNewSubtask() {
   let subtask = document.getElementById("subtask");
   let subtaskBtns = document.getElementById("subtaskInputBtnsContainer");
@@ -571,11 +687,13 @@ function setNewSubtask() {
   }
 }
 
+
 function closeNewSubtask() {
   let subtaskInput = document.getElementById("subtask");
   subtaskInput.value = "";
   setNewSubtask();
 }
+
 
 function acceptNewSubtask() {
   let subtaskInput = document.getElementById("subtask");
@@ -585,6 +703,7 @@ function acceptNewSubtask() {
   }
   renderNewSubtask();
 }
+
 
 function renderNewSubtask() {
   let subtaskCheckboxArea = document.getElementById("subtaskCheckboxArea");
@@ -596,16 +715,20 @@ function renderNewSubtask() {
   closeNewSubtask();
 }
 
+
 function checkSubtask(event, subtask) {
   let checkbox = event.target;
   if (checkbox.checked) {
     newSubtask.push(subtask);
   }
 }
+
+
 function checkSubtastText(i) {
   let checkbox = document.getElementById(`subtask${i}`);
   checkbox.click();
 }
+
 
 //clear current task//
 function clearTask() {
@@ -621,9 +744,10 @@ function clearTask() {
     openCategory();
   }
   if (slideAssignTo == true) {
-    openAssignedTo()
+    openAssignedTo();
   }
 }
+
 
 function clearDataAndInputs() {
   let titleInput = document.getElementById("title");
@@ -639,6 +763,7 @@ function clearDataAndInputs() {
   dateInput.value = "";
 }
 
+
 function clearPrio() {
   let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
@@ -650,6 +775,7 @@ function clearPrio() {
   clearPrioBtnWhite();
   clearPrioSVG();
 }
+
 
 function clearPrioText() {
   let lowPrioText = document.getElementById("lowPrioText");
@@ -668,6 +794,7 @@ function clearPrioBtnWhite() {
   highBtnContainer.classList.remove("prioHighContainerOnClick");
   normalBtnContainer.classList.remove("prioNormalContainerOnClick");
 }
+
 
 function clearPrioSVG() {
   let svgLowColor = document.getElementById("svgLow");
