@@ -171,7 +171,7 @@ function addTaskHTML() {
             <b class="padd4px">Prio</b>
             <div style="display: flex; justify-content: space-between;">
               <div id="highBtnContainer" class="checkboxContainer">
-                <input onclick="setPrioCheckBox('high')" id="urgentBtn" class="checkboxPosi" type="checkbox"> 
+                <input onclick="setPrioCheckBox('urgent')" id="urgentBtn" class="checkboxPosi" type="checkbox"> 
                 <span id="highPrioText" class="prioTextPosi">Urgent</span> 
                 <svg id="svgHigh" width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.00026 5.25476C9.19969 5.25443 9.39397 5.31633 9.55451 5.43137L17.123 10.8653C17.2215 10.9361 17.3046 11.025 17.3678 11.127C17.4309 11.2291 17.4727 11.3422 17.4909 11.4599C17.5276 11.6977 17.4656 11.9399 17.3186 12.1333C17.1716 12.3266 16.9516 12.4553 16.7071 12.4909C16.4625 12.5266 16.2134 12.4664 16.0145 12.3234L9.00026 7.2925L1.98602 12.3234C1.88754 12.3942 1.7757 12.4454 1.65687 12.4742C1.53803 12.5029 1.41455 12.5086 1.29345 12.4909C1.17235 12.4733 1.05602 12.4326 0.951088 12.3712C0.846159 12.3099 0.754691 12.229 0.681906 12.1333C0.609122 12.0375 0.556445 11.9288 0.526885 11.8132C0.497325 11.6977 0.491459 11.5776 0.509623 11.4599C0.527789 11.3422 0.569626 11.2291 0.632752 11.127C0.695876 11.025 0.779049 10.9361 0.877524 10.8653L8.44602 5.43137C8.60656 5.31633 8.80083 5.25443 9.00026 5.25476Z" fill="#FF3D00"/>
@@ -179,7 +179,7 @@ function addTaskHTML() {
                 </svg>
               </div><!--required Problem-->
               <div id="normalBtnContainer" class="checkboxContainer">
-                <input onclick="setPrioCheckBox('normal')" id="mediumBtn" class="checkboxPosi" type="checkbox">
+                <input onclick="setPrioCheckBox('medium')" id="mediumBtn" class="checkboxPosi" type="checkbox">
                 <span id="normalPrioText" class="prioTextPosi">Medium</span> 
                 <svg id="svgNormal" width="18" height="7" viewBox="0 0 18 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16.5685 6.66658L1.43151 6.66658C1.18446 6.66658 0.947523 6.56773 0.772832 6.39177C0.598141 6.21581 0.5 5.97716 0.5 5.72831C0.5 5.47947 0.598141 5.24081 0.772832 5.06485C0.947523 4.88889 1.18446 4.79004 1.43151 4.79004L16.5685 4.79004C16.8155 4.79004 17.0525 4.88889 17.2272 5.06485C17.4019 5.24081 17.5 5.47947 17.5 5.72831C17.5 5.97716 17.4019 6.21581 17.2272 6.39177C17.0525 6.56773 16.8155 6.66658 16.5685 6.66658Z" fill="#FFA800"/>

@@ -80,7 +80,7 @@ function taskProofSection(newTask) {
   let date = proofDate(newTask);
   let prio = proofPrio(newTask);
   let subtask = proofSubtask(newTask);
-  if (checkProofOf( data, title, description, category, assigned, date, prio, subtask) === true) {
+  if (checkProofOf(data, title, description, category, assigned, date, prio, subtask) === true) {
     return true;
   }
   return false;
@@ -213,18 +213,6 @@ async function setTaskData(newTask) {
 
 
 //Prio section//
-function setPrioCheckBox(prio) {
-  if (prio === "low") {
-    setLowPrioBtn();
-  }
-  if (prio === "normal") {
-    setNormalPrioBtn();
-  }
-  if (prio === "high") {
-    setHighPrioBtn();
-  }
-}
-
 
 function checkPrio() {
   let urgentBtn = document.getElementById("urgentBtn");
@@ -241,15 +229,46 @@ function checkPrio() {
   }
 }
 
+function setPrioCheckBox(prio) {
+  
+  if (prio === "low") {
+    resetAllPrioBtn('medium', 'urgent');
+    setLowPrioBtn();
+  }
+  if (prio === "medium") {
+    resetAllPrioBtn('low', 'urgent');
+    setNormalPrioBtn();
+  }
+  if (prio === "urgent") {
+    resetAllPrioBtn('low', 'medium');
+    setHighPrioBtn();
+  }
+}
+
+function resetAllPrioBtn(uncheckBtn1, uncheckBtn2) {
+  document.getElementById(`${uncheckBtn1}Btn`).checked = false;
+  document.getElementById(`${uncheckBtn2}Btn`).checked = false;
+
+  document.getElementById("svgLow").classList.remove("prioIconWhite");
+  document.getElementById("svgNormal").classList.remove("prioIconWhite");
+  document.getElementById("svgHigh").classList.remove("prioIconWhite");
+
+  document.getElementById("lowPrioText").style = "color: black;";
+  document.getElementById("normalPrioText").style = "color: black;";
+  document.getElementById("highPrioText").style = "color: black;";
+
+  document.getElementById("lowBtnContainer").classList.remove("prioLowContainerOnClick");
+  document.getElementById("normalBtnContainer").classList.remove("prioNormalContainerOnClick");
+  document.getElementById("highBtnContainer").classList.remove("prioHighContainerOnClick");
+}
+
+
+
 
 function setLowPrioBtn() {
-  let urgentBtn = document.getElementById("urgentBtn");
-  let mediumBtn = document.getElementById("mediumBtn");
   let lowBtn = document.getElementById("lowBtn");
   if (lowBtn.checked) {
     lowBtn.checked = true;
-    mediumBtn.checked = false;
-    urgentBtn.checked = false;
     setLowPrioSvgColor();
     setLowPrioTextColor();
     setLowPrioBtnColor();
@@ -258,13 +277,9 @@ function setLowPrioBtn() {
 
 
 function setNormalPrioBtn() {
-  let urgentBtn = document.getElementById("urgentBtn");
   let mediumBtn = document.getElementById("mediumBtn");
-  let lowBtn = document.getElementById("lowBtn");
   if (mediumBtn.checked) {
     mediumBtn.checked = true;
-    lowBtn.checked = false;
-    urgentBtn.checked = false;
     setNormalPrioSvgColor();
     setNormalPrioTextColor();
     setNormalPrioBtnColor();
@@ -274,12 +289,8 @@ function setNormalPrioBtn() {
 
 function setHighPrioBtn() {
   let urgentBtn = document.getElementById("urgentBtn");
-  let mediumBtn = document.getElementById("mediumBtn");
-  let lowBtn = document.getElementById("lowBtn");
   if (urgentBtn.checked) {
     urgentBtn.checked = true;
-    mediumBtn.checked = false;
-    lowBtn.checked = false;
     setHighPrioSvgColor();
     setHighPrioTextColor();
     setHighPrioBtnColor();
@@ -289,89 +300,54 @@ function setHighPrioBtn() {
 
 function setLowPrioSvgColor() {
   let svgLowColor = document.getElementById("svgLow");
-  let svgNormalColor = document.getElementById("svgNormal");
-  let svgHighColor = document.getElementById("svgHigh");
   svgLowColor.classList.add("prioIconWhite");
-  svgNormalColor.classList.remove("prioIconWhite");
-  svgHighColor.classList.remove("prioIconWhite");
+
 }
 
 
 function setLowPrioTextColor() {
   let lowPrioText = document.getElementById("lowPrioText");
-  let normalPrioText = document.getElementById("normalPrioText");
-  let highPrioText = document.getElementById("highPrioText");
   lowPrioText.style = "color: white;";
-  normalPrioText.style = "color: black;";
-  highPrioText.style = "color: black;";
 }
 
 
 function setLowPrioBtnColor() {
-  let highBtnContainer = document.getElementById("highBtnContainer");
-  let normalBtnContainer = document.getElementById("normalBtnContainer");
   let lowContainer = document.getElementById("lowBtnContainer");
   lowContainer.classList.add("prioLowContainerOnClick");
-  highBtnContainer.classList.remove("prioHighContainerOnClick");
-  normalBtnContainer.classList.remove("prioNormalContainerOnClick");
 }
 
 function setNormalPrioSvgColor() {
-  let svgLowColor = document.getElementById("svgLow");
   let svgNormalColor = document.getElementById("svgNormal");
-  let svgHighColor = document.getElementById("svgHigh");
-  svgLowColor.classList.remove("prioIconWhite");
   svgNormalColor.classList.add("prioIconWhite");
-  svgHighColor.classList.remove("prioIconWhite");
 }
 
 
 function setNormalPrioTextColor() {
-  let lowPrioText = document.getElementById("lowPrioText");
   let normalPrioText = document.getElementById("normalPrioText");
-  let highPrioText = document.getElementById("highPrioText");
-  lowPrioText.style = "color: black;";
   normalPrioText.style = "color: white;";
-  highPrioText.style = "color: black;";
 }
 
 
 function setNormalPrioBtnColor() {
-  let highBtnContainer = document.getElementById("highBtnContainer");
   let normalBtnContainer = document.getElementById("normalBtnContainer");
-  let lowBtnContainer = document.getElementById("lowBtnContainer");
   normalBtnContainer.classList.add("prioNormalContainerOnClick");
-  lowBtnContainer.classList.remove("prioLowContainerOnClick");
-  highBtnContainer.classList.remove("prioHighContainerOnClick");
 }
 
 
 function setHighPrioSvgColor() {
-  let svgLowColor = document.getElementById("svgLow");
-  let svgNormalColor = document.getElementById("svgNormal");
   let svgHighColor = document.getElementById("svgHigh");
-  svgLowColor.classList.remove("prioIconWhite");
-  svgNormalColor.classList.remove("prioIconWhite");
   svgHighColor.classList.add("prioIconWhite");
 }
 
 
 function setHighPrioTextColor() {
-  let lowPrioText = document.getElementById("lowPrioText");
-  let normalPrioText = document.getElementById("normalPrioText");
   let highPrioText = document.getElementById("highPrioText");
-  lowPrioText.style = "color: black;";
-  normalPrioText.style = "color: black;";
   highPrioText.style = "color: white;";
 }
 
 
 function setHighPrioBtnColor() {
   let highBtnContainer = document.getElementById("highBtnContainer");
-  let normalBtnContainer = document.getElementById("normalBtnContainer");
-  let lowBtnContainer = document.getElementById("lowBtnContainer");
-  normalBtnContainer.classList.remove("prioNormalContainerOnClick");
-  lowBtnContainer.classList.remove("prioLowContainerOnClick");
   highBtnContainer.classList.add("prioHighContainerOnClick");
 }
 
