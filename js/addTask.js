@@ -228,37 +228,37 @@ function checkPrio() {
   }
 }
 
-function setPrioCheckBox(prio) {
+function setPrioCheckBox(prio, taskEdit) {
   
   if (prio === "low") {
-    resetAllPrioBtn('medium', 'urgent');
+    resetAllPrioBtn('medium', 'urgent', taskEdit);
     setLowPrioBtn();
   }
   if (prio === "medium") {
-    resetAllPrioBtn('low', 'urgent');
+    resetAllPrioBtn('low', 'urgent', taskEdit);
     setNormalPrioBtn();
   }
   if (prio === "urgent") {
-    resetAllPrioBtn('low', 'medium');
+    resetAllPrioBtn('low', 'medium', taskEdit);
     setHighPrioBtn();
   }
 }
 
-function resetAllPrioBtn(uncheckBtn1, uncheckBtn2) {
+function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
   document.getElementById(`${uncheckBtn1}Btn`).checked = false;
   document.getElementById(`${uncheckBtn2}Btn`).checked = false;
 
-  document.getElementById("svgLow").classList.remove("prioIconWhite");
-  document.getElementById("svgNormal").classList.remove("prioIconWhite");
-  document.getElementById("svgHigh").classList.remove("prioIconWhite");
+  document.getElementById(`svgLow${taskEdit}`).classList.remove("prioIconWhite");
+  document.getElementById(`svgNormal${taskEdit}`).classList.remove("prioIconWhite");
+  document.getElementById(`svgHigh${taskEdit}`).classList.remove("prioIconWhite");
 
-  document.getElementById("lowPrioText").style = "color: black;";
-  document.getElementById("normalPrioText").style = "color: black;";
-  document.getElementById("highPrioText").style = "color: black;";
+  document.getElementById(`lowPrioText${taskEdit}`).style = "color: black;";
+  document.getElementById(`normalPrioText${taskEdit}`).style = "color: black;";
+  document.getElementById(`highPrioText${taskEdit}`).style = "color: black;";
 
-  document.getElementById("lowBtnContainer").classList.remove("prioLowContainerOnClick");
-  document.getElementById("normalBtnContainer").classList.remove("prioNormalContainerOnClick");
-  document.getElementById("highBtnContainer").classList.remove("prioHighContainerOnClick");
+  document.getElementById(`lowBtnContainer${taskEdit}`).classList.remove("prioLowContainerOnClick");
+  document.getElementById(`normalBtnContainer${taskEdit}`).classList.remove("prioNormalContainerOnClick");
+  document.getElementById(`highBtnContainer${taskEdit}`).classList.remove("prioHighContainerOnClick");
 }
 
 
