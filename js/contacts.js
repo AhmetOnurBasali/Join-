@@ -1,3 +1,6 @@
+let currentContactID = [currentUser["id"]];
+let currentUserContacts = [];
+
 function closeAddNewContact() {
   let container = document.getElementById("addContactPopup");
   container.classList.add("d-none");
@@ -13,18 +16,32 @@ function closeEditContact() {
   container.classList.add("d-none");
 }
 
-function createNewContact(event) {
+async function createNewContact(event) {
   event.preventDefault();
+
   let nameInput = document.getElementById("inputName").value;
   let emailInput = document.getElementById("inputEmail").value;
   let numberInput = document.getElementById("inputNumber").value;
   console.log(nameInput, emailInput, numberInput);
   console.log(currentUser);
-  let currentUserContacts = {
-    contactCreatorID: currentUser['id'],
-    name:nameInput,
-    email:emailInput,
-    phone:numberInput
+  let contacts = {
+    contactCreatorID: currentUser["id"],
+    name: nameInput,
+    email: emailInput,
+    phone: numberInput,
+  };
+  console.log(contacts);
+  currentContactID++;
+  currentUserContacts.push(contacts);
+  await backend.setItem("currentUserContacts", contacts);
+}
+
+async function loadContactsData() {
+  await downloadFromServer();
+  let item = await backend.getItem("currentUserContacts");
+  if (typeof item === "string") {
+    currentUserContacts = JSON.parse(item) || [];
+  } else {
+    currentUserContacts = item;
   }
-  console.log(currentUserContacts);
 }

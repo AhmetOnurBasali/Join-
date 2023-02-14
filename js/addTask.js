@@ -204,7 +204,6 @@ function proofInput(id) {
 async function setTaskData(newTask) {
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
-  clearTask();
   slidePopup.classList.remove("d-none");
   setTimeout(() => {
     window.location.href = "../html/board.html";
