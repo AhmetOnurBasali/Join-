@@ -204,7 +204,7 @@ function proofInput(id) {
 async function setTaskData(newTask) {
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
-  clearTask();
+  // clearTask();
   slidePopup.classList.remove("d-none");
   setTimeout(() => {
     window.location.href = "../html/board.html";
@@ -267,34 +267,28 @@ function resetAllPrioBtn(uncheckBtn1, uncheckBtn2) {
 
 function setLowPrioBtn() {
   let lowBtn = document.getElementById("lowBtn");
-  if (lowBtn.checked) {
     lowBtn.checked = true;
     setLowPrioSvgColor();
     setLowPrioTextColor();
     setLowPrioBtnColor();
-  }
 }
 
 
 function setNormalPrioBtn() {
   let mediumBtn = document.getElementById("mediumBtn");
-  if (mediumBtn.checked) {
     mediumBtn.checked = true;
     setNormalPrioSvgColor();
     setNormalPrioTextColor();
     setNormalPrioBtnColor();
-  }
 }
 
 
 function setHighPrioBtn() {
   let urgentBtn = document.getElementById("urgentBtn");
-  if (urgentBtn.checked) {
     urgentBtn.checked = true;
     setHighPrioSvgColor();
     setHighPrioTextColor();
     setHighPrioBtnColor();
-  }
 }
 
 
