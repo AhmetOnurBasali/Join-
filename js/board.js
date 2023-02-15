@@ -77,8 +77,8 @@ function renderAssignTo(task, eID) {
             document.getElementById(`task-details-assigned-to-name${task['id']}`).innerHTML += `<div>${task['assignedTo'][i]['name']}</div>`;
         }
     }
-    if(eID == 'task-assigned-to' && i > 2){
-        document.getElementById(`task-assigned-to${task['id']}`).innerHTML += `<div style="background-color:#2A3647;">${i-2}+</div>`;
+    if (eID == 'task-assigned-to' && i > 2) {
+        document.getElementById(`task-assigned-to${task['id']}`).innerHTML += `<div style="background-color:#2A3647;">${i - 2}+</div>`;
     }
 }
 
@@ -223,10 +223,12 @@ function setPriorityBgColor(taskID) {
 function closeTaskDetails() {
     document.getElementById('popup-task-details').classList.add('d-none');
     document.getElementById('body').style.overflow = 'auto';
+    slideAssignTo = false;
+    slideCategory = false;
 }
 
 function editDetailsTask(taskID) {
-    document.getElementById('task-details').innerHTML = renderDetailsTaskHTML(taskID);
+    document.getElementById('task-details').innerHTML = renderEditDetailsTaskHTML(taskID);
     renderAssignTo(allTasks[taskID], 'task-edit-assigned-to');
 }
 
@@ -321,31 +323,31 @@ function renderTaskDetailsFrontHTML(taskID) {
 
 }
 
-function renderDetailsTaskHTML(taskID){
+function renderEditDetailsTaskHTML(taskID) {
     return /*html*/`
     <div class="close-task-details">
-            <img  onclick="closeTaskDetails()" src="../assets/img/clear.svg" alt="">
+            <img onclick="closeTaskDetails()" src="../assets/img/clear.svg" alt="">
         </div>
 
-    <form class="edit-task-container" onsubmit="createNewTask(event);">
+    <form class="edit-task-container" onsubmit="createNewTask(event, taskID); return false;">
         
         <div class="inputContainer">
             <b class="padd4px">Title</b> 
-            <input id="title" type="text" value="${allTasks[taskID]['title']}" oninput="proofInput('msgBoxTitle')">
+            <input id="titleEdit" type="text" value="${allTasks[taskID]['title']}" oninput="proofInput('msgBoxTitle')">
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxTitle"></div>
             </div>  
         </div>
         <div class="inputContainer">
             <b class="padd4px">Description</b>
-            <textarea oninput="proofInput('msgBoxDescription')" id="description" type="text">${allTasks[taskID]['description']}</textarea>
+            <textarea oninput="proofInput('msgBoxDescription')" id="descriptionEdit" type="text">${allTasks[taskID]['description']}</textarea>
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxDescription"></div>  
             </div>
         </div>
         <div onclick="proofInput('msgBoxDate')" class="inputContainer">
             <b class="padd4px">Due date</b> 
-            <input id="date" value="${allTasks[taskID]['date']}" type="date">
+            <input id="dateEdit" value="${allTasks[taskID]['date']}" type="date">
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxDate"></div>
             </div>
@@ -382,38 +384,90 @@ function renderDetailsTaskHTML(taskID){
                 <div class="requiredText" id="msgBoxPrio"></div>
             </div>
         </div>
-        <div onclick="proofInput('msgBoxAssigned')" class="inputContainer">
-            <b class="padd4px">Assigned to</b>
-            <div onclick="openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit')" id="contactDivEdit" class="openCategoryContainer">Select contact to assign 
-                <svg id="arrayAssignedEdit" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.2 0H1.41421C0.523309 0 0.0771403 1.07714 0.707105 1.70711L6.29289 7.29289C6.68342 7.68342 7.31658 7.68342 7.70711 7.29289L13.2929 1.70711C13.9229 1.07714 13.4767 0 12.5858 0H11.8H7H2.2Z" fill="black"></path>
-                </svg>
-            </div>
-            <div class="contactContainer d-none overflow" id="contactListEdit">
-                <div id="contactsEdit"></div>
-                <div id="selectedContact" class="newCategoryDiv"></div>
-            </div>
-            <div class="transparentDiv">
-                <div class="requiredText" id="msgBoxAssigned"></div>
-            </div>
-        </div>
-        <div style="display:flex;" id="contactInitials"></div>
-        <div class="task-edit-assigned-to" id="task-edit-assigned-to${allTasks[taskID]['id']}">
-            </div>
-        <div class="addTaskBtns">
-            <div class="paddLeRe40px" id="close-add-task">
-                <div class="whiteBtn" onclick="clearTask()">
-                    Clear
-                    <img src="../assets/img/clear.svg">
+        <div>
+            <div onclick="proofInput('msgBoxAssigned')" class="input-container">
+                <b class="padd4px">Assigned to</b>
+                <div onclick="openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit')" id="contactDivEdit" class="openCategoryContainer">Select contact to assign 
+                    <svg id="arrayAssignedEdit" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.2 0H1.41421C0.523309 0 0.0771403 1.07714 0.707105 1.70711L6.29289 7.29289C6.68342 7.68342 7.31658 7.68342 7.70711 7.29289L13.2929 1.70711C13.9229 1.07714 13.4767 0 12.5858 0H11.8H7H2.2Z" fill="black"></path>
+                    </svg>
+                </div>
+                <div class="contactContainer d-none overflow" id="contactListEdit">
+                    <div id="contactsEdit"></div>
+                    <div id="selectedContact" class="newCategoryDiv"></div>
+                </div>
+                <div class="transparentDiv">
+                    <div class="requiredText" id="msgBoxAssigned"></div>
                 </div>
             </div>
+            <div class="task-edit-assigned-to" id="task-edit-assigned-to${allTasks[taskID]['id']}">
+                </div>
+        </div>
+        <div class="edit-Task-Btn">
             <div>
-                <button class="blueBtn">
-                    Create Task 
-                    <img src="../assets/img/check.svg">
-                </button>
+                <button onclick="editExistingTask(event, ${taskID})" class="ok-Btn">Ok<img src="../assets/img/check.svg"></button>
             </div>
         </div>
-      </form>
+</form>
 `;
+}
+
+
+async function editExistingTask(event, taskID) {
+    await proofEventAndTasksJSON(event);
+    let editTask = getTaskDataEdit();
+    let proof = taskProofSectionEdit(editTask);
+    if (proof === true) {
+        editTaskData(editTask, taskID);
+    }
+}
+
+
+function getTaskDataEdit() {
+    let titleEdit = document.getElementById("titleEdit").value;
+    let descriptionEdit = document.getElementById("descriptionEdit").value;
+    let dateEdit = document.getElementById("dateEdit").value;
+    let prioEdit = checkPrio('Edit');
+    return {
+        title: titleEdit,
+        description: descriptionEdit,
+        assignedTo: selectedContacts,
+        date: dateEdit,
+        prio: prioEdit,
+    };
+}
+
+
+function taskProofSectionEdit(editTask) {
+    let title = proofTitle(editTask);
+    let description = proofDescription(editTask);
+    let assigned = proofAssigned();
+    let date = proofDate(editTask);
+    let prio = proofPrio(editTask);
+    if (checkProofOfEdit(title, description, assigned, date, prio) === true) {
+        return true;
+    }
+    return false;
+}
+
+
+function checkProofOfEdit(title, description, assigned, date, prio) {
+    return (
+        title === true &&
+        description === true &&
+        assigned === true &&
+        date === true &&
+        prio === true
+    );
+}
+
+
+async function editTaskData(editTask, taskID) {
+    // allTasks.push(newTask);
+    // await backend.setItem("allTasks", allTasks);
+    // slidePopup.classList.remove("d-none");
+    // setTimeout(() => {
+    //     window.location.href = "../html/board.html";
+    // }, 1000);
+    console.log('task changed' + taskID);
 }
