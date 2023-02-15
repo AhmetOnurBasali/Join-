@@ -1,5 +1,4 @@
-let currentContactID = [currentUser["id"]];
-let currentUserContacts = [];
+let currentUserContacts = []
 
 function closeAddNewContact() {
   let container = document.getElementById("addContactPopup");
@@ -18,30 +17,42 @@ function closeEditContact() {
 
 async function createNewContact(event) {
   event.preventDefault();
-
   let nameInput = document.getElementById("inputName").value;
   let emailInput = document.getElementById("inputEmail").value;
   let numberInput = document.getElementById("inputNumber").value;
-  console.log(nameInput, emailInput, numberInput);
-  console.log(currentUser);
-  let contacts = {
+  let currentContactID = currentUserContacts.length;
+  let newContact = {
     contactCreatorID: currentUser["id"],
     name: nameInput,
     email: emailInput,
     phone: numberInput,
+    contactID: currentContactID,
   };
-  console.log(contacts);
-  currentContactID++;
-  currentUserContacts.push(contacts);
-  await backend.setItem("currentUserContacts", contacts);
+  
+  
+   currentUserContacts.push(newContact);
+
+   await backend.setItem("currentUserContacts", (currentUserContacts));
+  closeAddNewContact();
+  render();
+}
+
+async function render() {
+  await downloadFromServer();
+  let dropArea = document.getElementById("contactsArea");
+  dropArea.innerHTML = "";
+  for (let i = 0; i < currentUserContacts.length; i++) {
+    const contact = currentUserContacts[i];
+    dropArea.innerHTML += `<div>${contact.name}</div>`;
+  }
 }
 
 async function loadContactsData() {
-  await downloadFromServer();
   let item = await backend.getItem("currentUserContacts");
-  if (typeof item === "string") {
-    currentUserContacts = JSON.parse(item) || [];
+  if (item !== null) {
+    currentUserContacts = JSON.parse(item);
   } else {
-    currentUserContacts = item;
+    currentUserContacts = [];
   }
+  render();
 }

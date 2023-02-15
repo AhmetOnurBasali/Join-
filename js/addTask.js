@@ -229,7 +229,6 @@ function checkPrio() {
 }
 
 function setPrioCheckBox(prio, taskEdit) {
-  
   if (prio === "low") {
     resetAllPrioBtn('medium', 'urgent', taskEdit);
     setLowPrioBtn();
