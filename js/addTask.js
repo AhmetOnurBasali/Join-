@@ -24,7 +24,7 @@ async function loadTasks() {
 
 async function createNewTask(event) {
   await proofEventAndTasksJSON(event);
-  let newTask = getTaskData(newArea);
+  let newTask = getTaskData();
   let proof = taskProofSection(newTask);
   if (proof === true) {
     setTaskData(newTask);
@@ -43,8 +43,8 @@ async function proofEventAndTasksJSON(event) {
 }
 
 
-function getTaskData(newArea) {
-  let prioNew = checkPrio();
+function getTaskData() {
+  let prioNew = checkPrio('');
   let currentID = allTasks.length;
   let creatorNew = currentUser["name"];
   let titleNew = document.getElementById("title").value;
@@ -213,10 +213,10 @@ async function setTaskData(newTask) {
 
 //Prio section//
 
-function checkPrio() {
-  let urgentBtn = document.getElementById("urgentBtn");
-  let mediumBtn = document.getElementById("mediumBtn");
-  let lowBtn = document.getElementById("lowBtn");
+function checkPrio(edit) {
+  let urgentBtn = document.getElementById(`urgentBtn${edit}`);
+  let mediumBtn = document.getElementById(`mediumBtn${edit}`);
+  let lowBtn = document.getElementById(`lowBtn${edit}`);
   if (urgentBtn.checked === true) {
     return "Urgent";
   }
@@ -232,15 +232,15 @@ function setPrioCheckBox(prio, taskEdit) {
   
   if (prio === "low") {
     resetAllPrioBtn('medium', 'urgent', taskEdit);
-    setLowPrioBtn();
+    setLowPrioBtn(taskEdit);
   }
   if (prio === "medium") {
     resetAllPrioBtn('low', 'urgent', taskEdit);
-    setNormalPrioBtn();
+    setNormalPrioBtn(taskEdit);
   }
   if (prio === "urgent") {
     resetAllPrioBtn('low', 'medium', taskEdit);
-    setHighPrioBtn();
+    setHighPrioBtn(taskEdit);
   }
 }
 
@@ -264,83 +264,83 @@ function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
 
 
 
-function setLowPrioBtn() {
-  let lowBtn = document.getElementById("lowBtn");
+function setLowPrioBtn(taskEdit) {
+  let lowBtn = document.getElementById(`lowBtn${taskEdit}`);
     lowBtn.checked = true;
-    setLowPrioSvgColor();
-    setLowPrioTextColor();
-    setLowPrioBtnColor();
+    setLowPrioSvgColor(taskEdit);
+    setLowPrioTextColor(taskEdit);
+    setLowPrioBtnColor(taskEdit);
 }
 
 
-function setNormalPrioBtn() {
-  let mediumBtn = document.getElementById("mediumBtn");
+function setNormalPrioBtn(taskEdit) {
+  let mediumBtn = document.getElementById(`mediumBtn${taskEdit}`);
     mediumBtn.checked = true;
-    setNormalPrioSvgColor();
-    setNormalPrioTextColor();
-    setNormalPrioBtnColor();
+    setNormalPrioSvgColor(taskEdit);
+    setNormalPrioTextColor(taskEdit);
+    setNormalPrioBtnColor(taskEdit);
 }
 
 
-function setHighPrioBtn() {
-  let urgentBtn = document.getElementById("urgentBtn");
+function setHighPrioBtn(taskEdit) {
+  let urgentBtn = document.getElementById(`urgentBtn${taskEdit}`);
     urgentBtn.checked = true;
-    setHighPrioSvgColor();
-    setHighPrioTextColor();
-    setHighPrioBtnColor();
+    setHighPrioSvgColor(taskEdit);
+    setHighPrioTextColor(taskEdit);
+    setHighPrioBtnColor(taskEdit);
 }
 
 
-function setLowPrioSvgColor() {
-  let svgLowColor = document.getElementById("svgLow");
+function setLowPrioSvgColor(taskEdit) {
+  let svgLowColor = document.getElementById(`svgLow${taskEdit}`);
   svgLowColor.classList.add("prioIconWhite");
 
 }
 
 
-function setLowPrioTextColor() {
-  let lowPrioText = document.getElementById("lowPrioText");
+function setLowPrioTextColor(taskEdit) {
+  let lowPrioText = document.getElementById(`lowPrioText${taskEdit}`);
   lowPrioText.style = "color: white;";
 }
 
 
-function setLowPrioBtnColor() {
-  let lowContainer = document.getElementById("lowBtnContainer");
+function setLowPrioBtnColor(taskEdit) {
+  let lowContainer = document.getElementById(`lowBtnContainer${taskEdit}`);
   lowContainer.classList.add("prioLowContainerOnClick");
 }
 
-function setNormalPrioSvgColor() {
-  let svgNormalColor = document.getElementById("svgNormal");
+function setNormalPrioSvgColor(taskEdit) {
+  let svgNormalColor = document.getElementById(`svgNormal${taskEdit}`);
   svgNormalColor.classList.add("prioIconWhite");
 }
 
 
-function setNormalPrioTextColor() {
-  let normalPrioText = document.getElementById("normalPrioText");
+function setNormalPrioTextColor(taskEdit) {
+  let normalPrioText = document.getElementById(`normalPrioText${taskEdit}`);
   normalPrioText.style = "color: white;";
 }
 
 
-function setNormalPrioBtnColor() {
-  let normalBtnContainer = document.getElementById("normalBtnContainer");
+function setNormalPrioBtnColor(taskEdit) {
+  let normalBtnContainer = document.getElementById(`normalBtnContainer${taskEdit}`);
   normalBtnContainer.classList.add("prioNormalContainerOnClick");
 }
 
 
-function setHighPrioSvgColor() {
-  let svgHighColor = document.getElementById("svgHigh");
+function setHighPrioSvgColor(taskEdit) {
+  let svgHighColor = document.getElementById(`svgHigh${taskEdit}`);
   svgHighColor.classList.add("prioIconWhite");
 }
 
 
-function setHighPrioTextColor() {
-  let highPrioText = document.getElementById("highPrioText");
+function setHighPrioTextColor(taskEdit) {
+  let highPrioText = document.getElementById(`highPrioText${taskEdit}`);
   highPrioText.style = "color: white;";
 }
 
 
-function setHighPrioBtnColor() {
-  let highBtnContainer = document.getElementById("highBtnContainer");
+function setHighPrioBtnColor(taskEdit) {
+  let highBtnContainer = document.getElementById(`highBtnContainer${taskEdit}`);
   highBtnContainer.classList.add("prioHighContainerOnClick");
 }
 
