@@ -229,7 +229,7 @@ function checkPrio(edit) {
 }
 
 function setPrioCheckBox(prio, taskEdit) {
-  
+
   if (prio === "low") {
     resetAllPrioBtn('medium', 'urgent', taskEdit);
     setLowPrioBtn(taskEdit);
@@ -266,28 +266,28 @@ function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
 
 function setLowPrioBtn(taskEdit) {
   let lowBtn = document.getElementById(`lowBtn${taskEdit}`);
-    lowBtn.checked = true;
-    setLowPrioSvgColor(taskEdit);
-    setLowPrioTextColor(taskEdit);
-    setLowPrioBtnColor(taskEdit);
+  lowBtn.checked = true;
+  setLowPrioSvgColor(taskEdit);
+  setLowPrioTextColor(taskEdit);
+  setLowPrioBtnColor(taskEdit);
 }
 
 
 function setNormalPrioBtn(taskEdit) {
   let mediumBtn = document.getElementById(`mediumBtn${taskEdit}`);
-    mediumBtn.checked = true;
-    setNormalPrioSvgColor(taskEdit);
-    setNormalPrioTextColor(taskEdit);
-    setNormalPrioBtnColor(taskEdit);
+  mediumBtn.checked = true;
+  setNormalPrioSvgColor(taskEdit);
+  setNormalPrioTextColor(taskEdit);
+  setNormalPrioBtnColor(taskEdit);
 }
 
 
 function setHighPrioBtn(taskEdit) {
   let urgentBtn = document.getElementById(`urgentBtn${taskEdit}`);
-    urgentBtn.checked = true;
-    setHighPrioSvgColor(taskEdit);
-    setHighPrioTextColor(taskEdit);
-    setHighPrioBtnColor(taskEdit);
+  urgentBtn.checked = true;
+  setHighPrioSvgColor(taskEdit);
+  setHighPrioTextColor(taskEdit);
+  setHighPrioBtnColor(taskEdit);
 }
 
 
@@ -545,16 +545,17 @@ function openAssignedTo(assignedToIconID, hideBoarderID, expandContactsID, showC
   let arrayAssigned = document.getElementById(assignedToIconID);
   arrayAssigned.classList.toggle("rotateIcon");
   if (slideAssignTo === false) {
-    slideInAssignTo(hideBoarderID, expandContactsID);
+    slideOutAssignedTo(hideBoarderID, expandContactsID);
     renderOpenAssignedTo(showContactsID);
     slideAssignTo = true;
   } else {
-    slideOutAssignTo(hideBoarderID, expandContactsID);
+    slideInAssignedTo(hideBoarderID, expandContactsID);
   }
+
 }
 
 
-function slideOutAssignTo(hideBoarderID, expandContactsID) {
+function slideInAssignedTo(hideBoarderID, expandContactsID) {
   let contactDiv = document.getElementById(hideBoarderID);
   contactDiv.classList.toggle("noneBottomBorder");
   let contactList = document.getElementById(expandContactsID);
@@ -563,17 +564,49 @@ function slideOutAssignTo(hideBoarderID, expandContactsID) {
     contactList.classList.remove("slide-in-top");
     contactList.classList.toggle("d-none");
     slideAssignTo = false;
+    if (hideBoarderID === 'contactDivEdit') {
+      assignedToBlockShiftIn('input-container');
+    }
+    if (hideBoarderID === 'contactDiv') {
+      assignedToBlockShiftIn('inputContainer');
+    }
+
   }, 200);
+
+}
+
+function assignedToBlockShiftIn(inputID){
+  document.getElementById(inputID).style.marginBottom = '10px';
 }
 
 
-function slideInAssignTo(hideBoarderID, expandContactsID) {
+function slideOutAssignedTo(hideBoarderID, expandContactsID) {
   let contactDiv = document.getElementById(hideBoarderID);
   contactDiv.classList.toggle("noneBottomBorder");
   let contactList = document.getElementById(expandContactsID);
   contactList.classList.remove("slide-out-top");
   contactList.classList.add("slide-in-top");
   contactList.classList.toggle("d-none");
+  if (hideBoarderID === 'contactDivEdit') {
+    assignedToBlockShiftOut('input-container');
+  }
+  if (hideBoarderID === 'contactDiv') {
+    assignedToBlockShiftOut('inputContainer');
+  }
+}
+
+function assignedToBlockShiftOut(inputID){
+  if (users.length === 1) {
+    document.getElementById(inputID).style.marginBottom = '-25px';
+  }else if (users.length === 2) {
+    document.getElementById(inputID).style.marginBottom = '-59px';
+  }else if (users.length === 3) {
+    document.getElementById(inputID).style.marginBottom = '-93px';
+  }else if (users.length === 4) {
+    document.getElementById(inputID).style.marginBottom = '-127px';
+  }else if (users.length >= 5) {
+    document.getElementById(inputID).style.marginBottom = '-131px';
+  }
 }
 
 

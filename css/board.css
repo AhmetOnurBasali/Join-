@@ -527,10 +527,23 @@ h2 {
     width: 440px;
 }
 
+/* Add Task Board */
+
 .addTaskContainer {
     height: 100% !important;
 }
 
+.rightSection{
+    height: 600px !important;
+}
+
+.leftSection {
+    min-height: 600px;
+}
+
+.contactContainer{
+    z-index: 5;
+}
 /* general */
 
 .d-flex {

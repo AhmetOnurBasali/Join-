@@ -3,6 +3,7 @@ let currentDraggedElement;
 let currentAreaOndragover;
 let taskPreview;
 let newArea;
+let currentTaskID;
 /**
  * This function is used to initialise all functions thats needed for the board page.
  * 
@@ -191,20 +192,21 @@ function doNotCloseAddTaskBoard(event) {
 //---------------------------Details Tasks---------------------------
 
 function openTaskDetailsFront(taskID) {
+    currentTaskID = taskID;
     document.getElementById('popup-task-details').classList.remove('d-none');
-    document.getElementById('task-details').innerHTML = renderTaskDetailsFrontHTML(taskID);
+    document.getElementById('task-details').innerHTML = renderTaskDetailsFrontHTML(currentTaskID);
     document.getElementById('body').style.overflow = 'hidden';
-    setTitleBg(allTasks[taskID], 'task-details-category');
-    renderAssignTo(allTasks[taskID], 'task-details-assigned-to');
-    setPriorityBg(taskID);
+    setTitleBg(allTasks[currentTaskID], 'task-details-category');
+    renderAssignTo(allTasks[currentTaskID], 'task-details-assigned-to');
+    setPriorityBg();
 }
 
-function setPriorityBg(taskID) {
-    document.getElementById(`task-details-prio-sign${taskID}`).style.backgroundColor = `${setPriorityBgColor(taskID)}`;
+function setPriorityBg() {
+    document.getElementById(`task-details-prio-sign${currentTaskID}`).style.backgroundColor = `${setPriorityBgColor()}`;
 }
 
-function setPriorityBgColor(taskID) {
-    switch (allTasks[taskID]['prio']) {
+function setPriorityBgColor() {
+    switch (allTasks[currentTaskID]['prio']) {
         case 'Low':
 
             return '#7AE229'
@@ -227,9 +229,9 @@ function closeTaskDetails() {
     slideCategory = false;
 }
 
-function editDetailsTask(taskID) {
-    document.getElementById('task-details').innerHTML = renderEditDetailsTaskHTML(taskID);
-    renderAssignTo(allTasks[taskID], 'task-edit-assigned-to');
+function editDetailsTask() {
+    document.getElementById('task-details').innerHTML = renderEditDetailsTaskHTML();
+    renderAssignTo(allTasks[currentTaskID], 'task-edit-assigned-to');
 }
 
 
@@ -284,34 +286,34 @@ function renderCreatedTasksInnerHTML(task) {
 }
 
 
-function renderTaskDetailsFrontHTML(taskID) {
+function renderTaskDetailsFrontHTML() {
     return /*html*/`
     <div class="headline-task-details">
-        <span class="task-details-category" id="task-details-category${allTasks[taskID]['id']}">${allTasks[taskID]['category']}</span>
+        <span class="task-details-category" id="task-details-category${allTasks[currentTaskID]['id']}">${allTasks[currentTaskID]['category']}</span>
         <img onclick="closeTaskDetails()" src="../assets/img/clear.svg" alt="">
     </div>
-    <span class="task-details-title">${allTasks[taskID]['title']}</span>
-    <span class="task-details-description">${allTasks[taskID]['description']}</span>
+    <span class="task-details-title">${allTasks[currentTaskID]['title']}</span>
+    <span class="task-details-description">${allTasks[currentTaskID]['description']}</span>
     <div class="m-t-15 m-b-15">
         <span class="task-details-text">Due date:</span>
-        <span class="task-details-due-date">${allTasks[taskID]['date']}</span>
+        <span class="task-details-due-date">${allTasks[currentTaskID]['date']}</span>
     </div>
     <div class="task-details-prio m-b-15">
         <span class="task-details-text">Priority: </span>
-        <div class="task-details-prio-sign" id="task-details-prio-sign${allTasks[taskID]['id']}">
-            <span>${allTasks[taskID]['prio']}</span>
-            ${taskPrio(allTasks[taskID]['prio'])}
+        <div class="task-details-prio-sign" id="task-details-prio-sign${allTasks[currentTaskID]['id']}">
+            <span>${allTasks[currentTaskID]['prio']}</span>
+            ${taskPrio(allTasks[currentTaskID]['prio'])}
         </div>
     </div>
     <span class="task-details-text m-b-15">Assigned To:</span>
     <div class="d-flex task-details-assigned-to-shell">
-        <div class="task-details-assigned-to" id="task-details-assigned-to${allTasks[taskID]['id']}">
+        <div class="task-details-assigned-to" id="task-details-assigned-to${allTasks[currentTaskID]['id']}">
         </div>
-        <div class="task-details-assigned-to-name" id="task-details-assigned-to-name${allTasks[taskID]['id']}">
+        <div class="task-details-assigned-to-name" id="task-details-assigned-to-name${allTasks[currentTaskID]['id']}">
         </div>
 
     </div>
-    <div class="task-details-edit" onclick="editDetailsTask(${taskID})">
+    <div class="task-details-edit" onclick="editDetailsTask()">
         <div>
             <svg class="pencil" width="24" height="34" viewBox="0 0 24 34" fill="none"xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.61559 29.262L3.05082 25.8847L17.211 2.55302C17.7841 1.60874 19.0141 1.30784 19.9584 1.88092L22.1037 3.1829C23.0479 3.75598 23.3488 4.98604 22.7758 5.93031L8.61559 29.262Z" fill="white" />
@@ -323,31 +325,31 @@ function renderTaskDetailsFrontHTML(taskID) {
 
 }
 
-function renderEditDetailsTaskHTML(taskID) {
+function renderEditDetailsTaskHTML() {
     return /*html*/`
     <div class="close-task-details">
             <img onclick="closeTaskDetails()" src="../assets/img/clear.svg" alt="">
         </div>
 
-    <form class="edit-task-container" onsubmit="createNewTask(event, taskID); return false;">
+    <form class="edit-task-container" onsubmit="createNewTask(event, currentTask); return false;">
         
         <div class="inputContainer">
             <b class="padd4px">Title</b> 
-            <input id="titleEdit" type="text" value="${allTasks[taskID]['title']}" oninput="proofInput('msgBoxTitle')">
+            <input id="titleEdit" type="text" value="${allTasks[currentTaskID]['title']}" oninput="proofInput('msgBoxTitle')">
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxTitle"></div>
             </div>  
         </div>
         <div class="inputContainer">
             <b class="padd4px">Description</b>
-            <textarea oninput="proofInput('msgBoxDescription')" id="descriptionEdit" type="text">${allTasks[taskID]['description']}</textarea>
+            <textarea oninput="proofInput('msgBoxDescription')" id="descriptionEdit" type="text">${allTasks[currentTaskID]['description']}</textarea>
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxDescription"></div>  
             </div>
         </div>
         <div onclick="proofInput('msgBoxDate')" class="inputContainer">
             <b class="padd4px">Due date</b> 
-            <input id="dateEdit" value="${allTasks[taskID]['date']}" type="date">
+            <input id="dateEdit" value="${allTasks[currentTaskID]['date']}" type="date">
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxDate"></div>
             </div>
@@ -385,7 +387,7 @@ function renderEditDetailsTaskHTML(taskID) {
             </div>
         </div>
         <div>
-            <div onclick="proofInput('msgBoxAssigned')" class="input-container">
+            <div onclick="proofInput('msgBoxAssigned')" class="input-container" id="input-container">
                 <b class="padd4px">Assigned to</b>
                 <div onclick="openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit')" id="contactDivEdit" class="openCategoryContainer">Select contact to assign 
                     <svg id="arrayAssignedEdit" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -400,12 +402,12 @@ function renderEditDetailsTaskHTML(taskID) {
                     <div class="requiredText" id="msgBoxAssigned"></div>
                 </div>
             </div>
-            <div class="task-edit-assigned-to" id="task-edit-assigned-to${allTasks[taskID]['id']}">
+            <div class="task-edit-assigned-to" id="task-edit-assigned-to${allTasks[currentTaskID]['id']}">
                 </div>
         </div>
         <div class="edit-Task-Btn">
             <div>
-                <button onclick="editExistingTask(event, ${taskID})" class="ok-Btn">Ok<img src="../assets/img/check.svg"></button>
+                <button onclick="editExistingTask(event)" class="ok-Btn">Ok<img src="../assets/img/check.svg"></button>
             </div>
         </div>
 </form>
@@ -413,12 +415,12 @@ function renderEditDetailsTaskHTML(taskID) {
 }
 
 
-async function editExistingTask(event, taskID) {
+async function editExistingTask(event) {
     await proofEventAndTasksJSON(event);
     let editTask = getTaskDataEdit();
     let proof = taskProofSectionEdit(editTask);
     if (proof === true) {
-        editTaskData(editTask, taskID);
+        editTaskData(editTask);
     }
 }
 
@@ -462,12 +464,22 @@ function checkProofOfEdit(title, description, assigned, date, prio) {
 }
 
 
-async function editTaskData(editTask, taskID) {
+async function editTaskData(editTask) {
+    delete allTasks[currentTaskID]['title'];
+    delete allTasks[currentTaskID]['description'];
+    delete allTasks[currentTaskID]['date'];
+    delete allTasks[currentTaskID]['prio'];
+    delete allTasks[currentTaskID]['assignedTo'];
+    // let editTitle = editTask['title'];
+    let currentTask = allTasks[currentTaskID]
+    currentTask.push({title: 'hallo'});
+    
+
     // allTasks.push(newTask);
     // await backend.setItem("allTasks", allTasks);
     // slidePopup.classList.remove("d-none");
     // setTimeout(() => {
     //     window.location.href = "../html/board.html";
     // }, 1000);
-    console.log('task changed' + taskID);
+    console.log('task changed' + currentTaskID);
 }

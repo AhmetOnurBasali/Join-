@@ -142,7 +142,7 @@ function addTaskHTML() {
               <div onclick="setColor('Blue')" id="categoryBlue" class="colorCategoryBlue"></div>
             </div>
           </div>
-          <div  onclick="proofInput('msgBoxAssigned')" class="inputContainer">
+          <div  onclick="proofInput('msgBoxAssigned')" class="inputContainer" id="inputContainer">
             <b class="padd4px">Assigned to</b> 
             <div onclick="openAssignedTo('arrayAssigned', 'contactDiv', 'contactList', 'contacts')" id="contactDiv" class="openCategoryContainer">Select contact to assign 
               <svg id="arrayAssigned" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
