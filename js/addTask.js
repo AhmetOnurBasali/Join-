@@ -115,9 +115,9 @@ function proofTaskData(newTask) {
 }
 
 
-function proofTitle(newTask) {
+function proofTitle(newTask, Edit) {
   if (!newTask.title) {
-    let msgBox = document.getElementById("msgBoxTitle");
+    let msgBox = document.getElementById(`msgBoxTitle${Edit}`);
     showRequiredText(msgBox);
     return false;
   }
@@ -125,9 +125,9 @@ function proofTitle(newTask) {
 }
 
 
-function proofDescription(newTask) {
+function proofDescription(newTask, Edit) {
   if (!newTask.description) {
-    let msgBox = document.getElementById("msgBoxDescription");
+    let msgBox = document.getElementById(`msgBoxDescription${Edit}`);
     showRequiredText(msgBox);
     return false;
   }
@@ -135,9 +135,9 @@ function proofDescription(newTask) {
 }
 
 
-function proofCategory(newTask) {
+function proofCategory(newTask, Edit) {
   if (newTask.category == "select a category" || newTask.category == "" || !newTask.titleBg) {
-    let msgBox = document.getElementById("msgBoxCategory");
+    let msgBox = document.getElementById(`msgBoxCategory${Edit}`);
     showRequiredText(msgBox);
     return false;
   }
@@ -155,9 +155,9 @@ function proofAssigned() {
 }
 
 
-function proofDate(newTask) {
+function proofDate(newTask, Edit) {
   if (!newTask.date) {
-    let msgBox = document.getElementById("msgBoxDate");
+    let msgBox = document.getElementById(`msgBoxDate${Edit}`);
     showRequiredText(msgBox);
     return false;
   }
@@ -165,9 +165,9 @@ function proofDate(newTask) {
 }
 
 
-function proofPrio(newTask) {
+function proofPrio(newTask, Edit) {
   if (!newTask.prio) {
-    let msgBox = document.getElementById("msgBoxPrio");
+    let msgBox = document.getElementById(`msgBoxPrio${Edit}`);
     showRequiredText(msgBox);
     return false;
   }
@@ -218,21 +218,17 @@ function checkPrio(edit) {
   let mediumBtn = document.getElementById(`mediumBtn${edit}`);
   let lowBtn = document.getElementById(`lowBtn${edit}`);
   if (urgentBtn.checked === true) {
-    return "Urgent";
+    return "urgent";
   }
   if (mediumBtn.checked === true) {
-    return "Medium";
+    return "medium";
   }
   if (lowBtn.checked === true) {
-    return "Low";
+    return "low";
   }
 }
 
 function setPrioCheckBox(prio, taskEdit) {
-<<<<<<< HEAD
-
-=======
->>>>>>> 83baae468686ddad901689c4e378b61975f1706a
   if (prio === "low") {
     resetAllPrioBtn('medium', 'urgent', taskEdit);
     setLowPrioBtn(taskEdit);
