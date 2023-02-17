@@ -89,7 +89,7 @@ async function login() {
 function proofName() {
   let regName = /^[\wäöüÄÖÜ]+(?: [\wäöüÄÖÜ]+)+$/;
   let name = document.getElementById("name").value;
-  if (!regName.proofRegName(name)) {
+  if (!regName.test(name)) {
     document.getElementById("name").focus();
     document.getElementById("name").classList.add("falseInput");
     return false;
@@ -137,7 +137,7 @@ function setLoginEmail() {
   let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
   let emailFound = users.find((u) => u.email == newEmail);
   let emailRegex = getEmailRegEx();
-  if (emailFound && emailRegex.proofRegEmail(newEmail)) {
+  if (emailFound && emailRegex.test(newEmail)) {
     return newEmail;
   } else {
     console.log("invalid email");
@@ -148,7 +148,7 @@ function setLoginEmail() {
 function proofEmail() {
   let regEmail = getEmailRegEx();
   let email = document.getElementById("email").value;
-  if (!regEmail.proofRegEmail(email)) {
+  if (!regEmail.test(email)) {
     document.getElementById("email").focus();
     document.getElementById("email").classList.add("falseInput");
     return false;
@@ -163,7 +163,7 @@ function addUserEmail() {
   let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
   let emailFound = users.find((u) => u.email == newEmail);
   let emailRegex = getEmailRegEx();
-  if (!emailRegex.proofRegEmail(newEmail)) {
+  if (!emailRegex.test(newEmail)) {
     proofEmail();
     return;
   }

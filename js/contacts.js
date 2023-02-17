@@ -47,12 +47,20 @@ function closeEditContact() {
   let container = document.getElementById("editContactPopup");
   container.classList.add("d-none");
 }
+function addPhoneNumber() {
+  let numberInput = document.getElementById("inputNumber").value;
+  let countryCode = "+49"; 
+  let phoneNumber = numberInput.replace(/\D/g, "");
+  phoneNumber = `${countryCode}${phoneNumber}`;
+  phoneNumber = phoneNumber.replace(/(\d{2})(\d{3})(\d{4})/, "$1 $2 $3");
+  return phoneNumber;
+}
 
 async function createNewContact(event) {
   event.preventDefault();
-  let nameInput = document.getElementById("inputName").value;
-  let emailInput = document.getElementById("inputEmail").value;
-  let numberInput = document.getElementById("inputNumber").value;
+  let nameInput = addUserName()
+  let emailInput = addUserEmail()
+  let numberInput = addPhoneNumber()
   let newColor = addUserColor()
   let nameInitials = getInitialLetters(nameInput);
   let initialsUpper = nameInitials.toUpperCase();

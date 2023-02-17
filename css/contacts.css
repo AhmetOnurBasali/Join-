@@ -278,10 +278,12 @@ body {
     column-gap: 20px;
     cursor: pointer;
     margin: 0 -20px;
+    padding: 0 20px;
+    border-radius: 10px;
 }
 
 .contactContainer:hover {
-background-color: beige;
+background-color: whitesmoke;
 }
 
 .contactsBubble {
