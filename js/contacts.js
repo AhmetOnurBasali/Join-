@@ -14,15 +14,22 @@ async function test() {
     currentUserContacts.length == 0 ||
     currentUserContacts == undefined
   ) {
+    let nameInitials = getInitialLetters(currentUser['name']);
+    let initialsUpper = nameInitials.toUpperCase();
     newContact = {
       contactCreatorID: currentUser["id"],
-      name: currentUser.name,
-      email: currentUser.email,
+      name: currentUser['name'],
+      email: currentUser['email'],
       phone: "Edit your Number",
+      initials: initialsUpper,
+      initialsColor: currentUser['color'],
       contactID: 0,
     };
     currentUserContacts.push(newContact);
-    await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
+    await backend.setItem(
+      `userID${currentUser["id"]}Contacts`,
+      currentUserContacts
+    );
   }
 }
 
@@ -46,12 +53,17 @@ async function createNewContact(event) {
   let nameInput = document.getElementById("inputName").value;
   let emailInput = document.getElementById("inputEmail").value;
   let numberInput = document.getElementById("inputNumber").value;
+  let newColor = addUserColor()
+  let nameInitials = getInitialLetters(nameInput);
+  let initialsUpper = nameInitials.toUpperCase();
   let currentContactID = currentUserContacts.length;
   newContact = {
     contactCreatorID: currentUser["id"],
     name: nameInput,
     email: emailInput,
     phone: numberInput,
+    initials: initialsUpper,
+    initialsColor: newColor,
     contactID: currentContactID,
   };
   currentUserContacts.push(newContact);
@@ -60,9 +72,8 @@ async function createNewContact(event) {
     currentUserContacts
   );
   closeAddNewContact();
+  render();
 }
-
-
 
 function render() {
   let dropArea = document.getElementById("contactsArea");
@@ -73,20 +84,26 @@ function render() {
     if (b.contactID === 0) return 1;
     return a.name.localeCompare(b.name);
   });
-
   let currentLetter = "";
   for (let i = 0; i < currentUserContacts.length; i++) {
     const contact = currentUserContacts[i];
     let firstLetter = contact.name[0].toUpperCase();
     if (firstLetter !== currentLetter) {
-      dropArea.innerHTML += `<h2>${firstLetter}</h2>`;
+      dropArea.innerHTML += `<span class="firstletter">${firstLetter}</span>`;
       currentLetter = firstLetter;
     }
     dropArea.innerHTML += `
-      <div>${contact.name}</div>
-      <div>${contact.email}</div>
-      <div>${contact.phone}</div>
-      <div>contact id: ${contact.contactID}</div>
+  <div class="contactContainer">
+    <div class="contactsBubble" style="background:${contact.initialsColor};">
+      <div style="color: white">${contact.initials}</div>
+   </div>
+   <div>
+     <div>${contact.name}</div>
+     <a style="color:#007CEE">${contact.email}</a>
+     <div>${contact.phone}</div>
+     <div>contact id: ${contact.contactID}</div>
+   </div>
+  </div>
     `;
   }
 }

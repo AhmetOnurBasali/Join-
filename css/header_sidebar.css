@@ -101,8 +101,8 @@ body {
 
 }
 
-
-a {
+/* a elemente noch classe vergeben  */
+/* a {
     text-decoration: none;
     color: #FFFFFF;
     font-size: 16px;
@@ -111,7 +111,7 @@ a {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 15px;
-}
+} */
 
 
 .link-img{

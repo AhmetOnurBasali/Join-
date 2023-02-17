@@ -31,6 +31,14 @@ function addUser() {
 }
 --
 
+<!--Beispiel um contacts eines bestimmten user zu löschen-->
+<!--deleteUser('user"die Id des jeweiligen CurrentUser"Contacts')-->
+deleteUser('userID2Contacts')
+
+async function deleteUser() {
+  await backend.deleteItem('userID2Contacts');
+}
+
 
 <!-- Änderung newArea -->
 

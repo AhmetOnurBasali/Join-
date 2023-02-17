@@ -6,14 +6,14 @@ body {
 
 .contactsContainer {
   overflow: auto;
-  height: calc(100vh - 100px);
-  padding-top: 100px;
-  width: 454px;
+  height: calc(100vh - 176px);
   display: flex;
   background: white;
   box-shadow: 4px 0px 6px rgb(0 0 0 / 8%);
   color: black;
   flex-direction: column;
+  padding: 88px;
+  width: calc(454px - 176px);
 }
 .invisibleDiv {
   display: flex;
@@ -269,3 +269,30 @@ body {
     display: flex;
     gap: 24px;
   }
+
+  .contactContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+.contactsBubble {
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid #ffffff;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.firstletter{
+  border-bottom: 1px solid gray;
+  padding: 12px;
+  font-size: 20px;
+}

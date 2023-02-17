@@ -42,7 +42,6 @@ async function addUser() {
 }
 
 function getInitialLetters(newName) {
-
 let initialFirstName = newName.split(" ")[0][0];
 let initialLastName = newName.split(" ")[1][0];
 let newInitialLetters = initialFirstName + initialLastName;
@@ -90,7 +89,7 @@ async function login() {
 function proofName() {
   let regName = /^[\wäöüÄÖÜ]+(?: [\wäöüÄÖÜ]+)+$/;
   let name = document.getElementById("name").value;
-  if (!regName.test(name)) {
+  if (!regName.proofRegName(name)) {
     document.getElementById("name").focus();
     document.getElementById("name").classList.add("falseInput");
     return false;
@@ -138,7 +137,7 @@ function setLoginEmail() {
   let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
   let emailFound = users.find((u) => u.email == newEmail);
   let emailRegex = getEmailRegEx();
-  if (emailFound && emailRegex.test(newEmail)) {
+  if (emailFound && emailRegex.proofRegEmail(newEmail)) {
     return newEmail;
   } else {
     console.log("invalid email");
@@ -149,7 +148,7 @@ function setLoginEmail() {
 function proofEmail() {
   let regEmail = getEmailRegEx();
   let email = document.getElementById("email").value;
-  if (!regEmail.test(email)) {
+  if (!regEmail.proofRegEmail(email)) {
     document.getElementById("email").focus();
     document.getElementById("email").classList.add("falseInput");
     return false;
@@ -164,7 +163,7 @@ function addUserEmail() {
   let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
   let emailFound = users.find((u) => u.email == newEmail);
   let emailRegex = getEmailRegEx();
-  if (!emailRegex.test(newEmail)) {
+  if (!emailRegex.proofRegEmail(newEmail)) {
     proofEmail();
     return;
   }
