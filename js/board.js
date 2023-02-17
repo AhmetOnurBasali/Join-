@@ -227,15 +227,38 @@ function closeTaskDetails() {
     document.getElementById('body').style.overflow = 'auto';
     slideAssignTo = false;
     slideCategory = false;
+    clearContactCheckboxes();
 }
 
 function editDetailsTask() {
     document.getElementById('task-details').innerHTML = renderEditDetailsTaskHTML();
-    renderAssignTo(allTasks[currentTaskID], 'task-edit-assigned-to');
+    // for (let index = 0; index < allTasks[currentTaskID]['assignedTo'].length; index++) {
+    //     const assignedToEdit = allTasks[currentTaskID]['assignedTo'][index];
+    //     renderSelectContactHTML(assignedToEdit['color'], assignedToEdit['initial']);
+    // }
+    renderSelectContactEdit();
     setPrioCheckBox(allTasks[currentTaskID]['prio'], 'Edit');
 }
 
+function renderSelectContactEdit() {
+    let contactInitials = document.getElementById('contactInitialsEdit');
+    contactInitials.innerHTML = ``;
+    for (let i = 0; i < allTasks[currentTaskID]['assignedTo'].length; i++) {
+      let color = allTasks[currentTaskID]['assignedTo'][i]['color'];
+      let initials = allTasks[currentTaskID]['assignedTo'][i]['initial'];
+      contactInitials.innerHTML += renderSelectContactHTML(color, initials);
+    }
+  }
 
+  function clearContactCheckboxes() {
+    for (let i = 0; i < users.length; i++) {
+        let checkbox = document.getElementById(`contactCheckbox${i}`);
+        if (checkbox.checked) {
+            checkbox.checked = false;
+        }
+      }
+  }
+  
 
 
 //-----------------------Inner html's---------------------------
@@ -388,23 +411,22 @@ function renderEditDetailsTaskHTML() {
             </div>
         </div>
         <div>
-            <div onclick="proofInput('msgBoxAssigned')" class="input-container" id="input-container">
+            <div onclick="proofInput('msgBoxAssignedEdit')" class="input-container" id="input-container">
                 <b class="padd4px">Assigned to</b>
-                <div onclick="openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit')" id="contactDivEdit" class="openCategoryContainer">Select contact to assign 
+                <div onclick="openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit', 'contactInitialsEdit')" id="contactDivEdit" class="openCategoryContainer">Select contact to assign 
                     <svg id="arrayAssignedEdit" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.2 0H1.41421C0.523309 0 0.0771403 1.07714 0.707105 1.70711L6.29289 7.29289C6.68342 7.68342 7.31658 7.68342 7.70711 7.29289L13.2929 1.70711C13.9229 1.07714 13.4767 0 12.5858 0H11.8H7H2.2Z" fill="black"></path>
                     </svg>
                 </div>
                 <div class="contactContainer d-none overflow" id="contactListEdit">
                     <div id="contactsEdit"></div>
-                    <div id="selectedContact" class="newCategoryDiv"></div>
+                    <div id="selectedContactEdit" class="newCategoryDiv"></div>
                 </div>
                 <div class="transparentDiv">
-                    <div class="requiredText" id="msgBoxAssigned"></div>
+                    <div class="requiredText" id="msgBoxAssignedEdit"></div>
                 </div>
             </div>
-            <div class="task-edit-assigned-to" id="task-edit-assigned-to${allTasks[currentTaskID]['id']}">
-                </div>
+            <div style="display:flex;" id="contactInitialsEdit"></div>
         </div>
         <div class="edit-Task-Btn">
             <div>
@@ -417,11 +439,13 @@ function renderEditDetailsTaskHTML() {
 
 
 async function editExistingTask(event) {
+    
     await proofEventAndTasksJSON(event);
     let editTask = getTaskDataEdit();
     let proof = taskProofSectionEdit(editTask);
     if (proof === true) {
         editTaskData(editTask);
+        clearContactCheckboxes();
     }
     
 }
