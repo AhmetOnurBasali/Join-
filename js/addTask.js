@@ -540,12 +540,12 @@ function dropColorInInput() {
 
 
 //Assigned to section//
-function openAssignedTo(assignedToIconID, hideBoarderID, expandContactsID, showContactsID) {
+function openAssignedTo(assignedToIconID, hideBoarderID, expandContactsID, showContactsID, contactInitialsID) {
   let arrayAssigned = document.getElementById(assignedToIconID);
   arrayAssigned.classList.toggle("rotateIcon");
   if (slideAssignTo === false) {
     slideOutAssignedTo(hideBoarderID, expandContactsID);
-    renderOpenAssignedTo(showContactsID);
+    renderOpenAssignedTo(showContactsID, contactInitialsID);
     slideAssignTo = true;
   } else {
     slideInAssignedTo(hideBoarderID, expandContactsID);
@@ -609,14 +609,14 @@ function assignedToBlockShiftOut(inputID){
 }
 
 
-function renderOpenAssignedTo(showContactsID) {
+function renderOpenAssignedTo(showContactsID, contactInitialsID) {
   let contacts = document.getElementById(showContactsID);
   contacts.innerHTML = "";
   for (let i = 0; i < users.length; i++) {
     checked = false;
     let assignedData = getAssignedContacts(i);
     filterRenderBubble(assignedData);
-    contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i);
+    contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID);
   }
 }
 
@@ -639,7 +639,7 @@ function getAssignedContacts(i) {
 }
 
 
-function selectContact(contactName, contactColor, contactInitials, i) {
+function selectContact(contactName, contactColor, contactInitials, i, contactInitialsID) {
   let checkbox = document.getElementById(`contactCheckbox${i}`);
   if (checkbox.checked) {
     let contact = {
@@ -653,7 +653,7 @@ function selectContact(contactName, contactColor, contactInitials, i) {
       (contact) => contact.name !== contactName
     );
   }
-  renderSelectContact();
+  renderSelectContact(contactInitialsID);
 }
 
 
@@ -663,8 +663,8 @@ function selectContactName(i) {
 }
 
 
-function renderSelectContact() {
-  let contactInitials = document.getElementById("contactInitials");
+function renderSelectContact(contactInitialsID) {
+  let contactInitials = document.getElementById(contactInitialsID);
   contactInitials.innerHTML = ``;
   for (let i = 0; i < selectedContacts.length; i++) {
     let color = selectedContacts[i].color;
