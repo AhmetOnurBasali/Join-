@@ -14,6 +14,7 @@ body {
   flex-direction: column;
   padding: 88px;
   width: calc(454px - 176px);
+  gap: 20px;
 }
 .invisibleDiv {
   display: flex;
@@ -274,7 +275,13 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding-top: 20px;
+    column-gap: 20px;
+    cursor: pointer;
+    margin: 0 -20px;
+}
+
+.contactContainer:hover {
+background-color: beige;
 }
 
 .contactsBubble {
