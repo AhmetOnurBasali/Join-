@@ -6,7 +6,6 @@ async function loadCurrentUser() {
   } else {
     currentUser = item;
   }
-  setGreatingName();
 }
 
 async function loadUsers() {

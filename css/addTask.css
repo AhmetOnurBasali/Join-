@@ -258,7 +258,7 @@ textarea {
   width: 100%;
 }
 .addTaskPopup {
-  z-index: 2;
+  z-index: 99;
   position: fixed;
   display: flex;
   bottom: 26%;

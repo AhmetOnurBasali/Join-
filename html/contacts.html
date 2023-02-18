@@ -39,15 +39,38 @@
         <div class="rightSection">
             <div class="textPosi">
                 <div>
-                    <h1>Contacts</h1>
+                    <h1 style="font-size: 60px;" >Contacts</h1>
                 </div>
                 <div class="lineBlue"></div>
-                <div style="font-size: 20px;">
+                <div style="font-size: 26px;">
                     Better with a team
                 </div>
             </div>
             <div style="padding: 0 80px;">
-                <div id="slideContainer" class="slideContactContainer">
+                <div id="slideContainer" class="slideContactContainer d-none">
+                    <div class="contactSlideName">
+                        <div id="slideContactsBubble"></div>
+                        <div>
+                            <div id="slideName"></div>
+                            <div class="lightblueColor">+add task</div>
+                        </div>
+                    </div>
+                    <div class="slideContactInfoContainer">
+                        <div style="font-size: 21px;">Contact Infomormation</div>
+                        <div id="slideEditContact"></div>
+                    </div>
+                    <div class="slideEmailPhoneInfo">
+                        <div>
+                            <b>Email</b>
+                        </div>
+                        <div id="slideEmail"></div>
+                    </div>
+                    <div class="slideEmailPhoneInfo">
+                        <div>
+                            <b>Phone</b>
+                        </div>
+                        <div id="slidePhone"></div>
+                    </div>
                 </div>
             </div>
             <div class="btnPosi">
@@ -75,16 +98,18 @@
                     <div class="contactImgBubbleContainer">
                         <img class="imgUserWhiteSize" src="../assets/img/userWhite.svg">
                     </div>
-                    <div class="inputsContainerEditSection">
-                        <input class="input nameIcon" placeholder="Name" type="text">
-                        <input class="input emailIcon" placeholder="Email" type="email">
-                        <input class="input phoneIcon" placeholder="number" type="number">
-                        <div class="saveContactBtnContainer">
-                            <button class="saveContactBlueBtn">
-                                <b>Save</b>
-                            </button>
+                    <form onsubmit="saveEdit()">
+                        <div class="inputsContainerEditSection">
+                            <input id="editName" class="input nameIcon" placeholder="Name" type="text">
+                            <input id="editEmail" class="input emailIcon" placeholder="Email" type="email">
+                            <input id="editPhone" class="input phoneIcon" placeholder="number" type="">
+                            <div class="saveContactBtnContainer">
+                                <button class="saveContactBlueBtn">
+                                    <b>Save</b>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

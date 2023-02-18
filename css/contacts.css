@@ -309,5 +309,51 @@ body {
 .slideContactContainer {
   height: 400px;
   width: 500px;
-  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contactSlideName {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slideContactInfo {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.slideContactInfoContainer {
+  display: flex;
+  gap: 50px;
+}
+
+.slideEmailPhoneInfo {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.slideContactsBubble {
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid #ffffff;
+  font-size: 46px;
+}
+
+.slideNameSize{
+  font-size: 46px;
+}
+
+.lightblueColor{
+  color: #007CEE;
 }

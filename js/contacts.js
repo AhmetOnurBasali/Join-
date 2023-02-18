@@ -102,17 +102,65 @@ function render() {
       currentLetter = firstLetter;
     }
     dropArea.innerHTML += `
-  <div class="contactContainer">
+  <div onclick="openContact(${contact.contactID})" class="contactContainer">
     <div class="contactsBubble" style="background:${contact.initialsColor};">
       <div style="color: white">${contact.initials}</div>
    </div>
    <div>
      <div>${contact.name}</div>
-     <a style="color:#007CEE">${contact.email}</a>
+     <a class="lightblueColor">${contact.email}</a>
      <div>${contact.phone}</div>
      <div>contact id: ${contact.contactID}</div>
    </div>
   </div>
     `;
   }
+}
+
+function openContact(selectedID) {
+  let contactContainer = document.getElementById("slideContainer");
+  contactContainer.classList.remove("d-none");
+  let contact = currentUserContacts.find((u) => u.contactID == selectedID);
+
+  let initialsSlides = document.getElementById("slideContactsBubble");
+  initialsSlides.innerHTML = `<div style="background:${contact.initialsColor}" class="slideContactsBubble">${contact.initials}</div>`;
+
+  let nameSlide = document.getElementById("slideName");
+  nameSlide.innerHTML = `<span class="slideNameSize">${contact.name}</span>`;
+
+  let emailSlide = document.getElementById("slideEmail");
+  emailSlide.innerHTML = `<a class="lightblueColor">${contact.email}</a>`;
+
+  let phoneSlide = document.getElementById("slidePhone");
+  phoneSlide.innerHTML = `<number>${contact.phone}</number>`;
+
+  let editSlide = document.getElementById("slideEditContact");
+  editSlide.innerHTML = `
+  <div onclick="openEditContact(${selectedID})"class="slideContactInfo">
+    <img src="../assets/img/penEdit.svg">
+    Edit Contact
+  </div>`;
+}
+
+function openEditContact(editSelectedID) {
+  let popupEditContainer = document.getElementById("editContactPopup");
+  popupEditContainer.classList.remove("d-none");
+  let contact = currentUserContacts.find((u) => u.contactID == editSelectedID);
+
+  let nameEdit = document.getElementById("editName");
+  nameEdit.value = `${contact.name}`;
+
+  let emailEdit = document.getElementById("editEmail");
+  emailEdit.value = `${contact.email}`;
+
+  let phoneEdit = document.getElementById("editPhone");
+  phoneEdit.value = `${contact.phone}`;
+}
+
+function saveEdit() {
+  let nameEdit = document.getElementById("editName").value;
+
+  let emailEdit = document.getElementById("editEmail").value;
+
+  let phoneEdit = document.getElementById("editPhone").value;
 }

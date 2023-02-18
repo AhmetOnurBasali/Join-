@@ -80,7 +80,7 @@ function addTaskHTML() {
   return /*html*/ `
   <div id="slidePopup" class="addTaskPopup slidePopup d-none">
     <img src="../assets/img/addTaskPopup.svg">
-  </div>
+  </div>addTaskPopup
   <div>
     <form class="addTaskContainer" onsubmit="createNewTask(event);">
       <div class="paddLeRe40px">
