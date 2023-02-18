@@ -615,13 +615,17 @@ function renderOpenAssignedTo(showContactsID, contactInitialsID) {
   for (let i = 0; i < users.length; i++) {
     checked = false;
     let assignedData = getAssignedContacts(i);
-    filterRenderBubble(assignedData);
+    filterRenderBubble(assignedData, contactInitialsID);
     contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID);
   }
 }
 
 
-function filterRenderBubble(assignedData) {
+function filterRenderBubble(assignedData, contactInitialsID) {
+  if (contactInitialsID === 'contactInitialsEdit') {
+    selectedContacts = allTasks[currentTaskID].assignedTo;
+  }
+
   for (let j = 0; j < selectedContacts.length; j++) {
     if (selectedContacts[j].name === assignedData.contactName) {
       checked = true;
