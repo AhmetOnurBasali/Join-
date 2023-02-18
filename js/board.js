@@ -227,7 +227,7 @@ function closeTaskDetails() {
     document.getElementById('body').style.overflow = 'auto';
     slideAssignTo = false;
     slideCategory = false;
-    clearContactCheckboxes();
+    // clearContactCheckboxes();
 }
 
 function editDetailsTask() {
@@ -250,14 +250,14 @@ function renderSelectContactEdit() {
     }
   }
 
-  function clearContactCheckboxes() {
-    for (let i = 0; i < users.length; i++) {
-        let checkbox = document.getElementById(`contactCheckbox${i}`);
-        if (checkbox.checked) {
-            checkbox.checked = false;
-        }
-      }
-  }
+//   function clearContactCheckboxes() {
+//     for (let i = 0; i < users.length; i++) {
+//         let checkbox = document.getElementById(`contactCheckbox${i}`);
+//         if (checkbox.checked) {
+//             checkbox.checked = false;
+//         }
+//       }
+//   }
   
 
 
@@ -445,7 +445,7 @@ async function editExistingTask(event) {
     let proof = taskProofSectionEdit(editTask);
     if (proof === true) {
         editTaskData(editTask);
-        clearContactCheckboxes();
+        // clearContactCheckboxes();
     }
     
 }
