@@ -7,6 +7,7 @@ async function loadContactsData() {
   await test();
   render();
 }
+
 async function test() {
   let newContact;
   if (
@@ -14,15 +15,15 @@ async function test() {
     currentUserContacts.length == 0 ||
     currentUserContacts == undefined
   ) {
-    let nameInitials = getInitialLetters(currentUser['name']);
+    let nameInitials = getInitialLetters(currentUser["name"]);
     let initialsUpper = nameInitials.toUpperCase();
     newContact = {
       contactCreatorID: currentUser["id"],
-      name: currentUser['name'],
-      email: currentUser['email'],
+      name: currentUser["name"],
+      email: currentUser["email"],
       phone: "Edit your Number",
       initials: initialsUpper,
-      initialsColor: currentUser['color'],
+      initialsColor: currentUser["color"],
       contactID: 0,
     };
     currentUserContacts.push(newContact);
@@ -49,7 +50,7 @@ function closeEditContact() {
 }
 function addPhoneNumber() {
   let numberInput = document.getElementById("inputNumber").value;
-  let countryCode = "+49"; 
+  let countryCode = "+49";
   let phoneNumber = numberInput.replace(/\D/g, "");
   phoneNumber = `${countryCode}${phoneNumber}`;
   phoneNumber = phoneNumber.replace(/(\d{2})(\d{3})(\d{4})/, "$1 $2 $3");
@@ -58,10 +59,10 @@ function addPhoneNumber() {
 
 async function createNewContact(event) {
   event.preventDefault();
-  let nameInput = addUserName()
-  let emailInput = addUserEmail()
-  let numberInput = addPhoneNumber()
-  let newColor = addUserColor()
+  let nameInput = addUserName();
+  let emailInput = addUserEmail();
+  let numberInput = addPhoneNumber();
+  let newColor = addUserColor();
   let nameInitials = getInitialLetters(nameInput);
   let initialsUpper = nameInitials.toUpperCase();
   let currentContactID = currentUserContacts.length;

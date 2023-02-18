@@ -231,59 +231,59 @@ body {
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
-.contactImgBubbleContainer  {
-    display: flex;
-    height: 120px;
-    width: 120px;
-    border-radius: 100%;
-    background: #D1D1D1;
-    align-items: center;
-    justify-content: center;
+.contactImgBubbleContainer {
+  display: flex;
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
+  background: #d1d1d1;
+  align-items: center;
+  justify-content: center;
 }
-.imgUserWhiteSize{
-    height: 60px;
-    display: flex;
-}
-
-.inputsContainerEditSection{
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    align-items: center;
-    width: 374px;
+.imgUserWhiteSize {
+  height: 60px;
+  display: flex;
 }
 
-.saveContactBlueBtn{
-    display: flex;
-    background: #2a3647;
-    padding: 6px 10px;
-    border: 2px solid #2a3647;
-    border-radius: 6px;
-    color: #ffffff;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
+.inputsContainerEditSection {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  width: 374px;
+}
+
+.saveContactBlueBtn {
+  display: flex;
+  background: #2a3647;
+  padding: 6px 10px;
+  border: 2px solid #2a3647;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
 }
 
 .saveContactBtnContainer {
-    display: flex;
-    gap: 24px;
-  }
+  display: flex;
+  gap: 24px;
+}
 
-  .contactContainer {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    column-gap: 20px;
-    cursor: pointer;
-    margin: 0 -20px;
-    padding: 0 20px;
-    border-radius: 10px;
+.contactContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  column-gap: 20px;
+  cursor: pointer;
+  margin: 0 -20px;
+  padding: 0 20px;
+  border-radius: 10px;
 }
 
 .contactContainer:hover {
-background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
 .contactsBubble {
@@ -300,8 +300,14 @@ background-color: whitesmoke;
   font-size: 12px;
 }
 
-.firstletter{
+.firstletter {
   border-bottom: 1px solid gray;
   padding: 12px;
   font-size: 20px;
+}
+
+.slideContactContainer {
+  height: 400px;
+  width: 500px;
+  background: white;
 }
