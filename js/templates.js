@@ -1,5 +1,3 @@
-
-
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
   for (let i = 0; i < includeElements.length; i++) {
@@ -166,7 +164,7 @@ function addTaskHTML() {
         <div class="rightSection">
           <div onclick="proofInput('msgBoxDate')" class="inputContainer" >
             <b class="padd4px">Due date</b> 
-            <input id="date" type="date">
+            <input id="date" type="date" value="${Date.now()}" min="${Date.now()}">
             <div class="transparentDiv">
               <div class="requiredText" id="msgBoxDate"></div>
             </div>

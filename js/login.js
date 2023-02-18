@@ -6,7 +6,7 @@ async function loadCurrentUser() {
   } else {
     currentUser = item;
   }
-  setGreatingName();
+  // setGreatingName();
 }
 
 async function loadUsers() {
@@ -244,11 +244,4 @@ function getEmailRegEx() {
   return emailRegex;
 }
 
-function setGreatingName() {
-  try {
-    let greatingName = document.getElementById("greatingName");
-    greatingName.innerHTML = currentUser["name"];
-  } catch (error) {
-    console.log("no greating on this page");
-  }
-}
+

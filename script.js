@@ -5,6 +5,7 @@ let allTasks = [{id: 0}];
 let categoryColor = [];
 
 
-function init() {
-    loadCurrentUser()
+async function init() {
+    await loadCurrentUser();
+    
 }
