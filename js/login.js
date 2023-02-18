@@ -243,11 +243,4 @@ function getEmailRegEx() {
   return emailRegex;
 }
 
-function setGreatingName() {
-  try {
-    let greatingName = document.getElementById("greatingName");
-    greatingName.innerHTML = currentUser["name"];
-  } catch (error) {
-    console.log("no greating on this page");
-  }
-}
+
