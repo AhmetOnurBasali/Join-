@@ -412,14 +412,34 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .bg-popup {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addTaskContainer {
+  height: 100% !important;
+}
+
+.rightSection {
+  height: 600px !important;
+}
+
+.leftSection {
+  min-height: 600px !important;
+}
+
+.phoneError{
+  height: 1px;
+  position: absolute;
+  bottom: 158px;
+  font-size: 10px;
+  color: red;
 }

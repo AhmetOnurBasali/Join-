@@ -143,12 +143,10 @@
                     </div>
                     <form onsubmit="createNewContact(event)">
                         <div class="inputsContainer">
-                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name"
-                                type="text" required>
-                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email"
-                                type="email" required>
-                            <input id="phone" oninput="proofPhone('phone')" maxlength="15" minlength="5"
-                                class="inputCO phoneIcon" placeholder="number" type="number" required>
+                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name" type="text" required>
+                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email" type="email" required>
+                            <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon" placeholder="number" type="number" required>
+                            <p id="phoneError" class="phoneError"></p>
                             <div class="addContactBtnContainer">
                                 <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
                                     Cancel

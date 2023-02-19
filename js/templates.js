@@ -12,8 +12,8 @@ async function includeHTML() {
   }
 }
 
-function dateTodayISO(){
-  let dateToday = new Date().getFullYear() + '-' +  pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
+function dateTodayISO() {
+  let dateToday = new Date().getFullYear() + '-' + pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
   return dateToday;
 }
 
@@ -23,7 +23,7 @@ function pad(num, size) {
   return num;
 }
 
-async function initTemplates() { 
+async function initTemplates() {
   await includeHTML();
   try {
     document.getElementById("addTask").innerHTML = addTaskHTML();
@@ -324,4 +324,29 @@ function renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID) {
     <div class="assignedContactName"  onclick="selectContactName(${i},'${contactName}')">${contactName}</div>
   </div>
   `;
+}
+
+
+function renderContactsHTML(contact) {
+  return ` 
+  <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainerCo contactContainerhover">
+    <div id="contactBubble${contact.contactID}" class="contactsBubble" style="background:${contact.initialsColor}; border: 2px solid ${contact.initialsColor}">
+      <div style="color: white">${contact.initials}</div>
+    </div>
+    <div>
+     <div class="contactName">${contact.name}</div>
+     <a class="lightblueColor">${contact.email}</a>
+    </div>
+  </div>
+    `;
+}
+
+
+function renderContactAddTaskHTML(selectedID) {
+  return`
+  <div onclick="openEditContact(${selectedID})"class="slideContactInfo">
+    <img src="../assets/img/penEdit.svg">
+    Edit Contact
+  </div>
+  `
 }

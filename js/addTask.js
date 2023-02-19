@@ -253,8 +253,6 @@ function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
 }
 
 
-
-
 function setLowPrioBtn(taskEdit) {
   let lowBtn = document.getElementById(`lowBtn${taskEdit}`);
   lowBtn.checked = true;
@@ -285,7 +283,6 @@ function setHighPrioBtn(taskEdit) {
 function setLowPrioSvgColor(taskEdit) {
   let svgLowColor = document.getElementById(`svgLow${taskEdit}`);
   svgLowColor.classList.add("prioIconWhite");
-
 }
 
 
