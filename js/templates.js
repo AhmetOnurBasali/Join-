@@ -78,7 +78,7 @@ function addTaskHTML() {
   return /*html*/ `
   <div id="slidePopup" class="addTaskPopup slidePopup d-none">
     <img src="../assets/img/addTaskPopup.svg">
-  </div>addTaskPopup
+  </div>
   <div>
     <form class="addTaskContainer" onsubmit="createNewTask(event);">
       <div class="paddLeRe40px">
@@ -164,7 +164,7 @@ function addTaskHTML() {
         <div class="rightSection">
           <div onclick="proofInput('msgBoxDate')" class="inputContainer" >
             <b class="padd4px">Due date</b> 
-            <input id="date" type="date" value="${Date.now()}" min="${Date.now()}">
+            <input id="date" type="date" value="${dateTodayISO()}" min="${dateTodayISO()}">
             <div class="transparentDiv">
               <div class="requiredText" id="msgBoxDate"></div>
             </div>

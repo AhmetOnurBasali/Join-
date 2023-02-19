@@ -73,6 +73,19 @@ function loadTaskUpcomingDeadline() {
 
 }
 
+
+function dateTodayISO(){
+  let dateToday = new Date().getFullYear() + '-' +  pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
+  return dateToday;
+}
+
+function pad(num, size) {
+  num = num.toString();
+  while (num.length < size) num = "0" + num;
+  return num;
+}
+
+
 function convertNumberInMonth(){
   switch (new Date().getMonth()) {
     case 0:

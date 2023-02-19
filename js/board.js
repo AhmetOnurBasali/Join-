@@ -373,7 +373,7 @@ function renderEditDetailsTaskHTML() {
         </div>
         <div onclick="proofInput('msgBoxDateEdit')" class="inputContainer">
             <b class="padd4px">Due date</b> 
-            <input id="dateEdit" value="${allTasks[currentTaskID]['date']}" type="date">
+            <input id="dateEdit" value="${allTasks[currentTaskID]['date']}" type="date" value="${dateTodayISO()}" min="${dateTodayISO()}">
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxDateEdit"></div>
             </div>
