@@ -10,17 +10,22 @@
     <link rel="stylesheet" href="../css/contacts.css">
     <link rel="stylesheet" href="../css/header_sidebar.css">
     <link rel="stylesheet" href="../fonts.css">
+    <link rel="stylesheet" href="../css/addTask.css">
     <script src="../js/mini_backend.js"></script>
     <script src="../script.js"></script>
     <script src="../js/templates.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/contacts.js"></script>
+    <script src="../js/board.js"></script>
+    <script src="../js/summary.js"></script>
+    <script src="../js/addTask.js"></script>
 
     <script>
         async function initContacts() {
             await initTemplates();
             await loadCurrentUser();
             await loadContactsData()
+            await loadTasks();
             await loadUsers();
         }
     </script>
@@ -31,15 +36,16 @@
     <div id="header"></div>
     <div id="sidebar"></div>
 
+    <div class="invisibleHeadDiv"></div>
     <div class="contactsMainContainer">
-        <div class="invisibleDiv"></div>
+        <div class="invisibleSideDiv"></div>
 
         <div class="contactsContainer" id="contactsArea"></div>
 
-        <div class="rightSection">
+        <div class="rightSectionCO">
             <div class="textPosi">
                 <div>
-                    <h1 style="font-size: 60px;" >Contacts</h1>
+                    <h1 style="font-size: 60px;">Contacts</h1>
                 </div>
                 <div class="lineBlue"></div>
                 <div style="font-size: 26px;">
@@ -52,7 +58,8 @@
                         <div id="slideContactsBubble"></div>
                         <div>
                             <div id="slideName"></div>
-                            <div class="lightblueColor addTaskBtn" onclick="">+add task</div>
+                            <div class="lightblueColor addTaskBtnCO add-task" onclick="addTaskBoard('todo')">+add task
+                            </div>
                         </div>
                     </div>
                     <div class="slideContactInfoContainer">
@@ -100,9 +107,12 @@
                     </div>
                     <form onsubmit="saveEdit(event)">
                         <div class="inputsContainerEditSection">
-                            <input id="editName" oninput="proofEditName()" class="input nameIcon" placeholder="Name" type="text">
-                            <input id="editEmail" oninput="proofEditEmail()" class="input emailIcon" placeholder="Email" type="email">
-                            <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5"class="input phoneIcon" placeholder="number" type="">
+                            <input id="editName" oninput="proofEditName()" class="inputCO nameIcon"
+                                placeholder="Edit name" type="text">
+                            <input id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon"
+                                placeholder="Edit email" type="email">
+                            <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5"
+                                class="inputCO phoneIcon" placeholder="Edit number" type="">
                             <div class="saveContactBtnContainer">
                                 <button class="saveContactBlueBtn">
                                     <b>Save</b>
@@ -133,16 +143,21 @@
                     </div>
                     <form onsubmit="createNewContact(event)">
                         <div class="inputsContainer">
-                            <input id="name" oninput="proofName()"  class="input nameIcon" placeholder="Name" type="text" required>
-                            <input id="email" oninput="proofEmail()"  class="input emailIcon" placeholder="Email" type="email" required>
-                            <input id="phone" oninput="proofPhone('phone')" maxlength="15" minlength="5" class="input phoneIcon" placeholder="number" type="number" required>
+                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name"
+                                type="text" required>
+                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email"
+                                type="email" required>
+                            <input id="phone" oninput="proofPhone('phone')" maxlength="15" minlength="5"
+                                class="inputCO phoneIcon" placeholder="number" type="number" required>
                             <div class="addContactBtnContainer">
                                 <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
                                     Cancel
-                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z"
-                                        stroke="#2A3647" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z"
+                                            stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
                                     </svg>
                                 </div>
                                 <button class="createContactBlueBtn">
@@ -156,6 +171,9 @@
             </div>
         </div>
     </div>
+    <section onclick="closeAddTaskBoard()" id="popup-add-task-board" class="bg-popup d-none">
+        <div onclick="event.stopPropagation()" id="addTask" class="add-task-popup"></div>
+    </section>
 </body>
 
 </html>

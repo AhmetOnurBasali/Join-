@@ -6,34 +6,44 @@ async function loadContactsData() {
   await downloadFromServer();
   let item = await backend.getItem(`userID${currentUser["id"]}Contacts`);
   currentUserContacts = item || [];
-  await test();
-  render();
+  await proofContactsAvailable();
+  renderContacts();
 }
 
-async function test() {
-  let newContact;
-  if (
-    currentUserContacts == null ||
-    currentUserContacts.length == 0 ||
-    currentUserContacts == undefined
-  ) {
-    let nameInitials = getInitialLetters(currentUser["name"]);
-    let initialsUpper = nameInitials.toUpperCase();
-    newContact = {
-      contactCreatorID: currentUser["id"],
-      name: currentUser["name"],
-      email: currentUser["email"],
-      phone: "Edit your Number",
-      initials: initialsUpper,
-      initialsColor: currentUser["color"],
-      contactID: 0,
-    };
-    currentUserContacts.push(newContact);
-    await backend.setItem(
-      `userID${currentUser["id"]}Contacts`,
-      currentUserContacts
-    );
+async function proofContactsAvailable() {
+  let contact;
+  if (noContacts() === true) {
+    let newContact = getCurrentUserData(contact)
+    setCurrentUserData(newContact)
   }
+}
+
+function noContacts() {
+  if (currentUserContacts == null || currentUserContacts.length == 0 || currentUserContacts == undefined) {
+    return true
+  } else {
+    return false
+  }
+}
+
+function getCurrentUserData() {
+  let nameInitials = getInitialLetters(currentUser["name"]);
+  let initialsUpper = nameInitials.toUpperCase();
+  newContact = {
+    contactCreatorID: currentUser["id"],
+    name: currentUser["name"],
+    email: currentUser["email"],
+    phone: "Edit your Number",
+    initials: initialsUpper,
+    initialsColor: currentUser["color"],
+    contactID: 0,
+  };
+  return newContact
+}
+
+async function setCurrentUserData(newContact) {
+  currentUserContacts.push(newContact);
+  await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
 }
 
 function closeAddNewContact() {
@@ -59,38 +69,36 @@ async function createNewContact(event) {
   let newColor = addUserColor();
   let nameInitials = getInitialLetters(nameInput);
   let currentContactID = currentUserContacts.length;
-  newContact = {
-    contactCreatorID: currentUser["id"],
-    name: nameInput,
-    email: emailInput,
-    phone: numberInput,
-    initials: nameInitials,
-    initialsColor: newColor,
-    contactID: currentContactID,
-  };
-  if (
-    proofEmail(emailInput) === true &&
-    proofName(nameInput) === true &&
-    numberInput.length > 4
-  ) {
-    currentUserContacts.push(newContact);
-    await backend.setItem(
-      `userID${currentUser["id"]}Contacts`,
-      currentUserContacts
-    );
-    location.reload();
+  let data = { nameInput, emailInput, numberInput, newColor, nameInitials, currentContactID }
+  let newContact = makeDataToContact(data)
+  if (proofEmail(emailInput) === true && proofName(nameInput) === true && numberInput.length > 4) {
+    setNewContact(newContact)
   }
 }
 
-function render() {
+function makeDataToContact(data) {
+  newContact = {
+    contactCreatorID: currentUser["id"],
+    name: data.nameInput,
+    email: data.emailInput,
+    phone: data.numberInput,
+    initials: data.nameInitials,
+    initialsColor: data.newColor,
+    contactID: data.currentContactID,
+  };
+  return newContact
+}
+
+async function setNewContact(newContact) {
+  currentUserContacts.push(newContact);
+  await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
+  location.reload();
+}
+
+function renderContacts() {
+  sortContacts()
   let dropArea = document.getElementById("contactsArea");
   dropArea.innerHTML = "";
-
-  currentUserContacts.sort((a, b) => {
-    if (a.contactID === 0) return -1;
-    if (b.contactID === 0) return 1;
-    return a.name.localeCompare(b.name);
-  });
   let currentLetter = "";
   for (let i = 0; i < currentUserContacts.length; i++) {
     const contact = currentUserContacts[i];
@@ -99,9 +107,21 @@ function render() {
       dropArea.innerHTML += `<span class="firstletter">${firstLetter}</span>`;
       currentLetter = firstLetter;
     }
-    dropArea.innerHTML += `
-  <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainer contactContainerhover">
-    <div class="contactsBubble" style="background:${contact.initialsColor}; border: 2px solid ${contact.initialsColor}">
+    dropArea.innerHTML += renderContactsHTML();
+  }
+}
+
+function sortContacts() {
+  currentUserContacts.sort((a, b) => {
+    if (a.contactID === 0) return -1;
+    if (b.contactID === 0) return 1;
+    return a.name.localeCompare(b.name);
+  });
+}
+
+function renderContactsHTML() {
+  return ` <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainerCo contactContainerhover">
+    <div id="contactBubble${contact.contactID}" class="contactsBubble" style="background:${contact.initialsColor}; border: 2px solid ${contact.initialsColor}">
       <div style="color: white">${contact.initials}</div>
    </div>
    <div>
@@ -109,8 +129,7 @@ function render() {
      <a class="lightblueColor">${contact.email}</a>
    </div>
   </div>
-    `;
-  }
+    `
 }
 
 function openContact(selectedID) {
@@ -118,17 +137,16 @@ function openContact(selectedID) {
   contactContainer.classList.remove("d-none");
 
   document.getElementById(`contactContainer${selectedID}`).focus();
-  document
-    .getElementById(`contactContainer${selectedID}`)
-    .classList.add("focusContact");
-  document
-    .getElementById(`contactContainer${selectedID}`)
-    .classList.remove("contactContainerhover");
+  document.getElementById(`contactContainer${selectedID}`).classList.add("focusContact");
+  document.getElementById(`contactContainer${selectedID}`).classList.remove("contactContainerhover");
 
-  if (previousID !== null) {
-    document
-      .getElementById(`contactContainer${previousID}`)
-      .classList.remove("focusContact");
+  document.getElementById(`contactBubble${selectedID}`).focus();
+  document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
+
+  if (previousID !== null && previousID !== selectedID) {
+    document.getElementById(`contactContainer${previousID}`).classList.remove("focusContact");
+    document.getElementById(`contactContainer${previousID}`).classList.add("contactContainerhover");
+    document.getElementById(`contactBubble${previousID}`).classList.remove("contactsBubbleBorder");
   }
 
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);

@@ -22,26 +22,23 @@ input[type="number"]::-webkit-outer-spin-button {
   width: calc(454px - 176px);
   gap: 20px;
 }
-.invisibleDiv {
+
+.invisibleSideDiv {
   display: flex;
   height: 100vh;
   width: 232px;
 }
+
 .contactsMainContainer {
   display: flex;
 }
 
-.overflow {
-  overflow: auto;
-  height: 100px;
-}
-
-.rightSection {
+.rightSectionCO {
   width: calc(100vw - 232px - 454px);
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);
-  padding-top: 100px;
+  height: calc(100vh - 88px);
+  padding-top: 88px;
   justify-content: space-between;
 }
 
@@ -58,6 +55,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border: 2px solid #29abe2;
   border-radius: 10px;
 }
+
 .btnPosi {
   display: flex;
   justify-content: flex-end;
@@ -155,7 +153,7 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 422px;
 }
 
-.input {
+.inputCO {
   outline: none;
   box-sizing: border-box;
   display: flex;
@@ -231,6 +229,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-color: #29abe2;
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
+
 .cancelContactWhiteBtn:hover {
   transition: none;
   background-color: #ffffff;
@@ -283,7 +282,7 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 24px;
 }
 
-.contactContainer  {
+.contactContainerCo {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -294,15 +293,18 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 10px;
 }
 
-.contactContainerhover {
-}
+.contactContainerhover {}
 
 .contactContainerhover:hover {
   background-color: whitesmoke;
 }
 
-.contactContainerhover:hover .contactsBubble{
+.contactContainerhover:hover .contactsBubble {
   border: 2px solid #ffffff !important;
+}
+
+.contactsBubbleBorder {
+  border: 2px solid white !important;
 }
 
 .contactsBubble {
@@ -383,11 +385,12 @@ input[type="number"]::-webkit-outer-spin-button {
 .falseInput {
   border-color: #ff0000;
 }
+
 .rightInput {
   background-color: #e8f0fe;
 }
 
-.addTaskBtn {
+.addTaskBtnCO {
   width: max-content;
   cursor: pointer;
 }
@@ -395,4 +398,28 @@ input[type="number"]::-webkit-outer-spin-button {
 .focusContact {
   background: #2a3647;
   color: white;
+
+}
+
+.add-task-popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  height: 950px;
+  background-color: white;
+  border-radius: 30px;
+}
+
+.bg-popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
