@@ -52,7 +52,7 @@
                         <div id="slideContactsBubble"></div>
                         <div>
                             <div id="slideName"></div>
-                            <div class="lightblueColor">+add task</div>
+                            <div class="lightblueColor addTaskBtn" onclick="">+add task</div>
                         </div>
                     </div>
                     <div class="slideContactInfoContainer">
@@ -95,14 +95,14 @@
                     <img onclick="closeEditContact()" style="cursor: pointer;" src="../assets/img/clear.svg">
                 </div>
                 <div class="inputSection">
-                    <div class="contactImgBubbleContainer">
+                    <div class="contactImgBubbleContainer" id="bubbleInEditSection">
                         <img class="imgUserWhiteSize" src="../assets/img/userWhite.svg">
                     </div>
-                    <form onsubmit="saveEdit()">
+                    <form onsubmit="saveEdit(event)">
                         <div class="inputsContainerEditSection">
-                            <input id="editName" class="input nameIcon" placeholder="Name" type="text">
-                            <input id="editEmail" class="input emailIcon" placeholder="Email" type="email">
-                            <input id="editPhone" class="input phoneIcon" placeholder="number" type="">
+                            <input id="editName" oninput="proofEditName()" class="input nameIcon" placeholder="Name" type="text">
+                            <input id="editEmail" oninput="proofEditEmail()" class="input emailIcon" placeholder="Email" type="email">
+                            <input id="editPhone" maxlength="15" minlength="8"class="input phoneIcon" placeholder="number" type="">
                             <div class="saveContactBtnContainer">
                                 <button class="saveContactBlueBtn">
                                     <b>Save</b>
@@ -133,20 +133,18 @@
                     </div>
                     <form onsubmit="createNewContact(event)">
                         <div class="inputsContainer">
-                            <input id="name" class="input nameIcon" placeholder="Name" type="text">
-                            <input id="email" class="input emailIcon" placeholder="Email" type="">
-                            <input id="inputNumber" class="input phoneIcon" placeholder="number" type="number">
+                            <input id="name" oninput="proofName()"  class="input nameIcon" placeholder="Name" type="text" required>
+                            <input id="email" oninput="proofEmail()"  class="input emailIcon" placeholder="Email" type="email" required>
+                            <input id="phone" maxlength="15" minlength="8" class="input phoneIcon" placeholder="number" type="number" required>
                             <div class="addContactBtnContainer">
-                                <button class="cancelContactWhiteBtn">
-                                    <b>Cancel</b>
-                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z"
-                                            stroke="#2A3647" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
+                                <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
+                                    Cancel
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z"
+                                        stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                     </svg>
-                                </button>
+                                </div>
                                 <button class="createContactBlueBtn">
                                     <b>Create contact</b>
                                     <img src="../assets/img/check.svg">

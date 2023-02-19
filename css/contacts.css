@@ -4,6 +4,12 @@ body {
   font-family: "inter";
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .contactsContainer {
   overflow: auto;
   height: calc(100vh - 176px);
@@ -93,8 +99,8 @@ body {
 
 .popupContactContainer {
   display: flex;
-  height: 70vh;
-  width: 80vw;
+  height: 600px;
+  width: 1200px;
   background: white;
   border-radius: 30px;
 }
@@ -115,8 +121,8 @@ body {
 
 .blueLineBottom {
   width: 90px;
-  height: 0px;
-  border: 2px solid #29abe2;
+  height: 2px;
+  background: #29abe2;
   border-radius: 10px;
 }
 
@@ -144,7 +150,9 @@ body {
 .inputsContainer {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 72px;
+  height: 270px;
+  width: 422px;
 }
 
 .input {
@@ -239,7 +247,10 @@ body {
   background: #d1d1d1;
   align-items: center;
   justify-content: center;
+  border: 4px solid #ffffff;
+  box-shadow: 0px 0px 4px rgb(0 0 0 / 10%);
 }
+
 .imgUserWhiteSize {
   height: 60px;
   display: flex;
@@ -247,10 +258,11 @@ body {
 
 .inputsContainerEditSection {
   display: flex;
-  flex-direction: column;
-  gap: 40px;
+  gap: 76px;
   align-items: center;
-  width: 374px;
+  width: 422px;
+  height: 270px;
+  flex-direction: column;
 }
 
 .saveContactBlueBtn {
@@ -278,19 +290,22 @@ body {
   column-gap: 20px;
   cursor: pointer;
   margin: 0 -20px;
-  padding: 0 20px;
+  padding: 20px;
   border-radius: 10px;
 }
 
-.contactContainer:hover {
+.contactContainerhover {
+}
+
+.contactContainerhover:hover {
   background-color: whitesmoke;
 }
 
 .contactsBubble {
   border-radius: 100%;
   background-color: rgba(0, 0, 0, 0.2);
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -301,9 +316,13 @@ body {
 }
 
 .firstletter {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #d1d1d1;
   padding: 12px;
   font-size: 20px;
+}
+
+.contactName {
+  font-size: 21px;
 }
 
 .slideContactContainer {
@@ -339,21 +358,38 @@ body {
 
 .slideContactsBubble {
   border-radius: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
   width: 120px;
   height: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  border: 1px solid #ffffff;
+  font-size: 46px;
+  border: 4px solid #ffffff;
+  box-shadow: 0px 0px 4px rgb(0 0 0 / 10%);
+}
+
+.slideNameSize {
   font-size: 46px;
 }
 
-.slideNameSize{
-  font-size: 46px;
+.lightblueColor {
+  color: #007cee;
 }
 
-.lightblueColor{
-  color: #007CEE;
+.falseInput {
+  border-color: #ff0000;
+}
+.rightInput {
+  background-color: #e8f0fe;
+}
+
+.addTaskBtn {
+  width: max-content;
+  cursor: pointer;
+}
+
+.focusContact {
+  background: #2a3647;
+  color: white;
 }
