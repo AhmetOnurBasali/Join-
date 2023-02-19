@@ -107,7 +107,7 @@ function renderContacts() {
       dropArea.innerHTML += `<span class="firstletter">${firstLetter}</span>`;
       currentLetter = firstLetter;
     }
-    dropArea.innerHTML += renderContactsHTML();
+    dropArea.innerHTML += renderContactsHTML(contact);
   }
 }
 
@@ -119,7 +119,7 @@ function sortContacts() {
   });
 }
 
-function renderContactsHTML() {
+function renderContactsHTML(contact) {
   return ` <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainerCo contactContainerhover">
     <div id="contactBubble${contact.contactID}" class="contactsBubble" style="background:${contact.initialsColor}; border: 2px solid ${contact.initialsColor}">
       <div style="color: white">${contact.initials}</div>
