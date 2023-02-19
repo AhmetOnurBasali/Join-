@@ -32,35 +32,35 @@
             <div class="tasks-max-size">
                 <div class="tasks">
                     <div class="tasks-position">
-                        <div>
+                        <div onclick="switchToBoard()">
                             <span class="tasks-value" id="tasks-in-board">0</span>
                             <span class="tasks-description">Tasks in Board</span>
                         </div>
-                        <div>
+                        <div onclick="switchToBoard()">
                             <span class="tasks-value" id="tasks-in-progress">0</span>
                             <span class="tasks-description">Tasks in Progress</span>
                         </div>
-                        <div>
+                        <div onclick="switchToBoard()">
                             <span class="tasks-value" id="tasks-awaiting-feedback">0</span>
                             <span class="tasks-description">Awaiting Feedback</span>
                         </div>
                     </div>
-                    <div class="tasks-priority">
+                    <div class="tasks-priority" onclick="switchToBoard()">
                         <div class="d-flex ali-center">
                             <img src="../assets/img/urgent.svg" alt="priority of task">
                             <div class="ali-center f-d-column">
-                                <span class="tasks-value">0</span>
+                                <span class="tasks-value" id="tasks-priority">0</span>
                                 <span class="tasks-text">Urgent</span>
                             </div>
                         </div>
                         <div class="tasks-deadline">
-                            <span class="tasks-date" id="tasks-date">January 01, 1970</span>
+                            <span class="tasks-date" id="tasks-date">no deadline</span>
                             <span class="tasks-text">Upcoming Deadline</span>
                         </div>
 
                     </div>
 
-                    <div class="tasks-todo-done">
+                    <div class="tasks-todo-done" onclick="switchToBoard()">
                         <div class="task-todo-done d-flex ali-center">
                             <div class="todo-done-img">
                                 <svg class="pencil" width="24" height="34" viewBox="0 0 24 34" fill="none"

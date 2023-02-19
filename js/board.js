@@ -227,15 +227,10 @@ function closeTaskDetails() {
     document.getElementById('body').style.overflow = 'auto';
     slideAssignTo = false;
     slideCategory = false;
-    // clearContactCheckboxes();
 }
 
 function editDetailsTask() {
     document.getElementById('task-details').innerHTML = renderEditDetailsTaskHTML();
-    // for (let index = 0; index < allTasks[currentTaskID]['assignedTo'].length; index++) {
-    //     const assignedToEdit = allTasks[currentTaskID]['assignedTo'][index];
-    //     renderSelectContactHTML(assignedToEdit['color'], assignedToEdit['initial']);
-    // }
     renderSelectContactEdit();
     setPrioCheckBox(allTasks[currentTaskID]['prio'], 'Edit');
 }
@@ -249,15 +244,6 @@ function renderSelectContactEdit() {
       contactInitials.innerHTML += renderSelectContactHTML(color, initials);
     }
   }
-
-//   function clearContactCheckboxes() {
-//     for (let i = 0; i < users.length; i++) {
-//         let checkbox = document.getElementById(`contactCheckbox${i}`);
-//         if (checkbox.checked) {
-//             checkbox.checked = false;
-//         }
-//       }
-//   }
   
 
 
@@ -373,7 +359,7 @@ function renderEditDetailsTaskHTML() {
         </div>
         <div onclick="proofInput('msgBoxDateEdit')" class="inputContainer">
             <b class="padd4px">Due date</b> 
-            <input id="dateEdit" value="${allTasks[currentTaskID]['date']}" type="date" value="${dateTodayISO()}" min="${dateTodayISO()}">
+            <input id="dateEdit" value="${allTasks[currentTaskID]['date']}" type="date" min="${dateTodayISO()}">
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxDateEdit"></div>
             </div>

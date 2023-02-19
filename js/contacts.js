@@ -118,12 +118,8 @@ function openContact(selectedID) {
   contactContainer.classList.remove("d-none");
 
   document.getElementById(`contactContainer${selectedID}`).focus();
-  document
-    .getElementById(`contactContainer${selectedID}`)
-    .classList.add("focusContact");
-  document
-    .getElementById(`contactContainer${selectedID}`)
-    .classList.remove("contactContainerhover");
+  document.getElementById(`contactContainer${selectedID}`).classList.add("focusContact");
+  document.getElementById(`contactContainer${selectedID}`).classList.remove("contactContainerhover");
 
   if (previousID !== null) {
     document

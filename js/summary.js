@@ -12,7 +12,7 @@ async function initSummary() {
 
 
 function showGreatingDayTime() {
-
+  // new Date().toLocaleString()
 }
 
 
@@ -37,56 +37,100 @@ function loadTasksLength() {
 
 
 function loadTasksInBoard() {
-  document.getElementById('tasks-in-board').innerHTML = allTasks.length;
+  try {
+    document.getElementById('tasks-in-board').innerHTML = allTasks.length - 1;
+  } catch (error) {
+    console.warn('no tasks');
+  }
+
 }
 
 
 function loadTasksInProgress() {
-  let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
-  document.getElementById('tasks-in-progress').innerHTML = inProgress.length;
+
+  try {
+    let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
+    document.getElementById('tasks-in-progress').innerHTML = inProgress.length;
+  } catch (error) {
+    console.log('no tasks in "inProgress"');
+  }
 }
 
 
 function loadTasksAwaitingFeedback() {
-  let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
-  document.getElementById('tasks-awaiting-feedback').innerHTML = awaitingFeedback.length;
+
+  try {
+    let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
+    document.getElementById('tasks-awaiting-feedback').innerHTML = awaitingFeedback.length;
+  } catch (error) {
+    console.log('no tasks in "awaitingFeedback"');
+  }
 }
 
 function loadTasksTodo() {
-  let todo = allTasks.filter((t) => t["area"] == "todo");
-  document.getElementById('tasks-todo').innerHTML = todo.length;
+
+  try {
+    let todo = allTasks.filter((t) => t["area"] == "todo");
+    document.getElementById('tasks-todo').innerHTML = todo.length;
+  } catch (error) {
+    console.log('no tasks in "todo"');
+  }
 }
 
 
 function loadTasksDone() {
-  let done = allTasks.filter((t) => t["area"] == "done");
-  document.getElementById('tasks-done').innerHTML = done.length;
+
+  try {
+    let done = allTasks.filter((t) => t["area"] == "done");
+    document.getElementById('tasks-done').innerHTML = done.length;
+  } catch (error) {
+    console.log('no tasks in "done"');
+  }
+
 }
 
 
+
 function loadTaskUpcomingDeadline() {
-  // let done = allTasks.filter((t) => t["prio"] == "done");
- 
+  let prio;
+  let tasksDate = [];
+  try {
+    prio = allTasks.filter((t) => t["prio"] == "urgent");
+    document.getElementById('tasks-priority').innerHTML = prio.length;
+  } catch (error) {
+    console.log('no tasks in "done"');
+  }
+  for (let i = 0; i < prio.length; i++) {
+    const taskDate = prio[i]['date'];
+    taskDateConverted = taskDate.replace(/-/gi, ', ');
+    tasksDate.push(taskDateConverted);
+  }
+  let ka = sortDates()
+  console.log(ka);
+
+  
+
   document.getElementById('tasks-date').innerHTML = `${convertNumberInMonth()} ${new Date().getDate()}, ${new Date().getFullYear()}`;
 
 
 
 }
 
+function sortDates(){
+let tasksDates = [new Date(2012, 7, 1), new Date(2012, 7, 4), new Date(2012, 7, 5), new Date(2013, 2, 20)];
+  let diffdate = new Date(2012, 7, 11);
 
-function dateTodayISO(){
-  let dateToday = new Date().getFullYear() + '-' +  pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
-  return dateToday;
+  tasksDates.sort(function (a, b) {
+    let distancea = Math.abs(diffdate - a);
+    let distanceb = Math.abs(diffdate - b);
+    return distancea - distanceb; // sort a before b when the distance is smaller
+  });
 }
 
-function pad(num, size) {
-  num = num.toString();
-  while (num.length < size) num = "0" + num;
-  return num;
-}
 
 
-function convertNumberInMonth(){
+
+function convertNumberInMonth() {
   switch (new Date().getMonth()) {
     case 0:
       return 'January';
@@ -113,4 +157,10 @@ function convertNumberInMonth(){
     case 11:
       return 'December';
   }
+}
+
+function switchToBoard() {
+  setTimeout(() => {
+    window.location.href = "../html/board.html";
+  }, 200);
 }

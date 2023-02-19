@@ -12,6 +12,17 @@ async function includeHTML() {
   }
 }
 
+function dateTodayISO(){
+  let dateToday = new Date().getFullYear() + '-' +  pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
+  return dateToday;
+}
+
+function pad(num, size) {
+  num = num.toString();
+  while (num.length < size) num = "0" + num;
+  return num;
+}
+
 async function initTemplates() { 
   await includeHTML();
   try {
@@ -23,6 +34,7 @@ async function initTemplates() {
     document.getElementById("sidebar").innerHTML = sidebarHTML();
   }
 }
+
 
 function headerHTML() {
   return /*html*/ `
@@ -164,7 +176,7 @@ function addTaskHTML() {
         <div class="rightSection">
           <div onclick="proofInput('msgBoxDate')" class="inputContainer" >
             <b class="padd4px">Due date</b> 
-            <input id="date" type="date" value="${dateTodayISO()}" min="${dateTodayISO()}">
+            <input id="date" type="date" min="${dateTodayISO()}">
             <div class="transparentDiv">
               <div class="requiredText" id="msgBoxDate"></div>
             </div>
