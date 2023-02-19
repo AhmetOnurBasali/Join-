@@ -79,7 +79,7 @@ function taskProofSection(newTask) {
   let assigned = proofAssigned(newTask);
   let date = proofDate(newTask);
   let prio = proofPrio(newTask);
-  let subtask = proofSubtask(newTask);
+  let subtask = true;
   if (checkProofOf(data, title, description, category, assigned, date, prio, subtask) === true) {
     return true;
   }
@@ -88,16 +88,8 @@ function taskProofSection(newTask) {
 
 
 function checkProofOf(data, title, description, category, assigned, date, prio, subtask) {
-  return (
-    data === true &&
-    title === true &&
-    description === true &&
-    category === true &&
-    assigned === true &&
-    date === true &&
-    prio === true &&
-    subtask === true
-  );
+  return (data === true && title === true && description === true && category === true &&
+          assigned === true && date === true && prio === true && subtask === true);
 }
 
 
@@ -574,7 +566,7 @@ function slideInAssignedTo(hideBoarderID, expandContactsID) {
 
 }
 
-function assignedToBlockShiftIn(inputID){
+function assignedToBlockShiftIn(inputID) {
   document.getElementById(inputID).style.marginBottom = '10px';
 }
 
@@ -594,16 +586,16 @@ function slideOutAssignedTo(hideBoarderID, expandContactsID) {
   }
 }
 
-function assignedToBlockShiftOut(inputID){
+function assignedToBlockShiftOut(inputID) {
   if (users.length === 1) {
     document.getElementById(inputID).style.marginBottom = '-25px';
-  }else if (users.length === 2) {
+  } else if (users.length === 2) {
     document.getElementById(inputID).style.marginBottom = '-59px';
-  }else if (users.length === 3) {
+  } else if (users.length === 3) {
     document.getElementById(inputID).style.marginBottom = '-93px';
-  }else if (users.length === 4) {
+  } else if (users.length === 4) {
     document.getElementById(inputID).style.marginBottom = '-127px';
-  }else if (users.length >= 5) {
+  } else if (users.length >= 5) {
     document.getElementById(inputID).style.marginBottom = '-131px';
   }
 }
