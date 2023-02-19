@@ -102,7 +102,7 @@
                         <div class="inputsContainerEditSection">
                             <input id="editName" oninput="proofEditName()" class="input nameIcon" placeholder="Name" type="text">
                             <input id="editEmail" oninput="proofEditEmail()" class="input emailIcon" placeholder="Email" type="email">
-                            <input id="editPhone" maxlength="15" minlength="8"class="input phoneIcon" placeholder="number" type="">
+                            <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5"class="input phoneIcon" placeholder="number" type="">
                             <div class="saveContactBtnContainer">
                                 <button class="saveContactBlueBtn">
                                     <b>Save</b>
@@ -135,7 +135,7 @@
                         <div class="inputsContainer">
                             <input id="name" oninput="proofName()"  class="input nameIcon" placeholder="Name" type="text" required>
                             <input id="email" oninput="proofEmail()"  class="input emailIcon" placeholder="Email" type="email" required>
-                            <input id="phone" maxlength="15" minlength="8" class="input phoneIcon" placeholder="number" type="number" required>
+                            <input id="phone" oninput="proofPhone('phone')" maxlength="15" minlength="5" class="input phoneIcon" placeholder="number" type="number" required>
                             <div class="addContactBtnContainer">
                                 <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
                                     Cancel

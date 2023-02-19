@@ -283,7 +283,7 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 24px;
 }
 
-.contactContainer {
+.contactContainer  {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -301,6 +301,10 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: whitesmoke;
 }
 
+.contactContainerhover:hover .contactsBubble{
+  border: 2px solid #ffffff !important;
+}
+
 .contactsBubble {
   border-radius: 100%;
   background-color: rgba(0, 0, 0, 0.2);
@@ -310,7 +314,6 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-content: center;
   align-items: center;
   color: white;
-  border: 1px solid #ffffff;
   font-weight: 400;
   font-size: 12px;
 }

@@ -1,5 +1,6 @@
 let currentUserContacts = [];
 let currentSelectedID = [];
+let previousID = null;
 
 async function loadContactsData() {
   await downloadFromServer();
@@ -57,25 +58,27 @@ async function createNewContact(event) {
   let numberInput = tryGetPhone();
   let newColor = addUserColor();
   let nameInitials = getInitialLetters(nameInput);
-  let initialsUpper = nameInitials.toUpperCase();
   let currentContactID = currentUserContacts.length;
   newContact = {
     contactCreatorID: currentUser["id"],
     name: nameInput,
     email: emailInput,
     phone: numberInput,
-    initials: initialsUpper,
+    initials: nameInitials,
     initialsColor: newColor,
     contactID: currentContactID,
   };
-  if (proofEmail(emailInput) === true && proofName(nameInput) === true) {
+  if (
+    proofEmail(emailInput) === true &&
+    proofName(nameInput) === true &&
+    numberInput.length > 4
+  ) {
     currentUserContacts.push(newContact);
     await backend.setItem(
       `userID${currentUser["id"]}Contacts`,
       currentUserContacts
     );
-    closeAddNewContact();
-    render();
+    location.reload();
   }
 }
 
@@ -98,7 +101,7 @@ function render() {
     }
     dropArea.innerHTML += `
   <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainer contactContainerhover">
-    <div class="contactsBubble" style="background:${contact.initialsColor};">
+    <div class="contactsBubble" style="background:${contact.initialsColor}; border: 2px solid ${contact.initialsColor}">
       <div style="color: white">${contact.initials}</div>
    </div>
    <div>
@@ -110,20 +113,23 @@ function render() {
   }
 }
 
-function removeFocus(selectedID) {
-  document.getElementById(`contactContainer${selectedID}`).focus();
-  document.getElementById(`contactContainer${selectedID}`).classList.toggle("focusContact");
-  document.getElementById(`contactContainer${selectedID}`).classList.toggle("contactContainerhover");
-}
-
 function openContact(selectedID) {
   let contactContainer = document.getElementById("slideContainer");
   contactContainer.classList.remove("d-none");
 
   document.getElementById(`contactContainer${selectedID}`).focus();
-  document.getElementById(`contactContainer${selectedID}`).classList.add("focusContact");
-  document.getElementById(`contactContainer${selectedID}`).classList.remove("contactContainerhover");
+  document
+    .getElementById(`contactContainer${selectedID}`)
+    .classList.add("focusContact");
+  document
+    .getElementById(`contactContainer${selectedID}`)
+    .classList.remove("contactContainerhover");
 
+  if (previousID !== null) {
+    document
+      .getElementById(`contactContainer${previousID}`)
+      .classList.remove("focusContact");
+  }
 
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
 
@@ -145,6 +151,8 @@ function openContact(selectedID) {
     <img src="../assets/img/penEdit.svg">
     Edit Contact
   </div>`;
+
+  previousID = selectedID;
 }
 
 function openEditContact(selectedID) {
@@ -163,8 +171,7 @@ function openEditContact(selectedID) {
 
   let phoneEdit = document.getElementById("editPhone");
   let formatedNumber =
-    currentUserContacts[selectedID]["phone"].split(" ")[0] +
-    currentUserContacts[selectedID]["phone"].split(" ")[1];
+    contact.phone.split(" ")[0] + contact.phone.split(" ")[1];
   phoneEdit.value = `${formatedNumber}`;
   setTimeout(() => {
     phoneEdit.type = "number";
@@ -182,22 +189,26 @@ async function saveEdit(event) {
   let phoneEdit = tryGetPhone();
   currentUserContacts[id]["phone"] = phoneEdit;
   let nameInitials = getInitialLetters(nameEdit);
-  let initialsUpper = nameInitials.toUpperCase();
-  currentUserContacts[id]["initials"] = initialsUpper;
+  currentUserContacts[id]["initials"] = nameInitials;
 
-  if (proofEditName() === true && proofEditEmail() === true) {
+  if (
+    proofEditName() === true &&
+    proofEditEmail() === true &&
+    phoneEdit.length > 4
+  ) {
     await backend.setItem(
       `userID${currentUser["id"]}Contacts`,
       currentUserContacts
     );
   }
+  location.reload();
 }
 
 function tryGetEmail() {
-  let newEmail = document.getElementById("email").value;
+  let newEmail = document.getElementById("email").value.toLowerCase();
   addContactEmail(newEmail);
   if (newEmail === "") {
-    let nameEdit = document.getElementById("editEmail").value;
+    let nameEdit = document.getElementById("editEmail").value.toLowerCase();
     addContactEmail(nameEdit);
     return nameEdit;
   } else {
@@ -206,8 +217,8 @@ function tryGetEmail() {
 }
 
 function addContactEmail(email) {
-  let newEmail = email.replace(/^\w/, (c) => c.toUpperCase());
-  let emailRegex = getEmailRegEx();
+  let newEmail = email;
+  let emailRegex = getEmailRegEx(newEmail);
   if (!emailRegex.test(newEmail)) {
     proofEmail();
     return;
@@ -219,10 +230,13 @@ function addContactEmail(email) {
 function tryGetPhone() {
   let newPhone = document.getElementById("phone").value;
   let newNumber = setPhoneNumber(newPhone);
-  if (newPhone === "" || newNumber === newPhone) {
+  if (newPhone === "" || newNumber == newPhone) {
     let phoneEdit = document.getElementById("editPhone").value;
     let editNumber = setPhoneNumber(phoneEdit);
     return editNumber;
+  }
+  if (newPhone.length < 4) {
+    return false;
   } else {
     return newNumber;
   }
@@ -231,7 +245,7 @@ function tryGetPhone() {
 function setPhoneNumber(numberInput) {
   let phoneNumber = numberInput.replace(/\D/g, "");
   phoneNumber = `${phoneNumber}`;
-  phoneNumber = phoneNumber.replace(/(\d{4})(\d{7})/, "$1 $2");
+  phoneNumber = phoneNumber.replace(/(\d{4})(\d{1})/, "$1 $2");
   return phoneNumber;
 }
 
@@ -274,6 +288,18 @@ function proofEditEmail() {
     return false;
   } else {
     document.getElementById("editEmail").classList.remove("falseInput");
+    return true;
+  }
+}
+
+function proofPhone(id) {
+  let phone = document.getElementById(id).value;
+  if (phone.length < 5) {
+    document.getElementById(id).focus();
+    document.getElementById(id).classList.add("falseInput");
+    return false;
+  } else {
+    document.getElementById(id).classList.remove("falseInput");
     return true;
   }
 }
