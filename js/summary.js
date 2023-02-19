@@ -130,6 +130,7 @@ let tasksDates = [new Date(2012, 7, 1), new Date(2012, 7, 4), new Date(2012, 7, 
 
 
 
+
 function convertNumberInMonth() {
   switch (new Date().getMonth()) {
     case 0:

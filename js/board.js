@@ -207,13 +207,13 @@ function setPriorityBg() {
 
 function setPriorityBgColor() {
     switch (allTasks[currentTaskID]['prio']) {
-        case 'Low':
+        case 'low':
 
             return '#7AE229'
-        case 'Medium':
+        case 'medium':
 
             return '#FFA800'
-        case 'Urgent':
+        case 'urgent':
 
             return '#FF3D00'
 
