@@ -12,8 +12,8 @@ async function includeHTML() {
   }
 }
 
-function dateTodayISO(){
-  let dateToday = new Date().getFullYear() + '-' +  pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
+function dateTodayISO() {
+  let dateToday = new Date().getFullYear() + '-' + pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
   return dateToday;
 }
 
@@ -23,7 +23,7 @@ function pad(num, size) {
   return num;
 }
 
-async function initTemplates() { 
+async function initTemplates() {
   await includeHTML();
   try {
     document.getElementById("addTask").innerHTML = addTaskHTML();
@@ -36,6 +36,14 @@ async function initTemplates() {
 }
 
 
+function getInitialForHeader() {
+  let initialLetters = currentUser.initialLetters
+  let color = currentUser.color
+  currentUserInitials.innerHTML = `<div class="" style="background:${color}"  >${initialLetters}</div>`
+}
+
+
+
 function headerHTML() {
   return /*html*/ `
   <div class="header">
@@ -45,9 +53,13 @@ function headerHTML() {
       </span>
   </div>
   <div class="help-log-parent">
-      <div onclick="loadHelp()" id="help-img" class="help-img"><img src="../assets/img/Vector-.png"></div>
+      <div onclick="loadHelp()" id="help-img" class="help-img"><img src="../assets/img/infoIcon.svg"></div>
       <div class="log-in">
-          <div class="log-in-img"><img style="width: 45px;" src="../assets/img/twitter-48.png"></div>
+          <div class="log-in-img" >
+            <div style="padding:0 !important" class="assignBubble" id="currentUserInitials">
+              Initials
+            </div>
+          </div>
       </div>
   </div>
 </div>
@@ -60,25 +72,40 @@ function sidebarHTML() {
   <div class="Sidebar">
   <div>
       <div class="Parent-Logo">
-          <img src="../assets/img/Capa 2.png">
+          <a href="">
+            <img src="../assets/img/sideLogo.svg">
+          </a>
       </div>
       <div>
-          <a class="aSide" id="Summary" onclick="loadSummary()" id="0" href="../html/summary.html">
-            <img class="link-img"
-                  src="../assets/img/Summary.png">Summary</a><br>
-          <a class="aSide" id="Board" onclick="loadBoard()" id="1" href='../html/board.html'>
-            <img class="link-img"
-                  src="../assets/img/Board.png">Board</a><br>
-          <a class="aSide" id="Add-Task" onclick="loadAddTask()" id="2" href="../html/addTask.html">
-            <img style="margin-right: 10px;" class="link-img"
-                  src="../assets/img/Add_Task.png">Add Task</a><br>
-          <a class="aSide" id="Contacts" onclick="loadContacts()" id="3" href="../html/contacts.html">
-            <img class="link-img"
-                  src="../assets/img/Contacts.png">Contacts</a><br>
+          <div>
+            <a class="aSide" id="Summary" onclick="loadSummary()" href="../html/summary.html">
+            <div><img class="link-img" src="../assets/img/summaryIcon.svg"></div>
+            <div>Summary</div>
+          </a>
+        </div>
+        <div>   
+          <a class="aSide" id="Board" onclick="loadBoard()" href='../html/board.html'>
+            <div><img class="link-img" src="../assets/img/bordIcon.svg"></div>
+            <div>Board</div>
+          </a>
+        </div>
+        <div> 
+          <a class="aSide" id="Add-Task" onclick="loadAddTask()" href="../html/addTask.html">
+            <div><img class="link-img" style="margin-right: 12px !important;" src="../assets/img/addTaskIcon.svg"></div>
+            <div>Add Task</div>
+          </a>
+        </div>
+        <div>  
+          <a class="aSide" id="Contacts" onclick="loadContacts()" href="../html/contacts.html">
+            <div><img class="link-img" src="../assets/img/contactsIcon.svg"></div>
+            <div>Contacts</div>
+          </a>
+        </div>
       </div>
   </div>
   <div class="notice-parent">
-      <div onclick="loadNotice()" onclick="" id="4" class="notice"><img class="notice-img" src="../assets/img/Group 4.png">
+      <div onclick="loadNotice()" onclick="" id="4" class="notice">
+        <img class="notice-img" src="../assets/img/legalIcon.svg">
           <span>Legal Notice</span>
       </div>
   </div>
@@ -306,10 +333,10 @@ function renderNewSubtaskHTML(subtask, i) {
 }
 
 
-function renderSelectContactHTML(color, initials) {
+function renderSelectContactHTML(color, initialLetters) {
   return `
   <div class="assignBubble">
-    <div class="slide-in-bottom" style="background: ${color};">${initials}</div>
+    <div class="slide-in-bottom" style="background: ${color};">${initialLetters}</div>
   </div>`;
 }
 
@@ -324,4 +351,29 @@ function renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID) {
     <div class="assignedContactName"  onclick="selectContactName(${i},'${contactName}')">${contactName}</div>
   </div>
   `;
+}
+
+
+function renderContactsHTML(contact) {
+  return ` 
+  <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainerCo contactContainerhover">
+    <div id="contactBubble${contact.contactID}" class="contactsBubble" style="background:${contact.color}; border: 2px solid ${contact.color}">
+      <div style="color: white">${contact.initialLetters}</div>
+    </div>
+    <div>
+     <div class="contactName">${contact.name}</div>
+     <a class="lightblueColor">${contact.email}</a>
+    </div>
+  </div>
+    `;
+}
+
+
+function renderContactAddTaskHTML(selectedID) {
+  return `
+  <div onclick="openEditContact(${selectedID})"class="slideContactInfo">
+    <img src="../assets/img/penEdit.svg">
+    Edit Contact
+  </div>
+  `
 }

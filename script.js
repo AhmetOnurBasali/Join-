@@ -6,6 +6,5 @@ let categoryColor = [];
 
 
 async function init() {
-    await loadCurrentUser();
-    
+    await loadCurrentUser();    
 }

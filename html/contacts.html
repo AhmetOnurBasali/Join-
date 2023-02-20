@@ -14,11 +14,12 @@
     <script src="../js/mini_backend.js"></script>
     <script src="../script.js"></script>
     <script src="../js/templates.js"></script>
-    <script src="../js/login.js"></script>
     <script src="../js/contacts.js"></script>
+    <script src="../js/addTask.js"></script>
+    <script src="../js/login.js"></script>
     <script src="../js/board.js"></script>
     <script src="../js/summary.js"></script>
-    <script src="../js/addTask.js"></script>
+    
 
     <script>
         async function initContacts() {
@@ -27,6 +28,7 @@
             await loadContactsData()
             await loadTasks();
             await loadUsers();
+            getInitialForHeader()
         }
     </script>
 </head>
@@ -58,8 +60,7 @@
                         <div id="slideContactsBubble"></div>
                         <div>
                             <div id="slideName"></div>
-                            <div class="lightblueColor addTaskBtnCO add-task" onclick="addTaskBoard('todo')">+add task
-                            </div>
+                            <div id="contactsAddTask"></div>
                         </div>
                     </div>
                     <div class="slideContactInfoContainer">
@@ -143,12 +144,10 @@
                     </div>
                     <form onsubmit="createNewContact(event)">
                         <div class="inputsContainer">
-                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name"
-                                type="text" required>
-                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email"
-                                type="email" required>
-                            <input id="phone" oninput="proofPhone('phone')" maxlength="15" minlength="5"
-                                class="inputCO phoneIcon" placeholder="number" type="number" required>
+                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name" type="text" required>
+                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email" type="email" required>
+                            <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon" placeholder="number" type="number" required>
+                            <p id="phoneError" class="phoneError"></p>
                             <div class="addContactBtnContainer">
                                 <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
                                     Cancel

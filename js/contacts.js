@@ -18,6 +18,7 @@ async function proofContactsAvailable() {
   }
 }
 
+
 function noContacts() {
   if (currentUserContacts == null || currentUserContacts.length == 0 || currentUserContacts == undefined) {
     return true
@@ -25,6 +26,7 @@ function noContacts() {
     return false
   }
 }
+
 
 function getCurrentUserData() {
   let nameInitials = getInitialLetters(currentUser["name"]);
@@ -34,32 +36,45 @@ function getCurrentUserData() {
     name: currentUser["name"],
     email: currentUser["email"],
     phone: "Edit your Number",
-    initials: initialsUpper,
-    initialsColor: currentUser["color"],
+    initialLetters: initialsUpper,
+    color: currentUser["color"],
     contactID: 0,
   };
   return newContact
 }
+
 
 async function setCurrentUserData(newContact) {
   currentUserContacts.push(newContact);
   await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
 }
 
+
 function closeAddNewContact() {
   let container = document.getElementById("addContactPopup");
   container.classList.add("d-none");
 }
+
 
 function openAddNewContact() {
   let container = document.getElementById("addContactPopup");
   container.classList.remove("d-none");
 }
 
+
 function closeEditContact() {
   let container = document.getElementById("editContactPopup");
   container.classList.add("d-none");
 }
+
+
+function openTaskForBoard(todo, selectedID) {
+  addTaskBoard(todo)
+  let contact = currentUserContacts.find((u) => u.contactID == selectedID);
+  users.push(contact)
+  console.log(users);
+}
+
 
 async function createNewContact(event) {
   event.preventDefault();
@@ -71,10 +86,11 @@ async function createNewContact(event) {
   let currentContactID = currentUserContacts.length;
   let data = { nameInput, emailInput, numberInput, newColor, nameInitials, currentContactID }
   let newContact = makeDataToContact(data)
-  if (proofEmail(emailInput) === true && proofName(nameInput) === true && numberInput.length > 4) {
+  if (proofEmail(emailInput) === true && proofName(nameInput) === true && numberInput.length > 5 && numberInput.length < 16) {
     setNewContact(newContact)
   }
 }
+
 
 function makeDataToContact(data) {
   newContact = {
@@ -82,18 +98,20 @@ function makeDataToContact(data) {
     name: data.nameInput,
     email: data.emailInput,
     phone: data.numberInput,
-    initials: data.nameInitials,
-    initialsColor: data.newColor,
+    initialLetters: data.nameInitials,
+    color: data.newColor,
     contactID: data.currentContactID,
   };
   return newContact
 }
+
 
 async function setNewContact(newContact) {
   currentUserContacts.push(newContact);
   await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
   location.reload();
 }
+
 
 function renderContacts() {
   sortContacts()
@@ -111,6 +129,7 @@ function renderContacts() {
   }
 }
 
+
 function sortContacts() {
   currentUserContacts.sort((a, b) => {
     if (a.contactID === 0) return -1;
@@ -119,83 +138,68 @@ function sortContacts() {
   });
 }
 
-function renderContactsHTML(contact) {
-  return ` <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainerCo contactContainerhover">
-    <div id="contactBubble${contact.contactID}" class="contactsBubble" style="background:${contact.initialsColor}; border: 2px solid ${contact.initialsColor}">
-      <div style="color: white">${contact.initials}</div>
-   </div>
-   <div>
-     <div class="contactName">${contact.name}</div>
-     <a class="lightblueColor">${contact.email}</a>
-   </div>
-  </div>
-    `
-}
 
 function openContact(selectedID) {
+  setFocus(selectedID);
   let contactContainer = document.getElementById("slideContainer");
   contactContainer.classList.remove("d-none");
+  let contact = currentUserContacts.find((u) => u.contactID == selectedID);
+  renderSelectedContact(contact, selectedID);
+}
 
+
+function setFocus(selectedID) {
   document.getElementById(`contactContainer${selectedID}`).focus();
   document.getElementById(`contactContainer${selectedID}`).classList.add("focusContact");
   document.getElementById(`contactContainer${selectedID}`).classList.remove("contactContainerhover");
-
   document.getElementById(`contactBubble${selectedID}`).focus();
   document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
-
   if (previousID !== null && previousID !== selectedID) {
     document.getElementById(`contactContainer${previousID}`).classList.remove("focusContact");
     document.getElementById(`contactContainer${previousID}`).classList.add("contactContainerhover");
     document.getElementById(`contactBubble${previousID}`).classList.remove("contactsBubbleBorder");
   }
-
-  let contact = currentUserContacts.find((u) => u.contactID == selectedID);
-
-  let initialsSlides = document.getElementById("slideContactsBubble");
-  initialsSlides.innerHTML = `<div style="background:${contact.initialsColor}" class="slideContactsBubble">${contact.initials}</div>`;
-
-  let nameSlide = document.getElementById("slideName");
-  nameSlide.innerHTML = `<span class="slideNameSize">${contact.name}</span>`;
-
-  let emailSlide = document.getElementById("slideEmail");
-  emailSlide.innerHTML = `<a class="lightblueColor">${contact.email}</a>`;
-
-  let phoneSlide = document.getElementById("slidePhone");
-  phoneSlide.innerHTML = `<number>+${contact.phone}</number>`;
-
-  let editSlide = document.getElementById("slideEditContact");
-  editSlide.innerHTML = `
-  <div onclick="openEditContact(${selectedID})"class="slideContactInfo">
-    <img src="../assets/img/penEdit.svg">
-    Edit Contact
-  </div>`;
-
   previousID = selectedID;
 }
+
+
+function renderSelectedContact(contact, selectedID) {
+  let initialsSlides = document.getElementById("slideContactsBubble");
+  let nameSlide = document.getElementById("slideName");
+  let emailSlide = document.getElementById("slideEmail");
+  let phoneSlide = document.getElementById("slidePhone");
+  let editSlide = document.getElementById("slideEditContact");
+  phoneSlide.innerHTML = `<number>+${contact.phone}</number>`;
+  emailSlide.innerHTML = `<a class="lightblueColor">${contact.email}</a>`;
+  nameSlide.innerHTML = `<span class="slideNameSize">${contact.name}</span>`;
+  initialsSlides.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
+  contactsAddTask.innerHTML = `<div class="lightblueColor addTaskBtnCO add-task" onclick="openTaskForBoard('todo', ${selectedID})">+add task</div>`
+  editSlide.innerHTML = renderContactAddTaskHTML(selectedID)
+}
+
 
 function openEditContact(selectedID) {
   let popupEditContainer = document.getElementById("editContactPopup");
   popupEditContainer.classList.remove("d-none");
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
+  loadCurrentDataContactEdit(contact, selectedID)
+}
 
+
+function loadCurrentDataContactEdit(contact, selectedID) {
   let contactBubble = document.getElementById("bubbleInEditSection");
-  contactBubble.innerHTML = `<div><div style="background:${contact.initialsColor}" class="slideContactsBubble">${contact.initials}</div>`;
-
-  let nameEdit = document.getElementById("editName");
-  nameEdit.value = `${contact.name}`;
-
   let emailEdit = document.getElementById("editEmail");
-  emailEdit.value = `${contact.email}`;
-
   let phoneEdit = document.getElementById("editPhone");
-  let formatedNumber =
-    contact.phone.split(" ")[0] + contact.phone.split(" ")[1];
+  let nameEdit = document.getElementById("editName");
+  nameEdit.value = `${contact.name}`
+  emailEdit.value = `${contact.email}`;
+  let formatedNumber = contact.phone.split(" ")[0] + contact.phone.split(" ")[1];
   phoneEdit.value = `${formatedNumber}`;
-  setTimeout(() => {
-    phoneEdit.type = "number";
-  }, 100);
+  contactBubble.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
+  setTimeout(() => { phoneEdit.type = "number"; }, 100);
   currentSelectedID.push(selectedID);
 }
+
 
 async function saveEdit(event) {
   event.preventDefault();
@@ -207,20 +211,13 @@ async function saveEdit(event) {
   let phoneEdit = tryGetPhone();
   currentUserContacts[id]["phone"] = phoneEdit;
   let nameInitials = getInitialLetters(nameEdit);
-  currentUserContacts[id]["initials"] = nameInitials;
-
-  if (
-    proofEditName() === true &&
-    proofEditEmail() === true &&
-    phoneEdit.length > 4
-  ) {
-    await backend.setItem(
-      `userID${currentUser["id"]}Contacts`,
-      currentUserContacts
-    );
+  currentUserContacts[id]["initialLetters"] = nameInitials;
+  if (proofEditName() === true && proofEditEmail() === true && phoneEdit.length > 5 && phoneEdit.length < 16) {
+    await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
+    location.reload();
   }
-  location.reload();
 }
+
 
 function tryGetEmail() {
   let newEmail = document.getElementById("email").value.toLowerCase();
@@ -234,6 +231,7 @@ function tryGetEmail() {
   }
 }
 
+
 function addContactEmail(email) {
   let newEmail = email;
   let emailRegex = getEmailRegEx(newEmail);
@@ -244,6 +242,7 @@ function addContactEmail(email) {
     return newEmail;
   }
 }
+
 
 function tryGetPhone() {
   let newPhone = document.getElementById("phone").value;
@@ -260,12 +259,14 @@ function tryGetPhone() {
   }
 }
 
+
 function setPhoneNumber(numberInput) {
   let phoneNumber = numberInput.replace(/\D/g, "");
   phoneNumber = `${phoneNumber}`;
   phoneNumber = phoneNumber.replace(/(\d{4})(\d{1})/, "$1 $2");
   return phoneNumber;
 }
+
 
 function tryGetName() {
   let name = document.getElementById("name").value.toLowerCase();
@@ -279,10 +280,12 @@ function tryGetName() {
   }
 }
 
+
 function addContactName(name) {
   let newName = name.replace(/\b\w/g, (l) => l.toUpperCase());
   return newName;
 }
+
 
 function proofEditName() {
   let regName = /^[\wäöüÄÖÜ]+(?: [\wäöüÄÖÜ]+)+$/;
@@ -297,6 +300,7 @@ function proofEditName() {
   }
 }
 
+
 function proofEditEmail() {
   let regEmail = getEmailRegEx();
   let email = document.getElementById("editEmail").value;
@@ -310,17 +314,42 @@ function proofEditEmail() {
   }
 }
 
+
 function proofPhone(id) {
-  let phone = document.getElementById(id).value;
-  if (phone.length < 5) {
-    document.getElementById(id).focus();
-    document.getElementById(id).classList.add("falseInput");
+  const phoneInput = document.getElementById(id);
+  const phoneError = document.getElementById("phoneError");
+  if (phoneInput.value.length < 5) {
+    setMinTextForInput(id, phoneError)
+    return false;
+  } else if (phoneInput.value.length > 14) {
+    setMaxTextForInput(id, phoneError)
     return false;
   } else {
-    document.getElementById(id).classList.remove("falseInput");
+    setNoneTextForInput(id, phoneError)
     return true;
   }
 }
+
+
+function setMinTextForInput(id, phoneError) {
+  document.getElementById(id).focus();
+  document.getElementById(id).classList.add("falseInput");
+  phoneError.innerText = "Phone number min 5 Numbers";
+}
+
+
+function setMaxTextForInput(id, phoneError) {
+  document.getElementById(id).focus();
+  document.getElementById(id).classList.add("falseInput");
+  phoneError.innerText = "Phone number max 15 Numbers";
+}
+
+
+function setNoneTextForInput(id, phoneError) {
+  phoneError.innerText = "";
+  document.getElementById(id).classList.remove("falseInput");
+}
+
 
 function clearContactsInputs() {
   let name = document.getElementById("name");

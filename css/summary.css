@@ -230,3 +230,22 @@ h2 {
     width: 570px;
     height: 570px;
 }
+
+.assignBubble div {
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 1px solid #ffffff;
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  .assignBubble {
+    display: flex;
+    padding-left: 6px;
+  }

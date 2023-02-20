@@ -12,6 +12,7 @@ h1 {
 .addTaskMain {
   display: flex;
   justify-content: center;
+  width: calc(100% - 432px);
 }
 
 .padd4px {
@@ -621,6 +622,16 @@ textarea {
   font-size: 10px;
   color: red;
   padding: 2px;
+}
+
+.invisibleSideDiv {
+  display: flex;
+  height: 100vh;
+  min-width: 232px;
+}
+
+.contactsMainContainer {
+  display: flex;
 }
 
 
