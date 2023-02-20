@@ -240,8 +240,8 @@ function renderSelectContactEdit() {
     contactInitials.innerHTML = ``;
     for (let i = 0; i < allTasks[currentTaskID]['assignedTo'].length; i++) {
       let color = allTasks[currentTaskID]['assignedTo'][i]['color'];
-      let initials = allTasks[currentTaskID]['assignedTo'][i]['initial'];
-      contactInitials.innerHTML += renderSelectContactHTML(color, initials);
+      let initialLetters = allTasks[currentTaskID]['assignedTo'][i]['initial'];
+      contactInitials.innerHTML += renderSelectContactHTML(color, initialLetters);
     }
   }
   

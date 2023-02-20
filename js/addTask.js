@@ -661,8 +661,8 @@ function renderSelectContact(contactInitialsID) {
   contactInitials.innerHTML = ``;
   for (let i = 0; i < selectedContacts.length; i++) {
     let color = selectedContacts[i].color;
-    let initials = selectedContacts[i].initial;
-    contactInitials.innerHTML += renderSelectContactHTML(color, initials);
+    let initialLetters = selectedContacts[i].initial;
+    contactInitials.innerHTML += renderSelectContactHTML(color, initialLetters);
   }
 }
 

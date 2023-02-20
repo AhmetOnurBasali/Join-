@@ -36,8 +36,8 @@ function getCurrentUserData() {
     name: currentUser["name"],
     email: currentUser["email"],
     phone: "Edit your Number",
-    initials: initialsUpper,
-    initialsColor: currentUser["color"],
+    initialLetters: initialsUpper,
+    color: currentUser["color"],
     contactID: 0,
   };
   return newContact
@@ -68,6 +68,14 @@ function closeEditContact() {
 }
 
 
+function openTaskForBoard(todo, selectedID) {
+  addTaskBoard(todo)
+  let contact = currentUserContacts.find((u) => u.contactID == selectedID);
+  users.push(contact)
+  console.log(users);
+}
+
+
 async function createNewContact(event) {
   event.preventDefault();
   let nameInput = tryGetName();
@@ -90,8 +98,8 @@ function makeDataToContact(data) {
     name: data.nameInput,
     email: data.emailInput,
     phone: data.numberInput,
-    initials: data.nameInitials,
-    initialsColor: data.newColor,
+    initialLetters: data.nameInitials,
+    color: data.newColor,
     contactID: data.currentContactID,
   };
   return newContact
@@ -164,7 +172,8 @@ function renderSelectedContact(contact, selectedID) {
   phoneSlide.innerHTML = `<number>+${contact.phone}</number>`;
   emailSlide.innerHTML = `<a class="lightblueColor">${contact.email}</a>`;
   nameSlide.innerHTML = `<span class="slideNameSize">${contact.name}</span>`;
-  initialsSlides.innerHTML = `<div style="background:${contact.initialsColor}" class="slideContactsBubble">${contact.initials}</div>`;
+  initialsSlides.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
+  contactsAddTask.innerHTML = `<div class="lightblueColor addTaskBtnCO add-task" onclick="openTaskForBoard('todo', ${selectedID})">+add task</div>`
   editSlide.innerHTML = renderContactAddTaskHTML(selectedID)
 }
 
@@ -186,7 +195,7 @@ function loadCurrentDataContactEdit(contact, selectedID) {
   emailEdit.value = `${contact.email}`;
   let formatedNumber = contact.phone.split(" ")[0] + contact.phone.split(" ")[1];
   phoneEdit.value = `${formatedNumber}`;
-  contactBubble.innerHTML = `<div style="background:${contact.initialsColor}" class="slideContactsBubble">${contact.initials}</div>`;
+  contactBubble.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
   setTimeout(() => { phoneEdit.type = "number"; }, 100);
   currentSelectedID.push(selectedID);
 }
@@ -202,7 +211,7 @@ async function saveEdit(event) {
   let phoneEdit = tryGetPhone();
   currentUserContacts[id]["phone"] = phoneEdit;
   let nameInitials = getInitialLetters(nameEdit);
-  currentUserContacts[id]["initials"] = nameInitials;
+  currentUserContacts[id]["initialLetters"] = nameInitials;
   if (proofEditName() === true && proofEditEmail() === true && phoneEdit.length > 5 && phoneEdit.length < 16) {
     await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
     location.reload();

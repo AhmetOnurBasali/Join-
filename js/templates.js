@@ -306,10 +306,10 @@ function renderNewSubtaskHTML(subtask, i) {
 }
 
 
-function renderSelectContactHTML(color, initials) {
+function renderSelectContactHTML(color, initialLetters) {
   return `
   <div class="assignBubble">
-    <div class="slide-in-bottom" style="background: ${color};">${initials}</div>
+    <div class="slide-in-bottom" style="background: ${color};">${initialLetters}</div>
   </div>`;
 }
 
@@ -330,8 +330,8 @@ function renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID) {
 function renderContactsHTML(contact) {
   return ` 
   <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainerCo contactContainerhover">
-    <div id="contactBubble${contact.contactID}" class="contactsBubble" style="background:${contact.initialsColor}; border: 2px solid ${contact.initialsColor}">
-      <div style="color: white">${contact.initials}</div>
+    <div id="contactBubble${contact.contactID}" class="contactsBubble" style="background:${contact.color}; border: 2px solid ${contact.color}">
+      <div style="color: white">${contact.initialLetters}</div>
     </div>
     <div>
      <div class="contactName">${contact.name}</div>
