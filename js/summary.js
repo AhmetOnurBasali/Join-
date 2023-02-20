@@ -8,6 +8,7 @@ async function initSummary() {
   showGreatingDayTime();
   showGreatingUser();
   loadTasksLength();
+  getInitialForHeader()
 }
 
 

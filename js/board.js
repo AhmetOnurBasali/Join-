@@ -14,6 +14,7 @@ async function initBoard() {
     await loadUsers();
     await initTemplates();
     renderBoard();
+    getInitialForHeader()
 
 }
 /**
