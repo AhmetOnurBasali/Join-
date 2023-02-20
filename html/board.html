@@ -18,7 +18,7 @@
     <script src="../js/templates.js"></script>
     <script src="../js/addTask.js"></script>
     <script src="../js/board.js"></script>
-   
+
 </head>
 
 <body id="body" onload="initBoard()">
@@ -26,12 +26,12 @@
     <div id="sidebar"></div>
     <!-- Add new task -->
     <section onclick="closeAddTaskBoard()" id="popup-add-task-board" class="bg-popup d-none">
-    <div onclick="event.stopPropagation()" id="addTask" class="add-task-popup"></div>
+        <div onclick="event.stopPropagation()" id="addTask" class="add-task-popup"></div>
     </section>
     <!-- Open selected task details -->
     <section onclick="closeTaskDetails()" id="popup-task-details" class="bg-popup d-none">
         <div onclick="event.stopPropagation()" id="task-details" class="task-details-popup"></div>
-        </section>
+    </section>
 
     <section class="board">
         <div class="headline">
@@ -54,7 +54,6 @@
                                 stroke-width="2" />
                         </svg>
                     </div>
-
                 </div>
                 <div onclick="addTaskBoard('inProgress')">
                     <span>In progress</span>
@@ -100,24 +99,28 @@
                 </div>
             </div>
             <div class="tasks">
-                <div class="task-columns" id="tasks-to-do" ondrop="moveTo()" ondragleave="disregardArea()" ondragover="allowDrop(event, 'todo', 'tasks-to-do')">
-                    
-                </div>
-                <div class="task-columns" id="tasks-in-progress"  ondrop="moveTo()" ondragleave="disregardArea()" ondragover="allowDrop(event, 'inProgress', 'tasks-in-progress')">
+                <div class="task-columns" id="tasks-to-do" ondrop="moveTo()" ondragleave="disregardArea()"
+                    ondragover="allowDrop(event, 'todo', 'tasks-to-do')">
 
                 </div>
-                <div class="task-columns" id="tasks-awaiting-feedback" ondrop="moveTo()" ondragleave="disregardArea()" ondragover="allowDrop(event, 'awaitingFeedback', 'tasks-awaiting-feedback')">
+                <div class="task-columns" id="tasks-in-progress" ondrop="moveTo()" ondragleave="disregardArea()"
+                    ondragover="allowDrop(event, 'inProgress', 'tasks-in-progress')">
 
                 </div>
-                <div class="task-columns" id="tasks-done" ondrop="moveTo()" ondragleave="disregardArea()" ondragover="allowDrop(event, 'done', 'tasks-done')">
-                    
+                <div class="task-columns" id="tasks-awaiting-feedback" ondrop="moveTo()" ondragleave="disregardArea()"
+                    ondragover="allowDrop(event, 'awaitingFeedback', 'tasks-awaiting-feedback')">
+
+                </div>
+                <div class="task-columns" id="tasks-done" ondrop="moveTo()" ondragleave="disregardArea()"
+                    ondragover="allowDrop(event, 'done', 'tasks-done')">
+
                 </div>
             </div>
         </div>
 
     </section>
-    
-    
+
+
 </body>
 
 </html>

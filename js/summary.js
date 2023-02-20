@@ -1,27 +1,35 @@
-// function setGreatingName() {
-//   let greatingName = document.getElementById("greatingName");
-//   greatingName.innerHTML = currentUser["name"];
-// }
+let today = new Date();
+
 
 async function initSummary() {
   await loadTasks();
-  showGreatingDayTime();
-  showGreatingUser();
+  showGreetingDayTime();
+  showGreetingUser();
   loadTasksLength();
 }
 
 
-function showGreatingDayTime() {
-  // new Date().toLocaleString()
+function showGreetingDayTime() {
+  let greeting = document.getElementById("greeting");
+  let localHours = new Date().getHours();
+  if (localHours >= 0 && localHours < 5) {
+    greeting.innerHTML = 'Hello, ';
+  } else if (localHours >= 5 && localHours <= 11) {
+    greeting.innerHTML = 'Good Morning, ';
+  } else if (localHours >= 12 && localHours <= 17) {
+    greeting.innerHTML = 'Good Afternoon, ';
+  } else if (localHours >= 17 && localHours <= 23) {
+    greeting.innerHTML = 'Good Evening, ';
+  }
 }
 
 
-function showGreatingUser() {
+function showGreetingUser() {
   try {
-    let greatingName = document.getElementById("greating-user");
-    greatingName.innerHTML = currentUser["name"];
+    let greetingName = document.getElementById("greeting-user");
+    greetingName.innerHTML = currentUser["name"];
   } catch (error) {
-    console.log("no greating on this page");
+    console.error("no user logged in");
   }
 }
 
@@ -94,45 +102,45 @@ function loadTasksDone() {
 function loadTaskUpcomingDeadline() {
   let prio;
   let tasksDate = [];
+
   try {
     prio = allTasks.filter((t) => t["prio"] == "urgent");
     document.getElementById('tasks-priority').innerHTML = prio.length;
   } catch (error) {
-    console.log('no tasks in "done"');
+    console.log('no urgent tasks');
   }
+
   for (let i = 0; i < prio.length; i++) {
     const taskDate = prio[i]['date'];
-    taskDateConverted = taskDate.replace(/-/gi, ', ');
-    tasksDate.push(taskDateConverted);
+    
+
+    // Array mit Datumsangaben
+    tasksDate.push(taskDate);
   }
-  let ka = sortDates()
-  console.log(ka);
 
-  
-
-  document.getElementById('tasks-date').innerHTML = `${convertNumberInMonth()} ${new Date().getDate()}, ${new Date().getFullYear()}`;
-
-
-
-}
-
-function sortDates(){
-let tasksDates = [new Date(2012, 7, 1), new Date(2012, 7, 4), new Date(2012, 7, 5), new Date(2013, 2, 20)];
-  let diffdate = new Date(2012, 7, 11);
-
-  tasksDates.sort(function (a, b) {
-    let distancea = Math.abs(diffdate - a);
-    let distanceb = Math.abs(diffdate - b);
-    return distancea - distanceb; // sort a before b when the distance is smaller
+  // Array sortieren nach Differenz zum heutigen Datum
+  let sortedDates = tasksDate.sort(function (a, b) {
+    return dateDifference(a) - dateDifference(b);
   });
+
+  // Ausgabe des dringendsten Tasks
+  console.log(sortedDates[0]);
+  sortedDatesConverted = sortedDates[0].split(/-/gi);
+
+
+  document.getElementById('tasks-date').innerHTML = convertNumberInMonth(sortedDatesConverted[1] - 1) + ' ' + sortedDatesConverted[2] + ', ' + sortedDatesConverted[0];
 }
 
 
+// Funktion zur Berechnung der Differenz zwischen zwei Daten
+function dateDifference(date) {
+  let difference = Math.abs(new Date(date) - today);
+  return difference;
+}
 
 
-
-function convertNumberInMonth() {
-  switch (new Date().getMonth()) {
+function convertNumberInMonth(sortedDatesMonth) {
+  switch (parseInt(sortedDatesMonth)) {
     case 0:
       return 'January';
     case 1:
@@ -159,6 +167,8 @@ function convertNumberInMonth() {
       return 'December';
   }
 }
+
+
 
 function switchToBoard() {
   setTimeout(() => {
