@@ -120,7 +120,7 @@ function addTaskHTML() {
   </div>
   <div>
     <form class="addTaskContainer" onsubmit="createNewTask(event);">
-      <div class="paddLeRe40px">
+      <div class="paddLeRe40px" id="headline-addtask">
         <h1>Add Task</h1>
       </div>
       <div class="leftAndRightContainer">    

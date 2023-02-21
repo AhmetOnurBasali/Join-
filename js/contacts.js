@@ -68,10 +68,10 @@ function closeEditContact() {
 }
 
 
-function openTaskForBoard(todo, selectedID) {
-  addTaskBoard(todo)
+function createTaskFromContacts(area, selectedID) {
+  addTaskBoard(area);
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
-  users.push(contact)
+  users.push(contact);
   console.log(users);
 }
 
@@ -85,7 +85,7 @@ async function createNewContact(event) {
   let nameInitials = getInitialLetters(nameInput);
   let currentContactID = currentUserContacts.length;
   let data = { nameInput, emailInput, numberInput, newColor, nameInitials, currentContactID }
-  let newContact = makeDataToContact(data)
+  let newContact = makeDataToContact(data);
   if (proofEmail(emailInput) === true && proofName(nameInput) === true && numberInput.length > 5 && numberInput.length < 16) {
     setNewContact(newContact)
   }
@@ -173,7 +173,7 @@ function renderSelectedContact(contact, selectedID) {
   emailSlide.innerHTML = `<a class="lightblueColor">${contact.email}</a>`;
   nameSlide.innerHTML = `<span class="slideNameSize">${contact.name}</span>`;
   initialsSlides.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
-  contactsAddTask.innerHTML = `<div class="lightblueColor addTaskBtnCO add-task" onclick="openTaskForBoard('todo', ${selectedID})">+add task</div>`
+  contactsAddTask.innerHTML = `<div class="lightblueColor addTaskBtnCO add-task" onclick="createTaskFromContacts('todo', ${selectedID})">+add task</div>`
   editSlide.innerHTML = renderContactAddTaskHTML(selectedID)
 }
 

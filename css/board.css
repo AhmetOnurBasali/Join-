@@ -533,7 +533,7 @@ h2 {
     height: 100% !important;
 }
 
-.rightSection{
+.rightSection {
     height: 600px !important;
 }
 
@@ -541,15 +541,47 @@ h2 {
     min-height: 600px;
 }
 
-.contactContainer{
+.contactContainer {
     z-index: 5;
 }
+
 /* general */
 
 .d-flex {
     display: flex;
 }
 
+.slide-in {
+    animation: slidein 750ms;
+}
+
+@keyframes slidein {
+    0% {
+        transform: translateX(100%);
+    }
+
+    20% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.visual-in {
+    animation: visualin 750ms;
+}
+
+@keyframes visualin {
+    0% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    100% {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+}
 
 /* responsive */
 

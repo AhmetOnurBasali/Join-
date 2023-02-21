@@ -167,11 +167,18 @@ function dragAnimation(id) {
 function addTaskBoard(area) {
     addTaskHTML();
     selectArea(area);
-
+    addTaskAnimation();
     document.getElementById('popup-add-task-board').classList.remove('d-none');
+    
+    document.getElementById('headline-addtask').classList.remove('');
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 }
 
+
+function addTaskAnimation(){
+    document.getElementById(`addTask`).classList.add('slide-in');
+    document.getElementById(`popup-add-task-board`).classList.add('visual-in');
+}
 
 function selectArea(area) {
     newArea = area;
