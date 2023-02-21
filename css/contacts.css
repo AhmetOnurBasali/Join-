@@ -88,7 +88,7 @@ input[type="number"]::-webkit-outer-spin-button {
   position: fixed;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.203);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 2;
   top: 0;
   align-items: center;
@@ -473,5 +473,37 @@ input[type="number"]::-webkit-outer-spin-button {
 
   100% {
       background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.slide-out {
+  animation: slideout 800ms;
+}
+
+@keyframes slideout {
+  0% {
+      transform: translateX(0%);
+  }
+
+  20% {
+      transform: translateX(-5%);
+  }
+
+  100% {
+      transform: translateX(150%);
+  }
+}
+
+.visual-out {
+  animation: visualout 800ms;
+}
+
+@keyframes visualout {
+  0% {
+      background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  100% {
+      background-color: rgba(0, 0, 0, 0);
   }
 }

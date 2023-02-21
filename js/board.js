@@ -167,18 +167,19 @@ function dragAnimation(id) {
 function addTaskBoard(area) {
     addTaskHTML();
     selectArea(area);
-    addTaskAnimation();
+    slideInAnimation('addTask', 'popup-add-task-board');
     document.getElementById('popup-add-task-board').classList.remove('d-none');
     
-    document.getElementById('headline-addtask').classList.remove('');
+    document.getElementById('headline-addtask').innerHTML = `
+    <div class="headline-addTask">
+    <h1>Add Task</h1>
+    <img onclick="closeAddTaskBoard()" src="../assets/img/clear.svg" alt="">
+    </div>`
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 }
 
 
-function addTaskAnimation(){
-    document.getElementById(`addTask`).classList.add('slide-in');
-    document.getElementById(`popup-add-task-board`).classList.add('visual-in');
-}
+
 
 function selectArea(area) {
     newArea = area;
@@ -190,7 +191,11 @@ function addTaskHTMLBoard() {
 
 
 function closeAddTaskBoard() {
-    document.getElementById('popup-add-task-board').classList.add('d-none');
+    slideOutAnimation('addTask', 'popup-add-task-board');
+    setTimeout(() => {
+        document.getElementById('popup-add-task-board').classList.add('d-none');
+    }, 750);
+    
 }
 
 function doNotCloseAddTaskBoard(event) {
@@ -202,6 +207,7 @@ function doNotCloseAddTaskBoard(event) {
 function openTaskDetailsFront(taskID) {
     currentTaskID = taskID;
     document.getElementById('popup-task-details').classList.remove('d-none');
+    slideInAnimation('task-details', 'popup-task-details');
     document.getElementById('task-details').innerHTML = renderTaskDetailsFrontHTML(currentTaskID);
     document.getElementById('body').style.overflow = 'hidden';
     setTitleBg(allTasks[currentTaskID], 'task-details-category');
@@ -231,10 +237,14 @@ function setPriorityBgColor() {
 }
 
 function closeTaskDetails() {
-    document.getElementById('popup-task-details').classList.add('d-none');
+    
     document.getElementById('body').style.overflow = 'auto';
     slideAssignTo = false;
     slideCategory = false;
+    slideOutAnimation('task-details', 'popup-task-details');
+    setTimeout(() => {
+        document.getElementById('popup-task-details').classList.add('d-none');
+    }, 750);
 }
 
 function editDetailsTask() {

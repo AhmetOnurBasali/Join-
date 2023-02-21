@@ -427,6 +427,18 @@ h2 {
 
 /* edit tasks Chart */
 
+.headline-addTask {
+    display: flex;
+    justify-content: space-between;
+    width: 110%;
+}
+
+.headline-addTask img {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+}
+
 .edit-task-container {
     display: flex;
     justify-content: center;
@@ -580,6 +592,38 @@ h2 {
 
     100% {
         background-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+.slide-out {
+    animation: slideout 800ms;
+}
+
+@keyframes slideout {
+    0% {
+        transform: translateX(0%);
+    }
+
+    20% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(150%);
+    }
+}
+
+.visual-out {
+    animation: visualout 800ms;
+}
+
+@keyframes visualout {
+    0% {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    100% {
+        background-color: rgba(0, 0, 0, 0);
     }
 }
 

@@ -29,6 +29,7 @@ async function createNewTask(event) {
   if (proof === true) {
     setTaskData(newTask);
   }
+  
 }
 
 
