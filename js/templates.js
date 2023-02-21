@@ -36,29 +36,49 @@ async function initTemplates() {
 }
 
 
+function openLogout() {
+  let logoutContainer = document.getElementById('logoutDiv')
+  logoutContainer.classList.toggle('d-none')
+}
+
+
+function logout() {
+  currentUser = ""
+  window.location.href = "/index.html?msg=Your Logout was successful";
+}
+
+
 function getInitialForHeader() {
   let initialLetters = currentUser.initialLetters
   let color = currentUser.color
-  currentUserInitials.innerHTML = `<div class="" style="background:${color}"  >${initialLetters}</div>`
+  currentUserInitials.innerHTML = `<div onclick="openLogout()" style="background:${color}"  >${initialLetters}</div>`
 }
 
 
 
 function headerHTML() {
   return /*html*/ `
-  <div class="header">
+<div class="header">
+  <div style="min-width: 232px;"></div>
   <div class="Parent-Kanban">
       <span class="Kanban">
           Kanban Project Management Tool
       </span>
   </div>
   <div class="help-log-parent">
-      <div onclick="loadHelp()" id="help-img" class="help-img"><img src="../assets/img/infoIcon.svg"></div>
+      <div class="help-img">
+        <a href="../html/help.html">
+          <img src="../assets/img/infoIcon.svg">
+        </a>
+      </div>
       <div class="log-in">
           <div class="log-in-img" >
             <div style="padding:0 !important" class="assignBubble" id="currentUserInitials">
               Initials
             </div>
+          </div>
+          <div id="logoutDiv" class="d-none">
+            <p  class="logout" onclick="logout()">Log out</p>
           </div>
       </div>
   </div>
@@ -78,33 +98,41 @@ function sidebarHTML() {
       </div>
       <div>
           <div>
-            <a class="aSide" id="Summary" onclick="loadSummary()" href="../html/summary.html">
-            <div><img class="link-img" src="../assets/img/summaryIcon.svg"></div>
+            <a class="aSide" id="" onclick="loadSummary()" href="../html/summary.html">
+            <div>
+              <img class="link-img" src="../assets/img/summaryIcon.svg">
+            </div>
             <div>Summary</div>
           </a>
         </div>
         <div>   
-          <a class="aSide" id="Board" onclick="loadBoard()" href='../html/board.html'>
-            <div><img class="link-img" src="../assets/img/bordIcon.svg"></div>
+          <a class="aSide" id="" onclick="loadBoard()" href='../html/board.html'>
+            <div>
+              <img class="link-img" src="../assets/img/bordIcon.svg">
+            </div>
             <div>Board</div>
           </a>
         </div>
         <div> 
-          <a class="aSide" id="Add-Task" onclick="loadAddTask()" href="../html/addTask.html">
-            <div><img class="link-img" style="margin-right: 12px !important;" src="../assets/img/addTaskIcon.svg"></div>
+          <a class="aSide" id="" onclick="loadAddTask()" href="../html/addTask.html">
+            <div>
+              <img class="link-img" style="margin-right: 12px !important;" src="../assets/img/addTaskIcon.svg">
+            </div>
             <div>Add Task</div>
           </a>
         </div>
         <div>  
-          <a class="aSide" id="Contacts" onclick="loadContacts()" href="../html/contacts.html">
-            <div><img class="link-img" src="../assets/img/contactsIcon.svg"></div>
+          <a class="aSide" id="" onclick="loadContacts()" href="../html/contacts.html">
+            <div>
+              <img class="link-img" src="../assets/img/contactsIcon.svg">
+            </div>
             <div>Contacts</div>
           </a>
         </div>
       </div>
   </div>
   <div class="notice-parent">
-      <div onclick="loadNotice()" onclick="" id="4" class="notice">
+      <div onclick="loadNotice()" class="notice">
         <img class="notice-img" src="../assets/img/legalIcon.svg">
           <span>Legal Notice</span>
       </div>

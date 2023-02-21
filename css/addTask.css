@@ -737,5 +737,10 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1110px) {
+  .addTaskMain {
+    display: flex;
+   justify-content: unset;
+    width: calc(100% - 432px);
+}
 }
