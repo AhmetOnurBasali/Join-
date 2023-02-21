@@ -146,9 +146,11 @@ function sidebarHTML() {
       </div>
   </div>
   <div class="notice-parent">
-      <div onclick="loadNotice()" class="notice">
-        <img class="notice-img" src="../assets/img/legalIcon.svg">
+      <div class="notice">
+        <a class="legalNotice" href="../html/legal.html"> 
+          <img class="notice-img " src="../assets/img/legalIcon.svg">
           <span>Legal Notice</span>
+        </a>
       </div>
   </div>
 </div>
