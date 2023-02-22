@@ -45,9 +45,31 @@ function loadTasksLength() {
 }
 
 
+function countTo(num, taskNumID) {
+  let from = 0;
+  let to = num;
+  let step = to > from ? 1 : -1;
+  let interval = 200;
+
+  if (from == to) {
+    document.getElementById(taskNumID).innerHTML = from;
+    return;
+  }
+
+  let counter = setInterval(function () {
+    from += step;
+    document.getElementById(taskNumID).innerHTML = from;
+
+    if (from == to) {
+      clearInterval(counter);
+    }
+  }, interval);
+}
+
+
 function loadTasksInBoard() {
   try {
-    document.getElementById('tasks-in-board').innerHTML = allTasks.length - 1;
+    countTo(allTasks.length - 1, 'tasks-in-board');
   } catch (error) {
     console.warn('no tasks');
   }
@@ -59,7 +81,7 @@ function loadTasksInProgress() {
 
   try {
     let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
-    document.getElementById('tasks-in-progress').innerHTML = inProgress.length;
+    countTo(inProgress.length, 'tasks-in-progress');
   } catch (error) {
     console.log('no tasks in "inProgress"');
   }
@@ -70,7 +92,7 @@ function loadTasksAwaitingFeedback() {
 
   try {
     let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
-    document.getElementById('tasks-awaiting-feedback').innerHTML = awaitingFeedback.length;
+    countTo(awaitingFeedback.length, 'tasks-awaiting-feedback');
   } catch (error) {
     console.log('no tasks in "awaitingFeedback"');
   }
@@ -80,7 +102,7 @@ function loadTasksTodo() {
 
   try {
     let todo = allTasks.filter((t) => t["area"] == "todo");
-    document.getElementById('tasks-todo').innerHTML = todo.length;
+    countTo(todo.length, 'tasks-todo');
   } catch (error) {
     console.log('no tasks in "todo"');
   }
@@ -91,7 +113,7 @@ function loadTasksDone() {
 
   try {
     let done = allTasks.filter((t) => t["area"] == "done");
-    document.getElementById('tasks-done').innerHTML = done.length;
+    countTo(done.length, 'tasks-done');
   } catch (error) {
     console.log('no tasks in "done"');
   }
@@ -106,14 +128,14 @@ function loadTaskUpcomingDeadline() {
 
   try {
     prio = allTasks.filter((t) => t["prio"] == "urgent");
-    document.getElementById('tasks-priority').innerHTML = prio.length;
+    countTo(prio.length, 'tasks-priority');
   } catch (error) {
     console.log('no urgent tasks');
   }
 
   for (let i = 0; i < prio.length; i++) {
     const taskDate = prio[i]['date'];
-    
+
 
     // Array mit Datumsangaben
     tasksDate.push(taskDate);
@@ -125,7 +147,6 @@ function loadTaskUpcomingDeadline() {
   });
 
   // Ausgabe des dringendsten Tasks
-  console.log(sortedDates[0]);
   sortedDatesConverted = sortedDates[0].split(/-/gi);
 
 
