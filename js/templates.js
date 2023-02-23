@@ -115,7 +115,6 @@ function headerHTML() {
 
 function sidebarHTML() {
   return /*html*/ `
-
   <div class="Sidebar">
   <div>
       <div class="Parent-Logo">
@@ -124,32 +123,32 @@ function sidebarHTML() {
           </a>
       </div>
       <div>
-          <div>
-            <a class="aSide" id="" onclick="loadSummary()" href="../html/summary.html">
+          <div id="summarySide" onclick="setFocus('summarySide', 01)">
+            <a class="aSide" onclick="loadSummary()" href="../html/summary.html">
             <div>
               <img class="link-img" src="../assets/img/summaryIcon.svg">
             </div>
             <div>Summary</div>
           </a>
         </div>
-        <div>   
-          <a class="aSide" id="" onclick="loadBoard()" href='../html/board.html'>
+        <div id="boardSide" onclick="setFocus('boardSide', 02)">   
+          <a class="aSide" onclick="loadBoard()" href='../html/board.html'>
             <div>
               <img class="link-img" src="../assets/img/bordIcon.svg">
             </div>
             <div>Board</div>
           </a>
         </div>
-        <div> 
-          <a class="aSide" id="" onclick="loadAddTask()" href="../html/addTask.html">
+        <div id="addTaskSide" onclick="setFocus('addTaskSide', 03)"> 
+          <a class="aSide" onclick="loadAddTask()" href="../html/addTask.html">
             <div>
               <img class="link-img" style="margin-right: 12px !important;" src="../assets/img/addTaskIcon.svg">
             </div>
             <div>Add Task</div>
           </a>
         </div>
-        <div>  
-          <a class="aSide" id="" onclick="loadContacts()" href="../html/contacts.html">
+        <div id="contactsSide" onclick="setFocus('contactsSide', 04)"> 
+          <a class="aSide" onclick="loadContacts()" href="../html/contacts.html">
             <div>
               <img class="link-img" src="../assets/img/contactsIcon.svg">
             </div>
@@ -161,7 +160,7 @@ function sidebarHTML() {
   <div class="notice-parent">
       <div class="notice">
         <a class="legalNotice" href="../html/legal.html"> 
-          <img class="notice-img " src="../assets/img/legalIcon.svg">
+          <img class="notice-img" src="../assets/img/legalIcon.svg">
           <span>Legal Notice</span>
         </a>
       </div>
@@ -413,7 +412,7 @@ function renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID) {
 
 function renderContactsHTML(contact) {
   return ` 
-  <div onclick="openContact(${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainerCo contactContainerhover">
+  <div onclick="openContact('contactContainer', ${contact.contactID})" id="contactContainer${contact.contactID}" class="contactContainerCo contactContainerhover">
     <div id="contactBubble${contact.contactID}" class="contactsBubble" style="background:${contact.color}; border: 2px solid ${contact.color}">
       <div style="color: white">${contact.initialLetters}</div>
     </div>

@@ -152,8 +152,8 @@ function sortContacts() {
 }
 
 
-function openContact(selectedID) {
-  setFocus(selectedID);
+function openContact(id, selectedID) {
+  setFocus(id, selectedID);
   let contactContainer = document.getElementById("slideContainer");
   contactContainer.classList.remove("d-none");
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
@@ -161,16 +161,21 @@ function openContact(selectedID) {
 }
 
 
-function setFocus(selectedID) {
-  document.getElementById(`contactContainer${selectedID}`).focus();
-  document.getElementById(`contactContainer${selectedID}`).classList.add("focusContact");
-  document.getElementById(`contactContainer${selectedID}`).classList.remove("contactContainerhover");
+function setFocus(id, selectedID) {
+if (id !== 'contactContainer') {
+  document.getElementById(`${id}${selectedID}`).focus();
+  document.getElementById(`${id}${selectedID}`).classList.add("focusSidebar");
+}
+  document.getElementById(`${id}${selectedID}`).focus();
+  document.getElementById(`${id}${selectedID}`).classList.add("focusContact");
+  document.getElementById(`${id}${selectedID}`).classList.remove("contactContainerhover");
   document.getElementById(`contactBubble${selectedID}`).focus();
   document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
   if (previousID !== null && previousID !== selectedID) {
-    document.getElementById(`contactContainer${previousID}`).classList.remove("focusContact");
-    document.getElementById(`contactContainer${previousID}`).classList.add("contactContainerhover");
+    document.getElementById(`${id}${previousID}`).classList.remove("focusContact");
+    document.getElementById(`${id}${previousID}`).classList.add("contactContainerhover");
     document.getElementById(`contactBubble${previousID}`).classList.remove("contactsBubbleBorder");
+    document.getElementById(`${id}${selectedID}`).classList.remove("focusSidebar");
   }
   previousID = selectedID;
 }
