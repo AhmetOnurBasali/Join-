@@ -19,7 +19,7 @@
     <script src="../js/login.js"></script>
     <script src="../js/board.js"></script>
     <script src="../js/summary.js"></script>
-    
+
 
     <script>
         async function initContacts() {
@@ -30,6 +30,9 @@
             await loadUsers();
             getInitialForHeader()
         }
+        // if (window.location.pathname = "/html/contacts.html") {
+        //     console.log("test");
+        // }
     </script>
 </head>
 
@@ -144,9 +147,12 @@
                     </div>
                     <form onsubmit="createNewContact(event)">
                         <div class="inputsContainer">
-                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name" type="text" required>
-                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email" type="email" required>
-                            <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon" placeholder="number" type="number" required>
+                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name"
+                                type="text" required>
+                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email"
+                                type="email" required>
+                            <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon"
+                                placeholder="number" type="number" required>
                             <p id="phoneError" class="phoneError"></p>
                             <div class="addContactBtnContainer">
                                 <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
