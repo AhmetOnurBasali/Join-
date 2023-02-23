@@ -6,6 +6,9 @@ async function loadCurrentUser() {
   } else {
     currentUser = item;
   }
+  if (currentUser == null) {
+    window.location.href = "/index.html?msg=Please Log In or sign up."
+  }
 }
 
 async function loadUsers() {
@@ -30,7 +33,7 @@ async function addUser() {
   let newName = addUserName();
   let newColor = addUserColor();
   let newEmail = addUserEmail();
-   let newInitialLetters = getInitialLetters(newName)
+  let newInitialLetters = getInitialLetters(newName)
   let newPassword = document.getElementById("password");
   if (newEmail && proofName() === true) {
     await setNewUser(newName, newColor, newEmail, newPassword, newInitialLetters);
@@ -41,10 +44,10 @@ async function addUser() {
 }
 
 function getInitialLetters(newName) {
-let initialFirstName = newName.split(" ")[0][0];
-let initialLastName = newName.split(" ")[1][0];
-let newInitialLetters = initialFirstName + initialLastName;
-   return newInitialLetters
+  let initialFirstName = newName.split(" ")[0][0];
+  let initialLastName = newName.split(" ")[1][0];
+  let newInitialLetters = initialFirstName + initialLastName;
+  return newInitialLetters
 }
 
 async function setNewUser(newName, newColor, newEmail, newPassword, newInitialLetters) {
