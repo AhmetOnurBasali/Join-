@@ -550,10 +550,7 @@ function slideInAssignedTo(hideBoarderID, expandContactsID) {
   let contactList = document.getElementById(expandContactsID);
   contactList.classList.add("slide-in-top");
   contactList.classList.remove("slide-out-top");
-  setTimeout(() => {
-    contactList.classList.toggle("d-none");
-  }, 600);
-
+  contactList.classList.toggle("d-none");
   slideAssignTo = false;
   if (hideBoarderID === 'contactDivEdit') {
     assignedToBlockShiftIn('input-container');
@@ -561,8 +558,8 @@ function slideInAssignedTo(hideBoarderID, expandContactsID) {
   if (hideBoarderID === 'contactDiv') {
     assignedToBlockShiftIn('inputContainer');
   }
-
-
+    
+  
 
 }
 
