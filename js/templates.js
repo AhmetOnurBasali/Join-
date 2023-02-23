@@ -23,6 +23,20 @@ function pad(num, size) {
   return num;
 }
 
+function slideInAnimation(parentID, childID) {
+  document.getElementById(parentID).classList.remove('slide-out');
+  document.getElementById(childID).classList.remove('visual-out');
+  document.getElementById(parentID).classList.add('slide-in');
+  document.getElementById(childID).classList.add('visual-in');
+}
+
+function slideOutAnimation(parentID, childID) {
+  document.getElementById(parentID).classList.remove('slide-in');
+  document.getElementById(childID).classList.remove('visual-in');
+  document.getElementById(parentID).classList.add('slide-out');
+  document.getElementById(childID).classList.add('visual-out');
+}
+
 async function initTemplates() {
   await includeHTML();
   try {

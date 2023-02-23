@@ -51,20 +51,28 @@ async function setCurrentUserData(newContact) {
 
 
 function closeAddNewContact() {
-  let container = document.getElementById("addContactPopup");
+  slideOutAnimation('addContact', 'addContactPopup');
+  setTimeout(() => {
+    let container = document.getElementById("addContactPopup");
   container.classList.add("d-none");
+  }, 750);
 }
 
 
 function openAddNewContact() {
   let container = document.getElementById("addContactPopup");
   container.classList.remove("d-none");
+  slideInAnimation('addContact', 'addContactPopup');
 }
 
 
 function closeEditContact() {
-  let container = document.getElementById("editContactPopup");
-  container.classList.add("d-none");
+  slideOutAnimation('editContact', 'editContactPopup');
+  setTimeout(() => {
+    let container = document.getElementById("editContactPopup");
+    container.classList.add("d-none");
+  }, 750);
+  
 }
 
 
@@ -89,6 +97,7 @@ async function createNewContact(event) {
   if (proofEmail(emailInput) === true && proofName(nameInput) === true && numberInput.length > 5 && numberInput.length < 16) {
     setNewContact(newContact)
   }
+  
 }
 
 
@@ -109,7 +118,11 @@ function makeDataToContact(data) {
 async function setNewContact(newContact) {
   currentUserContacts.push(newContact);
   await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
-  location.reload();
+  slideOutAnimation('addContact', 'addContactPopup');
+  setTimeout(() => {
+    location.reload();
+  }, 750);
+  
 }
 
 
@@ -184,6 +197,7 @@ function renderSelectedContact(contact, selectedID) {
 
 
 function openEditContact(selectedID) {
+  slideInAnimation('editContact', 'editContactPopup');
   let popupEditContainer = document.getElementById("editContactPopup");
   popupEditContainer.classList.remove("d-none");
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
