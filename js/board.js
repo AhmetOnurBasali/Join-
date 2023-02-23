@@ -169,21 +169,10 @@ function setTitleBg(task, eID) {
 
 
 function dragAnimation(id) {
-    // document.getElementById(`taskNumber_${task['id']}`).style.backgroundColor = `${task['titleBg']}`;
-    // document.getElementById(`taskNumber_${id}`).animate([
-    //     // keyframes
-    //     { transform: 'rotate(20deg)' },
-    //     // { transform: 'translateY(-300px)' }
-    //   ], {
-    //     // timing options
-    //     duration: 100,
-    //     iterations: 1
-    //   });
-    // document.getElementById(`taskNumber_${id}`).style.rotate = '3deg';
-    // document.getElementById(`taskNumber_${id}`).style.opacity = '1';
-    // document.getElementById(`taskNumber_${id}`).style.backgroundColor = 'blue';
-    // document.getElementById(`taskNumber_${id}`).target.style.backgroundColor = "#59F2F7";
-    // endDragAnimation();
+    
+    document.getElementById(`taskNumber_${id}`).style.rotate = '4deg';
+    document.getElementById(`taskNumber_${id}`).style.opacity = '0.75';
+    
 }
 
 
@@ -193,11 +182,7 @@ function addTaskBoard(area) {
     slideInAnimation('addTask', 'popup-add-task-board');
     document.getElementById('popup-add-task-board').classList.remove('d-none');
 
-    document.getElementById('headline-addtask').innerHTML = `
-    <div class="headline-addTask">
-    <h1>Add Task</h1>
-    <img onclick="closeAddTaskBoard()" src="../assets/img/clear.svg" alt="">
-    </div>`
+    addTaskCloseTopRight();
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 }
 

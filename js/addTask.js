@@ -29,7 +29,7 @@ async function createNewTask(event) {
   if (proof === true) {
     setTaskData(newTask);
   }
-  
+
 }
 
 
@@ -90,7 +90,7 @@ function taskProofSection(newTask) {
 
 function checkProofOf(data, title, description, category, assigned, date, prio, subtask) {
   return (data === true && title === true && description === true && category === true &&
-          assigned === true && date === true && prio === true && subtask === true);
+    assigned === true && date === true && prio === true && subtask === true);
 }
 
 
@@ -369,17 +369,17 @@ function toggleOpenFunction() {
     setTimeout(() => {
       newCategory.classList.add("d-none");
       allCategorys.classList.add("d-none");
-    }, 200);
+    }, 600);
   }
 }
 
 
 function slideOutCategory(newCategory, allCategorys) {
   arrayCategory.classList.remove("rotateIcon");
-  newCategory.classList.add("slide-out-top");
-  newCategory.classList.remove("slide-in-top");
-  allCategorys.classList.add("slide-out-top");
-  allCategorys.classList.remove("slide-in-top");
+  newCategory.classList.add("slide-in-top");
+  newCategory.classList.remove("slide-out-top");
+  allCategorys.classList.add("slide-in-top");
+  allCategorys.classList.remove("slide-out-top");
   slideCategory = false;
 }
 
@@ -388,10 +388,10 @@ function slideInCategory(newCategory, allCategorys) {
   newCategory.classList.remove("d-none");
   allCategorys.classList.remove("d-none");
   arrayCategory.classList.add("rotateIcon");
-  newCategory.classList.remove("slide-out-top");
-  newCategory.classList.add("slide-in-top");
-  allCategorys.classList.remove("slide-out-top");
-  allCategorys.classList.add("slide-in-top");
+  newCategory.classList.remove("slide-in-top");
+  newCategory.classList.add("slide-out-top");
+  allCategorys.classList.remove("slide-in-top");
+  allCategorys.classList.add("slide-out-top");
   slideCategory = true;
 }
 
@@ -548,19 +548,21 @@ function slideInAssignedTo(hideBoarderID, expandContactsID) {
   let contactDiv = document.getElementById(hideBoarderID);
   contactDiv.classList.toggle("noneBottomBorder");
   let contactList = document.getElementById(expandContactsID);
-  contactList.classList.add("slide-out-top");
+  contactList.classList.add("slide-in-top");
+  contactList.classList.remove("slide-out-top");
   setTimeout(() => {
-    contactList.classList.remove("slide-in-top");
     contactList.classList.toggle("d-none");
-    slideAssignTo = false;
-    if (hideBoarderID === 'contactDivEdit') {
-      assignedToBlockShiftIn('input-container');
-    }
-    if (hideBoarderID === 'contactDiv') {
-      assignedToBlockShiftIn('inputContainer');
-    }
+  }, 600);
 
-  }, 200);
+  slideAssignTo = false;
+  if (hideBoarderID === 'contactDivEdit') {
+    assignedToBlockShiftIn('input-container');
+  }
+  if (hideBoarderID === 'contactDiv') {
+    assignedToBlockShiftIn('inputContainer');
+  }
+
+
 
 }
 
@@ -573,8 +575,8 @@ function slideOutAssignedTo(hideBoarderID, expandContactsID) {
   let contactDiv = document.getElementById(hideBoarderID);
   contactDiv.classList.toggle("noneBottomBorder");
   let contactList = document.getElementById(expandContactsID);
-  contactList.classList.remove("slide-out-top");
-  contactList.classList.add("slide-in-top");
+  contactList.classList.remove("slide-in-top");
+  contactList.classList.add("slide-out-top");
   contactList.classList.toggle("d-none");
   if (hideBoarderID === 'contactDivEdit') {
     assignedToBlockShiftOut('input-container');

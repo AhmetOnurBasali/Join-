@@ -122,10 +122,11 @@ li {
 
 .selectedCategoryText {
   display: flex;
-    height: 16px;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 18px;
+  height: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 18px;
+  z-index: 6;
 }
 
 .selectedCategoryTextOpen {
@@ -133,6 +134,7 @@ li {
   display: flex;
   height: 42px;
   align-items: center;
+
 }
 
 select {
@@ -208,6 +210,7 @@ textarea {
   flex-direction: column;
   height: 47px;
   justify-content: center;
+  z-index: 6;
 }
 
 .openCategory {
@@ -258,6 +261,7 @@ textarea {
   gap: 20px;
   width: 100%;
 }
+
 .addTaskPopup {
   z-index: 99;
   position: fixed;
@@ -303,11 +307,13 @@ textarea {
   display: flex;
   align-items: center;
   padding: 0px 14px;
+  z-index: 5;
 }
 
 .overflow {
   max-height: 140px;
   overflow: auto;
+  z-index: 5;
 }
 
 .dropColorContainer {
@@ -416,6 +422,7 @@ textarea {
   font-weight: 400;
   font-size: 12px;
 }
+
 .checkboxSize {
   height: max-content;
 }
@@ -427,6 +434,7 @@ textarea {
   align-items: center;
   cursor: pointer;
 }
+
 .subtaskTextPosi {
   width: 100%;
   height: 100%;
@@ -435,14 +443,14 @@ textarea {
   cursor: pointer;
 }
 
-.openArrayIcon{
+.openArrayIcon {
   display: flex;
   position: absolute;
   right: 8px;
   height: 42px;
 }
 
-.rotateIcon{
+.rotateIcon {
   transform: rotate(180deg);
 }
 
@@ -638,6 +646,7 @@ textarea {
 .slide-in-bottom {
   animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+
 @keyframes slide-in-bottom {
   0% {
     transform: translateY(50px);
@@ -650,41 +659,49 @@ textarea {
   }
 }
 
-.slide-in-top {
-  animation: slide-in-top 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-@keyframes slide-in-top {
-  0% {
-    transform: translateY(-30px);
-    opacity: 0.75;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-
-
 .slide-out-top {
-  animation: slide-out-top 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: slide-out-top 600ms;
+  /* cubic-bezier(0.55, 0.085, 0.68, 0.53) both */
 }
 
 @keyframes slide-out-top {
   0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    /* opacity: 1; */
+  }
+}
+
+
+.slide-in-top {
+  animation: slide-in-top 610ms;
+}
+
+@keyframes slide-in-top {
+  0% {
     transform: translateY(0);
     opacity: 1;
   }
 
   100% {
-    transform: translateY(-30px);
-    opacity: 0.75;
+    transform: translateY(-85%);
+    opacity: 0;
   }
 }
-.slidePopup{
+
+.slidePopup {
   animation: slidePopup 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+
 @keyframes slidePopup {
   0% {
     transform: translateY(200px);
@@ -696,6 +713,7 @@ textarea {
     opacity: 1;
   }
 }
+
 ::-webkit-scrollbar {
   width: 10px;
   border-radius: 0px;
@@ -705,10 +723,12 @@ textarea {
   background-color: #2a3647;
   border-radius: 10px;
 }
+
 input[type="date" i]::-webkit-calendar-picker-indicator {
   width: 20px;
   height: 20px;
 }
+
 @media (max-width: 1400px) {
   .rightSection {
     width: 300px;
@@ -740,7 +760,7 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
 @media (max-width: 1110px) {
   .addTaskMain {
     display: flex;
-   justify-content: unset;
+    justify-content: unset;
     width: calc(100% - 432px);
-}
+  }
 }

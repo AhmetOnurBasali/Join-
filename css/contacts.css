@@ -436,7 +436,20 @@ input[type="number"]::-webkit-outer-spin-button {
   min-height: 600px !important;
 }
 
-.phoneError{
+.headline-addTask {
+  display: flex;
+  justify-content: space-between;
+  width: 110%;
+}
+
+.headline-addTask img {
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+}
+
+
+.phoneError {
   height: 1px;
   position: absolute;
   bottom: 158px;
@@ -450,15 +463,15 @@ input[type="number"]::-webkit-outer-spin-button {
 
 @keyframes slidein {
   0% {
-      transform: translateX(100%);
+    transform: translateX(100%);
   }
 
   20% {
-      transform: translateX(-5%);
+    transform: translateX(-5%);
   }
 
   100% {
-      transform: translateX(0%);
+    transform: translateX(0%);
   }
 }
 
@@ -468,11 +481,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 @keyframes visualin {
   0% {
-      background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
   }
 
   100% {
-      background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -482,15 +495,15 @@ input[type="number"]::-webkit-outer-spin-button {
 
 @keyframes slideout {
   0% {
-      transform: translateX(0%);
+    transform: translateX(0%);
   }
 
   20% {
-      transform: translateX(-5%);
+    transform: translateX(-5%);
   }
 
   100% {
-      transform: translateX(150%);
+    transform: translateX(150%);
   }
 }
 
@@ -500,10 +513,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 @keyframes visualout {
   0% {
-      background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
   }
 
   100% {
-      background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
   }
 }

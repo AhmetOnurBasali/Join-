@@ -68,6 +68,19 @@ function getInitialForHeader() {
   currentUserInitials.innerHTML = `<div onclick="openLogout()" style="background:${color}"  >${initialLetters}</div>`
 }
 
+function addTaskCloseTopRight(){
+  document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
+}
+
+
+function addTaskCloseTopRightHTML(){
+  return`
+  <div class="headline-addTask">
+  <h1>Add Task</h1>
+  <img onclick="closeAddTaskBoard()" src="../assets/img/clear.svg" alt="">
+  </div>
+  `;
+}
 
 
 function headerHTML() {
