@@ -10,10 +10,12 @@
   <link rel="stylesheet" href="../css/header_sidebar.css">
   <link rel="stylesheet" href="../css/addTask.css">
   <link rel="stylesheet" href="../fonts.css">
+  <script src="../js/templates.js"></script>
+  <script src="../js/header_sidebar.js"></script>
   <script src="../js/addTask.js"></script>
   <script src="../js/mini_backend.js"></script>
   <script src="../script.js"></script>
-  <script src="../js/templates.js"></script>
+
   <script src="../js/login.js"></script>
 </head>
 
@@ -21,12 +23,12 @@
   let newArea = 'todo'
 
   async function initTask() {
+    await initTemplates();
     await loadCurrentUser();
+    getInitialForHeader()
     await loadUsers();
     await loadTasks();
-    await loadCategory();
-    await initTemplates();
-    getInitialForHeader()
+    await loadCategory();    
   }
 
 

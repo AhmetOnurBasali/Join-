@@ -58,6 +58,7 @@ function openLogout() {
 
 function logout() {
   currentUser = ""
+  localStorage.removeItem("currentUser")
   window.location.href = "/index.html?msg=Your Logout was successful";
 }
 
@@ -123,7 +124,7 @@ function sidebarHTML() {
           </a>
       </div>
       <div>
-          <div id="summarySide" onclick="setFocus('summarySide', 01)">
+          <div id="summarySide" class="sidebarsections">
             <a class="aSide" onclick="loadSummary()" href="../html/summary.html">
             <div>
               <img class="link-img" src="../assets/img/summaryIcon.svg">
@@ -131,7 +132,7 @@ function sidebarHTML() {
             <div>Summary</div>
           </a>
         </div>
-        <div id="boardSide" onclick="setFocus('boardSide', 02)">   
+        <div id="boardSide" class="sidebarsections">   
           <a class="aSide" onclick="loadBoard()" href='../html/board.html'>
             <div>
               <img class="link-img" src="../assets/img/bordIcon.svg">
@@ -139,7 +140,7 @@ function sidebarHTML() {
             <div>Board</div>
           </a>
         </div>
-        <div id="addTaskSide" onclick="setFocus('addTaskSide', 03)"> 
+        <div id="addTaskSide" class="sidebarsections"> 
           <a class="aSide" onclick="loadAddTask()" href="../html/addTask.html">
             <div>
               <img class="link-img" style="margin-right: 12px !important;" src="../assets/img/addTaskIcon.svg">
@@ -147,7 +148,7 @@ function sidebarHTML() {
             <div>Add Task</div>
           </a>
         </div>
-        <div id="contactsSide" onclick="setFocus('contactsSide', 04)"> 
+        <div id="contactsSide" class="sidebarsections"> 
           <a class="aSide" onclick="loadContacts()" href="../html/contacts.html">
             <div>
               <img class="link-img" src="../assets/img/contactsIcon.svg">

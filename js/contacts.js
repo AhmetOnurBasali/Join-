@@ -1,6 +1,6 @@
 let currentUserContacts = [];
 let currentSelectedID = [];
-let previousID = null;
+
 
 async function loadContactsData() {
   await downloadFromServer();
@@ -158,26 +158,6 @@ function openContact(id, selectedID) {
   contactContainer.classList.remove("d-none");
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
   renderSelectedContact(contact, selectedID);
-}
-
-
-function setFocus(id, selectedID) {
-if (id !== 'contactContainer') {
-  document.getElementById(`${id}${selectedID}`).focus();
-  document.getElementById(`${id}${selectedID}`).classList.add("focusSidebar");
-}
-  document.getElementById(`${id}${selectedID}`).focus();
-  document.getElementById(`${id}${selectedID}`).classList.add("focusContact");
-  document.getElementById(`${id}${selectedID}`).classList.remove("contactContainerhover");
-  document.getElementById(`contactBubble${selectedID}`).focus();
-  document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
-  if (previousID !== null && previousID !== selectedID) {
-    document.getElementById(`${id}${previousID}`).classList.remove("focusContact");
-    document.getElementById(`${id}${previousID}`).classList.add("contactContainerhover");
-    document.getElementById(`contactBubble${previousID}`).classList.remove("contactsBubbleBorder");
-    document.getElementById(`${id}${selectedID}`).classList.remove("focusSidebar");
-  }
-  previousID = selectedID;
 }
 
 

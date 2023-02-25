@@ -13,24 +13,47 @@
     <script src="../js/mini_backend.js"></script>
     <script src="script.js"></script>
 
+    <style>
+        .slide-out-tl {
+            animation: slide-out-tl 0.5s cubic-bezier(.68, -.55, .265, 1.55) both;
+        }
 
+        @keyframes slide-out-tl {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(-250px) translateX(-250px);
+                opacity: 0
+            }
+        }
+    </style>
 </head>
 
-<body onload="loadUsers()">
+<body onload="loadUsers(),test()">
     <div class="logoEntrance">
-        <img src="assets/img/entranceLogo.svg">
+        <img id="joinEntrance" src="assets/img/entranceLogo.svg">
 
-        <div>
+        <div id="disclaimerConatiner">
             <div class="disclaimerEntrance">
-                <b>Attention!</b><br>
-                Please do not use real credentials to log in to this site. This site was created
-                for educational and training purposes and the security of the data cannot be fully guaranteed. There is
-                a
-                possibility that third parties can access this data. Please also note that all data stored on this site
-                can
-                only be deleted manually by the administrators. For more information, please see our legal notice.
-                <div class="disclaimerBtn" >
-                    <button>Join!</button>
+                <p>
+                    <b>Attention!</b><br>
+                    Please do not use real credentials to log in to this site. This site was created
+                    for educational and training purposes and the security of the data cannot be fully guaranteed. There
+                    is
+                    a
+                    possibility that third parties can access this data. Please also note that all data stored on this
+                    site
+                    can
+                    only be deleted manually by the administrators. For more information, please see our legal notice.
+                </p>
+                <div class="disclaimerBtnContainer">
+                    <div>dont show me again !
+                        <input type="checkbox" id="disclaimerCheck">
+                    </div>
+                    <button onclick="startJoinEntrance()" class="signUpBlueBtn">Join!</button>
                 </div>
             </div>
         </div>
@@ -122,6 +145,13 @@
         } else {
             document.getElementById('msgBox2').classList.add('d-none')
         }
+
+        if (localStorage.getItem('dontShowAgain') === 'true') {
+            let text = document.getElementById('disclaimerConatiner');
+            text.classList.add('d-none');
+        }
+
+        
     </script>
 
 </body>

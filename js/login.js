@@ -1,3 +1,33 @@
+let disclaimerShowAgain = true
+
+
+function startJoinEntrance() {
+  let checkbox = document.getElementById('disclaimerCheck').checked
+  if (checkbox == true) {
+    disclaimerShowAgain = false
+    localStorage.setItem('dontShowAgain', true)
+    animateImage();
+  }
+  let text = document.getElementById('disclaimerConatiner')
+  text.classList.add('d-none')
+  animateImage();
+}
+
+function animateImage() {
+  let img = document.getElementById('joinEntrance');
+  img.classList.add('slide-out-tl');
+ setTimeout(() => {
+  img.classList.add('d-none')
+ }, 500);
+}
+
+async function test() {
+  let dontShow = localStorage.getItem("dontShowAgain");
+  if (dontShow === "true") {
+    animateImage();
+  }
+}
+
 async function loadCurrentUser() {
   await downloadFromServer();
   let item = localStorage.getItem("currentUser");
@@ -29,7 +59,6 @@ async function proofUsers() {
 }
 
 async function addUser() {
-  // private-daten hashen?
   let newName = addUserName();
   let newColor = addUserColor();
   let newEmail = addUserEmail();

@@ -399,14 +399,17 @@ input[type="text"] {
   position: absolute;
   z-index: 99;
   padding: 0 240px;
-  bottom: 300px;
+  bottom: 100px;
 }
 
-.disclaimerBtn{
+.disclaimerBtnContainer{
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   padding: 20px 0;
+  
 }
+
+
 
 
 @keyframes slide-in-bottom {

@@ -14,10 +14,12 @@
     <script src="../js/mini_backend.js"></script>
     <script src="../js/login.js"></script>
     <script src="../script.js"></script>
-
+    
     <script src="../js/templates.js"></script>
+    <script src="../js/header_sidebar.js"></script>
     <script src="../js/addTask.js"></script>
     <script src="../js/board.js"></script>
+
 
 </head>
 
@@ -36,7 +38,9 @@
     <section class="board">
         <div class="headline">
             <h1>Board</h1>
-            <input id="find-task" class="find-task" title="You can search by title, description and category." type="search" placeholder="Find Task" onkeydown="renderBoard()" onkeyup="renderBoard()" onsearch="renderBoard()">
+            <input id="find-task" class="find-task" title="You can search by title, description and category."
+                type="search" placeholder="Find Task" onkeydown="renderBoard()" onkeyup="renderBoard()"
+                onsearch="renderBoard()">
             <div class="parting-line"></div>
             <button onclick="addTaskBoard('todo')" class="add-task" title="Click to add a new task">Add task +</button>
         </div>
