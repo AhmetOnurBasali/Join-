@@ -359,39 +359,30 @@ async function openCategory() {
 
 
 function toggleOpenFunction() {
-  let arrayCategory = document.getElementById("arrayCategory");
-  let newCategory = document.getElementById("newCategory");
-  let allCategorys = document.getElementById("allCategorys");
   if (slideCategory === false) {
-    slideInCategory(newCategory, allCategorys, arrayCategory);
+    slideOutCategory();
   } else {
-    slideOutCategory(newCategory, allCategorys, arrayCategory);
-    setTimeout(() => {
-      newCategory.classList.add("d-none");
-      allCategorys.classList.add("d-none");
-    }, 600);
+    slideInCategory();
+      document.getElementById('category-anim').classList.add("d-none");
   }
 }
 
 
-function slideOutCategory(newCategory, allCategorys) {
+function slideInCategory() {
   arrayCategory.classList.remove("rotateIcon");
-  newCategory.classList.add("slide-in-top");
-  newCategory.classList.remove("slide-out-top");
-  allCategorys.classList.add("slide-in-top");
-  allCategorys.classList.remove("slide-out-top");
+  document.getElementById('category-anim').classList.add("slide-in-top");
+  document.getElementById('category-anim').classList.remove("slide-out-top");
+  document.getElementById('categoryIsOpen').classList.remove('noneBottomBorder');
   slideCategory = false;
 }
 
 
-function slideInCategory(newCategory, allCategorys) {
-  newCategory.classList.remove("d-none");
-  allCategorys.classList.remove("d-none");
+function slideOutCategory() {
+  document.getElementById('category-anim').classList.remove("d-none");
   arrayCategory.classList.add("rotateIcon");
-  newCategory.classList.remove("slide-in-top");
-  newCategory.classList.add("slide-out-top");
-  allCategorys.classList.remove("slide-in-top");
-  allCategorys.classList.add("slide-out-top");
+  document.getElementById('category-anim').classList.remove("slide-in-top");
+  document.getElementById('category-anim').classList.add("slide-out-top");
+  document.getElementById('categoryIsOpen').classList.add('noneBottomBorder');
   slideCategory = true;
 }
 

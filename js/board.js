@@ -41,7 +41,7 @@ function renderBoard() {
             const taskCategory = task['category'].toLowerCase();
             const taskDescription = task['description'].toLowerCase();
             const taskTitle = task['title'].toLowerCase();
-            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == ''){
+            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
                 renderCreatedTasks(areaToDo, task);
             }
         }
@@ -51,7 +51,7 @@ function renderBoard() {
             const taskCategory = task['category'].toLowerCase();
             const taskDescription = task['description'].toLowerCase();
             const taskTitle = task['title'].toLowerCase();
-            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == ''){
+            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
                 renderCreatedTasks(areaInProgress, task);
             }
         }
@@ -61,7 +61,7 @@ function renderBoard() {
             const taskCategory = task['category'].toLowerCase();
             const taskDescription = task['description'].toLowerCase();
             const taskTitle = task['title'].toLowerCase();
-            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == ''){
+            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
                 renderCreatedTasks(areaAwaitingFeedback, task);
             }
         }
@@ -71,7 +71,7 @@ function renderBoard() {
             const taskCategory = task['category'].toLowerCase();
             const taskDescription = task['description'].toLowerCase();
             const taskTitle = task['title'].toLowerCase();
-            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == ''){
+            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
                 renderCreatedTasks(areaDone, task);
             }
         }
@@ -86,7 +86,7 @@ function renderBoard() {
 async function renderCreatedTasks(area, task) {
     area.innerHTML += renderCreatedTasksInnerHTML(task);
     renderAssignTo(task, 'task-assigned-to');
-
+    checkValueOfSubtasks(task);
     setTitleBg(task, 'task-category');
 }
 
@@ -109,7 +109,12 @@ function renderAssignTo(task, eID) {
 
 
 function progressSubtasks(task) {
-    return 100 / task['openSubtask'].length * 0;
+    if (task['closedSubtask'] == 0) {
+        return 0;
+    } else {
+        return 100 / (task['openSubtask'].length + task['closedSubtask'].length) * task['closedSubtask'].length;
+    }
+
 }
 
 
@@ -169,10 +174,10 @@ function setTitleBg(task, eID) {
 
 
 function dragAnimation(id) {
-    
+
     document.getElementById(`taskNumber_${id}`).style.rotate = '4deg';
     document.getElementById(`taskNumber_${id}`).style.opacity = '0.75';
-    
+
 }
 
 
@@ -220,7 +225,40 @@ function openTaskDetailsFront(taskID) {
     document.getElementById('body').style.overflow = 'hidden';
     setTitleBg(allTasks[currentTaskID], 'task-details-category');
     renderAssignTo(allTasks[currentTaskID], 'task-details-assigned-to');
+    renderSubtasks(allTasks[currentTaskID], 'task-details-subtasks');
     setPriorityBg();
+}
+
+function renderSubtasks(task, eID) {
+    document.getElementById(`${eID}${task['id']}`).innerHTML = '';
+    for (let i = 0; i < task['openSubtask'].length; i++) {
+        const openSubtask = task['openSubtask'][i];
+        document.getElementById(`${eID}${task['id']}`).innerHTML += /*html*/`
+         <div class="subtasks-details"><input onclick="statusSubtask(${i}, 'openSubtask${i}_T${currentTaskID}')" type="checkbox" id="openSubtask${i}_T${currentTaskID}">${openSubtask}</div>
+        `;
+    }
+
+    for (let i = 0; i < task['closedSubtask'].length; i++) {
+        const closedSubtask = task['closedSubtask'][i];
+        document.getElementById(`${eID}${task['id']}`).innerHTML += /*html*/`
+        <div class="subtasks-details"><input checked onchange="statusSubtask(${i}, 'closedSubtask${i}_T${currentTaskID}')" type="checkbox" id="closedSubtask${i}_T${currentTaskID}">${closedSubtask}</div>
+        `;
+    }
+}
+
+async function statusSubtask(i, subtaskID) {
+    let statusSubtask = document.getElementById(subtaskID);
+    if (statusSubtask.checked) {
+        allTasks[currentTaskID]['closedSubtask'].push(allTasks[currentTaskID]['openSubtask'][i]);
+        allTasks[currentTaskID]['openSubtask'].splice(i, 1);
+    } else {
+        allTasks[currentTaskID]['openSubtask'].push(allTasks[currentTaskID]['closedSubtask'][i]);
+        allTasks[currentTaskID]['closedSubtask'].splice(i, 1);
+    }
+
+    renderSubtasks(allTasks[currentTaskID], 'task-details-subtasks');
+    renderBoard();
+    await backend.setItem("allTasks", allTasks);
 }
 
 function setPriorityBg() {
@@ -238,14 +276,12 @@ function setPriorityBgColor() {
         case 'urgent':
 
             return '#FF3D00'
-
         default:
             break;
     }
 }
 
 function closeTaskDetails() {
-
     document.getElementById('body').style.overflow = 'auto';
     slideAssignTo = false;
     slideCategory = false;
@@ -258,6 +294,7 @@ function closeTaskDetails() {
 function editDetailsTask() {
     document.getElementById('task-details').innerHTML = renderEditDetailsTaskHTML();
     renderSelectContactEdit();
+    renderOpenAssignedTo('contactsEdit', 'contactInitialsEdit');
     setPrioCheckBox(allTasks[currentTaskID]['prio'], 'Edit');
 }
 
@@ -272,60 +309,13 @@ function renderSelectContactEdit() {
 }
 
 
-// Find Task
-
-function findTaskOnBoard() {
-    let taskInput = document.getElementById('find-task');
-
-
-    let areaToDo = document.getElementById('tasks-to-do');
-    let areaInProgress = document.getElementById('tasks-in-progress');
-    let areaAwaitingFeedback = document.getElementById('tasks-awaiting-feedback');
-    let areaDone = document.getElementById('tasks-done');
-    areaToDo.innerHTML = "";
-    areaInProgress.innerHTML = "";
-    areaAwaitingFeedback.innerHTML = "";
-    areaDone.innerHTML = "";
-
-    
-
-// let searchInTitle = todo.filter((t) => t["title"] == taskInput.value);
-            // let searchInDescription = todo.filter((t) => t["description"] == taskInput.value);
-
-
-
-    try {
-        
-        let todo = allTasks.filter((t) => t["area"] == 'todo');
-        
-        for (let i = 0; i < todo.length; i++) {
-            const task = todo[i];
-            if (task['category'].includes(taskInput.value) || task['description'].includes(taskInput.value) || task['title'].includes(taskInput.value) || !taskInput.value){
-                renderCreatedTasks(areaToDo, task);
-            }
-            
-        }
-        let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
-        for (let i = 0; i < inProgress.length; i++) {
-            const task = inProgress[i];
-            renderCreatedTasks(areaInProgress, task);
-        }
-        let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
-        for (let i = 0; i < awaitingFeedback.length; i++) {
-            const task = awaitingFeedback[i];
-            renderCreatedTasks(areaAwaitingFeedback, task);
-        }
-        let done = allTasks.filter((t) => t["area"] == "done");
-        for (let i = 0; i < done.length; i++) {
-            const task = done[i];
-            renderCreatedTasks(areaDone, task);
-        }
-    } catch (error) {
-        console.log('no Tasks avialable');
+function checkValueOfSubtasks(task) {
+    if (task['openSubtask'].length + task['closedSubtask'].length == 0) {
+        document.getElementById(`task-subtasks${task['id']}`).remove();
     }
-
-
 }
+
+
 
 
 //-----------------------Inner html's---------------------------
@@ -359,11 +349,11 @@ function renderCreatedTasksInnerHTML(task) {
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
         <span class="task-description">${task['description']}</span>
-        <div class="task-subtasks">
+        <div class="task-subtasks" id="task-subtasks${task['id']}">
             <div class="task-subtasks-progressbar">
                 <div style="width: ${progressSubtasks(task)}%;"></div>
             </div>
-            <span class="task-subtasks-progress">0/${task['openSubtask'].length + task['closedSubtask'].length} Done</span>
+            <span class="task-subtasks-progress">${task['closedSubtask'].length}/${task['openSubtask'].length + task['closedSubtask'].length} Done</span>
         </div>
         <div class="task-assigned-prio">
             <div class="task-assigned-to" id="task-assigned-to${task['id']}">
@@ -385,27 +375,31 @@ function renderTaskDetailsFrontHTML() {
     </div>
     <span class="task-details-title">${allTasks[currentTaskID]['title']}</span>
     <span class="task-details-description">${allTasks[currentTaskID]['description']}</span>
-    <div class="m-t-15 m-b-15">
+    <div class="m-t-10 m-b-10">
         <span class="task-details-text">Due date:</span>
         <span class="task-details-due-date">${allTasks[currentTaskID]['date']}</span>
     </div>
-    <div class="task-details-prio m-b-15">
+    <div class="task-details-prio m-b-10">
         <span class="task-details-text">Priority: </span>
         <div class="task-details-prio-sign" id="task-details-prio-sign${allTasks[currentTaskID]['id']}">
             <span>${allTasks[currentTaskID]['prio']}</span>
             ${taskPrio(allTasks[currentTaskID]['prio'])}
         </div>
     </div>
-    <span class="task-details-text m-b-15">Assigned To:</span>
-    <div class="d-flex task-details-assigned-to-shell">
+    <span class="task-details-text m-b-10">Assigned To:</span>
+    <div class="d-flex task-details-assigned-to-shell m-b-10">
         <div class="task-details-assigned-to" id="task-details-assigned-to${allTasks[currentTaskID]['id']}">
         </div>
         <div class="task-details-assigned-to-name" id="task-details-assigned-to-name${allTasks[currentTaskID]['id']}">
         </div>
-
     </div>
-    <div class="task-details-edit" onclick="editDetailsTask()">
-        <div>
+    <span class="task-details-text m-b-10">Subtasks:</span>
+    <div class="d-flex task-details-subtasks-shell">
+    <div class="task-details-subtasks" id="task-details-subtasks${allTasks[currentTaskID]['id']}">
+        </div>
+    </div>
+    <div class="task-details-edit" >
+        <div onclick="editDetailsTask()">
             <svg class="pencil" width="24" height="34" viewBox="0 0 24 34" fill="none"xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.61559 29.262L3.05082 25.8847L17.211 2.55302C17.7841 1.60874 19.0141 1.30784 19.9584 1.88092L22.1037 3.1829C23.0479 3.75598 23.3488 4.98604 22.7758 5.93031L8.61559 29.262Z" fill="white" />
                 <path d="M7.94001 30.3749L2.37524 26.9976L3.23136 30.4972C3.36259 31.0337 3.90387 31.3622 4.44034 31.231L7.94001 30.3749Z" fill="white" />

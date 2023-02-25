@@ -316,15 +316,15 @@ h2 {
     margin-right: 20px !important;
     /* display: flex;
     align-items: center; */
-    height: 30px;
+    height: 20px;
 }
 
-.m-t-15 {
-    margin-top: 15px;
+.m-t-10 {
+    margin-top: 10px;
 }
 
-.m-b-15 {
-    margin-bottom: 15px;
+.m-b-10 {
+    margin-bottom: 10px;
 }
 
 .task-details-due-date {
@@ -337,6 +337,7 @@ h2 {
     /* padding: 5px; */
     width: fit-content;
     display: flex;
+    align-items: center;
 }
 
 .task-details-prio span {
@@ -368,7 +369,7 @@ h2 {
 .task-details-assigned-to-shell {
     overflow-y: auto;
     width: 520px;
-    height: 250px;
+    height: 142px;
 }
 
 .task-details-assigned-to {
@@ -395,10 +396,25 @@ h2 {
     min-height: 35px;
 }
 
+.task-details-subtasks-shell{
+    overflow-y: auto;
+    width: 520px;
+    height: 90px;
+    z-index: 2;
+}
+
+
+.subtasks-details{
+    display: flex;
+    align-items: center;
+    height: 30px;
+    
+}
+
 .task-details-edit {
     display: flex;
     justify-content: flex-end;
-    cursor: pointer;
+    z-index: 1;
     margin-top: -20px;
 }
 
@@ -410,6 +426,7 @@ h2 {
     height: 44px;
     width: 44px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .task-details-assigned-to-name {
@@ -609,7 +626,7 @@ h2 {
     }
 
     100% {
-        transform: translateX(150%);
+        transform: translateX(200%);
     }
 }
 
