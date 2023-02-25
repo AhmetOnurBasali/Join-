@@ -411,6 +411,10 @@ h2 {
     
 }
 
+.checkbox-subtask{
+    max-height: 30px !important;
+}
+
 .task-details-edit {
     display: flex;
     justify-content: flex-end;
