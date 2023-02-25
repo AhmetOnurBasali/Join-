@@ -16,9 +16,12 @@ function startJoinEntrance() {
 function animateImage() {
   let img = document.getElementById('joinEntrance');
   img.classList.add('slide-out-tl');
+  let bg = document.getElementById('joinEntranceBg');
+  bg.classList.add('title-bg-hide');
  setTimeout(() => {
-  img.classList.add('d-none')
- }, 500);
+  img.classList.add('d-none');
+  bg.classList.add('d-none');
+ }, 2900);
 }
 
 async function test() {

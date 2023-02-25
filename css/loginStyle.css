@@ -200,7 +200,10 @@ a {
 .logoSize {
   display: flex;
   height: 100px;
+  width: 83px;
 }
+
+
 
 .forgotPasswordFormContainer {
   position: relative;
@@ -385,28 +388,90 @@ input[type="text"] {
   background-color: #e8f0fe;
 }
 
+.logoEntrance{
+  background: whitesmoke;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .logoEntrance img {
-  position: absolute;
-  z-index: 99;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  background: whitesmoke;
+  display: flex;
+  justify-content: center;
+  height: 334px;
+  width: 274px;
 }
 
+.slide-out-tl {
+  animation: slide-out-tl 3s;
+}
+
+@keyframes slide-out-tl {
+  0% {
+    position: absolute;
+    top: calc(50% - (334px / 2));
+    left: calc(50% - (274px / 2));
+    /* position: absolute; */
+    /* transform: translateY(0) translateX(0); */
+    /* opacity: 1; */
+  }
+
+  95% {
+    position: absolute;
+    top: 75px;
+    left: 75px;
+    /* transform: translateY(0px) translateX(0px); */
+    height: 100px;
+    width: 83px;
+    /* opacity: 0; */
+  }
+
+  100% {
+    position: absolute;
+    top: 75px;
+    left: 75px;
+    /* transform: translateY(0px) translateX(0px); */
+    height: 100px;
+    width: 83px;
+    /* opacity: 0; */
+  }
+}
+
+.title-bg-hide{
+  animation: title-bg-hide 3s;
+}
+
+
+@keyframes title-bg-hide {
+  0% {
+    /* opacity: 1; */
+
+  }
+
+  100% {
+    /* opacity: 0; */
+    background-color: rgba(245, 245, 245, 0);
+  }
+}
 .disclaimerEntrance {
-  position: absolute;
+  /* position: absolute; */
   z-index: 99;
-  padding: 0 240px;
-  bottom: 100px;
+  padding: 50px 240px 0px 240px;
+  /* bottom: 100px; */
 }
 
-.disclaimerBtnContainer{
+.disclaimerBtnContainer {
   display: flex;
   justify-content: space-evenly;
   padding: 20px 0;
-  
+
 }
 
 

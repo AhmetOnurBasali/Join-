@@ -199,7 +199,7 @@ function selectArea(area) {
 }
 
 function addTaskHTMLBoard() {
-    return `<div class="whiteBtn" onclick="closeAddTaskBoard()">Close <img src="../assets/img/clear.svg"></div>`;
+    return `<div class="whiteBtn" onclick="closeAddTaskBoard(), clearTask()">Close <img src="../assets/img/clear.svg"></div>`;
 }
 
 
@@ -234,14 +234,14 @@ function renderSubtasks(task, eID) {
     for (let i = 0; i < task['openSubtask'].length; i++) {
         const openSubtask = task['openSubtask'][i];
         document.getElementById(`${eID}${task['id']}`).innerHTML += /*html*/`
-         <div class="subtasks-details"><input onclick="statusSubtask(${i}, 'openSubtask${i}_T${currentTaskID}')" type="checkbox" id="openSubtask${i}_T${currentTaskID}">${openSubtask}</div>
+         <div class="subtasks-details"><input class="checkbox-subtask" onclick="statusSubtask(${i}, 'openSubtask${i}_T${currentTaskID}')" type="checkbox" id="openSubtask${i}_T${currentTaskID}">${openSubtask}</div>
         `;
     }
 
     for (let i = 0; i < task['closedSubtask'].length; i++) {
         const closedSubtask = task['closedSubtask'][i];
         document.getElementById(`${eID}${task['id']}`).innerHTML += /*html*/`
-        <div class="subtasks-details"><input checked onchange="statusSubtask(${i}, 'closedSubtask${i}_T${currentTaskID}')" type="checkbox" id="closedSubtask${i}_T${currentTaskID}">${closedSubtask}</div>
+        <div class="subtasks-details"><input class="checkbox-subtask" checked onchange="statusSubtask(${i}, 'closedSubtask${i}_T${currentTaskID}')" type="checkbox" id="closedSubtask${i}_T${currentTaskID}">${closedSubtask}</div>
         `;
     }
 }
