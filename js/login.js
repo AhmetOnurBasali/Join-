@@ -1,35 +1,42 @@
 let disclaimerShowAgain = true
+let seeShowAgain = true
 
 
-function startJoinEntrance() {
+function understoodDisclaimer() {
   let checkbox = document.getElementById('disclaimerCheck').checked
   if (checkbox == true) {
     disclaimerShowAgain = false
     localStorage.setItem('dontShowAgain', true)
-    animateImage();
   }
   let text = document.getElementById('disclaimerConatiner')
   text.classList.add('d-none')
-  animateImage();
 }
+
 
 function animateImage() {
   let img = document.getElementById('joinEntrance');
   img.classList.add('slide-out-tl');
   let bg = document.getElementById('joinEntranceBg');
   bg.classList.add('title-bg-hide');
- setTimeout(() => {
-  img.classList.add('d-none');
-  bg.classList.add('d-none');
- }, 2900);
+  setTimeout(() => {
+    img.classList.add('d-none');
+    bg.classList.add('d-none');
+  }, 1900);
 }
+
 
 async function test() {
   let dontShow = localStorage.getItem("dontShowAgain");
   if (dontShow === "true") {
-    animateImage();
+    let text = document.getElementById('disclaimerConatiner')
+    text.classList.add('d-none')
+  }
+  if (!dontShow) {
+    let text = document.getElementById('disclaimerConatiner')
+    text.classList.remove('d-none')
   }
 }
+
 
 async function loadCurrentUser() {
   await downloadFromServer();
@@ -43,6 +50,7 @@ async function loadCurrentUser() {
     window.location.href = "/index.html?msg=Please Log In or sign up."
   }
 }
+
 
 async function loadUsers() {
   await downloadFromServer();
@@ -67,6 +75,8 @@ async function addUser() {
   let newEmail = addUserEmail();
   let newInitialLetters = getInitialLetters(newName)
   let newPassword = document.getElementById("password");
+  let disclaimer = localStorage.getItem()
+  console.log();
   if (newEmail && proofName() === true) {
     await setNewUser(newName, newColor, newEmail, newPassword, newInitialLetters);
   } else {
