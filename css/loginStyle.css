@@ -3,6 +3,7 @@ body {
   margin: 0;
   background-color: whitesmoke;
 }
+
 a {
   text-decoration: unset;
   color: #29abe2;
@@ -11,12 +12,14 @@ a {
 .d-none {
   display: none !important;
 }
+
 .loginMainContainer {
   display: flex;
   height: 100vh;
   align-items: center;
   justify-content: center;
 }
+
 .signUpContainer {
   display: flex;
   flex-direction: column;
@@ -39,17 +42,20 @@ a {
   display: flex;
   justify-content: space-between;
 }
+
 .signUpLogo {
   position: absolute;
   top: 0;
   left: 0;
   padding: 75px;
 }
+
 .logoLogin {
   position: absolute;
   top: 0;
   padding: 75px;
 }
+
 .signButtonPosition {
   display: flex;
   position: absolute;
@@ -58,6 +64,7 @@ a {
   top: 0;
   padding: 75px;
 }
+
 .loginFormContainer {
   position: relative;
   background: white;
@@ -83,6 +90,7 @@ a {
   border: unset;
   box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
 }
+
 .loginTextPosi {
   display: flex;
   font-size: 50px;
@@ -106,6 +114,7 @@ a {
   border-color: #29abe2;
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
+
 .loginWhiteBtn {
   background: #ffffff;
   padding: 10px;
@@ -144,16 +153,19 @@ a {
   justify-content: space-around;
   width: 100%;
 }
+
 .checkboxContainer {
   display: flex;
   justify-content: space-between;
   width: 100%;
   align-items: center;
 }
+
 .checkbocPosi {
   display: flex;
   align-items: center;
 }
+
 .signUpBlueBtn {
   background: #2a3647;
   padding: 10px;
@@ -164,6 +176,7 @@ a {
   color: #ffffff;
   cursor: pointer;
 }
+
 .signUpBlueBtn:hover {
   transition: none;
   border-color: #29abe2;
@@ -237,10 +250,12 @@ a {
   padding-left: 30px !important;
   padding-right: 30px !important;
 }
+
 .forgotBtn:hover {
   background-color: #29abe2;
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
+
 .notUserTextPosi {
   display: flex;
   padding-right: 40px;
@@ -292,9 +307,11 @@ a {
   z-index: 1;
   background: #3079b952;
 }
+
 .passwordChangePopupIMG {
   height: 55px;
 }
+
 .sendEmailPopupIMG {
   height: 55px;
 }
@@ -363,15 +380,41 @@ input[type="text"] {
 .falseInput {
   border-color: #ff0000;
 }
+
 .rightInput {
   background-color: #e8f0fe;
 }
+
+
+.logoEntrance img {
+  position: absolute;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background: whitesmoke;
+}
+
+.disclaimerEntrance {
+  position: absolute;
+  z-index: 99;
+  padding: 0 240px;
+  bottom: 300px;
+}
+
+.disclaimerBtn{
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
 
 @keyframes slide-in-bottom {
   0% {
     transform: translateY(1000px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;

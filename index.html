@@ -12,11 +12,30 @@
     <script src="../js/login.js"></script>
     <script src="../js/mini_backend.js"></script>
     <script src="script.js"></script>
-   
+
 
 </head>
 
 <body onload="loadUsers()">
+    <div class="logoEntrance">
+        <img src="assets/img/entranceLogo.svg">
+
+        <div>
+            <div class="disclaimerEntrance">
+                <b>Attention!</b><br>
+                Please do not use real credentials to log in to this site. This site was created
+                for educational and training purposes and the security of the data cannot be fully guaranteed. There is
+                a
+                possibility that third parties can access this data. Please also note that all data stored on this site
+                can
+                only be deleted manually by the administrators. For more information, please see our legal notice.
+                <div class="disclaimerBtn" >
+                    <button>Join!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="loginLogoAndSignUp">
         <div class="logoLogin">
             <a href="index.html">
@@ -41,7 +60,8 @@
                 </div>
                 <input class="inputEmail" type="" id="email" placeholder="Email" required>
                 <div class="relative">
-                    <input onfocus="showEye()" onblur="showLock()" type="password" id="password" placeholder="Password" required>
+                    <input onfocus="showEye()" onblur="showLock()" type="password" id="password" placeholder="Password"
+                        required>
                     <input onclick="showPassword()" type="checkbox" class="showPassword">
                 </div>
                 <div id="msgBox"></div>

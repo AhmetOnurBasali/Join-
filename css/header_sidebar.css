@@ -207,3 +207,13 @@ body {
 .focusSidebar{
    background-color:  #091931;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 0px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #2a3647;
+    border-radius: 10px;
+  }

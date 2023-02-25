@@ -714,15 +714,6 @@ textarea {
   }
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  border-radius: 0px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #2a3647;
-  border-radius: 10px;
-}
 
 input[type="date" i]::-webkit-calendar-picker-indicator {
   width: 20px;
