@@ -325,7 +325,10 @@ function addTaskHTML() {
     </div>
       <div class="addTaskBtns">
         <div class="paddLeRe40px" id="close-add-task">
-          <div class="whiteBtn" onclick="clearTask()">Clear<img src="../assets/img/clear.svg"></div>
+          <div class="whiteBtn" onclick="clearTask()">Clear
+            <svg  width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="clearSvg" d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg></div>
         </div>
           <div>
             <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>

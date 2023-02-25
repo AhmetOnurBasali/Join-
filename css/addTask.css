@@ -515,6 +515,10 @@ textarea {
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
 }
 
+.whiteBtn:hover .clearSvg {
+  stroke: #29abe2;
+}
+
 .colorCategoryContainer {
   display: flex;
   justify-content: space-between;
