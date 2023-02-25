@@ -14,7 +14,7 @@
   <script src="../script.js"></script>
 </head>
 
-<body onload="loadUsers()">
+<body onload="loadUsers(), test()">
   <div class="loginMainContainer">
     <div class="signUpLogo">
       <a href="signUp.html">
@@ -41,6 +41,27 @@
         <button class="signUpBlueBtn">Sign up</button>
       </form>
     </div>
+    <div id="disclaimerConatiner" class="d-none">
+      <div class="disclaimerEntrance">
+          <p>
+              <b>Attention!</b><br>
+              Please do not use real credentials to log in to this site. This site was created
+              for educational and training purposes and the security of the data cannot be fully guaranteed. There
+              is
+              a
+              possibility that third parties can access this data. Please also note that all data stored on this
+              site
+              can
+              only be deleted manually by the administrators. For more information, please see our legal notice.
+          </p>
+          <div class="disclaimerBtnContainer">
+              <div>dont show me again !
+                  <input type="checkbox" id="disclaimerCheck">
+              </div>
+              <button onclick="understoodDisclaimer()" class="signUpBlueBtn">Understood!</button>
+          </div>
+      </div>
+  </div>
   </div>
 
   <script>

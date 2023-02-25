@@ -1,30 +1,29 @@
 let previousID = null;
 
-if (window.location.pathname === window.location.pathname) {
+function setFocusSide() {
     let sectionPathname = window.location.pathname;
     let sections = sectionPathname.split('/');
     let sectionName = sections[sections.length - 1].replace('.html', '');
     if (sectionName === "summary") {
         setTimeout(() => {
             setFocus("summary", "Side")
-        }, 100);
+        }, 50);
     }
     if (sectionName === "board") {
-        setTimeout(() => {
-            setFocus("board", "Side")
-        }, 100);
+      setFocus("board", "Side")  
     }
     if (sectionName === "addTask") {
         setTimeout(() => {
             setFocus("addTask", "Side")
-        }, 100);
+        }, 50);
     }
     if (sectionName === "contacts") {
         setTimeout(() => {
             setFocus("contacts", "Side")
-        }, 100);
+        }, 50);
     }
 }
+
 
 
 function setFocus(id, selectedID) {
@@ -48,3 +47,23 @@ function setFocus(id, selectedID) {
         previousID = selectedID;
     }
 }
+
+
+function openLogout() {
+    let logoutContainer = document.getElementById('logoutDiv')
+    logoutContainer.classList.toggle('d-none')
+  }
+  
+  
+  function logout() {
+    currentUser = ""
+    localStorage.removeItem("currentUser")
+    window.location.href = "/index.html?msg=Your Logout was successful";
+  }
+
+
+  function getInitialForHeader() {
+    let initialLetters = currentUser.initialLetters
+    let color = currentUser.color
+    currentUserInitials.innerHTML = `<div onclick="openLogout()" style="background:${color}"  >${initialLetters}</div>`
+  }
