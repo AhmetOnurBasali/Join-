@@ -1,6 +1,7 @@
 let previousID = null;
 
-function setFocusSide() {
+
+function setSideBarFocus() {
     let sectionPathname = window.location.pathname;
     let sections = sectionPathname.split('/');
     let sectionName = sections[sections.length - 1].replace('.html', '');
@@ -10,7 +11,7 @@ function setFocusSide() {
         }, 50);
     }
     if (sectionName === "board") {
-      setFocus("board", "Side")  
+        setFocus("board", "Side")
     }
     if (sectionName === "addTask") {
         setTimeout(() => {
@@ -25,15 +26,35 @@ function setFocusSide() {
 }
 
 
-
 function setFocus(id, selectedID) {
     if (id !== 'contactContainer') {
-        document.getElementById(`${id}${selectedID}`).focus();
-        document.getElementById(`${id}${selectedID}`).classList.add("focusSidebar");
-    } if (id == 'contactBubble') {
+        setFocusSideSection(id, selectedID)
+    }
+    setFocusBubbleContact(selectedID)
+    setFocusContactContainer(id, selectedID)
+    if (!isNaN(selectedID)) {
+        previousID = selectedID;
+    }
+}
+
+
+function setFocusSideSection(id, selectedID) {
+    document.getElementById(`${id}${selectedID}`).focus();
+    document.getElementById(`${id}${selectedID}`).classList.add("focusSidebar");
+}
+
+
+function setFocusBubbleContact(selectedID) {
+    try {
         document.getElementById(`contactBubble${selectedID}`).focus();
         document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
+    } catch (error) {
+        console.log("no Contact Bubble");
     }
+}
+
+
+function setFocusContactContainer(id, selectedID) {
     document.getElementById(`${id}${selectedID}`).focus();
     document.getElementById(`${id}${selectedID}`).classList.add("focusContact");
     document.getElementById(`${id}${selectedID}`).classList.remove("contactContainerhover");
@@ -43,27 +64,24 @@ function setFocus(id, selectedID) {
         document.getElementById(`contactBubble${previousID}`).classList.remove("contactsBubbleBorder");
         document.getElementById(`${id}${selectedID}`).classList.remove("focusSidebar");
     }
-    if (!isNaN(selectedID)) {
-        previousID = selectedID;
-    }
 }
 
 
 function openLogout() {
     let logoutContainer = document.getElementById('logoutDiv')
     logoutContainer.classList.toggle('d-none')
-  }
-  
-  
-  function logout() {
+}
+
+
+function logout() {
     currentUser = ""
     localStorage.removeItem("currentUser")
     window.location.href = "/index.html?msg=Your Logout was successful";
-  }
+}
 
 
-  function getInitialForHeader() {
+function getInitialForHeader() {
     let initialLetters = currentUser.initialLetters
     let color = currentUser.color
     currentUserInitials.innerHTML = `<div onclick="openLogout()" style="background:${color}"  >${initialLetters}</div>`
-  }
+}

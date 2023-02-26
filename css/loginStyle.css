@@ -13,6 +13,11 @@ a {
   display: none !important;
 }
 
+.falseDisclaimer {
+  font-size: 12px;
+  color: red;
+}
+
 .loginMainContainer {
   display: flex;
   height: 100vh;
@@ -389,7 +394,7 @@ input[type="text"] {
   background-color: #e8f0fe;
 }
 
-.logoEntrance{
+.logoEntrance {
   background: whitesmoke;
   top: 0;
   bottom: 0;
@@ -445,7 +450,7 @@ input[type="text"] {
   }
 }
 
-.title-bg-hide{
+.title-bg-hide {
   animation: title-bg-hide 2s;
 }
 
@@ -461,6 +466,7 @@ input[type="text"] {
     background-color: rgba(245, 245, 245, 0);
   }
 }
+
 .disclaimerEntrance {
   /* position: absolute; */
   z-index: 99;

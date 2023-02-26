@@ -26,15 +26,12 @@
         async function initContacts() {
             await initTemplates();
             await loadCurrentUser();
+            getInitialForHeader()
             await loadContactsData()
             await loadTasks();
             await loadUsers();
-            getInitialForHeader()
-            setFocusSide()
+            setSideBarFocus();
         }
-        // if () {
-        //     console.log("test");
-        // }
     </script>
 </head>
 

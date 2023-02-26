@@ -84,7 +84,7 @@ function sidebarHTML() {
       <div>
           <div id="summarySide" class="sidebarsections">
             <a class="aSide" onclick="loadSummary()" href="../html/summary.html">
-            <div>
+            <div style="display: flex;">
               <img class="link-img" src="../assets/img/summaryIcon.svg">
             </div>
             <div>Summary</div>
