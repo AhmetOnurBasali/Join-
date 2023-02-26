@@ -29,7 +29,6 @@ async function createNewTask(event) {
   if (proof === true) {
     setTaskData(newTask);
   }
-
 }
 
 
@@ -74,12 +73,12 @@ function getTaskData() {
 
 function taskProofSection(newTask) {
   let data = proofTaskData(newTask);
-  let title = proofTitle(newTask);
-  let description = proofDescription(newTask);
-  let category = proofCategory(newTask);
-  let assigned = proofAssigned(newTask);
-  let date = proofDate(newTask);
-  let prio = proofPrio(newTask);
+  let title = proofTitle(newTask,"Task");
+  let description = proofDescription(newTask,"Task");
+  let category = proofCategory(newTask,"Task");
+  let assigned = proofAssigned(newTask,"Task");
+  let date = proofDate(newTask,"Task");
+  let prio = proofPrio(newTask,"Task");
   let subtask = true;
   if (checkProofOf(data, title, description, category, assigned, date, prio, subtask) === true) {
     return true;
@@ -140,7 +139,7 @@ function proofCategory(newTask, Edit) {
 
 function proofAssigned() {
   if (selectedContacts.length === 0) {
-    let msgBox = document.getElementById("msgBoxAssigned");
+    let msgBox = document.getElementById("msgBoxAssignedTask");
     showRequiredText(msgBox);
     return false;
   }
@@ -592,11 +591,15 @@ function assignedToBlockShiftOut(inputID) {
 function renderOpenAssignedTo(showContactsID, contactInitialsID) {
   let contacts = document.getElementById(showContactsID);
   contacts.innerHTML = "";
+  let idHash = {}; 
   for (let i = 0; i < users.length; i++) {
     checked = false;
     let assignedData = getAssignedContacts(i);
     filterRenderBubble(assignedData, contactInitialsID);
-    contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID);
+    if (!idHash[users[i]['id']]) { 
+      contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID);
+      idHash[users[i]['id']] = true; 
+    }
   }
 }
 
@@ -723,13 +726,13 @@ function clearTask() {
   closeNewSubtask();
   acceptNewSubtask();
   clearDataAndInputs();
-  renderSelectContact();
-  renderOpenAssignedTo();
+  let bubbles = document.getElementById('contactInitials')
+  bubbles.innerHTML = ""
   if (slideCategory == true) {
     openCategory();
   }
   if (slideAssignTo == true) {
-    openAssignedTo();
+      contactDiv.click();
   }
 }
 

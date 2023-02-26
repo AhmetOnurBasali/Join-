@@ -70,6 +70,9 @@ body {
     border: 3px solid #2A3647;
 }
 
+.log-in-img:hover {
+    border: 3px solid #29abe2;
+}
 
 .help-img {
     border-radius: 100%;
@@ -80,8 +83,15 @@ body {
     justify-content: center;
 }
 
+.help-img:hover {
+    width: 29px;
+    height: 29px;
+}
+
 
 .Sidebar {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     width: 232px;
     left: 0px;
@@ -112,6 +122,9 @@ body {
     height: 40px;
 }
 
+.aSide:hover {
+    font-size: 17px;
+}
 
 .link-img {
     margin-left: 54px;
@@ -120,31 +133,15 @@ body {
 
 
 .notice-parent {
-    height: calc(100% - 572px);
     display: flex;
     justify-content: center;
-    align-items: flex-end;
 }
 
 
 .notice {
-    margin-bottom: 126px;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
+    margin-top: 126px;
     color: #FFFFFF;
-    font-size: 16px;
-    font-style: normal;
     display: flex;
-}
-
-
-.notice-img {
-    padding-right: 26px;
 }
 
 
@@ -181,42 +178,53 @@ body {
 
 }
 
-.logout {
-    background: #2A3647;
-    color: white;
-    position: absolute;
-    right: 0;
-    bottom: -79px;
-    padding: 10px;
-    border-radius: 20px 0px 20px 20px;
+.popupSection {
+    padding: 0 10px;
     width: 130px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.popupSection:hover {
+    color: #29abe2;
+}
+
+.popupSections {
+    display: flex;
+    position: absolute;
+    gap: 3px;
+    flex-direction: column;
+    background: #2A3647;
+    color: white;
+    right: 0;
+    top: 65px;
+    border-radius: 20px 0px 20px 20px;
     box-shadow: 0px 0px 4px rgb(0 0 0 / 10%);
 }
 
-
-.legalNotice{
+.legalNotice {
     display: flex;
     align-items: center;
     color: white;
     text-decoration: none;
+    gap: 2px;
 }
 
-.sidebarsections{
+.legalNotice:hover {
+    font-size: 15px;
 }
 
-.focusSidebar{
-   background-color:  #091931;
+.focusSidebar {
+    background-color: #091931;
 }
 
 ::-webkit-scrollbar {
     width: 10px;
     border-radius: 0px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
+}
+
+::-webkit-scrollbar-thumb {
     background-color: #2a3647;
     border-radius: 10px;
-  }
+}

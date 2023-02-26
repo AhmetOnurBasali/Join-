@@ -35,7 +35,7 @@ function addTaskCloseTopRightHTML(){
   return`
   <div class="headline-addTask">
   <h1>Add Task</h1>
-  <img onclick="closeAddTaskBoard()" src="../assets/img/clear.svg" alt="">
+  <img onclick="closeAddTaskBoard(), clearTask()" src="../assets/img/clear.svg" alt="">
   </div>
   `;
 }
@@ -62,8 +62,9 @@ function headerHTML() {
               Initials
             </div>
           </div>
-          <div id="logoutDiv" class="d-none">
-            <p  class="logout" onclick="logout()">Log out</p>
+          <div id="headerPopupDiv" class="d-none popupSections">
+            <p class="popupSection" onclick="logout()">Log out</p>
+            <p class="popupSection" onclick="goToEdit()">Edit User</p>
           </div>
       </div>
   </div>
@@ -77,7 +78,7 @@ function sidebarHTML() {
   <div class="Sidebar">
   <div>
       <div class="Parent-Logo">
-          <a href="">
+          <a href="../html/summary.html">
             <img src="../assets/img/sideLogo.svg">
           </a>
       </div>
@@ -119,7 +120,7 @@ function sidebarHTML() {
   <div class="notice-parent">
       <div class="notice">
         <a class="legalNotice" href="../html/legal.html"> 
-          <img class="notice-img" src="../assets/img/legalIcon.svg">
+          <img src="../assets/img/legalIcon.svg">
           <span>Legal Notice</span>
         </a>
       </div>
@@ -143,19 +144,19 @@ function addTaskHTML() {
         <div class="leftSection">
           <div class="inputContainer" title="Please enter a title">
             <b class="padd4px">Title</b> 
-            <input id="title" type="text" oninput="proofInput('msgBoxTitle')" >
+            <input id="title" type="text" oninput="proofInput('msgBoxTitleTask')" >
             <div class="transparentDiv">
-              <div class="requiredText" id="msgBoxTitle"></div>
+              <div class="requiredText" id="msgBoxTitleTask"></div>
             </div>  
           </div>
           <div class="inputContainer" title="Please enter a description">
             <b class="padd4px">Description</b>
-            <textarea oninput="proofInput('msgBoxDescription')" id="description" type="text"></textarea>
+            <textarea oninput="proofInput('msgBoxDescriptionTask')" id="description" type="text"></textarea>
             <div class="transparentDiv">
-              <div class="requiredText" id="msgBoxDescription"></div>  
+              <div class="requiredText" id="msgBoxDescriptionTask"></div>  
             </div>
           </div>
-          <div onclick="proofInput('msgBoxCategory')" id="openCategoryContainer" class="inputContainer">
+          <div onclick="proofInput('msgBoxCategoryTask')" id="openCategoryContainer" class="inputContainer">
             <span class="padd4px">
               <b>Category</b>
             </span>
@@ -171,7 +172,7 @@ function addTaskHTML() {
                   <span id="allCategorys" class="overflow"></span> 
                 </div>
             <div class="transparentDiv">
-              <div class="requiredText" id="msgBoxCategory"></div>  
+              <div class="requiredText" id="msgBoxCategoryTask"></div>  
             </div>
           </div>
           <div class="d-none" id="createCategoryContainer">
@@ -201,7 +202,7 @@ function addTaskHTML() {
               <div onclick="setColor('Blue')" id="categoryBlue" class="colorCategoryBlue"></div>
             </div>
           </div>
-          <div  onclick="proofInput('msgBoxAssigned')" class="inputContainer" id="inputContainer">
+          <div  onclick="proofInput('msgBoxAssignedTask')" class="inputContainer" id="inputContainer">
             <b class="padd4px">Assigned to</b> 
             <div onclick="openAssignedTo('arrayAssigned', 'contactDiv', 'contactList', 'contacts', 'contactInitials')" id="contactDiv" class="openCategoryContainer" title="Please choose a contact">Select contact to assign 
               <svg id="arrayAssigned" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -213,20 +214,20 @@ function addTaskHTML() {
                 <div id="selectedContact" class="newCategoryDiv"></div>
               </div>
               <div class="transparentDiv">
-                <div class="requiredText" id="msgBoxAssigned"></div>
+                <div class="requiredText" id="msgBoxAssignedTask"></div>
               </div>
             </div>
             <div style="display:flex;" id="contactInitials"></div>
           </div>
         <div class="rightSection">
-          <div onclick="proofInput('msgBoxDate')" class="inputContainer">
+          <div onclick="proofInput('msgBoxDateTask')" class="inputContainer">
             <b class="padd4px">Due date</b> 
             <input id="date" type="date" min="${dateTodayISO()}" title="Please choose a due date">
             <div class="transparentDiv">
-              <div class="requiredText" id="msgBoxDate"></div>
+              <div class="requiredText" id="msgBoxDateTask"></div>
             </div>
           </div>
-          <div onclick="proofInput('msgBoxPrio')" class="prio">
+          <div onclick="proofInput('msgBoxPrioTask')" class="prio">
             <b class="padd4px">Prio</b>
             <div style="display: flex; justify-content: space-between;">
               <div id="highBtnContainer" class="checkboxContainer">
@@ -255,12 +256,12 @@ function addTaskHTML() {
               </div><!--required Problem-->
           </div>
           <div class="transparentDiv">
-            <div class="requiredText" id="msgBoxPrio"></div>
+            <div class="requiredText" id="msgBoxPrioTask"></div>
           </div>
         </div>
         <div class="inputContainer">
           <b class="padd4px">Subtasks</b> 
-          <div oninput="proofInput('msgBoxSubtask')" class="inputContainer">
+          <div oninput="proofInput('msgBoxSubtaskTask')" class="inputContainer">
             <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text" maxlength="20">
             <div id="subtaskInputBtnsContainer" class="subtaskInputBtnsContainer d-none">
               <div onclick="closeNewSubtask()" class="closeNewSubtask">
@@ -276,7 +277,7 @@ function addTaskHTML() {
             </div>
           </div>
           <div class="transparentDiv">
-            <div class="requiredText" id="msgBoxSubtask"></div>
+            <div class="requiredText" id="msgBoxSubtaskTask"></div>
           </div>
           <div class="subtaskCheckboxArea overflow" id="subtaskCheckboxArea"></div>
         </div>

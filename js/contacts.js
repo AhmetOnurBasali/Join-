@@ -79,6 +79,9 @@ function closeEditContact() {
 function createTaskFromContacts(area, selectedID) {
   addTaskBoard(area);
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
+  if (contact.contactID == 0) {
+    return
+  }
   users.push(contact);
   console.log(users);
 }
@@ -120,7 +123,7 @@ async function setNewContact(newContact) {
   await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
   slideOutAnimation('addContact', 'addContactPopup');
   setTimeout(() => {
-    location.reload();
+    window.location.href = `contacts.html`;
   }, 750);
   
 }
@@ -213,7 +216,7 @@ async function saveEdit(event) {
   currentUserContacts[id]["initialLetters"] = nameInitials;
   if (proofEditName() === true && proofEditEmail() === true && phoneEdit.length > 5 && phoneEdit.length < 16) {
     await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
-    location.reload();
+    window.location.href = `contacts.html`;
   }
 }
 
@@ -357,4 +360,5 @@ function clearContactsInputs() {
   email.value = "";
   let phone = document.getElementById("phone");
   phone.value = "";
+  closeAddNewContact()
 }

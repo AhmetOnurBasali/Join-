@@ -58,8 +58,12 @@ function loadParms() {
       passwordInput.value = ""
       passwordInput.placeholder = "Ups! Try again"
     }, 100);
-  } else {
-      document.getElementById('msgBox2').classList.add('d-none')
+  } else try {
+    document.getElementById('msgBox2').classList.add('d-none')
+  } catch (error) {
+    console.log("no prams");
+  } {
+
   }
 }
 
@@ -289,8 +293,8 @@ function addUserEmail() {
 
 function lsRememberMe() {
   const rmCheck = document.getElementById("rememberMe"),
-  emailInput = document.getElementById("email");
-passwordInput = document.getElementById("password");
+    emailInput = document.getElementById("email");
+  passwordInput = document.getElementById("password");
   if (rmCheck.checked && emailInput.value && passwordInput.value !== "") {
     localStorage.email = emailInput.value;
     localStorage.password = passwordInput.value;
