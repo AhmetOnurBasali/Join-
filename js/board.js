@@ -15,7 +15,11 @@ async function initBoard() {
     await initTemplates();
     renderBoard();
     getInitialForHeader();
+<<<<<<< HEAD
     setFocusSide();
+=======
+    setSideBarFocus();
+>>>>>>> c179a3f97ec8ea84cb9b73954c503a0fe66c900b
 }
 /**
  * 

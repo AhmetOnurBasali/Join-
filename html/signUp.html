@@ -14,7 +14,7 @@
   <script src="../script.js"></script>
 </head>
 
-<body onload="loadUsers(), test()">
+<body onload="loadParms(), loadUsers(), proofDisclaimerAgain()">
   <div class="loginMainContainer">
     <div class="signUpLogo">
       <a href="signUp.html">
@@ -43,37 +43,29 @@
     </div>
     <div id="disclaimerConatiner" class="d-none">
       <div class="disclaimerEntrance">
-          <p>
-              <b>Attention!</b><br>
-              Please do not use real credentials to log in to this site. This site was created
-              for educational and training purposes and the security of the data cannot be fully guaranteed. There
-              is
-              a
-              possibility that third parties can access this data. Please also note that all data stored on this
-              site
-              can
-              only be deleted manually by the administrators. For more information, please see our legal notice.
-          </p>
-          <div class="disclaimerBtnContainer">
-              <div>dont show me again !
-                  <input type="checkbox" id="disclaimerCheck">
-              </div>
-              <button onclick="understoodDisclaimer()" class="signUpBlueBtn">Understood!</button>
+        <p>
+          <b>Attention!</b><br>
+          Please do not use real credentials to log in to this site. This site was created
+          for educational and training purposes and the security of the data cannot be fully guaranteed. There
+          is
+          a
+          possibility that third parties can access this data. Please also note that all data stored on this
+          site
+          can
+          only be deleted manually by the administrators. For more information, please see our legal notice.
+        </p>
+        <div class="disclaimerBtnContainer">
+          <div>dont show me again !
+            <input type="checkbox" id="disclaimerCheck">
           </div>
+          <div>
+            <button onclick="understoodDisclaimer()" class="signUpBlueBtn">Understood!</button>
+            <div class="falseDisclaimer d-none" id="msgBoxUnderstood">Please understood!</div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-  </div>
-
-  <script>
-    const urlParams = new URLSearchParams(window.location.search)
-    const msg = urlParams.get('msg')
-    if (msg) {
-      msgBox.innerHTML = msg;
-    } else {
-      document.getElementById('msgBox').classList.add('d-none')
-    }
-  </script>
-
 </body>
 
 </html>

@@ -15,13 +15,13 @@
 
 </head>
 
-<body onload="loadUsers(),animateImage()">
+<body onload="loadParms(), loadUsers(), animateImage(), initLocalLogin()">
     <div class="logoEntrance" id="joinEntranceBg">
         <img id="joinEntrance" src="assets/img/entranceLogo.svg">
     </div>
 
     <div class="loginLogoAndSignUp">
-        <div class="logoLogin">
+        <div id="loginLogo" class="logoLogin">
             <a href="index.html">
                 <img class="logoSize" src="../assets/img/logo.svg">
             </a>
@@ -44,8 +44,7 @@
                 </div>
                 <input class="inputEmail" type="" id="email" placeholder="Email" required>
                 <div class="relative">
-                    <input onfocus="showEye()" onblur="showLock()" type="password" id="password" placeholder="Password"
-                        required>
+                    <input onfocus="showEye()" onblur="showLock()" type="password" id="password" placeholder="Password" required>
                     <input onclick="showPassword()" type="checkbox" class="showPassword">
                 </div>
                 <div id="msgBox"></div>
@@ -66,55 +65,10 @@
                     <button class="loginWhiteBtn" onclick="loginAsGuest()">
                         <b>Guest Log in</b>
                     </button>
-                    <!--Wird wahrscheinlich probleme geben wegen form-->
                 </div>
             </form>
         </div>
     </div>
-
-    <script>
-        const rmCheck = document.getElementById("rememberMe"),
-            emailInput = document.getElementById("email");
-        passwordInput = document.getElementById("password");
-
-        if (localStorage.checkbox && localStorage.checkbox && localStorage.checkbox !== "") {
-            rmCheck.setAttribute("checked", "checked");
-            emailInput.value = localStorage.email;
-            passwordInput.value = localStorage.password;
-        } else {
-            rmCheck.removeAttribute("checked");
-            emailInput.value = "";
-            passwordInput.value = "";
-        }
-
-
-        const urlParams = new URLSearchParams(window.location.search)
-        const msg = urlParams.get('msg')
-        if (msg) {
-            msgBox.innerHTML = msg;
-        } else {
-            document.getElementById('msgBox').classList.add('d-none')
-        }
-
-
-        const urlParams2 = new URLSearchParams(window.location.search)
-        const msg2 = urlParams2.get('msg2')
-        if (msg2) {
-            msgBox2.innerHTML = msg2;
-            passwordInput.value = ""
-            passwordInput.placeholder = "Ups! Try again"
-        } else {
-            document.getElementById('msgBox2').classList.add('d-none')
-        }
-
-        if (localStorage.getItem('dontShowAgain') === 'true') {
-            let text = document.getElementById('disclaimerConatiner');
-            text.classList.add('d-none');
-        }
-
-
-    </script>
-
 </body>
 
 </html>

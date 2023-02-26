@@ -1,19 +1,21 @@
 let disclaimerShowAgain = true
-let seeShowAgain = true
+let disclaimerUnderstood = false
 
 
 function understoodDisclaimer() {
   let checkbox = document.getElementById('disclaimerCheck').checked
   if (checkbox == true) {
     disclaimerShowAgain = false
-    localStorage.setItem('dontShowAgain', true)
+    localStorage.setItem('disclaimerUnderstood', true)
+    localStorage.setItem('dontShowAgain', false)
   }
+  disclaimerUnderstood = true
   let text = document.getElementById('disclaimerConatiner')
   text.classList.add('d-none')
 }
 
-
 function animateImage() {
+  loginLogo.classList.add('d-none')
   let img = document.getElementById('joinEntrance');
   img.classList.add('slide-out-tl');
   let bg = document.getElementById('joinEntranceBg');
@@ -21,19 +23,85 @@ function animateImage() {
   setTimeout(() => {
     img.classList.add('d-none');
     bg.classList.add('d-none');
+    loginLogo.classList.remove('d-none')
   }, 1900);
 }
 
+function proofDisclaimer() {
+  let storage = localStorage.getItem('dontShowAgain')
+  if (storage === "false") {
+    return true
+  }
+  if (disclaimerUnderstood == false) {
+    let falseInputText = document.getElementById('msgBoxUnderstood')
+    falseInputText.classList.remove('d-none')
+    return false
+  } else {
+    return true
+  }
+}
 
-async function test() {
+function loadParms() {
+  const urlParams = new URLSearchParams(window.location.search)
+  const msg = urlParams.get('msg')
+  if (msg) {
+    msgBox.innerHTML = msg;
+  } else {
+    document.getElementById('msgBox').classList.add('d-none')
+  }
+  const urlParams2 = new URLSearchParams(window.location.search)
+  const msg2 = urlParams2.get('msg2')
+  if (msg2) {
+    setTimeout(() => {
+      passwordInput = document.getElementById("password");
+      msgBox2.innerHTML = msg2;
+      passwordInput.value = ""
+      passwordInput.placeholder = "Ups! Try again"
+    }, 100);
+  } else {
+      document.getElementById('msgBox2').classList.add('d-none')
+  }
+}
+
+async function proofDisclaimerAgain() {
   let dontShow = localStorage.getItem("dontShowAgain");
-  if (dontShow === "true") {
+  if (dontShow === "false") {
     let text = document.getElementById('disclaimerConatiner')
     text.classList.add('d-none')
   }
   if (!dontShow) {
     let text = document.getElementById('disclaimerConatiner')
     text.classList.remove('d-none')
+  }
+}
+
+
+function initLocalLogin() {
+  loadLocalDisclaimer()
+  loadLocalRememberUser()
+}
+
+
+function loadLocalRememberUser() {
+  const rmCheck = document.getElementById("rememberMe"),
+    emailInput = document.getElementById("email");
+  passwordInput = document.getElementById("password");
+  if (localStorage.checkbox && localStorage.checkbox && localStorage.checkbox !== "") {
+    rmCheck.setAttribute("checked", "checked");
+    emailInput.value = localStorage.email;
+    passwordInput.value = localStorage.password;
+  } else {
+    rmCheck.removeAttribute("checked");
+    emailInput.value = "";
+    passwordInput.value = "";
+  }
+}
+
+
+function loadLocalDisclaimer() {
+  if (localStorage.getItem('dontShowAgain') === 'true') {
+    let text = document.getElementById('disclaimerConatiner');
+    text.classList.add('d-none');
   }
 }
 
@@ -75,15 +143,14 @@ async function addUser() {
   let newEmail = addUserEmail();
   let newInitialLetters = getInitialLetters(newName)
   let newPassword = document.getElementById("password");
-  let disclaimer = localStorage.getItem()
-  console.log();
-  if (newEmail && proofName() === true) {
+  if (newEmail && proofName() === true && proofDisclaimer() == true) {
     await setNewUser(newName, newColor, newEmail, newPassword, newInitialLetters);
   } else {
     console.log();
     ("Überprüfe deine Angaben"); //TODO: vielleicht als text untern dem jeweiligen input
   }
 }
+
 
 function getInitialLetters(newName) {
   let initialFirstName = newName.split(" ")[0][0];
@@ -221,6 +288,9 @@ function addUserEmail() {
 }
 
 function lsRememberMe() {
+  const rmCheck = document.getElementById("rememberMe"),
+  emailInput = document.getElementById("email");
+passwordInput = document.getElementById("password");
   if (rmCheck.checked && emailInput.value && passwordInput.value !== "") {
     localStorage.email = emailInput.value;
     localStorage.password = passwordInput.value;

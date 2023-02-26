@@ -6,8 +6,8 @@ async function initSummary() {
   showGreetingDayTime();
   showGreetingUser();
   loadTasksLength();
-  getInitialForHeader()
-  setFocusSide()
+  getInitialForHeader();
+  setSideBarFocus();
 }
 
 
