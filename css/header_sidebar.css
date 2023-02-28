@@ -238,7 +238,9 @@ body {
 
 
 
-@media (min-width: 1000px) {
+
+
+@media (min-width: 1000.1px) {
     .only-mobile {
         display: none;
     }
@@ -257,6 +259,11 @@ body {
     }
 
     .mobile-logo{
+       display: flex;
+       align-items: center;
+    }
+
+    .mobile-logo img{
         object-fit: contain;
         width: 24px;
     }
@@ -264,6 +271,8 @@ body {
     .popupSections {
         top: 60px;
     }
+
+
 
      
 

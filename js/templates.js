@@ -47,7 +47,9 @@ function headerHTML() {
     <span class="header-headline mobile-d-none">
       Kanban Project Management Tool
     </span>
-    <img class="mobile-logo" src="../assets/img/logo.svg">
+    <a class="mobile-logo" href="../html/summary.html">
+      <img class=" only-mobile" src="../assets/img/logo.svg">
+    </a>
   <div class="help-log-parent">
         <a class="help-img mobile-d-none" href="../html/help.html">
           <img src="../assets/img/infoIcon.svg">
