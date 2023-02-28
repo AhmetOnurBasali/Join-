@@ -311,7 +311,6 @@ h2 {
     .tasks-priority:hover {
         height: 150px;
         width: 470px;
-        transition: 175ms ease-in-out;
     }
 
     .tasks-text {
@@ -349,9 +348,136 @@ h2 {
         font-size: 32px;
     }
 
-    
+
 }
 
 @media (max-width: 1000px) {
-    
+    body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+    .summary {
+        position: inherit;
+        top: unset;
+        left: unset;
+        margin: 120px 0px 0px 0px;
+    }
+
+    .headline{
+        display: block;
+    }
+
+    h2{
+        border-left: none;
+        padding-left: unset;
+    }
+
+    .parting-line{
+        width: 80px;
+        border-bottom: 3px solid #29ABE2;
+        margin-top: 20px;
+        border-radius: 30px;
+    }
+
+    .tasks-max-size {
+        width: 380px;
+        height: 380px;
+    }
+
+    .tasks-position div {
+        height: 110px;
+        width: 110px;
+    }
+
+    .tasks-position div:hover {
+        height: 120px;
+        width: 120px;
+    }
+
+    .tasks-value {
+        font-size: 38px;
+    }
+
+    .tasks-description {
+        font-size: 16px;
+        padding: 0px 15px;
+    }
+
+    .tasks-position {
+        gap: 15px;
+    }
+
+    .tasks-priority {
+        height: 110px;
+        width: 360px;
+        margin-top: 15px;
+    }
+
+    .tasks-priority:hover {
+        height: 120px;
+        width: 370px;
+    }
+
+    .tasks-priority img {
+        width: 48px;
+        height: 48px;
+        margin-right: 20px;
+        margin-left: 30px;
+    }
+
+    .tasks-deadline {
+        margin: 25px 15px;
+        padding-left: 30px;
+        gap: 10px;
+    }
+
+
+    .task-todo-done {
+        width: calc(370px / 2 - 12px);
+    }
+
+    .tasks-todo-done {
+        height: 110px;
+        margin-top: 15px;
+        gap: 15px;
+    }
+
+    .task-todo-done:hover {
+        width: calc(380px / 2);
+        height: 120px;
+    }
+
+    .todo-done-img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .pencil{
+        height: 28px !important;
+        width: 28px !important;
+    }
+
+    .todo-done-img svg {
+        height: 28px !important;
+        width: 28px !important;
+
+    }
+
+    .welcome {
+        margin-left: 25px;
+    }
+
+    .greeting {
+        font-size: 20px;
+    }
+
+    .greeting-username {
+        font-size: 32px;
+    }
+
+
+
 }
