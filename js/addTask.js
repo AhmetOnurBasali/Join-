@@ -73,12 +73,12 @@ function getTaskData() {
 
 function taskProofSection(newTask) {
   let data = proofTaskData(newTask);
-  let title = proofTitle(newTask,"Task");
-  let description = proofDescription(newTask,"Task");
-  let category = proofCategory(newTask,"Task");
-  let assigned = proofAssigned(newTask,"Task");
-  let date = proofDate(newTask,"Task");
-  let prio = proofPrio(newTask,"Task");
+  let title = proofTitle(newTask, "Task");
+  let description = proofDescription(newTask, "Task");
+  let category = proofCategory(newTask, "Task");
+  let assigned = proofAssigned(newTask, "Task");
+  let date = proofDate(newTask, "Task");
+  let prio = proofPrio(newTask, "Task");
   let subtask = true;
   if (checkProofOf(data, title, description, category, assigned, date, prio, subtask) === true) {
     return true;
@@ -362,7 +362,8 @@ function toggleOpenFunction() {
     slideOutCategory();
   } else {
     slideInCategory();
-      document.getElementById('category-anim').classList.add("d-none");
+    document.getElementById('category-anim').classList.add("d-none");
+
   }
 }
 
@@ -403,6 +404,7 @@ function closeNewCategory() {
   openCategorys.classList.remove("d-none");
   let createCategory = document.getElementById("createCategoryContainer");
   createCategory.classList.add("d-none");
+
 }
 
 
@@ -413,10 +415,8 @@ async function setNewCategory() {
   categoryContainer.classList.add("d-none");
   let openCategorys = document.getElementById("openCategoryContainer");
   openCategorys.classList.remove("d-none");
-  let newCategory = document.getElementById("newCategory");
-  newCategory.classList.add("d-none");
-  let allCategorys = document.getElementById("allCategorys");
-  allCategorys.classList.add("d-none");
+  document.getElementById('category-anim').classList.add("d-none");
+  document.getElementById('categoryIsOpen').classList.remove('noneBottomBorder');
   renderNewCategory();
 }
 
@@ -460,6 +460,7 @@ function indexOfCategory(taskCategory, taskColor) {
 
 function chooseCategory(category, color) {
   let arrayCategory = document.getElementById("arrayCategory");
+  document.getElementById('categoryIsOpen').classList.remove('noneBottomBorder');
   arrayCategory.classList.remove("rotateIcon");
   let selectedCategory = document.getElementById("selectedCategory");
   selectedCategory.innerHTML = chooseCategoryHTML(category, color);
@@ -475,10 +476,7 @@ function setOldCategory() {
   categoryContainer.classList.add("d-none");
   let openCategorys = document.getElementById("openCategoryContainer");
   openCategorys.classList.remove("d-none");
-  let newCategory = document.getElementById("newCategory");
-  newCategory.classList.add("d-none");
-  let allCategorys = document.getElementById("allCategorys");
-  allCategorys.classList.add("d-none");
+  document.getElementById('category-anim').classList.add("d-none");
 }
 
 
@@ -548,8 +546,8 @@ function slideInAssignedTo(hideBoarderID, expandContactsID) {
   if (hideBoarderID === 'contactDiv') {
     assignedToBlockShiftIn('inputContainer');
   }
-    
-  
+
+
 
 }
 
@@ -591,14 +589,14 @@ function assignedToBlockShiftOut(inputID) {
 function renderOpenAssignedTo(showContactsID, contactInitialsID) {
   let contacts = document.getElementById(showContactsID);
   contacts.innerHTML = "";
-  let idHash = {}; 
+  let idHash = {};
   for (let i = 0; i < users.length; i++) {
     checked = false;
     let assignedData = getAssignedContacts(i);
     filterRenderBubble(assignedData, contactInitialsID);
-    if (!idHash[users[i]['id']]) { 
+    if (!idHash[users[i]['id']]) {
       contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID);
-      idHash[users[i]['id']] = true; 
+      idHash[users[i]['id']] = true;
     }
   }
 }
@@ -732,7 +730,7 @@ function clearTask() {
     openCategory();
   }
   if (slideAssignTo == true) {
-      contactDiv.click();
+    contactDiv.click();
   }
 }
 

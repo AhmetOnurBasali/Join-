@@ -130,28 +130,28 @@ function loadTaskUpcomingDeadline() {
   try {
     prio = allTasks.filter((t) => t["prio"] == "urgent");
     countTo(prio.length, 'tasks-priority');
+
+
+    for (let i = 0; i < prio.length; i++) {
+      const taskDate = prio[i]['date'];
+
+
+      // Array mit Datumsangaben
+      tasksDate.push(taskDate);
+    }
+
+    // Array sortieren nach Differenz zum heutigen Datum
+    let sortedDates = tasksDate.sort(function (a, b) {
+      return dateDifference(a) - dateDifference(b);
+    });
+
+    // Ausgabe des dringendsten Tasks
+    sortedDatesConverted = sortedDates[0].split(/-/gi);
+    document.getElementById('tasks-date').innerHTML = convertNumberInMonth(sortedDatesConverted[1] - 1) + ' ' + sortedDatesConverted[2] + ', ' + sortedDatesConverted[0];
+
   } catch (error) {
     console.log('no urgent tasks');
   }
-
-  for (let i = 0; i < prio.length; i++) {
-    const taskDate = prio[i]['date'];
-
-
-    // Array mit Datumsangaben
-    tasksDate.push(taskDate);
-  }
-
-  // Array sortieren nach Differenz zum heutigen Datum
-  let sortedDates = tasksDate.sort(function (a, b) {
-    return dateDifference(a) - dateDifference(b);
-  });
-
-  // Ausgabe des dringendsten Tasks
-  sortedDatesConverted = sortedDates[0].split(/-/gi);
-
-
-  document.getElementById('tasks-date').innerHTML = convertNumberInMonth(sortedDatesConverted[1] - 1) + ' ' + sortedDatesConverted[2] + ', ' + sortedDatesConverted[0];
 }
 
 

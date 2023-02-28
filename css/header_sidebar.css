@@ -27,16 +27,13 @@ body {
 }
 
 
-.Parent-Kanban {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    min-width: 372px;
-}
-
-
-.Kanban {
+.header-headline {
     font-size: 21px;
+    margin-left: 232px;
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+    min-width: fit-content;
 }
 
 
@@ -89,7 +86,7 @@ body {
 }
 
 
-.Sidebar {
+.sidebar {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -104,10 +101,9 @@ body {
 }
 
 
-.Parent-Logo {
+.parent-logo {
     margin: 66px;
     margin-bottom: 112px;
-
 }
 
 .aSide {
@@ -178,30 +174,39 @@ body {
 
 }
 
+.popupSections {
+    display: flex;
+    position: absolute;
+    top: 65px;
+    right: 0;
+    gap: 15px;
+    flex-direction: column;
+    background: #2A3647;
+    color: white;
+    border-radius: 20px 0px 20px 20px;
+    box-shadow: 0px 0px 4px rgb(0 0 0 / 10%);
+    padding: 15px 0px
+}
+
 .popupSection {
-    padding: 0 10px;
-    width: 130px;
+    padding: 0 20px;
+    width: 110px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    margin-block-start: unset;
+    margin-block-end: unset;
 }
 
 .popupSection:hover {
     color: #29abe2;
 }
 
-.popupSections {
-    display: flex;
-    position: absolute;
-    gap: 3px;
-    flex-direction: column;
-    background: #2A3647;
+.popupSections a{
+    text-decoration: none;
     color: white;
-    right: 0;
-    top: 65px;
-    border-radius: 20px 0px 20px 20px;
-    box-shadow: 0px 0px 4px rgb(0 0 0 / 10%);
 }
+
+
 
 .legalNotice {
     display: flex;
@@ -227,4 +232,39 @@ body {
 ::-webkit-scrollbar-thumb {
     background-color: #2a3647;
     border-radius: 10px;
+}
+
+/* header-bottom */
+
+
+
+@media (min-width: 1000px) {
+    .only-mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px) {
+    .mobile-d-none {
+        display: none;
+    }
+
+    /* header-top */
+
+    .header{
+        height: 80px;
+        padding-left: 30px;
+    }
+
+    .mobile-logo{
+        object-fit: contain;
+        width: 24px;
+    }
+
+    .popupSections {
+        top: 60px;
+    }
+
+     
+
 }

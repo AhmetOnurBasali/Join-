@@ -26,13 +26,13 @@ async function initTemplates() {
 }
 
 
-function addTaskCloseTopRight(){
+function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
 }
 
 
-function addTaskCloseTopRightHTML(){
-  return`
+function addTaskCloseTopRightHTML() {
+  return `
   <div class="headline-addTask">
   <h1>Add Task</h1>
   <img onclick="closeAddTaskBoard(), clearTask()" src="../assets/img/clear.svg" alt="">
@@ -44,40 +44,37 @@ function addTaskCloseTopRightHTML(){
 function headerHTML() {
   return /*html*/ `
 <div class="header">
-  <div style="min-width: 232px;"></div>
-  <div class="Parent-Kanban">
-      <span class="Kanban">
-          Kanban Project Management Tool
-      </span>
-  </div>
+    <span class="header-headline mobile-d-none">
+      Kanban Project Management Tool
+    </span>
+    <img class="mobile-logo" src="../assets/img/logo.svg">
   <div class="help-log-parent">
-      <div class="help-img">
-        <a href="../html/help.html">
+        <a class="help-img mobile-d-none" href="../html/help.html">
           <img src="../assets/img/infoIcon.svg">
         </a>
-      </div>
       <div class="log-in">
-          <div class="log-in-img" >
+          <div class="log-in-img">
             <div style="padding:0 !important" class="assignBubble" id="currentUserInitials">
-              Initials
+              Is
             </div>
           </div>
           <div id="headerPopupDiv" class="d-none popupSections">
-            <p class="popupSection" onclick="logout()">Log out</p>
+            <a class="popupSection only-mobile" href="../html/help.html">Help</a>
             <p class="popupSection" onclick="goToEdit()">Edit User</p>
+            <p class="popupSection" onclick="logout()">Log out</p>
           </div>
       </div>
   </div>
 </div>
-    `;
+`
 }
 
 
 function sidebarHTML() {
   return /*html*/ `
-  <div class="Sidebar">
+  <div class="sidebar mobile-d-none">
   <div>
-      <div class="Parent-Logo">
+      <div class="parent-logo">
           <a href="../html/summary.html">
             <img src="../assets/img/sideLogo.svg">
           </a>
@@ -126,6 +123,9 @@ function sidebarHTML() {
       </div>
   </div>
 </div>
+
+
+<!-- header-bottom class="only-mobile"  -->
     `;
 }
 
