@@ -101,6 +101,7 @@ a {
   display: flex;
   font-size: 50px;
   justify-content: center;
+  flex-direction: column;
 }
 
 .loginBlueBtn {
@@ -194,6 +195,8 @@ a {
   display: flex;
   font-size: 50px;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .backIconContainer {
@@ -246,6 +249,8 @@ a {
   display: flex;
   font-size: 50px;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .fargotPasswordSubText {
@@ -347,6 +352,7 @@ input[type="checkbox"] {
   appearance: checkbox;
   display: inline-block;
   width: auto;
+  height: auto;
 }
 
 input[type="submit"] {
@@ -498,4 +504,190 @@ input[type="text"] {
 
 .slide-in-bottom {
   animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@media (max-width: 860px) {
+
+  .forgotPasswordFormContainer {
+    width: 370px;
+    height: 500px;
+  }
+
+  input {
+    width: 326px;
+  }
+
+  .fargotPasswordTextPosi {
+    font-size: 30px;
+
+  }
+
+  .fargotPasswordSubText {
+    width: unset;
+    font-size: 17px;
+    text-align: center;
+  }
+
+  .forgotBtn {
+    height: 50px;
+  }
+}
+
+@media (max-width: 640px) {
+  .signUpLogo {
+    padding: 24px;
+  }
+
+  .signUpBlueBtn {
+    height: 50px;
+    width: 180px;
+    font-size: 16px;
+  }
+
+  .signUpTextPosi {
+    font-size: 46px;
+  }
+
+  .signUpFormContainer {
+    width: 380px;
+    height: 500px;
+  }
+
+  .signButtonPosition {
+    top: unset;
+    bottom: 0;
+    padding: 24px;
+  }
+
+  a {
+    font-size: 12px;
+  }
+
+  .loginFormContainer {
+    width: 372px;
+    height: 560px;
+  }
+
+  input {
+    width: 300px;
+  }
+
+  .logoSize {
+    height: 78px;
+    width: 64px;
+  }
+
+  .logoLogin {
+    padding: 25px;
+  }
+
+  .loginBtnContainer {
+    width: 180px;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .loginContainer {
+    width: 80%;
+  }
+
+  .loginWhiteBtn {
+    height: 50px;
+  }
+
+  .loginBlueBtn {
+    height: 50px;
+  }
+
+  .checkboxContainer {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+
+  .loginTextPosi {
+    font-size: 47px;
+    align-items: center;
+  }
+
+  .blueLineContainer {
+    display: flex;
+    width: 50%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+  }
+}
+
+
+
+@media (max-width: 420px) {
+  .forgotPasswordFormContainer {
+    width: 280px;
+    height: 384px;
+  }
+
+  .loginMainContainer {
+    padding-top: 40px;
+  }
+
+  .fargotPasswordTextPosi {
+    padding-top: 28px;
+    font-size: 30px;
+    text-align: center;
+}
+
+  .signUpBlueBtn {
+    height: 42px;
+    width: 140px;
+    font-size: 15px;
+  }
+
+  .signUpTextPosi {
+    font-size: 36px;
+  }
+
+  .signUpFormContainer {
+    width: 280px;
+    height: 400px;
+  }
+
+  .loginFormContainer {
+    width: 260px;
+    height: 400px;
+  }
+
+  input {
+    height: 40px;
+    width: 208px;
+  }
+
+  .loginTextPosi {
+    font-size: 37px;
+
+  }
+
+  .loginBtnContainer {
+    width: 130px;
+    gap: 12px;
+  }
+
+
+  .loginWhiteBtn {
+    height: 40px;
+  }
+
+  .loginBlueBtn {
+    height: 40px;
+  }
+
+  .checkboxContainer {
+    gap: 16px;
+  }
+
+  .checkbocPosi {
+    font-size: 14px;
+    gap: 4px;
+    margin-left: -4px;
+  }
 }

@@ -15,11 +15,7 @@ async function initBoard() {
     await initTemplates();
     renderBoard();
     getInitialForHeader();
-<<<<<<< HEAD
-    setFocusSide();
-=======
     setSideBarFocus();
->>>>>>> c179a3f97ec8ea84cb9b73954c503a0fe66c900b
 }
 /**
  * 
@@ -28,7 +24,6 @@ async function initBoard() {
 function renderBoard() {
     let taskInput = document.getElementById('find-task');
     inputValueLC = taskInput.value.toLowerCase();
-
     let areaToDo = document.getElementById('tasks-to-do');
     let areaInProgress = document.getElementById('tasks-in-progress');
     let areaAwaitingFeedback = document.getElementById('tasks-awaiting-feedback');
