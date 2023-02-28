@@ -756,7 +756,7 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   }
 }
 
-@media (max-width: 1110px) {
+@media (max-width: 1000px) {
   .addTaskMain {
     display: flex;
     justify-content: unset;

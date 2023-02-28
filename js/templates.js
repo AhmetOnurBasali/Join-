@@ -81,7 +81,7 @@ function sidebarHTML() {
       </div>
       <div>
           <div id="summarySide" class="sidebarsections">
-            <a class="aSide" onclick="loadSummary()" href="../html/summary.html">
+            <a class="aSide" href="../html/summary.html">
             <div style="display: flex;">
               <img class="link-img" src="../assets/img/summaryIcon.svg">
             </div>
@@ -89,7 +89,7 @@ function sidebarHTML() {
           </a>
         </div>
         <div id="boardSide" class="sidebarsections">   
-          <a class="aSide" onclick="loadBoard()" href='../html/board.html'>
+          <a class="aSide" href='../html/board.html'>
             <div>
               <img class="link-img" src="../assets/img/bordIcon.svg">
             </div>
@@ -97,7 +97,7 @@ function sidebarHTML() {
           </a>
         </div>
         <div id="addTaskSide" class="sidebarsections"> 
-          <a class="aSide" onclick="loadAddTask()" href="../html/addTask.html">
+          <a class="aSide" href="../html/addTask.html">
             <div>
               <img class="link-img" style="margin-right: 12px !important;" src="../assets/img/addTaskIcon.svg">
             </div>
@@ -105,7 +105,7 @@ function sidebarHTML() {
           </a>
         </div>
         <div id="contactsSide" class="sidebarsections"> 
-          <a class="aSide" onclick="loadContacts()" href="../html/contacts.html">
+          <a class="aSide" href="../html/contacts.html">
             <div>
               <img class="link-img" src="../assets/img/contactsIcon.svg">
             </div>

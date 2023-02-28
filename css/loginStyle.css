@@ -531,6 +531,10 @@ input[type="text"] {
   .forgotBtn {
     height: 50px;
   }
+
+  .warningResetPassword {
+    width: max-content;
+  }
 }
 
 @media (max-width: 640px) {
@@ -617,6 +621,15 @@ input[type="text"] {
     padding-bottom: 10px;
     justify-content: center;
   }
+
+  .warningResetPassword {
+    max-width: auto;
+  }
+
+  .logoSize {
+    height: 55px;
+    width: 45px;
+  }
 }
 
 
@@ -627,15 +640,16 @@ input[type="text"] {
     height: 384px;
   }
 
-  .loginMainContainer {
-    padding-top: 40px;
+  .warningResetPassword {
+    margin-top: -10px;
+    max-width: 208px;
   }
 
   .fargotPasswordTextPosi {
-    padding-top: 28px;
-    font-size: 30px;
+    padding-top: 36px;
+    font-size: 24px;
     text-align: center;
-}
+  }
 
   .signUpBlueBtn {
     height: 42px;
