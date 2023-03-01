@@ -54,7 +54,7 @@ function closeAddNewContact() {
   slideOutAnimation('addContact', 'addContactPopup');
   setTimeout(() => {
     let container = document.getElementById("addContactPopup");
-  container.classList.add("d-none");
+    container.classList.add("d-none");
   }, 750);
 }
 
@@ -72,7 +72,7 @@ function closeEditContact() {
     let container = document.getElementById("editContactPopup");
     container.classList.add("d-none");
   }, 750);
-  
+
 }
 
 
@@ -100,7 +100,7 @@ async function createNewContact(event) {
   if (proofEmail(emailInput) === true && proofName(nameInput) === true && numberInput.length > 5 && numberInput.length < 16) {
     setNewContact(newContact)
   }
-  
+
 }
 
 
@@ -125,7 +125,7 @@ async function setNewContact(newContact) {
   setTimeout(() => {
     window.location.href = `contacts.html`;
   }, 750);
-  
+
 }
 
 
@@ -157,6 +157,8 @@ function sortContacts() {
 
 function openContact(id, selectedID) {
   setFocus(id, selectedID);
+  let rightSection = document.getElementById("rightSectionCO");
+  rightSection.classList.remove("d-none");
   let contactContainer = document.getElementById("slideContainer");
   contactContainer.classList.remove("d-none");
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
@@ -174,7 +176,7 @@ function renderSelectedContact(contact, selectedID) {
   emailSlide.innerHTML = `<a class="lightblueColor">${contact.email}</a>`;
   nameSlide.innerHTML = `<span class="slideNameSize">${contact.name}</span>`;
   initialsSlides.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
-  contactsAddTask.innerHTML = `<div class="lightblueColor addTaskBtnCO add-task" onclick="createTaskFromContacts('todo', ${selectedID})">+add task</div>`
+  contactsAddTask.innerHTML = `<div class="lightblueColor addTaskBtnCO add-task" onclick="createTaskFromContacts('todo', ${selectedID})"> <img src="../assets/img/plusIconBlue.svg">  add task</div>`
   editSlide.innerHTML = renderContactAddTaskHTML(selectedID)
 }
 
@@ -362,3 +364,32 @@ function clearContactsInputs() {
   phone.value = "";
   closeAddNewContact()
 }
+
+// Responsive //
+
+
+function backToContacts() {
+  let rightContactContainer = document.getElementById('rightSectionCO')
+  rightContactContainer.classList.add('d-none')
+}
+
+function myFunction(x) {
+  let textPosi = document.getElementById('textPosi')
+  let textPosiRE = document.getElementById('textPosiRE')
+  let sectionHidden = document.getElementById('rightSectionCO')
+  if (x.matches) { // If media query matches
+    textPosi.classList.add('d-none')
+    textPosiRE.classList.remove('d-none')
+    sectionHidden.classList.add('d-none')
+  } else {
+    textPosi.classList.remove('d-none')
+    textPosiRE.classList.add('d-none')
+    sectionHidden.classList.remove('d-none')
+  }
+}
+
+setTimeout(() => {
+  let x = window.matchMedia("(max-width: 1000px)")
+  myFunction(x) // Call listener function at run time
+  x.addListener(myFunction) // Attach listener function on state changes
+}, 100);

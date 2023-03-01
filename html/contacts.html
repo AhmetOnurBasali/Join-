@@ -46,8 +46,19 @@
 
         <div class="contactsContainer" id="contactsArea"></div>
 
-        <div class="rightSectionCO">
-            <div class="textPosi">
+        <div id="rightSectionCO" class="rightSectionCO">
+            <div id="textPosiRE" class="textPosiRE d-none">
+                <p>Kanban Project Management Tool</p>
+                <div class="teamTextContainerRE">
+                    <h1 class="teamText">Contacts</h1>
+                    <img  style="cursor:pointer" onclick="backToContacts()" src="../assets/img/backBlack.svg">
+                </div>
+                <p>
+                    Better with a team
+                </p>
+                <div class="lineBlue"></div>
+            </div>
+            <div id="textPosi" class="textPosi">
                 <div>
                     <h1 style="font-size: 60px;">Contacts</h1>
                 </div>
@@ -66,7 +77,7 @@
                         </div>
                     </div>
                     <div class="slideContactInfoContainer">
-                        <div style="font-size: 21px;">Contact Infomormation</div>
+                        <div style="font-size: 21px;">Contact Information</div>
                         <div id="slideEditContact"></div>
                     </div>
                     <div class="slideEmailPhoneInfo">
@@ -82,14 +93,14 @@
                         <div id="slidePhone"></div>
                     </div>
                 </div>
-            </div></div>
-            <div class="btnPosi">
-                <button onclick="openAddNewContact()" class="btnNewContact">
-                    <b>New contact</b>
-                    <img src="../assets/img/newContact.svg">
-                </button>
             </div>
-        
+        </div>
+        <div class="btnPosi">
+            <button onclick="openAddNewContact()" class="btnNewContact">
+                <b>New contact</b>
+                <img src="../assets/img/newContact.svg">
+            </button>
+        </div>
     </div>
 
     <div id="editContactPopup" class="d-none popupContactMainContainer" onclick="closeEditContact()">
@@ -156,7 +167,8 @@
                             <div class="addContactBtnContainer">
                                 <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
                                     Cancel
-                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <path class="clearSvg"
                                             d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z"
                                             stroke="#2A3647" stroke-width="2" stroke-linecap="round"

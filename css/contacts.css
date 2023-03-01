@@ -33,7 +33,6 @@ input[type="number"]::-webkit-outer-spin-button {
   flex-direction: column;
   height: calc(100vh - 88px);
   padding-top: 88px;
-  justify-content: space-between;
 }
 
 .textPosi {
@@ -386,7 +385,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .lightblueColor {
-  color: #007cee;
+  color: #29ABE2;
 }
 
 .falseInput {
@@ -400,6 +399,11 @@ input[type="number"]::-webkit-outer-spin-button {
 .addTaskBtnCO {
   width: max-content;
   cursor: pointer;
+  display: flex;
+}
+
+.lightblueColor img {
+  padding-right: 10px;
 }
 
 .addTaskBtnCO:hover {
@@ -551,10 +555,6 @@ input[type="number"]::-webkit-outer-spin-button {
     box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
   }
 
-  .rightSectionCO {
-    display: none
-  }
-
   .btnPosi {
     padding: 0px !important;
     position: fixed !important;
@@ -566,5 +566,55 @@ input[type="number"]::-webkit-outer-spin-button {
     background: white;
     align-items: center;
     width: 100%;
+  }
+
+  .rightSectionCO {
+    position: absolute;
+    background: whitesmoke;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 88px);
+    padding-top: 88px;
+    z-index: 1;
+  }
+
+  .lineBlue {
+    width: 64px;
+    height: 0px;
+    border: 2px solid #29abe2;
+    border-radius: 10px;
+  }
+
+  .textPosiRE {
+    display: flex;
+    align-items: flex-start;
+    padding: 0 80px;
+    flex-direction: column;
+    padding-bottom: 60px;
+  }
+
+  .teamText {
+    font-size: 46px;
+    margin: 0;
+  }
+
+  .teamTextContainerRE {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .contactsContainer {
+    padding: 150px 28px;
+  }
+
+  .btnPosi {
+    right: 0 !important;
+  }
+  .btnPosi{
+    padding-right:10px !important;
   }
 }
