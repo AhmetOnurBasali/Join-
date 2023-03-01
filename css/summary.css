@@ -10,6 +10,7 @@ body {
     top: 129px;
     left: 272px;
     margin: 50px 0px 50px 80px;
+
 }
 
 
@@ -363,7 +364,9 @@ h2 {
         position: inherit;
         top: unset;
         left: unset;
+        margin: unset;
         margin: 120px 0px 0px 0px;
+        min-height: calc(100vh - 120px - 80px) ;
     }
 
     .headline{

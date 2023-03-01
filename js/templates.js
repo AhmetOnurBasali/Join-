@@ -1,27 +1,38 @@
-async function includeHTML() {
-  let includeElements = document.querySelectorAll("[w3-include-html]");
-  for (let i = 0; i < includeElements.length; i++) {
-    const element = includeElements[i];
-    file = element.getAttribute("w3-include-html"); // "includes/header.html"
-    let resp = await fetch(file);
-    if (resp.ok) {
-      element.innerHTML = await resp.text();
-    } else {
-      element.innerHTML = "Page not found";
-    }
-  }
-}
+// async function includeHTML() {
+//   let includeElements = document.querySelectorAll("[w3-include-html]");
+//   for (let i = 0; i < includeElements.length; i++) {
+//     const element = includeElements[i];
+//     file = element.getAttribute("w3-include-html"); // "includes/header.html"
+//     let resp = await fetch(file);
+//     if (resp.ok) {
+//       element.innerHTML = await resp.text();
+//     } else {
+//       element.innerHTML = "Page not found";
+//     }
+//   }
+// }
 
 
 async function initTemplates() {
-  await includeHTML();
+  // await includeHTML();
   try {
     document.getElementById("addTask").innerHTML = addTaskHTML();
     document.getElementById("header").innerHTML = headerHTML();
-    document.getElementById("sidebar").innerHTML = sidebarHTML();
+    if (window.innerWidth <= 1000) {
+      document.getElementById("navbar-bottom").innerHTML = navbarMobileHTML();
+    } else {
+      document.getElementById("sidebar").innerHTML = sidebarHTML();
+    }
+
+
   } catch (error) {
     document.getElementById("header").innerHTML = headerHTML();
-    document.getElementById("sidebar").innerHTML = sidebarHTML();
+    if (window.innerWidth <= 1000) {
+      document.getElementById("navbar-bottom").innerHTML = navbarMobileHTML();
+    } else {
+      document.getElementById("sidebar").innerHTML = sidebarHTML();
+    }
+    
   }
 }
 
@@ -125,10 +136,38 @@ function sidebarHTML() {
       </div>
   </div>
 </div>
-
-
-<!-- header-bottom class="only-mobile"  -->
     `;
+}
+
+function navbarMobileHTML() {
+  return /*html*/`
+      <nav class="only-mobile navbar-bottom">
+        <div id="summarySide" class="navbar-sections">
+            <a class="nav-section" href="../html/summary.html">
+                <img class="nav-section-svg" src="../assets/img/summaryIcon.svg">
+                <div>Summary</div>
+            </a>
+        </div>
+        <div id="boardSide" class="navbar-sections">   
+            <a class="nav-section" href='../html/board.html'>
+                <img class="nav-section-svg" src="../assets/img/bordIcon.svg">
+                <div>Board</div>
+            </a>
+        </div>
+        <div id="addTaskSide" class="navbar-sections"> 
+            <a class="nav-section" href="../html/addTask.html">
+                <img class="nav-section-svg" src="../assets/img/addTaskIcon.svg">
+                <div>Add Task</div>
+            </a>
+        </div>
+        <div id="contactsSide" class="navbar-sections"> 
+            <a class="nav-section" href="../html/contacts.html">
+                <img class="nav-section-svg" src="../assets/img/contactsIcon.svg">
+                <div>Contacts</div>
+            </a>
+        </div>
+      </nav>
+      `;
 }
 
 
