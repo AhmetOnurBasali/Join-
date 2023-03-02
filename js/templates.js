@@ -1,20 +1,4 @@
-// async function includeHTML() {
-//   let includeElements = document.querySelectorAll("[w3-include-html]");
-//   for (let i = 0; i < includeElements.length; i++) {
-//     const element = includeElements[i];
-//     file = element.getAttribute("w3-include-html"); // "includes/header.html"
-//     let resp = await fetch(file);
-//     if (resp.ok) {
-//       element.innerHTML = await resp.text();
-//     } else {
-//       element.innerHTML = "Page not found";
-//     }
-//   }
-// }
-
-
 async function initTemplates() {
-  // await includeHTML();
   try {
     document.getElementById("addTask").innerHTML = addTaskHTML();
     document.getElementById("header").innerHTML = headerHTML();
@@ -435,8 +419,10 @@ function renderContactsHTML(contact) {
 function renderContactAddTaskHTML(selectedID) {
   return `
   <div onclick="openEditContact(${selectedID})"class="slideContactInfo">
-    <img id="penEditImg" src="../assets/img/penEdit.svg">
-    <img id="penEditImgWhite" src="../assets/img/penEditWhite.svg">
+    <svg width="21" height="30" viewBox="0 0 21 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="penEditImg" d="M2.87121 22.0156L7.69054 24.9405L20.3337 4.10842C20.6203 3.63628 20.4698 3.02125 19.9977 2.73471L16.8881 0.847482C16.4159 0.56094 15.8009 0.711391 15.5144 1.18353L2.87121 22.0156Z" fill="#2A3647"/>
+      <path class="penEditImg" d="M2.28614 22.9794L7.10547 25.9043L2.37685 28.1892L2.28614 22.9794Z" fill="#2A3647"/>
+    </svg>
     <p class="testRE">Edit Contact</p>
   </div>
   `
