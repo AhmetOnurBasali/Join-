@@ -373,18 +373,40 @@ function backToContacts() {
   rightContactContainer.classList.add('d-none')
 }
 
+
 function myFunction(x) {
+  let contactImg = document.getElementById('closeNewContactImg')
+  let contactImgWhite = document.getElementById('closeNewContactImgWhite')
   let textPosi = document.getElementById('textPosi')
   let textPosiRE = document.getElementById('textPosiRE')
   let sectionHidden = document.getElementById('rightSectionCO')
   if (x.matches) { // If media query matches
+    try {
+      contactImg.remove('d-none')
+      contactImgWhite.add('d-none')
+      penWhite.classList.remove('d-none')
+      pen.classList.add('d-none')
+    } catch (error) {
+      console.log("1");
+    }
     textPosi.classList.add('d-none')
     textPosiRE.classList.remove('d-none')
     sectionHidden.classList.add('d-none')
+    console.log("1+");
   } else {
     textPosi.classList.remove('d-none')
     textPosiRE.classList.add('d-none')
     sectionHidden.classList.remove('d-none')
+    console.log("2+");
+    try {
+      contactImg.add('d-none')
+      contactImgWhite.remove('d-none')
+      penWhite.classList.add('d-none')
+      pen.classList.remove('d-none')
+    } catch (error) {
+      console.log("2");
+      
+    }
   }
 }
 

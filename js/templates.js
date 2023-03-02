@@ -435,8 +435,9 @@ function renderContactsHTML(contact) {
 function renderContactAddTaskHTML(selectedID) {
   return `
   <div onclick="openEditContact(${selectedID})"class="slideContactInfo">
-    <img src="../assets/img/penEdit.svg">
-    Edit Contact
+    <img id="penEditImg" src="../assets/img/penEdit.svg">
+    <img id="penEditImgWhite" src="../assets/img/penEditWhite.svg">
+    <p class="testRE">Edit Contact</p>
   </div>
   `
 }

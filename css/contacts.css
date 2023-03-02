@@ -10,6 +10,12 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.contactNameTask {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .contactsContainer {
   overflow: auto;
   height: calc(100vh - 176px);
@@ -120,7 +126,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .popupContactWhiteSection {
   display: flex;
-  padding: 0 20px;
+  padding: 0 20px 0 0;
   flex-direction: column;
   width: 100%;
   position: relative;
@@ -359,6 +365,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .slideContactInfoContainer {
   display: flex;
   gap: 50px;
+  align-items: center;
 }
 
 .slideEmailPhoneInfo {
@@ -537,7 +544,223 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+.editContactText {
+  font-size: 40px;
+}
+
+.popupContactBlueSection img {
+  width: 55px;
+}
+
+.contactsTitle {
+  font-size: 60px;
+}
+
+.contactsSubTitle {
+  font-size: 28px;
+}
+
+.slideContactMainContainer {
+  padding: 0 80px;
+}
+
+#penEditImgWhite {
+  display: none;
+}
+
+.addContactTitle {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 1350px) {
+  .slideContactsBubble {
+    height: 120px;
+    width: 120px;
+    border: 2px solid #ffffff;
+  }
+
+  .slideContactMainContainer {
+    padding: 0 20px;
+  }
+
+  .contactsTitle {
+    font-size: 40px;
+  }
+
+  .contactsSubTitle {
+    font-size: 20px;
+  }
+
+  .textPosi {
+    gap: 22px;
+    padding-left: 20px;
+  }
+
+  .contactsContainer {
+    width: calc(454px - 228px);
+  }
+
+  .slideNameSize {
+    font-size: 34px;
+  }
+
+  .contactSlideName {
+    justify-content: unset;
+    gap: 44px;
+  }
+
+  .slideContactContainer {
+    width: max-content;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+    height: 270px;
+    width: 360px;
+  }
+
+  .contactSlideName {
+    justify-content: unset;
+    gap: 20px;
+  }
+
+  .slideNameSize {
+    font-size: 24px;
+  }
+
+  .slideContactInfoContainer {
+    display: flex;
+    gap: 20px;
+  }
+}
+
 @media only screen and (max-width: 1000px) {
+  .testRE {
+    font-size: 21px;
+    display: none;
+  }
+
+  .addContactTitle {
+    font-size: 47px;
+    margin-bottom: 10px;
+  }
+
+  .popupContactWhiteSection {
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .popupContactBlueSection img {
+    display: none;
+  }
+
+  .closePopupContact {
+    right: 0;
+    top: 0;
+  }
+
+  .popupContactWhiteSection {
+    position: unset;
+  }
+
+  .inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 270px;
+    width: 360px;
+    align-items: center;
+}
+
+  .inputSection {
+    display: flex;
+    height: max-content;
+    justify-content: unset;
+    display: flex;
+    margin-top: -77px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+  .popupContactBlueSection {
+    display: flex;
+    border-top-right-radius: 28px;
+    padding: 0 0px;
+    padding-bottom: 90px;
+    border-bottom-left-radius: 0px;
+    width: 100%;
+    align-items: center;
+    height: 40%;
+}
+
+  .popupContactContainer {
+    display: flex;
+    height: 638px;
+    width: max-content;
+    background: white;
+    border-radius: 30px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  #penEditImgWhite {
+    display: flex;
+  }
+
+  .slideContactInfo img {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #091931;
+  }
+
+  .slideContactMainContainer {
+    padding: 0 80px;
+  }
+
+  .contactsSubTitle {
+    font-size: 22px;
+  }
+
+  .textPosi {
+    gap: 22px;
+    padding-left: 20px;
+  }
+
+  .contactsContainer {
+    width: calc(454px - 228px);
+  }
+
+  .slideContactsBubble {
+    width: 120px;
+    height: 120px;
+    font-size: 32px;
+}
+
+  .slideNameSize {
+    font-size: 34px;
+  }
+
+  .contactSlideName {
+    justify-content: unset;
+    gap: 44px;
+  }
+
+  .slideContactContainer {
+    width: max-content;
+  }
+
+
+
   .invisibleSideDiv {
     display: flex;
     height: 0 !important;
@@ -591,7 +814,7 @@ input[type="number"]::-webkit-outer-spin-button {
     align-items: flex-start;
     padding: 0 80px;
     flex-direction: column;
-    padding-bottom: 60px;
+    padding-bottom: 24px;
   }
 
   .teamText {
@@ -604,9 +827,33 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 100%;
     justify-content: space-between;
   }
+  .inputsContainerEditSection {
+    gap: 28px;
+}
 }
 
 @media only screen and (max-width: 700px) {
+  .contactImgBubbleContainer {
+    height: 70px;
+    width: 70px;
+    border: 2px solid #ffffff;
+}
+  .inputsContainerEditSection {
+    width: unset;
+    height: unset;
+  }
+  .textPosiRE {
+    padding: 0px 28px;
+  }
+
+  .slideContactMainContainer {
+    padding: 20px 28px;
+  }
+
+  .contactSlideName {
+    gap: 10px;
+  }
+
   .contactsContainer {
     padding: 150px 28px;
   }
@@ -614,7 +861,82 @@ input[type="number"]::-webkit-outer-spin-button {
   .btnPosi {
     right: 0 !important;
   }
-  .btnPosi{
-    padding-right:10px !important;
+
+  .btnPosi {
+    padding-right: 10px !important;
+  }
+
+  .slideContactContainer {
+    height: 300px;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .slideNameSize {
+    font-size: 26px;
+  }
+
+  .slideContactsBubble {
+    width: 70px;
+    height: 70px;
+    font-size: 26px;
+  }
+
+  .slideName {
+    max-width: 199px;
+  }
+
+  .textPosiRE {
+    padding: 0px 14px;
+  }
+
+  .slideContactMainContainer {
+    padding: 20px 14px;
+  }
+
+  .editContactText {
+    font-size: 40px;
+    padding-top: 10px;
+  }
+
+  .popupContactBlueSection {
+    color: white;
+    padding-bottom: 90px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .addContactSubtitle {
+    font-size: 16px;
+    padding: 0 0 10px 0;
+  }
+
+  .popupContactContainer {
+    height: 568px;
+    width: 280px;
+  }
+
+  .addContactTitle {
+    padding-top: 10px;
+    font-size: 40px;
+  }
+
+  .cancelContactWhiteBtn {
+    display: none;
+  }
+
+  .inputSection {
+    margin-top: -44px;
+}
+
+  .inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    height: 270px;
+    width: unset;
+    align-items: center;
   }
 }
