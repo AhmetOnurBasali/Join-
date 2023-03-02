@@ -128,7 +128,7 @@ function sidebarHTML() {
       </div>
   </div>
   <div class="notice-parent">
-      <div class="notice">
+      <div class="notice" id="legalSide">
         <a class="legalNotice" href="../html/legal.html"> 
           <img src="../assets/img/legalIcon.svg">
           <span>Legal Notice</span>
