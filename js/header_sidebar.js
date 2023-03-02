@@ -7,20 +7,25 @@ function setSideBarFocus() {
     let sectionName = sections[sections.length - 1].replace('.html', '');
     if (sectionName === "summary") {
         setTimeout(() => {
-            setFocus("summary", "Side")
+            setFocus("summary", "Side");
         }, 50);
     }
     if (sectionName === "board") {
-        setFocus("board", "Side")
+        setFocus("board", "Side");
     }
     if (sectionName === "addTask") {
         setTimeout(() => {
-            setFocus("addTask", "Side")
+            setFocus("addTask", "Side");
         }, 50);
     }
     if (sectionName === "contacts") {
         setTimeout(() => {
-            setFocus("contacts", "Side")
+            setFocus("contacts", "Side");
+        }, 50);
+    }
+    if (sectionName === "legal") {
+        setTimeout(() => {
+            setFocus("legal", "Side");
         }, 50);
     }
 }
@@ -28,10 +33,10 @@ function setSideBarFocus() {
 
 function setFocus(id, selectedID) {
     if (id !== 'contactContainer') {
-        setFocusSideSection(id, selectedID)
+        setFocusSideSection(id, selectedID);
     }
     setFocusBubbleContact(selectedID)
-    setFocusContactContainer(id, selectedID)
+    setFocusContactContainer(id, selectedID);
     if (!isNaN(selectedID)) {
         previousID = selectedID;
     }
