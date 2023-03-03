@@ -758,10 +758,78 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1130px) {
   .addTaskMain {
     display: flex;
     justify-content: unset;
     width: calc(100% - 432px);
   }
 }
+
+@media (max-width: 1000px) {
+  h1 {
+    font-size: 46px;
+    margin: 20px 0 0 0;
+}
+  .leftSection {
+    gap: 10px;
+  }
+
+  .rightSection {
+    gap: 10px;
+    border-left: 0px solid #d1d1d1;
+  }
+
+  .addTaskBtns {
+    padding: 18px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 99;
+  }
+
+  .invisibleSideDiv {
+    display: none;
+  }
+
+  .addTaskMain {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .whiteBtn {
+    display: none;
+  }
+
+  .addTaskContainer {
+    height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 308px;
+    padding-top: 60px;
+  }
+
+  .leftAndRightContainer {
+    display: flex;
+    height: unset;
+    justify-content: space-evenly;
+    align-items: center;
+    width: unset;
+    flex-direction: column;
+  }
+
+  .paddLeRe40px {
+    padding: 0;
+  }
+
+  .rightSection {
+    padding: 0;
+  }
+  .leftSection {
+    padding: 0;
+  }
+}
+
+@media (max-width: 730px) {}
