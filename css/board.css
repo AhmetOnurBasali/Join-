@@ -736,7 +736,19 @@ h2 {
     }
 
     .tasks-sections {
-        width: 230px;
+        width: 300px;
+    }
+
+    .responsive-duo{
+        justify-content: space-between;
+    }
+
+    .task-columns {
+        width: 300px;
+    }
+
+    .task-preview {
+        width: 297px;
     }
 
 }
@@ -782,6 +794,18 @@ h2 {
 
     .tasks-sections {
         width: 230px;
+    }
+
+    .responsive-duo{
+        justify-content: unset;
+    }
+
+    .task-columns {
+        width: 230px;
+    }
+
+    .task-preview {
+        width: 229px;
     }
 
 }

@@ -51,8 +51,8 @@ function setFocusSideSection(id, selectedID) {
 
 function setFocusBubbleContact(selectedID) {
     // try {
-        // document.getElementById(`contactBubble${selectedID}`).focus();
-        // document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
+    // document.getElementById(`contactBubble${selectedID}`).focus();
+    // document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
     // } catch (error) {
     //     console.log("no Contact Bubble");
     // }
@@ -75,18 +75,18 @@ async function setFocusContactContainer(id, selectedID) {
 function openLogout() {
     let logoutContainer = document.getElementById('headerPopupDiv')
     logoutContainer.classList.toggle('d-none')
-  
+
     document.addEventListener('click', handleClickOutside)
-  }
-  
-  function handleClickOutside(e) {//Die Funktion handleClickOutside wird aufgerufen, wenn es einen Klick gibt.
+}
+
+function handleClickOutside(e) {//Die Funktion handleClickOutside wird aufgerufen, wenn es einen Klick gibt.
     let logoutContainer = document.getElementById('headerPopupDiv')//Der DOM-Element mit der ID headerPopupDiv wird in der Variable logoutContainer gespeichert.
     if (!e.target.closest('#headerPopupDiv') && !e.target.closest('#currentUserInitials')) {//Dann wird geprüft, ob das Element, auf das geklickt wurde, innerhalb des "headerPopupDiv"-Elements oder des "currentUserInitials"-Elements liegt. Wenn ja, wird nichts weiter gemacht.
-      logoutContainer.classList.add('d-none')//  Wenn das geklickte Element nicht innerhalb dieser beiden Elemente liegt, wird die CSS-Klasse "d-none" dem "logoutContainer"-Element hinzugefügt, um es auszublenden.
-      document.removeEventListener('click', handleClickOutside)//  Schließlich wird der Event-Listener für das "click"-Event entfernt, um zu verhindern, dass die Funktion erneut aufgerufen wird, wenn auf der Seite geklickt wird.
+        logoutContainer.classList.add('d-none')//  Wenn das geklickte Element nicht innerhalb dieser beiden Elemente liegt, wird die CSS-Klasse "d-none" dem "logoutContainer"-Element hinzugefügt, um es auszublenden.
+        document.removeEventListener('click', handleClickOutside)//  Schließlich wird der Event-Listener für das "click"-Event entfernt, um zu verhindern, dass die Funktion erneut aufgerufen wird, wenn auf der Seite geklickt wird.
     }
-  }
- 
+}
+
 
 function logout() {
     currentUser = ""
@@ -101,23 +101,23 @@ function getInitialForHeader() {
     currentUserInitials.innerHTML = `
       <div onclick="openLogout()" style="background:${color}">${initialLetters}</div>
     `;
-  }
+}
 
-  function goToEdit() {
+function goToEdit() {
     const name = currentUser.name;
     window.location.href = `contacts.html?edit=${name}`;
-  }
+}
 
-  function getQueryParam(param) {
+function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
-  }
-  
-  const nameToEdit = (getQueryParam('edit'));
-  
-  if (nameToEdit) {
+}
+
+const nameToEdit = (getQueryParam('edit'));
+
+if (nameToEdit) {
     setTimeout(() => {
-       openContact('contactContainer', 0); 
-       openEditContact(0)
+        openContact('contactContainer', 0);
+        openEditContact(0)
     }, 350);
-  }
+}
