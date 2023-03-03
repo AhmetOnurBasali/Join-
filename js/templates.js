@@ -18,7 +18,7 @@ async function initTemplates() {
     }
 
   }
-
+  getInitialForHeader();
 }
 
 window.addEventListener('resize', function () {
@@ -26,7 +26,7 @@ window.addEventListener('resize', function () {
   let throttled = false // are we currently throttled? 
   if (!throttled) {
     // actual callback action
-    initTemplates()
+    initTemplates();
     // we're throttled!
     throttled = true;
     // set a timeout to un-throttle

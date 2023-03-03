@@ -64,7 +64,7 @@ async function setFocusContactContainer(id, selectedID) {
 function openLogout() {
     let logoutContainer = document.getElementById('headerPopupDiv')
     logoutContainer.classList.toggle('d-none')
-
+  
     document.addEventListener('click', handleClickOutside)
 }
 
