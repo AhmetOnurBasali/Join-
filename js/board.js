@@ -181,12 +181,12 @@ function dragAnimation(id) {
 
 
 function addTaskBoard(area) {
-    addTaskHTML();
+    document.getElementById("addTask").innerHTML = addTaskHTML();
     selectArea(area);
     slideInAnimation('addTask', 'popup-add-task-board');
     document.getElementById('popup-add-task-board').classList.remove('d-none');
-
     addTaskCloseTopRight();
+    
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 }
 

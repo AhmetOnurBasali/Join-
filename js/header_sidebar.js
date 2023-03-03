@@ -21,7 +21,7 @@ function setSideBarFocus() {
     if (sectionName === "contacts") {
         setTimeout(() => {
             setFocus("contacts", "Side");
-        }, 50);
+        }, 100);
     }
     if (sectionName === "legal") {
         setTimeout(() => {
@@ -50,12 +50,12 @@ function setFocusSideSection(id, selectedID) {
 
 
 function setFocusBubbleContact(selectedID) {
-    try {
-        document.getElementById(`contactBubble${selectedID}`).focus();
-        document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
-    } catch (error) {
-        console.log("no Contact Bubble");
-    }
+    // try {
+        // document.getElementById(`contactBubble${selectedID}`).focus();
+        // document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
+    // } catch (error) {
+    //     console.log("no Contact Bubble");
+    // }
 }
 
 

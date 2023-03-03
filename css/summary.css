@@ -365,7 +365,7 @@ h2 {
         top: unset;
         left: unset;
         margin: 120px 0px 0px 0px;
-        min-height: calc(100vh - 120px - 80px) ;
+        min-height: calc(100vh - 120px - 80px);
     }
 
     .headline{

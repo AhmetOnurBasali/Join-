@@ -791,14 +791,6 @@ function clearPrioSVG() {
   svgHighColor.classList.remove("prioIconWhite");
 }
 
-
-//-später vllt für Task done-//
-//async function deleteCategory(c) {
-//  let categorys = await backend.getItem("allTasks");
-//  if (typeof categorys === "string") {
-//    categorys = JSON.parse(categorys);
-//  }
-//  categorys.splice(c, 1);
-//  await backend.setItem("allTasks", JSON.stringify(categorys));
-//  renderCategorys();
-//}
+function openAddTask(){
+  document.getElementById("addTask").innerHTML = addTaskHTML();
+}

@@ -1,6 +1,6 @@
 async function initTemplates() {
   try {
-    document.getElementById("addTask").innerHTML = addTaskHTML();
+    // document.getElementById("addTask").innerHTML = addTaskHTML();
     document.getElementById("header").innerHTML = headerHTML();
     if (window.innerWidth <= 1000) {
       document.getElementById("navbar-bottom").innerHTML = navbarMobileHTML();
@@ -16,10 +16,25 @@ async function initTemplates() {
     } else {
       document.getElementById("sidebar").innerHTML = sidebarHTML();
     }
-    
+
   }
+
 }
 
+window.addEventListener('resize', function () {
+  let delay = 250 // delay between calls
+  let throttled = false // are we currently throttled? 
+  if (!throttled) {
+    // actual callback action
+    initTemplates()
+    // we're throttled!
+    throttled = true;
+    // set a timeout to un-throttle
+    setTimeout(function () {
+      throttled = false;
+    }, delay);
+  }
+});
 
 function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
