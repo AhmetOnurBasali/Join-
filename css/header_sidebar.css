@@ -243,7 +243,7 @@ body {
 .navbar-bottom {
     height: 80px;
     background-color: #091931;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
