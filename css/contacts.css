@@ -563,11 +563,14 @@ input[type="number"]::-webkit-outer-spin-button {
 .slideContactMainContainer {
   padding: 0 80px;
 }
-
+.cursorPointer{
+  cursor: pointer;
+}
 #penEditImgWhite {
   display: none;
+}.logoWhiteSVG{
+  width: 55px
 }
-
 .addContactTitle {
   margin-bottom: 10px;
 }

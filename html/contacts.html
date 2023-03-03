@@ -26,7 +26,6 @@
         async function initContacts() {
             await initTemplates();
             await loadCurrentUser();
-            getInitialForHeader()
             await loadContactsData()
             await loadTasks();
             await loadUsers();
@@ -51,7 +50,7 @@
                 <p>Kanban Project Management Tool</p>
                 <div class="teamTextContainerRE">
                     <h1 class="teamText">Contacts</h1>
-                    <img  style="cursor:pointer" onclick="backToContacts()" src="../assets/img/backBlack.svg">
+                    <img class="cursorPointer" onclick="backToContacts()" src="../assets/img/backBlack.svg">
                 </div>
                 <p>
                     Better with a team
@@ -106,14 +105,14 @@
     <div id="editContactPopup" class="d-none popupContactMainContainer" onclick="closeEditContact()">
         <div onclick="event.stopPropagation()" class="popupContactContainer" id="editContact">
             <div class="popupContactBlueSection">
-                <img src="../assets/img/logoWhite.svg" style="width: 55px">
+                <img src="../assets/img/logoWhite.svg" class="logoWhiteSVG">
                 <h1 class="editContactText">Edit contact
                     <div class="blueLineBottom"></div>
                 </h1>
             </div>
             <div class="popupContactWhiteSection">
                 <div class="closePopupContact">
-                    <svg onclick="closeEditContact()" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer">
+                    <svg onclick="closeEditContact()" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursorPointer">
                         <path class="backSVG" d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                 </div>
@@ -125,7 +124,7 @@
                         <div class="inputsContainerEditSection">
                             <input id="editName" oninput="proofEditName()" class="inputCO nameIcon" placeholder="Edit name" type="text">
                             <input id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
-                            <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5" class="inputCO phoneIcon" placeholder="Edit number" type="">
+                            <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5" class="inputCO phoneIcon" placeholder="Edit number">
                             <div class="saveContactBtnContainer">
                                 <button class="saveContactBlueBtn">
                                     <b>Save</b>

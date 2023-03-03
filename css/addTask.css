@@ -767,10 +767,18 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
 }
 
 @media (max-width: 1000px) {
+
+  input {
+    padding: 14px 14px;
+    height: 37px;
+    font-size: 16px;
+  }
+
   h1 {
-    font-size: 46px;
-    margin: 20px 0 0 0;
+    font-size: 28px;
+    margin: 20px 0px 0 6px;
 }
+
   .leftSection {
     gap: 10px;
   }
@@ -827,6 +835,7 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   .rightSection {
     padding: 0;
   }
+
   .leftSection {
     padding: 0;
   }
