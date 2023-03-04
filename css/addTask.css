@@ -726,6 +726,10 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   height: 20px;
 }
 
+.onlyMobile {
+  display: none;
+}
+
 @media (max-width: 1400px) {
   .rightSection {
     width: 300px;
@@ -767,17 +771,32 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
 }
 
 @media (max-width: 1000px) {
+  .checkboxContainer {
+    width: 82px;
+    height: 38px;
+  }
 
-  input {
-    padding: 14px 14px;
-    height: 37px;
+  .contactsMainContainer {
+    flex-direction: column;
+  }
+
+  .onlyMobile {
+    display: flex;
+    padding-top: 100px;
     font-size: 16px;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .responsiveAssigned {
+    min-height: 164px;
+    margin: 0 !important;
   }
 
   h1 {
     font-size: 28px;
     margin: 20px 0px 0 6px;
-}
+  }
 
   .leftSection {
     gap: 10px;
@@ -793,7 +812,7 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 99;
+    z-index: 999;
   }
 
   .invisibleSideDiv {
@@ -815,8 +834,8 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 308px;
-    padding-top: 60px;
+    width: 264px;
+    padding-top: 0px;
   }
 
   .leftAndRightContainer {
@@ -833,11 +852,37 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   }
 
   .rightSection {
+    width: 264px;
     padding: 0;
   }
 
   .leftSection {
+    width: 264px;
     padding: 0;
+  }
+
+  h1 {
+    margin: 20px 0 20px 0;
+    font-size: 38px;
+  }
+
+  .overflow {
+    max-height: 88px;
+    overflow: auto;
+    z-index: 5;
+  }
+
+  .padd4px {
+    padding: 4px;
+    font-size: 14px;
+  }
+
+  .subtaskCheckboxArea {
+    display: flex;
+    padding: 6px 0;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 90px;
   }
 }
 

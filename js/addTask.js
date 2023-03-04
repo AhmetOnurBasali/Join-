@@ -520,12 +520,15 @@ function dropColorInInput() {
 //Assigned to section//
 function openAssignedTo(assignedToIconID, hideBoarderID, expandContactsID, showContactsID, contactInitialsID) {
   let arrayAssigned = document.getElementById(assignedToIconID);
+  let inputContainer = document.getElementById("inputContainer");
   arrayAssigned.classList.toggle("rotateIcon");
   if (slideAssignTo === false) {
+    inputContainer.classList.add('responsiveAssigned')
     slideOutAssignedTo(hideBoarderID, expandContactsID);
     renderOpenAssignedTo(showContactsID, contactInitialsID);
     slideAssignTo = true;
   } else {
+    inputContainer.classList.remove('responsiveAssigned')
     slideInAssignedTo(hideBoarderID, expandContactsID);
   }
 
@@ -791,6 +794,6 @@ function clearPrioSVG() {
   svgHighColor.classList.remove("prioIconWhite");
 }
 
-function openAddTask(){
+function openAddTask() {
   document.getElementById("addTask").innerHTML = addTaskHTML();
 }

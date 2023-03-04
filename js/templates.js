@@ -242,7 +242,7 @@ function addTaskHTML() {
               <div onclick="setColor('Blue')" id="categoryBlue" class="colorCategoryBlue"></div>
             </div>
           </div>
-          <div  onclick="proofInput('msgBoxAssignedTask')" class="inputContainer" id="inputContainer">
+          <div onclick="proofInput('msgBoxAssignedTask')" class="inputContainer" id="inputContainer">
             <b class="padd4px">Assigned to</b> 
             <div onclick="openAssignedTo('arrayAssigned', 'contactDiv', 'contactList', 'contacts', 'contactInitials')" id="contactDiv" class="openCategoryContainer" title="Please choose a contact">Select contact to assign 
               <svg id="arrayAssigned" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -319,7 +319,9 @@ function addTaskHTML() {
           <div class="transparentDiv">
             <div class="requiredText" id="msgBoxSubtaskTask"></div>
           </div>
-          <div class="subtaskCheckboxArea overflow" id="subtaskCheckboxArea"></div>
+          <div class="subtaskCheckboxArea">
+            <div id="subtaskCheckboxArea" class="overflow"> </div>
+          </div>
         </div>
       </div>
     </div>
