@@ -725,7 +725,16 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   width: 20px;
   height: 20px;
 }
-
+.addTaskPopup {
+  display: flex;
+  background: #2a3647;
+  border-radius: 14px;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-around;
+  width: 236px;
+  color: white;
+}
 .onlyMobile {
   display: none;
 }
@@ -800,11 +809,17 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
 
   .leftSection {
     gap: 10px;
+    height: max-content !important;
+    width: 264px;
+    padding: 0;
   }
 
   .rightSection {
     gap: 10px;
     border-left: 0px solid #d1d1d1;
+    width: 264px;
+    padding: 0;
+    height: max-content !important;
   }
 
   .addTaskBtns {
@@ -851,15 +866,6 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
     padding: 0;
   }
 
-  .rightSection {
-    width: 264px;
-    padding: 0;
-  }
-
-  .leftSection {
-    width: 264px;
-    padding: 0;
-  }
 
   h1 {
     margin: 20px 0 20px 0;

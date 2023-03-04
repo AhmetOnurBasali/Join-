@@ -382,7 +382,6 @@ function myFunction(x) {
     textPosi.classList.add('d-none')
     textPosiRE.classList.remove('d-none')
     sectionHidden.classList.add('d-none')
-    console.log("1+");
   } else {
     textPosi.classList.remove('d-none')
     textPosiRE.classList.add('d-none')
