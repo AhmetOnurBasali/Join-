@@ -365,7 +365,7 @@ h2 {
         top: unset;
         left: unset;
         margin: 120px 0px 0px 0px;
-        min-height: calc(100vh - 120px - 80px);
+        min-height: calc(100vh - 120px - 115px);
     }
 
     .headline{
@@ -488,7 +488,7 @@ h2 {
 
     .summary {
         margin: 100px 0px 0px 0px;
-        min-height: calc(100vh - 100px - 80px) ;
+        min-height: calc(100vh - 100px - 115px);
     }
     h1{
         font-size: 38px;

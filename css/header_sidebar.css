@@ -241,7 +241,7 @@ body {
 /* navbar bottom */
 
 .navbar-bottom {
-    height: 80px;
+    height: 70px;
     background-color: #091931;
     position: fixed;
     bottom: 0;
@@ -262,7 +262,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     text-decoration: none;
     color: white;
     width: 80px
@@ -312,7 +312,9 @@ body {
         top: 60px;
     }
 
-
+    .navbar-height{
+        height: 105px;
+    }
 
 
 
