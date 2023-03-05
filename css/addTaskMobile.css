@@ -20,7 +20,7 @@
         padding-bottom: 66px;
     }
 
-    .bgPopup{
+    .bg-popup{
         overflow: auto;
         top: 80px;
         background: white;
@@ -62,7 +62,7 @@
         padding-bottom: 0;
     }
 
-    .bgPopup {
+    .bg-popup {
         overflow: auto;
         top: 80px;
         background: white;
