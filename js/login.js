@@ -16,12 +16,12 @@ function understoodDisclaimer() {
 
 function animateImage() {
   loginLogo.classList.add('d-none')
-  let img = document.getElementById('joinEntrance');
-  img.classList.add('slide-out-tl');
+  let svg = document.getElementById('joinEntrance');
+  svg.classList.add('slide-out-tl');
   let bg = document.getElementById('joinEntranceBg');
   bg.classList.add('title-bg-hide');
   setTimeout(() => {
-    img.classList.add('d-none');
+    svg.classList.add('d-none');
     bg.classList.add('d-none');
     loginLogo.classList.remove('d-none')
   }, 1900);

@@ -414,7 +414,7 @@ input[type="text"] {
   justify-content: center;
 }
 
-.logoEntrance img {
+.logoEntrance svg {
   display: flex;
   justify-content: center;
   height: 334px;
@@ -430,29 +430,22 @@ input[type="text"] {
     position: absolute;
     top: calc(50% - (334px / 2));
     left: calc(50% - (274px / 2));
-    /* position: absolute; */
-    /* transform: translateY(0) translateX(0); */
-    /* opacity: 1; */
   }
 
   95% {
     position: absolute;
     top: 75px;
     left: 75px;
-    /* transform: translateY(0px) translateX(0px); */
     height: 100px;
     width: 83px;
-    /* opacity: 0; */
   }
 
   100% {
     position: absolute;
     top: 75px;
     left: 75px;
-    /* transform: translateY(0px) translateX(0px); */
     height: 100px;
     width: 83px;
-    /* opacity: 0; */
   }
 }
 
@@ -630,6 +623,54 @@ input[type="text"] {
     height: 55px;
     width: 45px;
   }
+
+  .logoEntrance {
+    background: #2a3647;
+    
+  }
+
+  @keyframes slide-out-tl {
+    0% {
+      position: absolute;
+      top: calc(50% - (334px / 2));
+      left: calc(50% - (274px / 2));
+    }
+
+
+    95% {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      height: 55px;
+      width: 45px;
+    }
+
+    100% {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      height: 55px;
+      width: 45px;
+      /* background: white; */
+    }
+  } 
+
+  .logoSVGPath{
+    animation: animSVGColor 2s;
+  }
+
+  @keyframes animSVGColor {
+    0% {
+      fill: white;
+    }
+
+
+    100% {
+      fill: #2a3647;
+    }
+  } 
+ 
+
 }
 
 
