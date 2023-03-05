@@ -187,6 +187,7 @@ function addTaskBoard(area) {
     addTaskCloseTopRight();
 
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
+    barBottomHidden()
 }
 
 
@@ -209,7 +210,10 @@ function closeAddTaskBoard() {
     setTimeout(() => {
         document.getElementById('popup-add-task-board').classList.add('d-none');
     }, 750);
-
+    if (window.innerWidth <=1000) {
+        let navbar = document.getElementById('navbar-bottom')
+        navbar.classList.remove("d-none")
+    }
 }
 
 function doNotCloseAddTaskBoard(event) {
@@ -343,10 +347,15 @@ function taskPrio(prio) {
 }
 
 
+
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
+<<<<<<< HEAD
     <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" on-drag="functions()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
     ontouchstart="touchStartDragging(event, ${task['id']}), startDragging(${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']}), disregardArea()">
+=======
+    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
+>>>>>>> e1ceecb25782526562f65a80594fe6659fef0ee2
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
         <span class="task-description">${task['description']}</span>
@@ -367,6 +376,7 @@ function renderCreatedTasksInnerHTML(task) {
 `;
 }
 
+<<<<<<< HEAD
 function functions(){
     // get current scroll position and viewport height
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -426,6 +436,8 @@ function touchStartDragging(event, taskId) {
 // }
 
 
+=======
+>>>>>>> e1ceecb25782526562f65a80594fe6659fef0ee2
 
 function renderTaskDetailsFrontHTML() {
     return /*html*/`
@@ -625,3 +637,32 @@ async function editTaskData(editTask) {
 }
 
 
+
+window.onload = function () {
+    // find the element that you want to drag.
+    var box = document.getElementById('box');
+
+    /* listen to the touchMove event,
+    every time it fires, grab the location
+    of touch and assign it to box */
+
+    box.addEventListener('touchmove', function (e) {
+        // grab the location of touch
+        var touchLocation = e.targetTouches[0];
+
+        // assign box new coordinates based on the touch.
+        box.style.left = touchLocation.pageX + 'px';
+        box.style.top = touchLocation.pageY + 'px';
+    })
+
+    /* record the position of the touch
+    when released using touchend event.
+    This will be the drop position. */
+
+    box.addEventListener('touchend', function (e) {
+        // current box position.
+        var x = parseInt(box.style.left);
+        var y = parseInt(box.style.top);
+    })
+
+}
