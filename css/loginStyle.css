@@ -500,6 +500,9 @@ input[type="text"] {
 }
 
 @media (max-width: 860px) {
+  .backColorMobile{
+    fill: black !important;
+  }
 
   .forgotPasswordFormContainer {
     width: 370px;

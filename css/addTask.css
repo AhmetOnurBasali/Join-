@@ -725,6 +725,7 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   width: 20px;
   height: 20px;
 }
+
 .addTaskPopup {
   display: flex;
   background: #2a3647;
@@ -735,6 +736,7 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   width: 236px;
   color: white;
 }
+
 .onlyMobile {
   display: none;
 }
@@ -763,7 +765,6 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   }
 
   .addTaskContainer {
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -780,18 +781,24 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
 }
 
 @media (max-width: 1000px) {
+  .invisibleSideDiv {
+    display: none;
+  }
+
   .checkboxContainer {
     width: 82px;
     height: 38px;
   }
 
   .contactsMainContainer {
+    overflow: auto;
     flex-direction: column;
+    max-height: 882px;
   }
 
   .onlyMobile {
     display: flex;
-    padding-top: 100px;
+    padding-top: 30px;
     font-size: 16px;
     justify-content: center;
     margin: 0;
@@ -830,8 +837,8 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
     z-index: 999;
   }
 
-  .invisibleSideDiv {
-    display: none;
+  .invisibleSideDivMobile {
+    height: 80px;
   }
 
   .addTaskMain {
@@ -845,7 +852,7 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   }
 
   .addTaskContainer {
-    height: calc(100vh - 140px);
+    height: unset;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -888,8 +895,21 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
     padding: 6px 0;
     flex-direction: column;
     gap: 10px;
-    padding-bottom: 90px;
   }
 }
 
-@media (max-width: 730px) {}
+@media (max-height: 800px) {
+  .subtaskCheckboxArea {
+    padding-bottom: 80px;
+  }
+
+  .contactsMainContainer {
+    overflow: auto;
+    max-height: 882px;
+  }
+
+  .contactsMainContainer {
+    overflow: auto;
+    max-height: unset;
+  }
+}

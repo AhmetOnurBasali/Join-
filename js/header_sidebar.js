@@ -21,12 +21,16 @@ function setSideBarFocus() {
     if (sectionName === "contacts") {
         setTimeout(() => {
             setFocus("contacts", "Side");
-        }, 100);
+        }, 50);
     }
     if (sectionName === "legal") {
         setTimeout(() => {
             setFocus("legal", "Side");
         }, 50);
+    }
+    if (sectionName === "help") {
+            let icon = document.getElementById('helpIcon')
+            icon.classList.add('d-none')
     }
 }
 
@@ -35,6 +39,7 @@ function setFocus(id, selectedID) {
     if (id !== 'contactContainer') {
         setFocusSideSection(id, selectedID);
     }
+    
     setFocusContactContainer(id, selectedID);
     if (!isNaN(selectedID)) {
         previousID = selectedID;
@@ -128,4 +133,9 @@ function hiddenCreatTaskBtnMobile() {
     let bubbleDiv = document.getElementById('loginContainer')
     bubbleDiv.classList.remove('d-none')
     mobileBtn.innerHTML = ""
+}
+
+function setFocusBubbleContact(selectedID) {
+         document.getElementById(`contactBubble${selectedID}`).focus();
+         document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
 }

@@ -157,6 +157,7 @@ function sortContacts() {
 
 function openContact(id, selectedID) {
   setFocus(id, selectedID);
+  setFocusBubbleContact(selectedID)
   let rightSection = document.getElementById("rightSectionCO");
   rightSection.classList.remove("d-none");
   let contactContainer = document.getElementById("slideContainer");

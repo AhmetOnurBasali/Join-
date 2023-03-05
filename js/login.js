@@ -151,7 +151,7 @@ async function addUser() {
     await setNewUser(newName, newColor, newEmail, newPassword, newInitialLetters);
   } else {
     console.log();
-    ("Überprüfe deine Angaben"); //TODO: vielleicht als text untern dem jeweiligen input
+    ("Überprüfe deine Angaben");
   }
 }
 
