@@ -67,13 +67,13 @@ function headerHTML() {
       <img class=" only-mobile" src="../assets/img/logo.svg">
     </a>
   <div class="help-log-parent">
-        <a class="help-img mobile-d-none" href="../html/help.html">
+        <a id="helpIcon" class="help-img mobile-d-none" href="../html/help.html">
           <img src="../assets/img/infoIcon.svg">
         </a>
         <div id="creatTaskBtnMobile" class="log-in"></div>
         <div id="loginContainer" class="log-in">
           <div class="log-in-img">
-            <div style="padding:0 !important" class="assignBubble" id="currentUserInitials">
+            <div class="assignBubble noPadding" id="currentUserInitials">
               Is
             </div>
           </div>
@@ -447,7 +447,7 @@ function renderContactsHTML(contact) {
 function renderContactAddTaskHTML(selectedID) {
   return `
   <div onclick="openEditContact(${selectedID})"class="slideContactInfo">
-    <svg width="21" height="30" viewBox="0 0 21 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="penSVGMobile" width="21" height="30" viewBox="0 0 21 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path class="penEditImg" d="M2.87121 22.0156L7.69054 24.9405L20.3337 4.10842C20.6203 3.63628 20.4698 3.02125 19.9977 2.73471L16.8881 0.847482C16.4159 0.56094 15.8009 0.711391 15.5144 1.18353L2.87121 22.0156Z" fill="#2A3647"/>
       <path class="penEditImg" d="M2.28614 22.9794L7.10547 25.9043L2.37685 28.1892L2.28614 22.9794Z" fill="#2A3647"/>
     </svg>

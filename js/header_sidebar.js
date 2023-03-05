@@ -28,6 +28,10 @@ function setSideBarFocus() {
             setFocus("legal", "Side");
         }, 50);
     }
+    if (sectionName === "help") {
+            let icon = document.getElementById('helpIcon')
+            icon.classList.add('d-none')
+    }
 }
 
 

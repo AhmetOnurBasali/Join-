@@ -187,8 +187,10 @@ function addTaskBoard(area) {
     addTaskCloseTopRight();
 
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
+    
     barBottomHidden()
     moveCreatTaskBtnMobile()
+    body.style.overflow = "hidden"
 }
 
 
@@ -216,6 +218,7 @@ function closeAddTaskBoard() {
         navbar.classList.remove("d-none")
         hiddenCreatTaskBtnMobile()
     }
+    body.style.overflow = "auto"
 }
 
 function doNotCloseAddTaskBoard(event) {

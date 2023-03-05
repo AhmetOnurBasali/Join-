@@ -14,6 +14,10 @@ body {
 
 }
 
+.noPadding {
+    padding: 0 !important;
+}
+
 .header {
     position: fixed;
     top: 0;
@@ -207,8 +211,6 @@ body {
     color: white;
 }
 
-
-
 .legalNotice {
     display: flex;
     justify-content: center;
@@ -242,7 +244,7 @@ body {
 
 .navbar-bottom {
     height: 70px;
-    background-color: #091931;
+    background-color: #2A3647;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -254,9 +256,14 @@ body {
     align-items: center;
 }
 
-/* .navbar-sections{
-    margin: 0px 20px; 
-} */
+.navbar-sections {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .nav-section {
     display: flex;
@@ -312,7 +319,7 @@ body {
         top: 60px;
     }
 
-    .navbar-height{
+    .navbar-height {
         height: 105px;
     }
 

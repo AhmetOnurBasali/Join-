@@ -8,9 +8,10 @@
     <title>contacts</title>
     <link rel="icon" type="image/svg" href="../assets/img/join_logo.svg">
     <link rel="stylesheet" href="../css/contacts.css">
+    <link rel="stylesheet" href="../css/addTaskMobile.css">
     <link rel="stylesheet" href="../css/header_sidebar.css">
-    <link rel="stylesheet" href="../fonts.css">
     <link rel="stylesheet" href="../css/addTask.css">
+    <link rel="stylesheet" href="../fonts.css">
     <script src="../js/mini_backend.js"></script>
     <script src="../script.js"></script>
     <script src="../js/templates.js"></script>
@@ -34,7 +35,7 @@
     </script>
 </head>
 
-<body onload="initContacts()">
+<body id="body" onload="initContacts()">
 
     <div id="header"></div>
     <div id="sidebar"></div>
@@ -77,7 +78,7 @@
                         </div>
                     </div>
                     <div class="slideContactInfoContainer">
-                        <div style="font-size: 21px">Contact Information</div>
+                        <div class="contactName">Contact Information</div>
                         <div id="slideEditContact"></div>
                     </div>
                     <div class="slideEmailPhoneInfo">
@@ -153,7 +154,7 @@
             <div class="popupContactWhiteSection">
                 <div class="closePopupContact">
                     <svg onclick="closeAddNewContact()" width="25" height="25" viewBox="0 0 25 25" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" style="cursor:pointer">
+                        xmlns="http://www.w3.org/2000/svg" class="cursorPointer">
                         <path class="backSVG"
                             d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z"
                             stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

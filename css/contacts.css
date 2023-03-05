@@ -585,9 +585,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media only screen and (max-width: 1400px) {
-  .add-task-popup {
-    width: 888px;
-  }
 
   .popupContactContainer {
     width: 1000px;
@@ -665,58 +662,20 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media only screen and (max-width: 1000px) {
+  .penSVGMobile {
+    height: 21px !important;
+  }
+
   .invisibleHeadDiv {
-    height: 164px;
+    height: 165px;
   }
 
   .rightSectionCO {
     top: 0;
   }
 
-  .addTaskBtns {
-    display: none !important;
-  }
-
-  .placeHolderDIV {
-    max-height: max-content;
-    min-height: 700px;
-    padding-top: 0px;
-    height: 764px;
-  }
-
-  .bg-popup {
-    overflow: auto;
-    top: 80px;
-    background: white;
-    align-items: flex-end;
-  }
-
-  .add-task-popup {
-    width: 100%;
-    height: max-content;
-    border-radius: 0;
-  }
-
-  .headline-addTask {
-    width: 100%;
-  }
-
-  .add-task-popup {
-    width: 100%;
-    height: 100vh;
-    border-radius: 0;
-  }
-
   .bottomDivCO {
     height: 80px;
-  }
-
-  .leftSection {
-    min-height: 300px !important;
-  }
-
-  .rightSection {
-    height: 0px !important;
   }
 
   .penEditContainer {
@@ -729,7 +688,10 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .saveContactBlueBtn {
-    height: 50px;
+    padding: 18px 10px;
+    height: 0px;
+    font-size: 20px;
+    width: unset;
   }
 
   .backSVG {
@@ -852,16 +814,10 @@ input[type="number"]::-webkit-outer-spin-button {
     width: max-content;
   }
 
-  .invisibleSideDiv {
-    display: flex;
-    height: 0 !important;
-    min-width: 0 !important;
-  }
-
   .contactsContainer {
     height: calc(100vh - 244px);
     width: calc(100% - 56px);
-    padding: 0px 28px 10px;
+    padding: 0px 28px 9px;
   }
 
   .btnNewContact {
@@ -925,13 +881,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media only screen and (max-width: 700px) {
-
   .bottomDivCO {
     height: 0;
-  }
-
-  .subtaskCheckboxArea {
-    padding-bottom: 0px !important;
   }
 
   .contactImgBubbleContainer {
@@ -959,9 +910,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .btnPosi {
     right: 0 !important;
-  }
-
-  .btnPosi {
     padding-right: 10px !important;
   }
 
@@ -978,8 +926,8 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .slideContactsBubble {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     font-size: 26px;
   }
 
@@ -1004,9 +952,9 @@ input[type="number"]::-webkit-outer-spin-button {
     color: white;
     padding-bottom: 56px;
     width: 100%;
-    height: 33%;
+    height: 28%;
     align-items: center;
-}
+  }
 
   .addContactSubtitle {
     font-size: 16px;
@@ -1029,7 +977,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .inputSection {
     margin-top: -64px;
-}
+  }
 
   .inputsContainer {
     display: flex;
@@ -1040,26 +988,4 @@ input[type="number"]::-webkit-outer-spin-button {
     align-items: center;
   }
 
-}
-
-@media only screen and (max-height: 800px) {
-  .placeHolderDIV {
-    max-height: max-content;
-    min-height: 700px;
-    padding-top: 229px;
-    height: 764px;
-  }
-
-  .bg-popup {
-    overflow: auto;
-    top: 80px;
-    background: white;
-    align-items: center;
-  }
-
-  .add-task-popup {
-    width: 100%;
-    height: max-content;
-    border-radius: 0;
-  }
 }
