@@ -20,7 +20,7 @@
         padding-bottom: 66px;
     }
 
-    .bg-popup {
+    .bgPopup{
         overflow: auto;
         top: 80px;
         background: white;
@@ -52,12 +52,14 @@
     }
 }
 
-@media only screen and (max-height: 800px) {
+
+@media only screen and (min-height: 800px) {
     .placeHolderDIV {
         max-height: max-content;
         min-height: 700px;
-        padding-top: 229px;
+        padding-top: 60px;
         height: 764px;
+        padding-bottom: 0;
     }
 
     .bg-popup {
@@ -72,11 +74,8 @@
         height: max-content;
         border-radius: 0;
     }
-}
 
-@media only screen and (max-width: 700px) {
     .subtaskCheckboxArea {
         padding-bottom: 0px !important;
     }
-
 }
