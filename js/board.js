@@ -345,7 +345,7 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
+    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" on-drag="functions()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
     ontouchstart="touchStartDragging(event, ${task['id']}), startDragging(${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']}), disregardArea()">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
@@ -367,9 +367,21 @@ function renderCreatedTasksInnerHTML(task) {
 `;
 }
 
+function functions(){
+    // get current scroll position and viewport height
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
+
+    // check if cursor is close to bottom of viewport
+    if (ev.clientY > (viewportHeight - 100)) { // adjust 100 as needed for desired threshold
+        // scroll down by 100 pixels
+        window.scrollTo(0, scrollTop + 100); // adjust 100 as needed for desired scroll amount
+    }
+}
+
 function touchEndDragging(event, taskId) {
     // document.getElementById('body').style.overflow = 'auto';
-    // document.getElementById('body').style.touchAction = 'auto';
+
     // Verschieben Sie das Element an die endgültige Position
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
     taskElement.style.transform = "translate(0px, 0px)";
@@ -386,35 +398,8 @@ function touchMoveDragging(event, taskId) {
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
     taskElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
 
-    let container = taskElement.parentElement;
-    let currentY = deltaY;
-    let currentX = deltaX;
 
-    let scrollSpeed = 20; // einstellbare Geschwindigkeit des Scrollens
-    let scrollAmount = 50; // einstellbare Menge an Scrollen pro Schritt
-
-    taskElement.addEventListener("touchmove", function (event) {
-        // vertikale Position des taskElements
-        let top = currentY + taskElement.offsetTop;
-
-        // Wenn das taskElement den oberen Rand erreicht hat
-        if (top < 0) {
-            container.scrollTop -= scrollAmount;
-            currentY = event.touches[0].clientY - startY + scrollSpeed;
-        }
-        // Wenn das taskElement den unteren Rand erreicht hat
-        else if (top + taskElement.offsetHeight > container.offsetHeight) {
-            container.scrollTop += scrollAmount;
-            currentY = event.touches[0].clientY - startY - scrollSpeed;
-        }
-        else {
-            currentY = event.touches[0].clientY - startY;
-        }
-
-        // Verschiebung des taskElements setzen
-        currentX = event.touches[0].clientX - startX;
-        taskElement.style.transform = "translate(" + currentX + "px, " + currentY + "px)";
-    });
+    
 }
 
 function touchStartDragging(event, taskId) {
