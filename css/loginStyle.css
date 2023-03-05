@@ -664,15 +664,11 @@ input[type="text"] {
       fill: white;
     }
 
-
     100% {
       fill: #2a3647;
     }
   } 
- 
-
 }
-
 
 
 @media (max-width: 420px) {
