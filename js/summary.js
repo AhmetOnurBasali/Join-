@@ -32,6 +32,10 @@ function showGreetingUser() {
   } catch (error) {
     console.error("no user logged in");
   }
+  setTimeout(() => {
+
+    document.querySelector('.welcome').style.display = 'none';
+  }, 2400);
 }
 
 

@@ -368,16 +368,16 @@ h2 {
         min-height: calc(100vh - 120px - 115px);
     }
 
-    .headline{
+    .headline {
         display: block;
     }
 
-    h2{
+    h2 {
         border-left: none;
         padding-left: unset;
     }
 
-    .parting-line{
+    .parting-line {
         width: 80px;
         border-bottom: 3px solid #29ABE2;
         margin-top: 20px;
@@ -457,7 +457,7 @@ h2 {
         height: 48px;
     }
 
-    .pencil{
+    .pencil {
         height: 28px !important;
         width: 28px !important;
     }
@@ -469,19 +469,59 @@ h2 {
     }
 
     .welcome {
-        margin-left: 25px;
+        margin-left: unset;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: hidewelcome 3000ms;
+    }
+    
+    @keyframes hidewelcome {
+        60% {
+            background-color: rgba(255, 255, 255, 100);
+        }
+    
+        100% {
+            background-color: rgba(255, 255, 255, 0);
+        }
     }
 
     .greeting {
-        font-size: 20px;
+        font-size: 32px;
+        animation: hidewelcomegreeting 3000ms;
+    }
+
+    @keyframes hidewelcomegreeting {
+        60% {
+            color: rgb(0, 0, 0);
+        }
+    
+        100% {
+            color: rgba(0, 0, 0, 0);
+        }
     }
 
     .greeting-username {
-        font-size: 32px;
+        font-size: 58px;
+        animation: hidewelcomeusername 3000ms;
     }
 
+    @keyframes hidewelcomeusername {
+        60% {
 
-
+            color: #29aae2;
+        }
+    
+        100% {
+            color: #29aae200;
+        }
+    }
 }
 
 @media (max-width: 400px) {
@@ -490,17 +530,18 @@ h2 {
         margin: 100px 0px 0px 0px;
         min-height: calc(100vh - 100px - 115px);
     }
-    h1{
+
+    h1 {
         font-size: 38px;
         margin-block-start: 16px;
         margin-block-end: 16px;
     }
 
-    h2{
+    h2 {
         font-size: 18px;
     }
 
-    h3{
+    h3 {
         font-size: 16px;
     }
 
@@ -508,7 +549,7 @@ h2 {
         margin-bottom: 30px;
     }
 
-    .parting-line{
+    .parting-line {
         margin-top: 15px;
     }
 
@@ -537,7 +578,7 @@ h2 {
         padding: 0px 10px;
     }
 
-    .tasks-text{
+    .tasks-text {
         font-size: 14px;
     }
 
@@ -557,7 +598,7 @@ h2 {
         width: 260px;
     }
 
-    
+
 
     .tasks-priority img {
         width: 38px;
@@ -571,7 +612,8 @@ h2 {
         padding-left: 15px;
         gap: 7px;
     }
-    .tasks-date{
+
+    .tasks-date {
         font-size: 14px;
     }
 
@@ -596,7 +638,7 @@ h2 {
         height: 38px;
     }
 
-    .pencil{
+    .pencil {
         height: 22px !important;
         width: 22px !important;
     }
@@ -607,18 +649,12 @@ h2 {
 
     }
 
-    .welcome {
-        margin-left: 25px;
-    }
-
     .greeting {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .greeting-username {
-        font-size: 32px;
+        font-size: 48px;
     }
-
-
 
 }

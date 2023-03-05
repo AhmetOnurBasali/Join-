@@ -350,12 +350,8 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-<<<<<<< HEAD
     <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" on-drag="functions()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
     ontouchstart="touchStartDragging(event, ${task['id']}), startDragging(${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']}), disregardArea()">
-=======
-    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
->>>>>>> e1ceecb25782526562f65a80594fe6659fef0ee2
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
         <span class="task-description">${task['description']}</span>
@@ -376,7 +372,6 @@ function renderCreatedTasksInnerHTML(task) {
 `;
 }
 
-<<<<<<< HEAD
 function functions(){
     // get current scroll position and viewport height
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -436,8 +431,6 @@ function touchStartDragging(event, taskId) {
 // }
 
 
-=======
->>>>>>> e1ceecb25782526562f65a80594fe6659fef0ee2
 
 function renderTaskDetailsFrontHTML() {
     return /*html*/`
