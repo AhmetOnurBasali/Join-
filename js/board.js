@@ -188,6 +188,7 @@ function addTaskBoard(area) {
 
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
     barBottomHidden()
+    moveCreatTaskBtnMobile()
 }
 
 
@@ -213,6 +214,7 @@ function closeAddTaskBoard() {
     if (window.innerWidth <=1000) {
         let navbar = document.getElementById('navbar-bottom')
         navbar.classList.remove("d-none")
+        hiddenCreatTaskBtnMobile()
     }
 }
 

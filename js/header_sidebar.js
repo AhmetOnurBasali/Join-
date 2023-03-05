@@ -110,3 +110,22 @@ if (nameToEdit) {
         openEditContact(0)
     }, 350);
 }
+
+
+function  moveCreatTaskBtnMobile() {
+    let mobileBtn = document.getElementById('creatTaskBtnMobile')
+    let bubbleDiv = document.getElementById('loginContainer')
+    if (window.innerWidth <= 1000) {
+        bubbleDiv.classList.add('d-none')
+        mobileBtn.innerHTML = `<div onclick="createNewTask(event);">
+        <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
+      </div>`
+    }    
+}
+
+function hiddenCreatTaskBtnMobile() {
+    let mobileBtn = document.getElementById('creatTaskBtnMobile')
+    let bubbleDiv = document.getElementById('loginContainer')
+    bubbleDiv.classList.remove('d-none')
+    mobileBtn.innerHTML = ""
+}
