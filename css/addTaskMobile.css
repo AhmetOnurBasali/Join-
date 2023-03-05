@@ -53,7 +53,7 @@
 }
 
 
-@media only screen and (min-height: 800px) {
+@media only screen and (max-width: 400px) {
     .placeHolderDIV {
         max-height: max-content;
         min-height: 700px;
@@ -61,7 +61,6 @@
         height: 764px;
         padding-bottom: 0;
     }
-
     .bg-popup {
         overflow: auto;
         top: 80px;

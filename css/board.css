@@ -814,6 +814,9 @@ h2 {
         width: 130px;
     }
 
+    .visual-in{
+        animation: none;
+    }
 }
 
 
