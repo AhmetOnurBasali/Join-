@@ -352,7 +352,8 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
+    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" on-drag="functions()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
+    ontouchstart="touchStartDragging(event, ${task['id']}), startDragging(${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']}), disregardArea()">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
         <span class="task-description">${task['description']}</span>
@@ -372,6 +373,65 @@ function renderCreatedTasksInnerHTML(task) {
     </div>
 `;
 }
+
+function functions(){
+    // get current scroll position and viewport height
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
+
+    // check if cursor is close to bottom of viewport
+    if (ev.clientY > (viewportHeight - 100)) { // adjust 100 as needed for desired threshold
+        // scroll down by 100 pixels
+        window.scrollTo(0, scrollTop + 100); // adjust 100 as needed for desired scroll amount
+    }
+}
+
+function touchEndDragging(event, taskId) {
+    // document.getElementById('body').style.overflow = 'auto';
+
+    // Verschieben Sie das Element an die endgültige Position
+    const taskElement = document.getElementById(`taskNumber_${taskId}`);
+    taskElement.style.transform = "translate(0px, 0px)";
+    // Entfernen Sie das Attribut "dragging"
+    taskElement.removeAttribute("dragging");
+}
+
+function touchMoveDragging(event, taskId) {
+    // Berechnen Sie die Distanz, die das Element verschoben wurde
+    const touch = event.touches[0];
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+    // Verschieben Sie das Element entsprechend
+    const taskElement = document.getElementById(`taskNumber_${taskId}`);
+    taskElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+
+    
+}
+
+function touchStartDragging(event, taskId) {
+    // document.getElementById('body').style.overflow = 'hidden';
+    // Speichern Sie die aktuellen Touch-Koordinaten
+    const touch = event.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    // Fügen Sie dem Element das Attribut "dragging" hinzu, um zu kennzeichnen, dass es sich gerade bewegt
+    const taskElement = document.getElementById(`taskNumber_${taskId}`);
+    taskElement.setAttribute("dragging", "");
+}
+
+
+
+
+// function renderCreatedTasksInnerHTML(task) {
+//     return /*html*/`
+//     <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" 
+//          ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})" ondragend="disregardArea()"
+//          ontouchstart="touchStartDragging(event, ${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']})">
+//     </div>
+// `;
+// }
+
 
 
 function renderTaskDetailsFrontHTML() {
