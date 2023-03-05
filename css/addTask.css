@@ -898,14 +898,8 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
   }
 }
 
-@media (min-height: 800px) {
+@media (max-width: 400px) {
   .subtaskCheckboxArea {
     padding-bottom: 80px;
-  }
-
-  .contactsMainContainer {
-    overflow: auto;
-    flex-direction: column;
-    max-height: 662px;
   }
 }
