@@ -661,12 +661,33 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media only screen and (max-width: 1000px) {
-  .headline-addTask {
-    width: 100%;
-}
+  .placeHolderDIV {
+    max-height: max-content;
+    min-height: 700px;
+    padding-top: 0px;
+    height: 764px;
+  }
+
+  .bg-popup {
+    overflow: auto;
+    top: 80px;
+    background: white;
+  }
 
   .add-task-popup {
     width: 100%;
+    height: max-content;
+    border-radius: 0;
+  }
+
+  .headline-addTask {
+    width: 100%;
+  }
+
+  .add-task-popup {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
   }
 
   .bottomDivCO {
@@ -823,11 +844,10 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .contactsContainer {
-    width: calc(100% - 176px);
-    height: calc(100vh - 380px);
-    padding: 150px 88px;
+    height: calc(100vh - 244px);
+    width: calc(100% - 56px);
+    padding: 0px 28px 10px;
   }
-
 
   .btnNewContact {
     box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
@@ -837,13 +857,13 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 0px !important;
     position: fixed !important;
     top: 73px !important;
-    right: 26px !important;
     height: 92px;
     display: flex;
     justify-content: flex-end;
     background: white;
     align-items: center;
     width: 100%;
+    align-items: flex-end;
   }
 
   .rightSectionCO {
@@ -889,12 +909,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media only screen and (max-width: 700px) {
-  .bottomDivCO{
+  .bottomDivCO {
     height: 0;
   }
+
   .subtaskCheckboxArea {
-    padding-bottom: 180px !important;
-}
+    padding-bottom: 0px !important;
+  }
+
   .contactImgBubbleContainer {
     height: 70px;
     width: 70px;
@@ -916,11 +938,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .contactSlideName {
     gap: 10px;
-  }
-
-  .contactsContainer {
-    width: calc(100% - 56px);
-    padding: 150px 28px;
   }
 
   .btnPosi {
@@ -1004,5 +1021,27 @@ input[type="number"]::-webkit-outer-spin-button {
     height: 270px;
     width: unset;
     align-items: center;
+  }
+
+}
+
+@media only screen and (max-height: 800px) {
+  .placeHolderDIV {
+    max-height: max-content;
+    min-height: 700px;
+    padding-top: 229px;
+    height: 764px;
+  }
+
+  .bg-popup {
+    overflow: auto;
+    top: 80px;
+    background: white;
+  }
+
+  .add-task-popup {
+    width: 100%;
+    height: max-content;
+    border-radius: 0;
   }
 }

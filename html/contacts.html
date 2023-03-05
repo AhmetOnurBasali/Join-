@@ -43,7 +43,9 @@
     <div class="contactsMainContainer">
         <div class="invisibleSideDiv"></div>
 
+        <div style="height: 165px;"></div>
         <div class="contactsContainer" id="contactsArea"></div>
+        
 
         <div id="rightSectionCO" class="rightSectionCO">
             <div id="textPosiRE" class="textPosiRE d-none">
@@ -113,8 +115,9 @@
             <div class="popupContactWhiteSection">
                 <div class="closePopupContact">
                     <svg onclick="closeEditContact()" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursorPointer">
-                        <path class="backSVG" d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <path class="backSVG" d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z"
+                        stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
                 <div class="inputSection">
                     <div class="contactImgBubbleContainer" id="bubbleInEditSection">
@@ -122,9 +125,12 @@
                     </div>
                     <form onsubmit="saveEdit(event)">
                         <div class="inputsContainerEditSection">
-                            <input id="editName" oninput="proofEditName()" class="inputCO nameIcon" placeholder="Edit name" type="text">
-                            <input id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
-                            <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5" class="inputCO phoneIcon" placeholder="Edit number">
+                            <input id="editName" oninput="proofEditName()" class="inputCO nameIcon"
+                                placeholder="Edit name" type="text">
+                            <input id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon"
+                                placeholder="Edit email" type="email">
+                            <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5"
+                                class="inputCO phoneIcon" placeholder="Edit number">
                             <div class="saveContactBtnContainer">
                                 <button class="saveContactBlueBtn">
                                     <b>Save</b>
@@ -147,9 +153,12 @@
             </div>
             <div class="popupContactWhiteSection">
                 <div class="closePopupContact">
-                    <svg onclick="closeAddNewContact()" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer">
-                        <path class="backSVG" d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                    <svg onclick="closeAddNewContact()" width="25" height="25" viewBox="0 0 25 25" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" style="cursor:pointer">
+                        <path class="backSVG"
+                            d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z"
+                            stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </div>
                 <div class="inputSection">
                     <div class="contactImgBubbleContainer">
@@ -157,9 +166,12 @@
                     </div>
                     <form onsubmit="createNewContact(event)">
                         <div class="inputsContainer">
-                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name" type="text" required>
-                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email" type="email" required>
-                            <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon" placeholder="number" type="number" required>
+                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name"
+                                type="text" required>
+                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email"
+                                type="email" required>
+                            <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon"
+                                placeholder="number" type="number" required>
                             <p id="phoneError" class="phoneError"></p>
                             <div class="addContactBtnContainer">
                                 <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
@@ -186,7 +198,7 @@
     <section onclick="closeAddTaskBoard()" id="popup-add-task-board" class="bg-popup d-none">
         <div onclick="event.stopPropagation()" id="addTask" class="add-task-popup"></div>
     </section>
-    <div class="bottomDivCO" id="navbar-bottom"></div>
+    <div class="" id="navbar-bottom"></div>
 </body>
 
 </html>

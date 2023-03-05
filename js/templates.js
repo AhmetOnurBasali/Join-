@@ -40,6 +40,12 @@ function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
 }
 
+function barBottomHidden(){
+  if (window.innerWidth <=1000) {
+        let navbar = document.getElementById('navbar-bottom')
+        navbar.classList.add("d-none")
+  }
+}
 
 function addTaskCloseTopRightHTML() {
   return `
@@ -179,7 +185,7 @@ function addTaskHTML() {
       <path d="M26.9984 2.96583L26.9984 20.9658C26.9979 21.4961 26.787 22.0045 26.412 22.3794C26.0371 22.7544 25.5287 22.9653 24.9984 22.9658L20.9984 22.9658C20.4681 22.9653 19.9597 22.7544 19.5848 22.3794C19.2098 22.0045 18.9989 21.4959 18.9984 20.9656L18.9984 2.96561C18.9989 2.43534 19.2098 1.92716 19.5848 1.5522C19.9597 1.17724 20.4681 0.96636 20.9984 0.965831L24.9984 0.965831C25.5287 0.96636 26.0371 1.17724 26.412 1.5522C26.787 1.92716 26.9979 2.43556 26.9984 2.96583ZM20.9984 20.9656L24.9984 20.9658L24.9984 2.96583L20.9984 2.96561L20.9984 20.9656Z" fill="white"/>
     </svg>
   </div>
-  <div>
+  <div class="placeHolderDIV">
     <form class="addTaskContainer" onsubmit="createNewTask(event);">
       <div class="paddLeRe40px" id="headline-addtask">
         <h1>Add Task</h1>
