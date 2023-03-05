@@ -40,10 +40,10 @@ function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
 }
 
-function barBottomHidden(){
-  if (window.innerWidth <=1000) {
-        let navbar = document.getElementById('navbar-bottom')
-        navbar.classList.add("d-none")
+function barBottomHidden() {
+  if (window.innerWidth <= 1000) {
+    let navbar = document.getElementById('navbar-bottom')
+    navbar.classList.add("d-none")
   }
 }
 
@@ -70,7 +70,8 @@ function headerHTML() {
         <a class="help-img mobile-d-none" href="../html/help.html">
           <img src="../assets/img/infoIcon.svg">
         </a>
-      <div class="log-in">
+        <div id="creatTaskBtnMobile" class="log-in"></div>
+        <div id="loginContainer" class="log-in">
           <div class="log-in-img">
             <div style="padding:0 !important" class="assignBubble" id="currentUserInitials">
               Is
