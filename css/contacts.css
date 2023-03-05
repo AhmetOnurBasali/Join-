@@ -434,7 +434,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 30px;
 }
 
-.bgPopup {
+.bg-popup {
   position: fixed;
   top: 0;
   bottom: 0;
