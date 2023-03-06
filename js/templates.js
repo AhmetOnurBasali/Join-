@@ -1,23 +1,15 @@
+let animationTimeout;
+
 async function initTemplates() {
-  try {
-    // document.getElementById("addTask").innerHTML = addTaskHTML();
-    document.getElementById("header").innerHTML = headerHTML();
-    if (window.innerWidth <= 1000) {
-      document.getElementById("navbar-bottom").innerHTML = navbarMobileHTML();
-    } else {
-      document.getElementById("sidebar").innerHTML = sidebarHTML();
-    }
-
-
-  } catch (error) {
-    document.getElementById("header").innerHTML = headerHTML();
-    if (window.innerWidth <= 1000) {
-      document.getElementById("navbar-bottom").innerHTML = navbarMobileHTML();
-    } else {
-      document.getElementById("sidebar").innerHTML = sidebarHTML();
-    }
-
+  document.getElementById("header").innerHTML = headerHTML();
+  if (window.innerWidth <= 1000) {
+    animationTimeout = 0;
+    document.getElementById("navbar-bottom").innerHTML = navbarMobileHTML();
+  } else {
+    animationTimeout = 750;
+    document.getElementById("sidebar").innerHTML = sidebarHTML();
   }
+
   getInitialForHeader();
 }
 

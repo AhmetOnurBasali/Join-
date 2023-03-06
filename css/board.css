@@ -334,16 +334,20 @@ h2 {
     margin-top: 20px;
     font-size: 52px;
     font-weight: 700;
-    min-height: 150px;
-    word-wrap: break-word
+    min-height: 100px;
+    word-wrap: break-word;
+    max-height: 100px;
+    overflow-y: auto;
 }
 
 .task-details-description {
     margin-top: 10px;
     font-weight: 400;
     font-size: 16px;
-    min-height: 50px;
-    word-wrap: break-word
+    min-height: 100px;
+    word-wrap: break-word;
+    max-height: 100px;
+    overflow-y: auto;
 }
 
 .task-details-text {
@@ -686,8 +690,6 @@ h2 {
 
 /* responsive */
 
-
-
 @media(max-width:1500px) {
     /* .add-task-popup {
         width: 800px;
@@ -814,9 +816,40 @@ h2 {
         width: 130px;
     }
 
-    .visual-in{
+    .slide-in {
         animation: none;
     }
+
+    .slide-out {
+        animation: none;
+    }
+
+    .visual-in {
+        animation: none;
+    }
+
+    .visual-out {
+        animation: none;
+    }
+
+    .bg-popup {
+        align-items: flex-start !important;
+    }
+
+    .headline-task-details svg {
+        height: 24px;
+        width: 24px;
+        cursor: pointer;
+    }
+
+    .headline-task-details {
+        align-items: center;
+    }
+
+    .task-details-category{
+        margin-top: unset;
+    }
+
 }
 
 
@@ -887,35 +920,20 @@ h2 {
         width: 270px;
     }
 
-}
-
-
-/* @media(max-width:500px) {
-    .task {
-        position: absolute;
+    .task-details-popup{
+        width: 280px;
     }
 
-    .task[dragging] {
-        --start-x: 0px;
-        --start-y: 0px;
-        --x: 0px;
-        --y: 0px;
-        transform: translate(0px, 0px);
-        transition: none;
-      }
-      .task[dragging][dragging-x] {
-        --x: 0px;
-        --start-x: 0px;
-        transform: translateX(calc(var(--x) - var(--start-x)));
-        transition: none;
-      }
-      .task[dragging][dragging-y] {
-        --y: 0px;
-        --start-y: 0px;
-        transform: translateY(calc(var(--y) - var(--start-y)));
-        transition: none;
-      }
+    .task-details-category {
+        font-size: 20px;
+        padding: 5px 25px;
+        border-radius: 8px;
+        width: fit-content;
+        display: flex;
+    }
 
-
-
-} */
+    .task-details-title {
+        margin-top: 15px;
+        font-size: 42px;
+    }
+}

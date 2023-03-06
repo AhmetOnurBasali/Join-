@@ -4,6 +4,7 @@ let currentAreaOndragover;
 let taskPreview;
 let newArea;
 let currentTaskID;
+
 /**
  * This function is used to initialise all functions thats needed for the board page.
  * 
@@ -187,7 +188,7 @@ function addTaskBoard(area) {
     addTaskCloseTopRight();
 
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
-    
+
     barBottomHidden()
     moveCreatTaskBtnMobile()
     body.style.overflow = "hidden"
@@ -212,8 +213,8 @@ function closeAddTaskBoard() {
     slideOutAnimation('addTask', 'popup-add-task-board');
     setTimeout(() => {
         document.getElementById('popup-add-task-board').classList.add('d-none');
-    }, 750);
-    if (window.innerWidth <=1000) {
+    }, animationTimeout);
+    if (window.innerWidth <= 1000) {
         let navbar = document.getElementById('navbar-bottom')
         navbar.classList.remove("d-none")
         hiddenCreatTaskBtnMobile()
@@ -298,7 +299,7 @@ function closeTaskDetails() {
     slideOutAnimation('task-details', 'popup-task-details');
     setTimeout(() => {
         document.getElementById('popup-task-details').classList.add('d-none');
-    }, 750);
+    }, animationTimeout);
 }
 
 function editDetailsTask() {
@@ -377,7 +378,7 @@ function renderCreatedTasksInnerHTML(task) {
 `;
 }
 
-function functions(){
+function functions() {
     // get current scroll position and viewport height
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const viewportHeight = window.innerHeight;
@@ -409,7 +410,7 @@ function touchMoveDragging(event, taskId) {
     taskElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
 
 
-    
+
 }
 
 function touchStartDragging(event, taskId) {
@@ -441,7 +442,10 @@ function renderTaskDetailsFrontHTML() {
     return /*html*/`
     <div class="headline-task-details">
         <span class="task-details-category" id="task-details-category${allTasks[currentTaskID]['id']}">${allTasks[currentTaskID]['category']}</span>
-        <img onclick="closeTaskDetails()" src="../assets/img/clear.svg" alt="">
+        <img class="mobile-d-none" onclick="closeTaskDetails()" src="../assets/img/clear.svg" alt="">
+        <svg class="only-mobile" onclick="closeTaskDetails()" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.06813 9.95821H23.2916C24.1431 9.95821 24.8333 10.6484 24.8333 11.4999C24.8333 12.3513 24.1431 13.0415 23.2916 13.0415H6.06813L13.2477 20.2211C13.8496 20.823 13.8496 21.799 13.2477 22.401C12.6457 23.003 11.6697 23.003 11.0678 22.401L1.58084 12.9141C0.799792 12.133 0.799791 10.8667 1.58084 10.0857L11.0677 0.598748C11.6697 -0.00321963 12.6457 -0.0032202 13.2477 0.598747C13.8496 1.20071 13.8496 2.1767 13.2477 2.77866L6.06813 9.95821Z" fill="black"/>
+        </svg>
     </div>
     <span class="task-details-title">${allTasks[currentTaskID]['title']}</span>
     <span class="task-details-description">${allTasks[currentTaskID]['description']}</span>
