@@ -50,8 +50,8 @@ function barBottomHidden() {
 function addTaskCloseTopRightHTML() {
   return `
   <div class="headline-addTask">
-  <h1>Add Task</h1>
-  <img onclick="closeAddTaskBoard(), clearTask()" src="../assets/img/clear.svg" alt="">
+    <h1>Add Task</h1>
+    <img onclick="closeAddTaskBoard(), clearTask()" src="../assets/img/clear.svg" alt="">
   </div>
   `;
 }
@@ -60,29 +60,27 @@ function addTaskCloseTopRightHTML() {
 function headerHTML() {
   return /*html*/ `
 <div class="header">
-    <span class="header-headline mobile-d-none">
-      Kanban Project Management Tool
-    </span>
-    <a class="mobile-logo" href="../html/summary.html">
-      <img class=" only-mobile" src="../assets/img/logo.svg">
-    </a>
+  <span class="header-headline mobile-d-none">
+    Kanban Project Management Tool
+  </span>
+  <a class="mobile-logo" href="../html/summary.html">
+    <img class="only-mobile" src="../assets/img/logo.svg">
+  </a>
   <div class="help-log-parent">
-        <a id="helpIcon" class="help-img mobile-d-none" href="../html/help.html">
-          <img src="../assets/img/infoIcon.svg">
-        </a>
-        <div id="creatTaskBtnMobile" class="log-in"></div>
-        <div id="loginContainer" class="log-in">
-          <div class="log-in-img">
-            <div class="assignBubble noPadding" id="currentUserInitials">
-              Is
-            </div>
-          </div>
-          <div id="headerPopupDiv" class="d-none popupSections">
-            <a class="popupSection only-mobile" href="../html/help.html">Help</a>
-            <p class="popupSection" onclick="goToEdit()">Edit User</p>
-            <p class="popupSection" onclick="logout()">Log out</p>
-          </div>
+    <a id="helpIcon" class="help-img mobile-d-none" href="../html/help.html">
+      <img src="../assets/img/infoIcon.svg">
+    </a>
+    <div id="creatTaskBtnMobile" class="log-in"></div>
+    <div id="loginContainer" class="log-in">
+      <div class="log-in-img">
+        <div class="assignBubble noPadding" id="currentUserInitials"> Is </div>
       </div>
+      <div id="headerPopupDiv" class="d-none popupSections">
+        <a class="popupSection only-mobile" href="../html/help.html">Help</a>
+        <p class="popupSection" onclick="goToEdit()">Edit User</p>
+        <p class="popupSection" onclick="logout()">Log out</p>
+      </div>
+    </div>
   </div>
 </div>
 `
@@ -91,7 +89,7 @@ function headerHTML() {
 
 function sidebarHTML() {
   return /*html*/ `
-  <div class="sidebar mobile-d-none">
+<div class="sidebar mobile-d-none">
   <div>
       <div class="parent-logo">
           <a href="../html/summary.html">
@@ -99,7 +97,7 @@ function sidebarHTML() {
           </a>
       </div>
       <div>
-          <div id="summarySide" class="sidebarsections">
+          <div id="summarySide">
             <a class="aSide" href="../html/summary.html">
             <div class="d-flex">
               <img class="link-img" src="../assets/img/summaryIcon.svg">
@@ -107,7 +105,7 @@ function sidebarHTML() {
             <div>Summary</div>
           </a>
         </div>
-        <div id="boardSide" class="sidebarsections">   
+        <div id="boardSide">   
           <a class="aSide" href='../html/board.html'>
             <div>
               <img class="link-img" src="../assets/img/bordIcon.svg">
@@ -115,7 +113,7 @@ function sidebarHTML() {
             <div>Board</div>
           </a>
         </div>
-        <div id="addTaskSide" class="sidebarsections"> 
+        <div id="addTaskSide"> 
           <a class="aSide" href="../html/addTask.html">
             <div>
               <img class="link-img" class="marginRight" src="../assets/img/addTaskIcon.svg">
@@ -123,7 +121,7 @@ function sidebarHTML() {
             <div>Add Task</div>
           </a>
         </div>
-        <div id="contactsSide" class="sidebarsections"> 
+        <div id="contactsSide"> 
           <a class="aSide" href="../html/contacts.html">
             <div>
               <img class="link-img" src="../assets/img/contactsIcon.svg">

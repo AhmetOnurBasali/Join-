@@ -357,6 +357,12 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
+.createdContactPopupPosi {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .slideContactInfo:hover {
   text-decoration: underline;
   color: #29abe2
@@ -830,7 +836,8 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .btnPosi {
-    padding: 0px !important;
+    right: 0 !important;
+    padding: 0 10px 0 0 !important;
     position: fixed !important;
     top: 73px !important;
     height: 92px;
@@ -910,11 +917,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .contactSlideName {
     gap: 10px;
-  }
-
-  .btnPosi {
-    right: 0 !important;
-    padding-right: 10px !important;
   }
 
   .slideContactContainer {

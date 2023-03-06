@@ -122,6 +122,8 @@ async function setNewContact(newContact) {
   currentUserContacts.push(newContact);
   await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
   slideOutAnimation('addContact', 'addContactPopup');
+  let succesPopup = document.getElementById('createContactPopup')
+  succesPopup.classList.remove('d-none')
   setTimeout(() => {
     window.location.href = `contacts.html`;
   }, 750);
