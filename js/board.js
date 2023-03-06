@@ -511,7 +511,7 @@ function renderEditDetailsTaskHTML() {
         </div>
         <div onclick="proofInput('msgBoxPrioEdit')" class="prio">
             <b class="padd4px">Prio</b>
-            <div style="display: flex; justify-content: space-between;">
+            <div class="prioBtnContainer">
                 <div id="highBtnContainerEdit" class="checkbox-container">
                     <input onclick="setPrioCheckBox('urgent', 'Edit')" id="urgentBtnEdit" class="checkboxPosi" type="checkbox"> 
                     <span id="highPrioTextEdit" class="prioTextPosi">Urgent</span> 
@@ -557,7 +557,7 @@ function renderEditDetailsTaskHTML() {
                     <div class="requiredText" id="msgBoxAssignedEdit"></div>
                 </div>
             </div>
-            <div style="display:flex;" id="contactInitialsEdit"></div>
+            <div class="d-flex" id="contactInitialsEdit"></div>
         </div>
         <div class="edit-Task-Btn">
             <div>

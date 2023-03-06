@@ -662,6 +662,10 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media only screen and (max-width: 1000px) {
+  .slide-in {
+    animation: unset;
+  }
+
   .penSVGMobile {
     height: 21px !important;
   }

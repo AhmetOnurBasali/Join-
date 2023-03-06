@@ -31,6 +31,10 @@ body {
     z-index: 2;
 }
 
+.prioBtnContainer {
+    display: flex;
+    justify-content: space-between;
+}
 
 .header-headline {
     font-size: 21px;
@@ -155,6 +159,17 @@ body {
     width: 100%;
 }
 
+.width100 {
+    width: 100%;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.marginRight {
+    margin-right: 12px !important;
+}
 
 .help {
     width: 40%;

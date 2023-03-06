@@ -101,7 +101,7 @@ function sidebarHTML() {
       <div>
           <div id="summarySide" class="sidebarsections">
             <a class="aSide" href="../html/summary.html">
-            <div style="display: flex;">
+            <div class="d-flex">
               <img class="link-img" src="../assets/img/summaryIcon.svg">
             </div>
             <div>Summary</div>
@@ -118,7 +118,7 @@ function sidebarHTML() {
         <div id="addTaskSide" class="sidebarsections"> 
           <a class="aSide" href="../html/addTask.html">
             <div>
-              <img class="link-img" style="margin-right: 12px !important;" src="../assets/img/addTaskIcon.svg">
+              <img class="link-img" class="marginRight" src="../assets/img/addTaskIcon.svg">
             </div>
             <div>Add Task</div>
           </a>
@@ -268,7 +268,7 @@ function addTaskHTML() {
                 <div class="requiredText" id="msgBoxAssignedTask"></div>
               </div>
             </div>
-            <div style="display:flex;" id="contactInitials"></div>
+            <div class="d-flex" id="contactInitials"></div>
           </div>
         <div class="rightSection">
           <div onclick="proofInput('msgBoxDateTask')" class="inputContainer">
@@ -280,7 +280,7 @@ function addTaskHTML() {
           </div>
           <div onclick="proofInput('msgBoxPrioTask')" class="prio">
             <b class="padd4px">Prio</b>
-            <div style="display: flex; justify-content: space-between;">
+            <div class="prioBtnContainer">
               <div id="highBtnContainer" class="checkboxContainer">
                 <input onclick="setPrioCheckBox('urgent', '')" id="urgentBtn" class="checkboxPosi" type="checkbox"> 
                 <span id="highPrioText" class="prioTextPosi">Urgent</span> 
@@ -369,7 +369,7 @@ function renderNewCategoryHTML() {
 function renderCategorysHTML(c, category, color) {
   return `
   <div class="allCategorysContainer newCategory">
-    <div style="width: 100%" onclick="chooseCategory('${category}','${color}')" id="category${c}" class="newCategory">${category}</div> 
+    <div onclick="chooseCategory('${category}','${color}')" id="category${c}" class="newCategory width100">${category}</div> 
     <div class="categoryTextColorPosi">
     <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
     </div>
