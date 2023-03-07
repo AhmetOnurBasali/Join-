@@ -192,10 +192,16 @@ function proofInput(id) {
   }
 }
 
+async function loadTasks2() {
+  await downloadFromServer();
+  let item = await backend.getItem("allTasks");
+  if (item != null) {
+    allTasks = JSON.parse(item);
+  }
+}
 
 async function setTaskData(newTask) {
-  await loadTasks();
-  debugger;
+  await loadTasks2();
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
   slidePopup.classList.remove("d-none");

@@ -317,6 +317,7 @@ function addUserEmail() {
   }
 }
 
+
 function lsRememberMe() {
   const rmCheck = document.getElementById("rememberMe"),
     emailInput = document.getElementById("email");
@@ -331,6 +332,7 @@ function lsRememberMe() {
     localStorage.checkbox = "";
   }
 }
+
 
 function loginAsGuest() {
   let email = document.getElementById("email");
@@ -353,6 +355,7 @@ async function setGuestUser() {
   await backend.setItem("users", users);
 }
 
+
 function showLock() {
   var input = document.getElementById("password");
   if (input.type === "password") {
@@ -362,6 +365,7 @@ function showLock() {
     input.type = "password";
   }
 }
+
 
 function showEye() {
   var input = document.getElementById("password");
