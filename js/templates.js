@@ -12,20 +12,20 @@ async function initTemplates() {
   getInitialForHeader();
 }
 
-// window.addEventListener('resize', function () {
-//   let delay = 250 // delay between calls
-//   let throttled = false // are we currently throttled? 
-//   if (!throttled) {
-//     // actual callback action
-//     initTemplates();
-//     // we're throttled!
-//     throttled = true;
-//     // set a timeout to un-throttle
-//     setTimeout(function () {
-//       throttled = false;
-//     }, delay);
-//   }
-// });
+window.addEventListener('resize', function () {
+  let delay = 250 // delay between calls
+  let throttled = false // are we currently throttled? 
+  if (!throttled) {
+    // actual callback action
+    initTemplates();
+    // we're throttled!
+    throttled = true;
+    // set a timeout to un-throttle
+    setTimeout(function () {
+      throttled = false;
+    }, delay);
+  }
+});
 
 function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();

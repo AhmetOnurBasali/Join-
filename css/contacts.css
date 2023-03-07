@@ -536,6 +536,8 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+
+
 .visual-out {
   animation: visualout 800ms;
 }
@@ -667,38 +669,47 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-@media only screen and (max-width: 1000px) {
-  @keyframes slideout {
+@media (max-width: 1000px) {
+
+  .slideContactContainer{
+    animation: none !important;
+  }
+  .slide-in-bottom {
+    animation: slideInBottom 750ms !important;
+  }
+
+  .slide-out-bottom {
+    animation: slideOutBottom 750ms !important;
+  }
+
+  @keyframes slideOutBottom {
     0% {
-      transform: translateX(0%);
+      transform: translateY(0%);
     }
 
     20% {
-      transform: translateX(-5%);
+      transform: translateY(-20%);
     }
 
     100% {
-      transform: translateX(200%);
+      transform: translateY(200%);
     }
   }
 
-  .visual-out {
-    animation: visualout 800ms;
-  }
-
-  @keyframes visualout {
+  @keyframes slideInBottom {
     0% {
-      background-color: rgba(0, 0, 0, 0.3);
+      transform: translateY(200%);
+    }
+
+    20% {
+      transform: translateY(-20%);
     }
 
     100% {
-      background-color: rgba(0, 0, 0, 0);
+      transform: translateY(0%);
     }
   }
 
-  .slide-in {
-    animation: unset;
-  }
 
   .penSVGMobile {
     height: 21px !important;

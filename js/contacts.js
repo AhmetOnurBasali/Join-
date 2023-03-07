@@ -180,7 +180,7 @@ function renderSelectedContact(contact, selectedID) {
   nameSlide.innerHTML = `<span class="slideNameSize">${contact.name}</span>`;
   initialsSlides.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
   contactsAddTask.innerHTML = `<div class="lightblueColor addTaskBtnCO add-task" onclick="createTaskFromContacts('todo', ${selectedID})"> <img src="../assets/img/plusIconBlue.svg">  add task</div>`
-  editSlide.innerHTML = renderContactAddTaskHTML(selectedID)
+  editSlide.innerHTML = renderContactAddTaskHTML(selectedID);
 }
 
 

@@ -18,19 +18,44 @@ function pad(num, size) {
 }
 
 
-function slideInAnimation(parentID, childID) {
-    document.getElementById(parentID).classList.remove('slide-out');
-    document.getElementById(childID).classList.remove('visual-out');
-    document.getElementById(parentID).classList.add('slide-in');
-    document.getElementById(childID).classList.add('visual-in');
+function slideInAnimation(childID, parentID) {
+    document.getElementById(parentID).classList.remove('visual-out');
+    document.getElementById(parentID).classList.add('visual-in');
+    if (window.innerWidth <= 1000) {
+        document.getElementById(childID).classList.add('slide-in-bottom');
+        document.getElementById(childID).classList.remove('slide-out-bottom');
+        if (childID == 'addTask') {
+            document.getElementById(childID).classList.remove('slide-in-bottom');
+            document.getElementById(childID).classList.remove('slide-out');
+            document.getElementById(childID).classList.add('slide-in');
+            document.getElementById(parentID).classList.remove('visual-in');
+        }
+        
+    } else{
+        document.getElementById(childID).classList.remove('slide-out');
+        document.getElementById(childID).classList.add('slide-in');
+    }
+    
 }
 
 
-function slideOutAnimation(parentID, childID) {
-    document.getElementById(parentID).classList.remove('slide-in');
-    document.getElementById(childID).classList.remove('visual-in');
-    document.getElementById(parentID).classList.add('slide-out');
-    document.getElementById(childID).classList.add('visual-out');
+function slideOutAnimation(childID, parentID) {
+    document.getElementById(parentID).classList.remove('visual-in');
+    document.getElementById(parentID).classList.add('visual-out');
+    if (window.innerWidth <= 1000) {
+        document.getElementById(childID).classList.remove('slide-in-bottom');
+        document.getElementById(childID).classList.add('slide-out-bottom');
+        if (childID == 'addTask') {
+            document.getElementById(childID).classList.remove('slide-out-bottom');
+            document.getElementById(childID).classList.add('slide-out');
+            document.getElementById(childID).classList.remove('slide-in');
+            document.getElementById(parentID).classList.remove('visual-out');
+        }
+    } else{
+        document.getElementById(childID).classList.remove('slide-in');
+        document.getElementById(childID).classList.add('slide-out');
+    }
+    
 }
 
 

@@ -45,7 +45,7 @@ async function proofEventAndTasksJSON(event) {
 
 function getTaskData() {
   let prioNew = checkPrio('');
-  let currentID = allTasks.length;
+  let currentID = allTasks.length; 
   let creatorNew = currentUser["name"];
   let titleNew = document.getElementById("title").value;
   let descriptionNew = document.getElementById("description").value;
