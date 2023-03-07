@@ -192,17 +192,16 @@ function proofInput(id) {
   }
 }
 
-async function loadTasks2() {
+async function loadTasks2(newTask) {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
-  if (item != null) {
-    allTasks = JSON.parse(item);
+  if (typeof item === "string" ||  item != null) {
+    allTasks.push(newTask);
   }
 }
 
 async function setTaskData(newTask) {
-  await loadTasks2();
-  allTasks.push(newTask);
+  await loadTasks2(newTask);
   await backend.setItem("allTasks", allTasks);
   slidePopup.classList.remove("d-none");
   setTimeout(() => {
