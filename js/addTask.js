@@ -27,7 +27,7 @@ async function createNewTask(event) {
   let newTask = getTaskData();
   let proof = taskProofSection(newTask);
   if (proof === true) {
-    setTaskData(newTask);
+   await setTaskData(newTask);
   }
 }
 
