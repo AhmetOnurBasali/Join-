@@ -194,10 +194,8 @@ function proofInput(id) {
 
 async function loadTasks2(newTask) {
   await downloadFromServer();
-  let item = await backend.getItem("allTasks");
-  if (typeof item === "string" ||  item != null) {
+   await backend.getItem("allTasks");
     allTasks.push(newTask);
-  }
 }
 
 async function setTaskData(newTask) {
