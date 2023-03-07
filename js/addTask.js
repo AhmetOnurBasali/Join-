@@ -192,14 +192,12 @@ function proofInput(id) {
   }
 }
 
-async function loadTasks2(newTask) {
-  await downloadFromServer();
-   await backend.getItem("allTasks");
-    allTasks.push(newTask);
-}
 
 async function setTaskData(newTask) {
-  await loadTasks2(newTask);
+  if (allTasks.length > 1) {
+    await loadTasks();
+  }
+  allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
   slidePopup.classList.remove("d-none");
   setTimeout(() => {
