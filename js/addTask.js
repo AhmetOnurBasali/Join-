@@ -27,7 +27,7 @@ async function createNewTask(event) {
   let newTask = getTaskData();
   let proof = taskProofSection(newTask);
   if (proof === true) {
-    setTaskData(newTask);
+    await setTaskData(newTask);
   }
 }
 
@@ -194,6 +194,8 @@ function proofInput(id) {
 
 
 async function setTaskData(newTask) {
+  await loadTasks();
+  debugger;
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
   slidePopup.classList.remove("d-none");

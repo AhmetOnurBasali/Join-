@@ -721,7 +721,9 @@ h2 {
     .task-preview {
         width: 227px;
     }
-
+    .task-subtasks-progressbar {
+        width: 125px;
+    }
 
 
 }
