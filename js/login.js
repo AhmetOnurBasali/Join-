@@ -14,6 +14,7 @@ function understoodDisclaimer() {
   text.classList.add('d-none')
 }
 
+
 function animateImage() {
   loginLogo.classList.add('d-none')
   let svg = document.getElementById('joinEntrance');
@@ -26,6 +27,7 @@ function animateImage() {
     loginLogo.classList.remove('d-none')
   }, 1900);
 }
+
 
 function proofDisclaimer() {
   let storage = localStorage.getItem('dontShowAgain')
@@ -41,6 +43,7 @@ function proofDisclaimer() {
   }
 }
 
+
 function loadParms() {
   const urlParams = new URLSearchParams(window.location.search)
   const msg = urlParams.get('msg')
@@ -49,23 +52,32 @@ function loadParms() {
   } else {
     document.getElementById('msgBox').classList.add('d-none')
   }
+  loadSecondParms()
+}
+
+
+function loadSecondParms() {
   const urlParams2 = new URLSearchParams(window.location.search)
   const msg2 = urlParams2.get('msg2')
   if (msg2) {
-    setTimeout(() => {
-      passwordInput = document.getElementById("password");
-      msgBox2.innerHTML = msg2;
-      passwordInput.value = ""
-      passwordInput.placeholder = "Ups! Try again"
-    }, 100);
+    setSecondParms(msg2)
   } else try {
     document.getElementById('msgBox2').classList.add('d-none')
   } catch (error) {
     console.log("no prams");
-  } {
-
   }
 }
+
+
+function setSecondParms(msg2) {
+  setTimeout(() => {
+    passwordInput = document.getElementById("password");
+    msgBox2.innerHTML = msg2;
+    passwordInput.value = ""
+    passwordInput.placeholder = "Ups! Try again"
+  }, 100);
+}
+
 
 async function proofDisclaimerAgain() {
   let dontShow = localStorage.getItem("dontShowAgain");
@@ -135,11 +147,13 @@ async function loadUsers() {
   proofUsers();
 }
 
+
 async function proofUsers() {
   if (users === null) {
     await setGuestUser();
   }
 }
+
 
 async function addUser() {
   let newName = addUserName();
@@ -163,6 +177,7 @@ function getInitialLetters(newName) {
   return newInitialLetters
 }
 
+
 async function setNewUser(newName, newColor, newEmail, newPassword, newInitialLetters) {
   let currentID = users.length - 1;
   let newID = currentID + 1;
@@ -180,10 +195,12 @@ async function setNewUser(newName, newColor, newEmail, newPassword, newInitialLe
   }, 500);
 }
 
+
 async function saveNewUser(userData) {
   users.push(userData);
   await backend.setItem("users", users);
 }
+
 
 async function login() {
   let email = setLoginEmail();
@@ -201,6 +218,7 @@ async function login() {
   }
 }
 
+
 function proofName() {
   let regName = /^[\wäöüÄÖÜ]+(?: [\wäöüÄÖÜ]+)+$/;
   let name = document.getElementById("name").value;
@@ -214,21 +232,25 @@ function proofName() {
   }
 }
 
+
 function getRandomColor() {
   const colors = ["red", "orange", "chocolate", "green", "blue", "purple"]; // TODO: mehr variationen?
   return colors[Math.floor(Math.random() * colors.length)];
 }
+
 
 function addUserColor() {
   newColor = getRandomColor();
   return newColor;
 }
 
+
 function addUserName() {
   let name = document.getElementById("name").value.toLowerCase();
   let newName = name.replace(/\b\w/g, (l) => l.toUpperCase());
   return newName;
 }
+
 
 function setLoginPassword() {
   let inputPassword = document.getElementById("password").value;
@@ -240,12 +262,14 @@ function setLoginPassword() {
   }
 }
 
+
 function setCurrentUser(user) {
   currentUser.push(user);
   console.log("user gefunden:", user);
   let userJSON = JSON.stringify(user);
   localStorage.setItem("currentUser", userJSON);
 }
+
 
 function setLoginEmail() {
   let email = document.getElementById("email").value.toLowerCase();
@@ -260,6 +284,7 @@ function setLoginEmail() {
   }
 }
 
+
 function proofEmail() {
   let regEmail = getEmailRegEx();
   let email = document.getElementById("email").value;
@@ -272,6 +297,7 @@ function proofEmail() {
     return true;
   }
 }
+
 
 function addUserEmail() {
   let email = document.getElementById("email").value.toLowerCase();

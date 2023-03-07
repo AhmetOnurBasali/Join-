@@ -122,9 +122,10 @@ function  moveCreatTaskBtnMobile() {
     let bubbleDiv = document.getElementById('loginContainer')
     if (window.innerWidth <= 1000) {
         bubbleDiv.classList.add('d-none')
-        mobileBtn.innerHTML = `<div onclick="createNewTask(event);">
-        <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
-      </div>`
+        mobileBtn.innerHTML = `
+        <div onclick="createNewTask(event);">
+            <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
+        </div>`
     }    
 }
 

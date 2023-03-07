@@ -9,7 +9,6 @@ async function initTemplates() {
     animationTimeout = 750;
     document.getElementById("sidebar").innerHTML = sidebarHTML();
   }
-
   getInitialForHeader();
 }
 
@@ -170,7 +169,9 @@ function navbarMobileHTML() {
 function addTaskHTML() {
   return /*html*/ `
   <div id="slidePopup" class="addTaskPopup slidePopup d-none">
-    <div><p>Task added to board</p></div>
+    <div>
+      <p>Task added to board</p>
+    </div>
     <svg width="28" height="28" viewBox="0 0 27 23" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M20.9984 2.96561L20.9984 20.9656C20.9979 21.4959 20.787 22.0043 20.412 22.3792C20.0371 22.7542 19.5287 22.9651 18.9984 22.9656L14.9984 22.9656C14.4681 22.9651 13.9597 22.7542 13.5848 22.3792C13.2098 22.0043 12.9989 21.4959 12.9984 20.9656L12.9984 2.96561C12.9989 2.43534 13.2098 1.92694 13.5848 1.55198C13.9597 1.17702 14.4681 0.966137 14.9984 0.965608L18.9984 0.965608C19.5287 0.966137 20.0371 1.17702 20.412 1.55198C20.787 1.92694 20.9979 2.43534 20.9984 2.96561ZM14.9984 20.9656L18.9984 20.9656L18.9984 2.96561L14.9984 2.96561L14.9984 20.9656ZM14.9984 2.96561L14.9984 20.9656C14.9979 21.4959 14.787 22.0043 14.412 22.3792C14.0371 22.7542 13.5287 22.9651 12.9984 22.9656L8.99841 22.9656C8.46814 22.9651 7.95974 22.7542 7.58478 22.3792C7.20983 22.0043 6.99894 21.4959 6.99841 20.9656L6.99841 2.96559C6.99894 2.43532 7.20983 1.92692 7.58478 1.55196C7.95974 1.177 8.46814 0.966119 8.99841 0.965589L12.9984 0.965589C13.5287 0.966118 14.0371 1.177 14.412 1.55196C14.787 1.92692 14.9979 2.43534 14.9984 2.96561ZM8.99841 20.9656L12.9984 20.9656L12.9984 2.96561L8.99841 2.96559L8.99841 20.9656ZM8.99841 2.96559L8.99841 20.9656C8.99788 21.4959 8.787 22.0043 8.41204 22.3792C8.03708 22.7542 7.52868 22.9651 6.99841 22.9656L2.99841 22.9656C2.46814 22.9651 1.95974 22.7542 1.58478 22.3792C1.20983 22.0043 0.998942 21.4959 0.998413 20.9656L0.998412 2.96559C0.998942 2.43532 1.20983 1.92692 1.58478 1.55196C1.95974 1.177 2.46814 0.966119 2.99841 0.965589L6.99841 0.965589C7.52868 0.966119 8.03708 1.177 8.41204 1.55196C8.787 1.92692 8.99788 2.43532 8.99841 2.96559ZM2.99841 20.9656L6.99841 20.9656L6.99841 2.96559L2.99841 2.96559L2.99841 20.9656Z" fill="white"/>
       <path d="M26.9984 2.96583L26.9984 20.9658C26.9979 21.4961 26.787 22.0045 26.412 22.3794C26.0371 22.7544 25.5287 22.9653 24.9984 22.9658L20.9984 22.9658C20.4681 22.9653 19.9597 22.7544 19.5848 22.3794C19.2098 22.0045 18.9989 21.4959 18.9984 20.9656L18.9984 2.96561C18.9989 2.43534 19.2098 1.92716 19.5848 1.5522C19.9597 1.17724 20.4681 0.96636 20.9984 0.965831L24.9984 0.965831C25.5287 0.96636 26.0371 1.17724 26.412 1.5522C26.787 1.92716 26.9979 2.43556 26.9984 2.96583ZM20.9984 20.9656L24.9984 20.9658L24.9984 2.96583L20.9984 2.96561L20.9984 20.9656Z" fill="white"/>
@@ -185,7 +186,7 @@ function addTaskHTML() {
         <div class="leftSection">
           <div class="inputContainer" title="Please enter a title">
             <b class="padd4px">Title</b> 
-            <input id="title" type="text" oninput="proofInput('msgBoxTitleTask')" >
+            <input id="title" type="text" oninput="proofInput('msgBoxTitleTask')">
             <div class="transparentDiv">
               <div class="requiredText" id="msgBoxTitleTask"></div>
             </div>  
@@ -209,17 +210,17 @@ function addTaskHTML() {
                 </svg>
             </div>
             <div class="d-none contactContainer" id="category-anim">
-                  <span id="newCategory" class="allCategorysContainer newCategory" onclick="newCategory()">new category</span>
-                  <span id="allCategorys" class="overflow"></span> 
-                </div>
+              <span id="newCategory" class="allCategorysContainer newCategory" onclick="newCategory()">new category</span>
+              <span id="allCategorys" class="overflow"></span> 
+            </div>
             <div class="transparentDiv">
               <div class="requiredText" id="msgBoxCategoryTask"></div>  
             </div>
           </div>
           <div class="d-none" id="createCategoryContainer">
-          <span>
-            <b class="padd4px">Category</b>
-          </span>
+            <span>
+              <b class="padd4px">Category</b>
+            </span>
             <div class="newCategoryDiv">
               <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name" maxlength="20">             
               <div onclick="closeNewCategory()" class="closeNewCategory">
@@ -250,16 +251,16 @@ function addTaskHTML() {
                 <path d="M2.2 0H1.41421C0.523309 0 0.0771403 1.07714 0.707105 1.70711L6.29289 7.29289C6.68342 7.68342 7.31658 7.68342 7.70711 7.29289L13.2929 1.70711C13.9229 1.07714 13.4767 0 12.5858 0H11.8H7H2.2Z" fill="black"/>
               </svg>
             </div>
-              <div class="contactContainer d-none overflow" id="contactList">
-                <div id="contacts"></div>
-                <div id="selectedContact" class="newCategoryDiv"></div>
-              </div>
-              <div class="transparentDiv">
-                <div class="requiredText" id="msgBoxAssignedTask"></div>
-              </div>
+            <div class="contactContainer d-none overflow" id="contactList">
+              <div id="contacts"></div>
+              <div id="selectedContact" class="newCategoryDiv"></div>
             </div>
-            <div class="d-flex" id="contactInitials"></div>
+            <div class="transparentDiv">
+              <div class="requiredText" id="msgBoxAssignedTask"></div>
+            </div>
           </div>
+          <div class="d-flex" id="contactInitials"></div>
+        </div>
         <div class="rightSection">
           <div onclick="proofInput('msgBoxDateTask')" class="inputContainer">
             <b class="padd4px">Due date</b> 
@@ -321,7 +322,7 @@ function addTaskHTML() {
             <div class="requiredText" id="msgBoxSubtaskTask"></div>
           </div>
           <div class="subtaskCheckboxArea">
-            <div id="subtaskCheckboxArea" class="overflow"> </div>
+            <div id="subtaskCheckboxArea" class="overflow"></div>
           </div>
         </div>
       </div>
@@ -330,16 +331,17 @@ function addTaskHTML() {
         <div class="paddLeRe40px" id="close-add-task">
           <div class="whiteBtn" onclick="clearTask()">Clear
             <svg  width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="clearSvg" d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg></div>
-        </div>
-          <div>
-            <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
+              <path class="clearSvg" d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-        </div> 
-      </div>
-    </form>
-  </div>
+        </div>
+        <div>
+          <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
+        </div>
+      </div> 
+    </div>
+  </form>
+</div>
 `;
 }
 
@@ -361,7 +363,7 @@ function renderCategorysHTML(c, category, color) {
   <div class="allCategorysContainer newCategory">
     <div onclick="chooseCategory('${category}','${color}')" id="category${c}" class="newCategory width100">${category}</div> 
     <div class="categoryTextColorPosi">
-    <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
+      <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
     </div>
     <div onclick="deleteCategory(${c})">X</div>
   </div>`;
