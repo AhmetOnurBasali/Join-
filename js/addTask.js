@@ -205,9 +205,7 @@ function proofInput(id) {
 
 
 async function setTaskData(newTask) {
-  if (allTasks.length > 1) {
-    await loadTasks();
-  }
+
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
   slidePopup.classList.remove("d-none");
