@@ -23,13 +23,11 @@ async function loadTasks() {
 
 
 async function createNewTask(event) {
-  
   await proofEventAndTasksJSON(event);
   if (allTasks.length > 1) {
     await loadTasks();
   }
   let newTask = await getTaskData();
-  // await proofEventAndTasksJSON(event);
   let proof = taskProofSection(newTask);
   if (proof === true) {
     await setTaskData(newTask);
@@ -47,17 +45,6 @@ async function proofEventAndTasksJSON(event) {
   await downloadFromServer();
 }
 
-// async function getCurrentTaksID() {
-//   await downloadFromServer();
-//   let item = await backend.getItem("allTasks");
-//   try {
-//     let currentID = item.length
-//     return currentID
-//   } catch (error) {
-//     let currentID = 1
-//     return currentID
-//   }
-// }
 
 async function getTaskData() {
   let prioNew = checkPrio('');
@@ -110,8 +97,7 @@ function checkProofOf(data, title, description, category, assigned, date, prio, 
 
 
 function proofTaskData(newTask) {
-  if (!newTask.creator) {
-    // newTask.creator == "Guest User"
+  if (newTask.creator == "Guest User") {
     alert("proof Current user");
     return false;
   }
