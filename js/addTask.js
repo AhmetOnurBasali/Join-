@@ -23,8 +23,8 @@ async function loadTasks() {
 
 
 async function createNewTask(event) {
-  await proofEventAndTasksJSON(event);
   let newTask = await getTaskData();
+  await proofEventAndTasksJSON(event);
   let proof = taskProofSection(newTask);
   if (proof === true) {
     await setTaskData(newTask);
@@ -45,10 +45,10 @@ async function proofEventAndTasksJSON(event) {
 async function getCurrentTaksID() {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
-  try {
+  if (item.length == allTasks.length ) {
     let currentID = item.length
     return currentID
-  } catch (error) {
+  } else {
     let currentID = 1
     return currentID
   }
@@ -205,9 +205,9 @@ function proofInput(id) {
 
 
 async function setTaskData(newTask) {
-  if (allTasks.length > 1) {
-    await loadTasks();
-  }
+  // if (allTasks.length > 1) {
+  //   await loadTasks();
+  // }
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
   slidePopup.classList.remove("d-none");
