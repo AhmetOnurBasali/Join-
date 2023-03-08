@@ -23,13 +23,13 @@ async function loadTasks() {
 
 
 async function createNewTask(event) {
-  // if (allTasks.length > 1) {
-     await loadTasks();
-  // }
   
   await proofEventAndTasksJSON(event);
+  if (allTasks.length > 1) {
+    await loadTasks();
+  }
   let newTask = await getTaskData();
-  await proofEventAndTasksJSON(event);
+  // await proofEventAndTasksJSON(event);
   let proof = taskProofSection(newTask);
   if (proof === true) {
     await setTaskData(newTask);
