@@ -116,8 +116,8 @@
                     </div>
                     <form onsubmit="saveEdit(event)">
                         <div class="inputsContainerEditSection">
-                            <input id="editName" oninput="proofEditName()" class="inputCO nameIcon" placeholder="Edit name" type="text">
-                            <input id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
+                            <input maxlength="18" id="editName" oninput="proofEditName()" class="inputCO nameIcon" placeholder="Edit name" type="text">
+                            <input maxlength="18" id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
                             <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5" class="inputCO phoneIcon" placeholder="Edit number">
                             <div class="saveContactBtnContainer">
                                 <button class="saveContactBlueBtn">
@@ -150,8 +150,8 @@
                     </div>
                     <form onsubmit="createNewContact(event)">
                         <div class="inputsContainer">
-                            <input id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name" type="text" required>
-                            <input id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email" type="email" required>
+                            <input maxlength="18" id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name" type="text" required>
+                            <input maxlength="18" id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email" type="email" required>
                             <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon" placeholder="number" type="number" required>
                             <p id="phoneError" class="phoneError"></p>
                             <div class="addContactBtnContainer">

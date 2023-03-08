@@ -186,7 +186,7 @@ function addTaskHTML() {
         <div class="leftSection">
           <div class="inputContainer" title="Please enter a title">
             <b class="padd4px">Title</b> 
-            <input id="title" type="text" oninput="proofInput('msgBoxTitleTask')">
+            <input maxlength="18" id="title" type="text" oninput="proofInput('msgBoxTitleTask')">
             <div class="transparentDiv">
               <div class="requiredText" id="msgBoxTitleTask"></div>
             </div>  
@@ -222,7 +222,7 @@ function addTaskHTML() {
               <b class="padd4px">Category</b>
             </span>
             <div class="newCategoryDiv">
-              <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name" maxlength="20">             
+              <input class="createCategoryInput" name="output" oninput="dropColorInInput()" id="createCategory" placeholder="New category name" maxlength="18">             
               <div onclick="closeNewCategory()" class="closeNewCategory">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -304,7 +304,7 @@ function addTaskHTML() {
         <div class="inputContainer">
           <b class="padd4px">Subtasks</b> 
           <div oninput="proofInput('msgBoxSubtaskTask')" class="inputContainer">
-            <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text" maxlength="20">
+            <input oninput="setNewSubtask()" id="subtask" placeholder="Add new subtask" type="text" maxlength="18">
             <div id="subtaskInputBtnsContainer" class="subtaskInputBtnsContainer d-none">
               <div onclick="closeNewSubtask()" class="closeNewSubtask">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">

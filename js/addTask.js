@@ -42,10 +42,18 @@ async function proofEventAndTasksJSON(event) {
   await downloadFromServer();
 }
 
+async function getCurrentTaksID() {
+  await downloadFromServer();
+  let item = await backend.getItem("allTasks");
+ let currentID = item.length
+ console.log(currentID);
+ debugger
+ return currentID
+}
 
 function getTaskData() {
   let prioNew = checkPrio('');
-  let currentID = allTasks.length; 
+  let currentID = getCurrentTaksID()
   let creatorNew = currentUser["name"];
   let titleNew = document.getElementById("title").value;
   let descriptionNew = document.getElementById("description").value;
