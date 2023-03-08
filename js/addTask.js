@@ -24,7 +24,7 @@ async function loadTasks() {
 
 async function createNewTask(event) {
   // if (allTasks.length > 1) {
-     await loadTasks();
+   //  await loadTasks();
   // }
   
   await proofEventAndTasksJSON(event);
