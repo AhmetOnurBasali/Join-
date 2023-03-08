@@ -24,7 +24,7 @@ async function loadTasks() {
 
 async function createNewTask(event) {
   await proofEventAndTasksJSON(event);
-  let newTask = getTaskData();
+  let newTask = await getTaskData();
   let proof = taskProofSection(newTask);
   if (proof === true) {
     await setTaskData(newTask);
@@ -45,15 +45,18 @@ async function proofEventAndTasksJSON(event) {
 async function getCurrentTaksID() {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
- let currentID = item.length
- console.log(currentID);
- debugger
- return currentID
+  try {
+    let currentID = item.length
+    return currentID
+  } catch (error) {
+    let currentID = 1
+    return currentID
+  }
 }
 
-function getTaskData() {
+async function getTaskData() {
   let prioNew = checkPrio('');
-  let currentID = getCurrentTaksID()
+  let currentID = await getCurrentTaksID()
   let creatorNew = currentUser["name"];
   let titleNew = document.getElementById("title").value;
   let descriptionNew = document.getElementById("description").value;
