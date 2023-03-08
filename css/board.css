@@ -332,7 +332,7 @@ h2 {
 
 .task-details-title {
     margin-top: 20px;
-    font-size: 52px;
+    font-size: 46px;
     font-weight: 700;
     min-height: 100px;
     word-wrap: break-word;
@@ -630,7 +630,7 @@ h2 {
 
 @keyframes slidein {
     0% {
-        transform: translateX(100%);
+        transform: translateX(300%);
     }
 
     20% {
@@ -670,7 +670,7 @@ h2 {
     }
 
     100% {
-        transform: translateX(200%);
+        transform: translateX(300%);
     }
 }
 
