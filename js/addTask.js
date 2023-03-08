@@ -23,9 +23,9 @@ async function loadTasks() {
 
 
 async function createNewTask(event) {
-  if (allTasks.length > 1) {
-    await loadTasks();
-  }
+  // if (allTasks.length > 1) {
+  //   await loadTasks();
+  // }
   
   await proofEventAndTasksJSON(event);
   let newTask = await getTaskData();
@@ -47,17 +47,17 @@ async function proofEventAndTasksJSON(event) {
   await downloadFromServer();
 }
 
-async function getCurrentTaksID() {
-  await downloadFromServer();
-  let item = await backend.getItem("allTasks");
-  try {
-    let currentID = item.length
-    return currentID
-  } catch (error) {
-    let currentID = 1
-    return currentID
-  }
-}
+// async function getCurrentTaksID() {
+//   await downloadFromServer();
+//   let item = await backend.getItem("allTasks");
+//   try {
+//     let currentID = item.length
+//     return currentID
+//   } catch (error) {
+//     let currentID = 1
+//     return currentID
+//   }
+// }
 
 async function getTaskData() {
   let prioNew = checkPrio('');
@@ -210,9 +210,9 @@ function proofInput(id) {
 
 
 async function setTaskData(newTask) {
-  if (allTasks.length > 1) {
-    await loadTasks();
-  }
+  // if (allTasks.length > 1) {
+  //   await loadTasks();
+  // }
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
   slidePopup.classList.remove("d-none");
