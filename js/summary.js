@@ -32,9 +32,11 @@ function showGreetingUser() {
   } catch (error) {
     console.error("no user logged in");
   }
-  setTimeout(() => {
 
+  setTimeout(() => {
+    if (window.innerWidth <= 1000) {
     document.querySelector('.welcome').style.display = 'none';
+    }
   }, 2400);
 }
 
