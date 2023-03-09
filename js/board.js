@@ -391,7 +391,7 @@ function functions() {
 }
 
 function touchEndDragging(event, taskId) {
-    // document.getElementById('body').style.overflow = 'auto';
+     document.getElementById('body').style.overflow = 'auto';
 
     // Verschieben Sie das Element an die endgültige Position
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
@@ -408,13 +408,20 @@ function touchMoveDragging(event, taskId) {
     // Verschieben Sie das Element entsprechend
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
     taskElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-
-
-}
+  
+    // check if cursor is close to bottom of viewport
+    if (touch.clientY > (window.innerHeight - 100)) { // adjust 100 as needed for desired threshold
+      scrollPage('down');
+    }
+  
+    // check if cursor is close to top of viewport
+    if (touch.clientY < 100) { // adjust 100 as needed for desired threshold
+      scrollPage('up');
+    }
+  }
 
 function touchStartDragging(event, taskId) {
-    // document.getElementById('body').style.overflow = 'hidden';
+     document.getElementById('body').style.overflow = 'hidden';
     // Speichern Sie die aktuellen Touch-Koordinaten
     const touch = event.touches[0];
     startX = touch.clientX;
@@ -424,7 +431,36 @@ function touchStartDragging(event, taskId) {
     taskElement.setAttribute("dragging", "");
 }
 
-
+function scrollPage(direction) {
+    // Bestimmen Sie die aktuelle Scroll-Position und die Höhe des Viewports
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
+  
+    // Berechnen Sie die neue Scroll-Position
+    const newScrollTop = scrollTop + direction * viewportHeight;
+  
+    // Setzen Sie die neue Scroll-Position
+    window.scrollTo(0, newScrollTop);
+  }
+  
+  // Event-Listener, um die Seite zu scrollen, wenn der Cursor den oberen oder unteren Rand erreicht
+  window.addEventListener('mousemove', function(event) {
+    // Bestimmen Sie die aktuelle Cursor-Position
+    const mouseY = event.clientY;
+  
+    // Bestimmen Sie die Höhe des Viewports
+    const viewportHeight = window.innerHeight;
+  
+    // Wenn der Cursor am oberen Rand ist, scrollen Sie nach oben
+    if (mouseY < 150) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
+      scrollPage(-1); // Hier scrollen wir um eine Seite nach oben
+    }
+  
+    // Wenn der Cursor am unteren Rand ist, scrollen Sie nach unten
+    if (mouseY > viewportHeight - 150) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
+      scrollPage(1); // Hier scrollen wir um eine Seite nach unten
+    }
+  });
 
 
 // function renderCreatedTasksInnerHTML(task) {

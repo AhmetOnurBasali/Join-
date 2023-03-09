@@ -11,6 +11,7 @@ let newSubtask = [];
 let selectedContacts = [];
 let allContacts = [];
 
+
 async function loadTasks() {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
@@ -19,14 +20,21 @@ async function loadTasks() {
   } else {
     allTasks = item;
   }
+  await proofAndSetTasks()
+}
+
+
+async function proofAndSetTasks() {
+  if (!allTasks) {
+    allTasks = [{ id: 0, category: "Design", titleBg: "Red" }];
+    await backend.setItem("allTasks", allTasks);
+  }
 }
 
 
 async function createNewTask(event) {
-  await proofEventAndTasksJSON(event);
-  if (allTasks.length > 1) {
-    await loadTasks();
-  }
+  proofEvent(event);
+  await loadTasks();
   let newTask = await getTaskData();
   let proof = taskProofSection(newTask);
   if (proof === true) {
@@ -35,14 +43,10 @@ async function createNewTask(event) {
 }
 
 
-async function proofEventAndTasksJSON(event) {
+function proofEvent(event) {
   if (event) {
     event.preventDefault();
   }
-  if (!allTasks) {
-    allTasks = [{ id: 0, category: "Design", titleBg: "Red" }];
-  }
-  await downloadFromServer();
 }
 
 
@@ -98,7 +102,7 @@ function checkProofOf(data, title, description, category, assigned, date, prio, 
 
 function proofTaskData(newTask) {
   if (newTask.creator == "Guest User") {
-    alert("proof Current user");
+    alert("The guest user can't create a task.");
     return false;
   }
   if (newTask.id === undefined || !newTask.area) {
@@ -196,9 +200,6 @@ function proofInput(id) {
 
 
 async function setTaskData(newTask) {
-  // if (allTasks.length > 1) {
-  //   await loadTasks();
-  // }
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
   slidePopup.classList.remove("d-none");
@@ -433,7 +434,7 @@ function renderNewCategory() {
 
 
 async function getCategorys() {
-  await proofEventAndTasksJSON();
+  await proofAndSetTasks();
   let allCategorys = document.getElementById(`allCategorys`);
   allCategorys.innerHTML = "";
   for (let i = 0; i < allTasks.length; i++) {

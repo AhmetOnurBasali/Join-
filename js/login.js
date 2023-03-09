@@ -156,6 +156,7 @@ async function proofUsers() {
 
 
 async function addUser() {
+  await loadUsers();
   let newName = addUserName();
   let newColor = addUserColor();
   let newEmail = addUserEmail();

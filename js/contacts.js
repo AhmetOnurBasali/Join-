@@ -72,7 +72,6 @@ function closeEditContact() {
     let container = document.getElementById("editContactPopup");
     container.classList.add("d-none");
   }, 750);
-
 }
 
 
@@ -89,6 +88,7 @@ function createTaskFromContacts(area, selectedID) {
 
 async function createNewContact(event) {
   event.preventDefault();
+  let userProof = proofCurrentUser()
   let nameInput = tryGetName();
   let emailInput = tryGetEmail();
   let numberInput = tryGetPhone();
@@ -97,10 +97,9 @@ async function createNewContact(event) {
   let currentContactID = currentUserContacts.length;
   let data = { nameInput, emailInput, numberInput, newColor, nameInitials, currentContactID }
   let newContact = makeDataToContact(data);
-  if (proofEmail(emailInput) === true && proofName(nameInput) === true && numberInput.length > 5 && numberInput.length < 16) {
+  if (userProof && proofEmail(emailInput) === true && proofName(nameInput) === true && numberInput.length > 5 && numberInput.length < 16) {
     setNewContact(newContact)
   }
-
 }
 
 
@@ -127,7 +126,6 @@ async function setNewContact(newContact) {
   setTimeout(() => {
     window.location.href = `contacts.html`;
   }, 750);
-
 }
 
 
@@ -207,9 +205,16 @@ function loadCurrentDataContactEdit(contact, selectedID) {
   currentSelectedID.push(selectedID);
 }
 
+function proofCurrentUser() {
+  if (currentUser.name == "Guest User") {
+    alert("The guest user can't Edit/Create a Contact.");
+    return false;
+  }
+}
 
 async function saveEdit(event) {
   event.preventDefault();
+  let userProof = proofCurrentUser()
   let id = currentSelectedID;
   let nameEdit = tryGetName();
   currentUserContacts[id]["name"] = nameEdit;
@@ -219,7 +224,7 @@ async function saveEdit(event) {
   currentUserContacts[id]["phone"] = phoneEdit;
   let nameInitials = getInitialLetters(nameEdit);
   currentUserContacts[id]["initialLetters"] = nameInitials;
-  if (proofEditName() === true && proofEditEmail() === true && phoneEdit.length > 5 && phoneEdit.length < 16) {
+  if (userProof && proofEditName() === true && proofEditEmail() === true && phoneEdit.length > 5 && phoneEdit.length < 16) {
     await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
     window.location.href = `contacts.html`;
   }
