@@ -356,7 +356,7 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" on-drag="functions()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
+    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
     ontouchstart="touchStartDragging(event, ${task['id']}), startDragging(${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']}), disregardArea()">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
@@ -378,20 +378,10 @@ function renderCreatedTasksInnerHTML(task) {
 `;
 }
 
-function functions() {
-    // get current scroll position and viewport height
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const viewportHeight = window.innerHeight;
 
-    // check if cursor is close to bottom of viewport
-    if (ev.clientY > (viewportHeight - 100)) { // adjust 100 as needed for desired threshold
-        // scroll down by 100 pixels
-        window.scrollTo(0, scrollTop + 100); // adjust 100 as needed for desired scroll amount
-    }
-}
 
 function touchEndDragging(event, taskId) {
-    // document.getElementById('body').style.overflow = 'auto';
+    document.getElementById('body').style.overflow = 'auto';
 
     // Verschieben Sie das Element an die endgültige Position
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
@@ -409,12 +399,20 @@ function touchMoveDragging(event, taskId) {
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
     taskElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
 
+    // get current scroll position and viewport height
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportHeight = window.innerHeight;
 
+    // check if cursor is close to bottom of viewport
+    if (event.clientY > (viewportHeight - 100)) { // adjust 100 as needed for desired threshold
+        // scroll down by 100 pixels
+        window.scrollTo(0, scrollTop + 100); // adjust 100 as needed for desired scroll amount
+    }
 
 }
 
 function touchStartDragging(event, taskId) {
-    // document.getElementById('body').style.overflow = 'hidden';
+    document.getElementById('body').style.overflow = 'hidden';
     // Speichern Sie die aktuellen Touch-Koordinaten
     const touch = event.touches[0];
     startX = touch.clientX;
