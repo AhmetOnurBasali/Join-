@@ -721,6 +721,7 @@ h2 {
     .task-preview {
         width: 227px;
     }
+
     .task-subtasks-progressbar {
         width: 125px;
     }
@@ -848,7 +849,7 @@ h2 {
         align-items: center;
     }
 
-    .task-details-category{
+    .task-details-category {
         margin-top: unset;
     }
 
@@ -878,8 +879,35 @@ h2 {
     .task-details-edit {
         margin-top: 10px;
         margin-right: 20px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+    .move-task {
+        background-color: #2A3647;
+        color: white;
+        border-radius: 10px;
+        padding: 7px 10px;
+        font-size: 16px;
+        /* font-weight: 700; */
+        /* margin-left: 20px; */
+        border: #2A3647;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* gap: 5px; */
+        /* height: fit-content; */
+        font-size: 16px;
+    }
+
+    .move-task:hover {
+        background-color: #29ABE2;
+        cursor: pointer;
+        box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.33);
     }
 }
+
 
 
 @media(max-width:600px) {
@@ -949,7 +977,7 @@ h2 {
         width: 270px;
     }
 
-    .task-details-popup{
+    .task-details-popup {
         width: 280px;
         height: 590px;
     }
@@ -979,7 +1007,7 @@ h2 {
     }
 
     .task-details-subtasks-shell {
- 
+
         width: 280px;
     }
 

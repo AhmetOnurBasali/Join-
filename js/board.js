@@ -225,6 +225,26 @@ function closeAddTaskBoard() {
 function doNotCloseAddTaskBoard(event) {
     event.stopPropagation();
 }
+//---------------------------Move to Mobile---------------------------
+function selectAreaOnMobile(taskID) {
+    let moveToButtonIDs = ['mobile-move-todo', 'mobile-move-inProgress', 'mobile-move-awaitingFeedback', 'mobile-move-done'];
+    for (let i = 0; i < moveToButtonIDs.length; i++) {
+        const moveToButtonID = moveToButtonIDs[i];
+        if (moveToButtonID.includes(allTasks[taskID]['area'])) {
+            document.getElementById(moveToButtonID).style.display = 'none';
+        }
+    }
+    
+}
+
+function moveToOnMobile(taskID, selectedArea){
+    allTasks[taskID]['area'] = selectedArea;
+    renderBoard();
+    openTaskDetailsFront(taskID);
+    selectAreaOnMobile(taskID);
+
+    backend.setItem("allTasks", allTasks);
+}
 
 //---------------------------Details Tasks---------------------------
 
@@ -328,7 +348,6 @@ function checkValueOfSubtasks(task) {
 
 
 
-
 //-----------------------Inner html's---------------------------
 function taskPrio(prio) {
     switch (prio) {
@@ -356,8 +375,7 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" on-drag="functions()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
-    ontouchstart="touchStartDragging(event, ${task['id']}), startDragging(${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']}), disregardArea()">
+    <div onclick="openTaskDetailsFront(${task['id']}), selectAreaOnMobile(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
         <span class="task-description">${task['description']}</span>
@@ -380,83 +398,6 @@ function renderCreatedTasksInnerHTML(task) {
 
 
 
-
-function touchEndDragging(event, taskId) {
-    document.getElementById('body').style.touchAction = 'auto';
-
-    // Verschieben Sie das Element an die endgültige Position
-    const taskElement = document.getElementById(`taskNumber_${taskId}`);
-    taskElement.style.transform = "translate(0px, 0px)";
-    // Entfernen Sie das Attribut "dragging"
-    taskElement.removeAttribute("dragging");
-}
-
-function touchMoveDragging(event, taskId) {
-    document.getElementById('body').style.touchAction = 'none';
-    // Berechnen Sie die Distanz, die das Element verschoben wurde
-    const touch = event.touches[0];
-    const deltaX = touch.clientX - startX;
-    const deltaY = touch.clientY - startY;
-    // Verschieben Sie das Element entsprechend
-    const taskElement = document.getElementById(`taskNumber_${taskId}`);
-    taskElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-}
-
-function touchStartDragging(event, taskId) {
-    document.getElementById('body').style.touchAction = 'none';
-    document.getElementById('body').classList.add = 'none';
-    // Speichern Sie die aktuellen Touch-Koordinaten
-    const touch = event.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-    // Fügen Sie dem Element das Attribut "dragging" hinzu, um zu kennzeichnen, dass es sich gerade bewegt
-    const taskElement = document.getElementById(`taskNumber_${taskId}`);
-    taskElement.setAttribute("dragging", "");
-}
-
-function scrollPage(direction) {
-    // Bestimmen Sie die aktuelle Scroll-Position und die Höhe des Viewports
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const viewportHeight = window.innerHeight;
-
-    // Berechnen Sie die neue Scroll-Position
-    const newScrollTop = scrollTop + direction * viewportHeight;
-
-    // Setzen Sie die neue Scroll-Position
-    window.scrollTo(0, newScrollTop);
-}
-
-
-// // Event-Listener, um die Seite zu scrollen, wenn der Cursor den oberen oder unteren Rand erreicht
-// window.addEventListener('mousemove', function (event) {
-//     // Bestimmen Sie die aktuelle Cursor-Position
-//     const mouseY = event.clientY;
-
-//     // Bestimmen Sie die Höhe des Viewports
-//     const viewportHeight = window.innerHeight;
-
-//     // Wenn der Cursor am oberen Rand ist, scrollen Sie nach oben
-//     if (mouseY < 50) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
-//         scrollPage(-1); // Hier scrollen wir um eine Seite nach oben
-//     }
-
-//     // Wenn der Cursor am unteren Rand ist, scrollen Sie nach unten
-//     if (mouseY > viewportHeight - 50) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
-//         scrollPage(1); // Hier scrollen wir um eine Seite nach unten
-//     }
-// });
-
-
-
-// function renderCreatedTasksInnerHTML(task) {
-//     return /*html*/`
-//     <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" 
-//          ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})" ondragend="disregardArea()"
-//          ontouchstart="touchStartDragging(event, ${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']})">
-//     </div>
-// `;
-// }
 
 
 
@@ -494,7 +435,12 @@ function renderTaskDetailsFrontHTML() {
     <div class="task-details-subtasks" id="task-details-subtasks${allTasks[currentTaskID]['id']}">
         </div>
     </div>
-    <div class="task-details-edit" >
+    <span class="task-details-text only-mobile">Move To:</span>
+    <div class="task-details-edit">
+        <button onclick="moveToOnMobile(${currentTaskID}, 'todo')" id="mobile-move-todo" class="move-task only-mobile">To do</button>
+        <button onclick="moveToOnMobile(${currentTaskID}, 'inProgress')" id="mobile-move-inProgress" class="move-task only-mobile">In progress</button>
+        <button onclick="moveToOnMobile(${currentTaskID}, 'awaitingFeedback')" id="mobile-move-awaitingFeedback" class="move-task only-mobile">Awaiting Feedback</button>
+        <button onclick="moveToOnMobile(${currentTaskID}, 'done')" id="mobile-move-done" class="move-task only-mobile">Done</button>
         <div onclick="editDetailsTask()">
             <svg class="pencil" width="24" height="34" viewBox="0 0 24 34" fill="none"xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.61559 29.262L3.05082 25.8847L17.211 2.55302C17.7841 1.60874 19.0141 1.30784 19.9584 1.88092L22.1037 3.1829C23.0479 3.75598 23.3488 4.98604 22.7758 5.93031L8.61559 29.262Z" fill="white" />
