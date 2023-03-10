@@ -4,12 +4,15 @@ async function initTemplates() {
   document.getElementById("header").innerHTML = headerHTML();
   if (window.innerWidth <= 1000) {
     animationTimeout = 0;
+    document.getElementById("sidebar").innerHTML = '';
     document.getElementById("navbar-bottom").innerHTML = navbarMobileHTML();
   } else {
     animationTimeout = 750;
+    document.getElementById("navbar-bottom").innerHTML = '';
     document.getElementById("sidebar").innerHTML = sidebarHTML();
   }
   getInitialForHeader();
+  setSideBarFocus();
 }
 
 window.addEventListener('resize', function () {

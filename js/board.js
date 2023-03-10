@@ -380,9 +380,9 @@ function renderCreatedTasksInnerHTML(task) {
 
 
 
+
 function touchEndDragging(event, taskId) {
-     document.getElementById('body').style.overflow = 'auto';
-    document.getElementById('body').style.overflow = 'auto';
+    document.getElementById('body').style.touchAction = 'auto';
 
     // Verschieben Sie das Element an die endgültige Position
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
@@ -392,6 +392,7 @@ function touchEndDragging(event, taskId) {
 }
 
 function touchMoveDragging(event, taskId) {
+    document.getElementById('body').style.touchAction = 'none';
     // Berechnen Sie die Distanz, die das Element verschoben wurde
     const touch = event.touches[0];
     const deltaX = touch.clientX - startX;
@@ -400,12 +401,11 @@ function touchMoveDragging(event, taskId) {
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
     taskElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
 
-
-
 }
 
 function touchStartDragging(event, taskId) {
-    // document.getElementById('body').style.overflow = 'hidden';
+    document.getElementById('body').style.touchAction = 'none';
+    document.getElementById('body').classList.add = 'none';
     // Speichern Sie die aktuellen Touch-Koordinaten
     const touch = event.touches[0];
     startX = touch.clientX;
@@ -419,32 +419,34 @@ function scrollPage(direction) {
     // Bestimmen Sie die aktuelle Scroll-Position und die Höhe des Viewports
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const viewportHeight = window.innerHeight;
-  
+
     // Berechnen Sie die neue Scroll-Position
     const newScrollTop = scrollTop + direction * viewportHeight;
-  
+
     // Setzen Sie die neue Scroll-Position
     window.scrollTo(0, newScrollTop);
-  }
-  
-  // Event-Listener, um die Seite zu scrollen, wenn der Cursor den oberen oder unteren Rand erreicht
-  window.addEventListener('mousemove', function(event) {
-    // Bestimmen Sie die aktuelle Cursor-Position
-    const mouseY = event.clientY;
-  
-    // Bestimmen Sie die Höhe des Viewports
-    const viewportHeight = window.innerHeight;
-  
-    // Wenn der Cursor am oberen Rand ist, scrollen Sie nach oben
-    if (mouseY < 150) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
-      scrollPage(-1); // Hier scrollen wir um eine Seite nach oben
-    }
-  
-    // Wenn der Cursor am unteren Rand ist, scrollen Sie nach unten
-    if (mouseY > viewportHeight - 150) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
-      scrollPage(1); // Hier scrollen wir um eine Seite nach unten
-    }
-  });
+}
+
+
+// // Event-Listener, um die Seite zu scrollen, wenn der Cursor den oberen oder unteren Rand erreicht
+// window.addEventListener('mousemove', function (event) {
+//     // Bestimmen Sie die aktuelle Cursor-Position
+//     const mouseY = event.clientY;
+
+//     // Bestimmen Sie die Höhe des Viewports
+//     const viewportHeight = window.innerHeight;
+
+//     // Wenn der Cursor am oberen Rand ist, scrollen Sie nach oben
+//     if (mouseY < 50) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
+//         scrollPage(-1); // Hier scrollen wir um eine Seite nach oben
+//     }
+
+//     // Wenn der Cursor am unteren Rand ist, scrollen Sie nach unten
+//     if (mouseY > viewportHeight - 50) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
+//         scrollPage(1); // Hier scrollen wir um eine Seite nach unten
+//     }
+// });
+
 
 
 // function renderCreatedTasksInnerHTML(task) {
@@ -592,99 +594,3 @@ function renderEditDetailsTaskHTML() {
 `;
 }
 
-
-async function editExistingTask(event) {
-
-    await proofEventAndTasksJSON(event);
-    let editTask = getTaskDataEdit();
-    let proof = taskProofSectionEdit(editTask);
-    if (proof === true) {
-        editTaskData(editTask);
-        // clearContactCheckboxes();
-    }
-
-}
-
-
-function getTaskDataEdit() {
-    let titleEdit = document.getElementById("titleEdit").value;
-    let descriptionEdit = document.getElementById("descriptionEdit").value;
-    let dateEdit = document.getElementById("dateEdit").value;
-    let prioEdit = checkPrio('Edit');
-    return {
-        title: titleEdit,
-        description: descriptionEdit,
-        assignedTo: selectedContacts,
-        date: dateEdit,
-        prio: prioEdit,
-    };
-}
-
-
-function taskProofSectionEdit(editTask) {
-    let title = proofTitle(editTask, 'Edit');
-    let description = proofDescription(editTask, 'Edit');
-    let assigned = proofAssigned();
-    let date = proofDate(editTask, 'Edit');
-    let prio = proofPrio(editTask, 'Edit');
-    if (checkProofOfEdit(title, description, assigned, date, prio) === true) {
-        return true;
-    }
-    return false;
-}
-
-
-function checkProofOfEdit(title, description, assigned, date, prio) {
-    return (
-        title === true &&
-        description === true &&
-        assigned === true &&
-        date === true &&
-        prio === true
-    );
-}
-
-
-async function editTaskData(editTask) {
-    allTasks[currentTaskID]['title'] = editTask['title'];
-    allTasks[currentTaskID]['description'] = editTask['description'];
-    allTasks[currentTaskID]['date'] = editTask['date'];
-    allTasks[currentTaskID]['prio'] = editTask['prio'];
-    allTasks[currentTaskID]['assignedTo'] = editTask['assignedTo'];
-
-    await backend.setItem("allTasks", allTasks);
-    renderBoard();
-    console.log('task changed' + currentTaskID);
-    closeTaskDetails();
-}
-
-
-
-window.onload = function () {
-    // find the element that you want to drag.
-    var box = document.getElementById('box');
-
-    /* listen to the touchMove event,
-    every time it fires, grab the location
-    of touch and assign it to box */
-
-    box.addEventListener('touchmove', function (e) {
-        // grab the location of touch
-        var touchLocation = e.targetTouches[0];
-
-        // assign box new coordinates based on the touch.
-        box.style.left = touchLocation.pageX + 'px';
-        box.style.top = touchLocation.pageY + 'px';
-    })
-
-    /* record the position of the touch
-    when released using touchend event.
-    This will be the drop position. */
-
-    box.addEventListener('touchend', function (e) {
-        // current box position.
-        var x = parseInt(box.style.left);
-        var y = parseInt(box.style.top);
-    })
-
-}
