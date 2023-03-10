@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="../css/header_sidebar.css">
     <link rel="stylesheet" href="../css/addTask.css">
     <link rel="stylesheet" href="../css/addTaskMobile.css">
+
+    
+    
+
     <script src="../js/mini_backend.js"></script>
     <script src="../js/templates.js"></script>
     <script src="../js/header_sidebar.js"></script>
@@ -21,13 +25,12 @@
     <script src="../js/addTask.js"></script>
     <script src="../js/board.js"></script>
 
-
 </head>
 
 <body id="body" onload="initBoard()">
     <div id="header"></div>
     <div id="sidebar"></div>
-    
+
     <!-- Add new task -->
     <section onclick="closeAddTaskBoard()" id="popup-add-task-board" class="bg-popup d-none">
         <div onclick="event.stopPropagation()" id="addTask" class="add-task-popup"></div>
@@ -43,8 +46,8 @@
             <h1>Board</h1>
             <div class="find-add-task">
                 <div class="find-task">
-                    <input id="find-task" title="You can search by title, description and category."
-                        type="search" placeholder="Find Task" onkeydown="renderBoard()" onkeyup="renderBoard()"
+                    <input id="find-task" title="You can search by title, description and category." type="search"
+                        placeholder="Find Task" onkeydown="renderBoard()" onkeyup="renderBoard()"
                         onsearch="renderBoard()">
                     <div class="parting-line"></div>
                 </div>
@@ -78,7 +81,7 @@
                             </svg>
                         </div>
                     </div>
-
+                    
                     <div class="task-columns" id="tasks-to-do" ondrop="moveTo()" ondragleave="disregardArea()"
                         ondragover="allowDrop(event, 'todo', 'tasks-to-do')">
 
@@ -158,8 +161,7 @@
         </div>
 
     </section>
-   
+
     <div class="navbar-height" id="navbar-bottom"></div>
 </body>
-
 </html>
