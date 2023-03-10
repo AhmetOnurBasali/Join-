@@ -10,6 +10,7 @@ async function initTemplates() {
     document.getElementById("sidebar").innerHTML = sidebarHTML();
   }
   getInitialForHeader();
+  setSideBarFocus();
 }
 
 window.addEventListener('resize', function () {

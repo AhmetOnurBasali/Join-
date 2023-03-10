@@ -356,7 +356,7 @@ function taskPrio(prio) {
 
 function renderCreatedTasksInnerHTML(task) {
     return /*html*/`
-    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
+    <div onclick="openTaskDetailsFront(${task['id']})" id="taskNumber_${task['id']}" class="task" title="Drag and drop or click for see and edit details." draggable="true" ondragend="disregardArea()" on-drag="functions()" ondragstart="startDragging(${task['id']}), dragAnimation(${task['id']})"
     ontouchstart="touchStartDragging(event, ${task['id']}), startDragging(${task['id']})" ontouchmove="touchMoveDragging(event, ${task['id']})" ontouchend="touchEndDragging(event, ${task['id']}), disregardArea()">
         <span class="task-category" id="task-category${task['id']}">${task['category']}</span>
         <span class="task-title">${task['title']}</span>
@@ -378,12 +378,21 @@ function renderCreatedTasksInnerHTML(task) {
 `;
 }
 
+// function functions() {
+//     // get current scroll position and viewport height
+//     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+//     const viewportHeight = window.innerHeight;
 
+//     // check if cursor is close to bottom of viewport
+//     if (ev.clientY > (viewportHeight - 100)) { // adjust 100 as needed for desired threshold
+//         // scroll down by 100 pixels
+//         window.scrollTo(0, scrollTop + 100); // adjust 100 as needed for desired scroll amount
+//     }
+// }
 
 function touchEndDragging(event, taskId) {
      document.getElementById('body').style.overflow = 'auto';
-    document.getElementById('body').style.overflow = 'auto';
-
+    document.getElementById(`taskNumber_${taskId}`).style.position = "felx"
     // Verschieben Sie das Element an die endgültige Position
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
     taskElement.style.transform = "translate(0px, 0px)";
@@ -392,6 +401,7 @@ function touchEndDragging(event, taskId) {
 }
 
 function touchMoveDragging(event, taskId) {
+    document.getElementById(`taskNumber_${taskId}`).style.position = "fixed"
     // Berechnen Sie die Distanz, die das Element verschoben wurde
     const touch = event.touches[0];
     const deltaX = touch.clientX - startX;
@@ -399,13 +409,20 @@ function touchMoveDragging(event, taskId) {
     // Verschieben Sie das Element entsprechend
     const taskElement = document.getElementById(`taskNumber_${taskId}`);
     taskElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-
-
-}
+  
+    // check if cursor is close to bottom of viewport
+    if (touch.clientY > (window.innerHeight - 100)) { // adjust 100 as needed for desired threshold
+      scrollPage('down');
+    }
+  
+    // check if cursor is close to top of viewport
+    if (touch.clientY < 100) { // adjust 100 as needed for desired threshold
+      scrollPage('up');
+    }
+  }
 
 function touchStartDragging(event, taskId) {
-    // document.getElementById('body').style.overflow = 'hidden';
+     document.getElementById('body').style.overflow = 'hidden';
     // Speichern Sie die aktuellen Touch-Koordinaten
     const touch = event.touches[0];
     startX = touch.clientX;
@@ -421,7 +438,7 @@ function scrollPage(direction) {
     const viewportHeight = window.innerHeight;
   
     // Berechnen Sie die neue Scroll-Position
-    const newScrollTop = scrollTop + direction * viewportHeight;
+    const newScrollTop = scrollTop + viewportHeight;
   
     // Setzen Sie die neue Scroll-Position
     window.scrollTo(0, newScrollTop);
@@ -436,12 +453,12 @@ function scrollPage(direction) {
     const viewportHeight = window.innerHeight;
   
     // Wenn der Cursor am oberen Rand ist, scrollen Sie nach oben
-    if (mouseY < 150) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
+    if (mouseY < 50) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
       scrollPage(-1); // Hier scrollen wir um eine Seite nach oben
     }
   
     // Wenn der Cursor am unteren Rand ist, scrollen Sie nach unten
-    if (mouseY > viewportHeight - 150) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
+    if (mouseY > viewportHeight - 50) { // Hier können Sie die Schwelle anpassen, ab wann gescrollt werden soll
       scrollPage(1); // Hier scrollen wir um eine Seite nach unten
     }
   });
@@ -660,31 +677,31 @@ async function editTaskData(editTask) {
 
 
 
-window.onload = function () {
-    // find the element that you want to drag.
-    var box = document.getElementById('box');
+// window.onload = function () {
+//     // find the element that you want to drag.
+//     var box = document.getElementById('box');
 
-    /* listen to the touchMove event,
-    every time it fires, grab the location
-    of touch and assign it to box */
+//     /* listen to the touchMove event,
+//     every time it fires, grab the location
+//     of touch and assign it to box */
 
-    box.addEventListener('touchmove', function (e) {
-        // grab the location of touch
-        var touchLocation = e.targetTouches[0];
+//     box.addEventListener('touchmove', function (e) {
+//         // grab the location of touch
+//         var touchLocation = e.targetTouches[0];
 
-        // assign box new coordinates based on the touch.
-        box.style.left = touchLocation.pageX + 'px';
-        box.style.top = touchLocation.pageY + 'px';
-    })
+//         // assign box new coordinates based on the touch.
+//         box.style.left = touchLocation.pageX + 'px';
+//         box.style.top = touchLocation.pageY + 'px';
+//     })
 
-    /* record the position of the touch
-    when released using touchend event.
-    This will be the drop position. */
+//     /* record the position of the touch
+//     when released using touchend event.
+//     This will be the drop position. */
 
-    box.addEventListener('touchend', function (e) {
-        // current box position.
-        var x = parseInt(box.style.left);
-        var y = parseInt(box.style.top);
-    })
+//     box.addEventListener('touchend', function (e) {
+//         // current box position.
+//         var x = parseInt(box.style.left);
+//         var y = parseInt(box.style.top);
+//     })
 
-}
+// }
