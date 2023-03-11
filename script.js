@@ -63,3 +63,9 @@ async function init() {
     await loadCurrentUser();
 }
 
+
+function checkUndefined() {
+    if (currentUser.initialLetters === undefined) {
+        location.reload();
+    }    
+}
