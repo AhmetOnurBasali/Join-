@@ -347,6 +347,70 @@ function checkValueOfSubtasks(task) {
 }
 
 
+async function editExistingTask(event) {
+    proofEvent(event);
+    let editTask = getTaskDataEdit();
+    let proof = taskProofSectionEdit(editTask);
+    if (proof === true) {
+        editTaskData(editTask);
+        // clearContactCheckboxes();
+    }
+
+}
+
+
+function getTaskDataEdit() {
+    let titleEdit = document.getElementById("titleEdit").value;
+    let descriptionEdit = document.getElementById("descriptionEdit").value;
+    let dateEdit = document.getElementById("dateEdit").value;
+    let prioEdit = checkPrio('Edit');
+    return {
+        title: titleEdit,
+        description: descriptionEdit,
+        assignedTo: selectedContacts,
+        date: dateEdit,
+        prio: prioEdit,
+    };
+}
+
+
+function taskProofSectionEdit(editTask) {
+    let title = proofTitle(editTask, 'Edit');
+    let description = proofDescription(editTask, 'Edit');
+    let assigned = proofAssigned();
+    let date = proofDate(editTask, 'Edit');
+    let prio = proofPrio(editTask, 'Edit');
+    if (checkProofOfEdit(title, description, assigned, date, prio) === true) {
+        return true;
+    }
+    return false;
+}
+
+
+function checkProofOfEdit(title, description, assigned, date, prio) {
+    return (
+        title === true &&
+        description === true &&
+        assigned === true &&
+        date === true &&
+        prio === true
+    );
+}
+
+
+async function editTaskData(editTask) {
+    allTasks[currentTaskID]['title'] = editTask['title'];
+    allTasks[currentTaskID]['description'] = editTask['description'];
+    allTasks[currentTaskID]['date'] = editTask['date'];
+    allTasks[currentTaskID]['prio'] = editTask['prio'];
+    allTasks[currentTaskID]['assignedTo'] = editTask['assignedTo'];
+
+    await backend.setItem("allTasks", allTasks);
+    renderBoard();
+    console.log('task changed' + currentTaskID);
+    closeTaskDetails();
+}
+
 
 //-----------------------Inner html's---------------------------
 function taskPrio(prio) {
@@ -462,7 +526,7 @@ function renderEditDetailsTaskHTML() {
         
         <div class="inputContainer">
             <b class="padd4px">Title</b> 
-            <input id="titleEdit" type="text" value="${allTasks[currentTaskID]['title']}" oninput="proofInput('msgBoxTitleEdit')">
+            <input id="titleEdit" type="text" maxlength="18" value="${allTasks[currentTaskID]['title']}" oninput="proofInput('msgBoxTitleEdit')">
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxTitleEdit"></div>
             </div>  

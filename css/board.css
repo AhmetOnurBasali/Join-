@@ -883,7 +883,7 @@ h2 {
 
     .task-details-edit {
         margin-top: 10px;
-        margin-right: 20px;
+        /* margin-right: 20px; */
         justify-content: space-between;
         align-items: center;
     }
@@ -922,6 +922,7 @@ h2 {
         min-height: calc(100vh - 100px - 115px);
     }
 
+
     h1 {
         font-size: 38px !important;
         margin-block-start: 16px !important;
@@ -952,6 +953,10 @@ h2 {
     .find-task {
         position: relative;
         left: calc((-270px + 200px) / 2);
+    }
+
+    .move-task {
+        max-width: 80px;
     }
 
     .responsive-duo {
