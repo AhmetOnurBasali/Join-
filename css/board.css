@@ -174,7 +174,7 @@ h2 {
 }
 
 .task-preview {
-    width: 247px;
+    width: 268px;
     /* min-height: 230px; */
     border-radius: 30px;
     border: 2px black;
@@ -196,7 +196,7 @@ h2 {
 
 .task-title {
     font-weight: 700;
-    font-size: 16px;
+    font-size: 20px;
     word-wrap: break-word;
 }
 
@@ -691,12 +691,8 @@ h2 {
 }
 
 /* responsive */
-
+/* 
 @media(max-width:1500px) {
-    /* .add-task-popup {
-        width: 800px;
-        height: 800px;
-    } */
 
     .board {
         margin: 70px 30px 70px 70px;
@@ -729,9 +725,10 @@ h2 {
     }
 
 
-}
+} 
+*/
 
-@media(max-width:1300px) {
+@media(max-width:1500px) {
     .headline {
         margin-bottom: 20px;
     }
@@ -802,7 +799,7 @@ h2 {
     }
 
     .tasks-sections {
-        width: 230px;
+        width: 250px;
     }
 
     .responsive-duo {
@@ -810,11 +807,11 @@ h2 {
     }
 
     .task-columns {
-        width: 230px;
+        width: 250px;
     }
 
     .task-preview {
-        width: 229px;
+        width: 249px;
     }
 
     .task-subtasks-progressbar {

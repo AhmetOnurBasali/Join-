@@ -242,8 +242,8 @@ function setPrioCheckBox(prio, taskEdit) {
 }
 
 function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
-  document.getElementById(`${uncheckBtn1}BtnEdit`).checked = false;
-  document.getElementById(`${uncheckBtn2}BtnEdit`).checked = false;
+  document.getElementById(`${uncheckBtn1}Btn${taskEdit}`).checked = false;
+  document.getElementById(`${uncheckBtn2}Btn${taskEdit}`).checked = false;
 
   document.getElementById(`svgLow${taskEdit}`).classList.remove("prioIconWhite");
   document.getElementById(`svgNormal${taskEdit}`).classList.remove("prioIconWhite");
