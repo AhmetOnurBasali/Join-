@@ -4,6 +4,14 @@ let currentUser = [];
 let allTasks = [{ id: 0 }];
 let categoryColor = [];
 
+async function init() {
+    await initTemplates();
+    await loadTasks();
+    await loadCurrentUser();
+    loadTasks();
+    setSideBarFocus();
+    getInitialForHeader()
+}
 
 function dateTodayISO() {
     let dateToday = new Date().getFullYear() + '-' + pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
@@ -59,9 +67,7 @@ function slideOutAnimation(childID, parentID) {
 }
 
 
-async function init() {
-    await loadCurrentUser();
-}
+
 
 
 function checkUndefined() {
