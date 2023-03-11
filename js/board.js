@@ -178,6 +178,7 @@ function dragAnimation(id) {
 
 
 function addTaskBoard(area) {
+    isAddTask = true;
     document.getElementById("addTask").innerHTML = addTaskHTML();
     selectArea(area);
     slideInAnimation('addTask', 'popup-add-task-board');
@@ -186,8 +187,8 @@ function addTaskBoard(area) {
 
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
 
-    barBottomHidden()
-    moveCreatTaskBtnMobile()
+    navbarBottomHide();
+    showCreateTaskBtnMobile();
     body.style.overflow = "hidden"
 }
 
@@ -213,7 +214,7 @@ function closeAddTaskBoard() {
     if (window.innerWidth <= 1000) {
         let navbar = document.getElementById('navbar-bottom')
         navbar.classList.remove("d-none")
-        hiddenCreatTaskBtnMobile()
+        hideCreateTaskBtnMobile();
     }
     body.style.overflow = "auto"
 }

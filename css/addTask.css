@@ -784,6 +784,10 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
     display: none;
   }
 
+  .mobile-d-none{
+    display: none;
+  }
+
   .checkboxContainer {
     width: 82px;
     height: 38px;

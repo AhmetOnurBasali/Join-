@@ -32,17 +32,21 @@ function showGreetingUser() {
     if (window.innerWidth <= 1000) {
       document.querySelector('.welcome').style.display = 'none';
     }
-  }, 2400);
+  }, 2300);
 }
 
 
 function loadTasksLength() {
-  loadTasksInBoard();
-  loadTasksInProgress();
-  loadTasksAwaitingFeedback();
   loadTaskUpcomingDeadline();
-  loadTasksTodo();
-  loadTasksDone();
+  setTimeout(() => {
+    loadTasksInBoard();
+    loadTasksInProgress();
+    loadTasksAwaitingFeedback();
+    
+    loadTasksTodo();
+    loadTasksDone();
+  }, 1700);
+
 }
 
 
