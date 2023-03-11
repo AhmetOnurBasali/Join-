@@ -10,6 +10,7 @@ async function loadContactsData() {
   renderContacts();
 }
 
+
 async function proofContactsAvailable() {
   let contact;
   if (noContacts() === true) {
@@ -205,12 +206,15 @@ function loadCurrentDataContactEdit(contact, selectedID) {
   currentSelectedID.push(selectedID);
 }
 
+
 function proofCurrentUser() {
   if (currentUser.name == "Guest User") {
     alert("The guest user can't Edit/Create a Contact.");
     return false;
-  }
+  } 
+  return true
 }
+
 
 async function saveEdit(event) {
   event.preventDefault();
@@ -373,9 +377,8 @@ function clearContactsInputs() {
   closeAddNewContact()
 }
 
+
 // Responsive //
-
-
 function backToContacts() {
   let rightContactContainer = document.getElementById('rightSectionCO')
   rightContactContainer.classList.add('d-none')
@@ -396,6 +399,7 @@ function myFunction(x) {
     sectionHidden.classList.remove('d-none')
   }
 }
+
 
 setTimeout(() => {
   let x = window.matchMedia("(max-width: 1000px)")

@@ -342,6 +342,7 @@ function loginAsGuest() {
   password.value = users[0]["password"];
 }
 
+
 async function setGuestUser() {
   let users = [
     {
@@ -378,6 +379,7 @@ function showEye() {
   }
 }
 
+
 function showPassword() {
   let input = document.getElementById("password");
   let checkbox = document.querySelector(".showPassword");
@@ -387,6 +389,7 @@ function showPassword() {
     input.type = "password";
   }
 }
+
 
 function getEmailRegEx() {
   let emailRegex = /^[.-\wäöüÄÖÜ_]+@[A-Za-z]+\.[A-Za-z]{2,}$/;

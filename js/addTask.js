@@ -226,6 +226,7 @@ function checkPrio(edit) {
   }
 }
 
+
 function setPrioCheckBox(prio, taskEdit) {
   if (prio === "low") {
     resetAllPrioBtn('medium', 'urgent', taskEdit);
@@ -240,6 +241,7 @@ function setPrioCheckBox(prio, taskEdit) {
     setHighPrioBtn(taskEdit);
   }
 }
+
 
 function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
   document.getElementById(`${uncheckBtn1}Btn${taskEdit}`).checked = false;
@@ -554,6 +556,7 @@ function slideInAssignedTo(hideBoarderID, expandContactsID, assignedToID) {
 
 }
 
+
 function assignedToBlockShiftIn(inputID) {
   document.getElementById(inputID).style.marginBottom = '10px';
 }
@@ -568,6 +571,7 @@ function slideOutAssignedTo(hideBoarderID, expandContactsID, assignedToID) {
   contactList.classList.toggle("d-none");
   assignedToBlockShiftOut(assignedToID);
 }
+
 
 function assignedToBlockShiftOut(inputID) {
   if (users.length === 1) {
@@ -604,7 +608,6 @@ function filterRenderBubble(assignedData, contactInitialsID) {
   if (contactInitialsID === 'contactInitialsEdit') {
     selectedContacts = allTasks[currentTaskID].assignedTo;
   }
-
   for (let j = 0; j < selectedContacts.length; j++) {
     if (selectedContacts[j].name === assignedData.contactName) {
       checked = true;
@@ -770,6 +773,7 @@ function clearPrioText() {
   highPrioText.style = "color: black;";
 }
 
+
 function clearPrioBtnWhite() {
   let highBtnContainer = document.getElementById("highBtnContainer");
   let normalBtnContainer = document.getElementById("normalBtnContainer");
@@ -788,6 +792,7 @@ function clearPrioSVG() {
   svgNormalColor.classList.remove("prioIconWhite");
   svgHighColor.classList.remove("prioIconWhite");
 }
+
 
 function openAddTask() {
   document.getElementById("addTask").innerHTML = addTaskHTML();
