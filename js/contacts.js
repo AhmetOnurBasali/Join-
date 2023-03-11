@@ -2,6 +2,13 @@ let currentUserContacts = [];
 let currentSelectedID = [];
 
 
+async function initContacts() {
+  await init();
+  await loadContactsData()
+  await loadUsers();
+}
+
+
 async function loadContactsData() {
   await downloadFromServer();
   let item = await backend.getItem(`userID${currentUser["id"]}Contacts`);
@@ -209,7 +216,8 @@ function proofCurrentUser() {
   if (currentUser.name == "Guest User") {
     alert("The guest user can't Edit/Create a Contact.");
     return false;
-  }
+  } 
+  return true
 }
 
 async function saveEdit(event) {

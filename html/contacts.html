@@ -21,19 +21,6 @@
     <script src="../js/board.js"></script>
     <script src="../js/summary.js"></script>
     <script src="../js/header_sidebar.js"></script>
-
-
-    <script>
-        async function initContacts() {
-            await initTemplates();
-            await loadCurrentUser();
-            await loadContactsData()
-            await loadTasks();
-            await loadUsers();
-            setSideBarFocus();
-            getInitialForHeader()
-        }
-    </script>
 </head>
 
 <body id="body" onload="initContacts()">

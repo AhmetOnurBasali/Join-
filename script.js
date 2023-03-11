@@ -13,6 +13,13 @@ async function init() {
     getInitialForHeader()
 }
 
+async function initHelpLegal() {
+    await initTemplates();
+    await loadCurrentUser();
+    setSideBarFocus()
+    getInitialForHeader()
+}
+
 function dateTodayISO() {
     let dateToday = new Date().getFullYear() + '-' + pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
     return dateToday;
@@ -38,12 +45,12 @@ function slideInAnimation(childID, parentID) {
             document.getElementById(childID).classList.add('slide-in');
             document.getElementById(parentID).classList.remove('visual-in');
         }
-        
-    } else{
+
+    } else {
         document.getElementById(childID).classList.remove('slide-out');
         document.getElementById(childID).classList.add('slide-in');
     }
-    
+
 }
 
 
@@ -59,11 +66,11 @@ function slideOutAnimation(childID, parentID) {
             document.getElementById(childID).classList.remove('slide-in');
             document.getElementById(parentID).classList.remove('visual-out');
         }
-    } else{
+    } else {
         document.getElementById(childID).classList.remove('slide-in');
         document.getElementById(childID).classList.add('slide-out');
     }
-    
+
 }
 
 
@@ -73,5 +80,5 @@ function slideOutAnimation(childID, parentID) {
 function checkUndefined() {
     if (currentUser.initialLetters === undefined) {
         location.reload();
-    }    
+    }
 }
