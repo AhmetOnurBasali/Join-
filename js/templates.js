@@ -15,6 +15,7 @@ async function initTemplates() {
   setSideBarFocus();
 }
 
+
 window.addEventListener('resize', function () {
   let delay = 250 // delay between calls
   let throttled = false // are we currently throttled? 
@@ -30,9 +31,11 @@ window.addEventListener('resize', function () {
   }
 });
 
+
 function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
 }
+
 
 function barBottomHidden() {
   if (window.innerWidth <= 1000) {
@@ -40,6 +43,7 @@ function barBottomHidden() {
     navbar.classList.add("d-none")
   }
 }
+
 
 function addTaskCloseTopRightHTML() {
   return `
@@ -136,6 +140,7 @@ function sidebarHTML() {
 </div>
     `;
 }
+
 
 function navbarMobileHTML() {
   return /*html*/`

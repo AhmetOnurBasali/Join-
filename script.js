@@ -11,6 +11,7 @@ async function init() {
     loadTasks();
     setSideBarFocus();
     getInitialForHeader()
+    checkUndefined()
 }
 
 async function initHelpLegal() {
@@ -45,7 +46,6 @@ function slideInAnimation(childID, parentID) {
             document.getElementById(childID).classList.add('slide-in');
             document.getElementById(parentID).classList.remove('visual-in');
         }
-
     } else {
         document.getElementById(childID).classList.remove('slide-out');
         document.getElementById(childID).classList.add('slide-in');
@@ -70,11 +70,7 @@ function slideOutAnimation(childID, parentID) {
         document.getElementById(childID).classList.remove('slide-in');
         document.getElementById(childID).classList.add('slide-out');
     }
-
 }
-
-
-
 
 
 function checkUndefined() {
@@ -82,3 +78,23 @@ function checkUndefined() {
         location.reload();
     }
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener('click', function(event) {
+      let assignedToDiv = document.getElementById('inputContainer');
+      let categoryDiv = document.getElementById('openCategoryContainer');
+      if (categoryDiv.contains(event.target)) {
+        return;
+      }
+      if (assignedToDiv.contains(event.target)) {
+        return
+      }
+      if (slideCategory === true && selectedCategory.innerHTML === "select a category") {
+          openCategory();
+      }
+      if (slideAssignTo === true && selectedContacts) {
+        openAssignedTo('arrayAssigned', 'contactDiv', 'contactList', 'contacts', 'contactInitials', 'inputContainer')
+      }
+    });
+  });

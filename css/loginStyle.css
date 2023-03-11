@@ -467,10 +467,8 @@ input[type="text"] {
 }
 
 .disclaimerEntrance {
-  /* position: absolute; */
   z-index: 99;
   padding: 50px 240px 0px 240px;
-  /* bottom: 100px; */
 }
 
 .disclaimerBtnContainer {
@@ -500,7 +498,13 @@ input[type="text"] {
 }
 
 @media (max-width: 860px) {
-  .backColorMobile{
+  .disclaimerEntrance {
+    z-index: 99;
+    padding: 0 10px;
+    margin-bottom: -124px;
+  }
+
+  .backColorMobile {
     fill: black !important;
   }
 
@@ -629,7 +633,7 @@ input[type="text"] {
 
   .logoEntrance {
     background: #2a3647;
-    
+
   }
 
   @keyframes slide-out-tl {
@@ -656,9 +660,9 @@ input[type="text"] {
       width: 45px;
       /* background: white; */
     }
-  } 
+  }
 
-  .logoSVGPath{
+  .logoSVGPath {
     animation: animSVGColor 2s;
   }
 
@@ -670,7 +674,7 @@ input[type="text"] {
     100% {
       fill: #2a3647;
     }
-  } 
+  }
 }
 
 
