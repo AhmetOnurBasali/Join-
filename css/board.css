@@ -757,6 +757,14 @@ h2 {
     .task-subtasks-progressbar {
         width: 190px;
     }
+    .task-details-description{
+        width: 500px;
+    }
+
+    .task-details-assigned-to-shell{
+        width: 500px;
+    }
+    
 }
 
 @media(max-width:1000px) {

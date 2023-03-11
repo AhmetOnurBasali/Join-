@@ -28,16 +28,12 @@ function showGreetingDayTime() {
 
 
 function showGreetingUser() {
-  try {
-    let greetingName = document.getElementById("greeting-user");
-    greetingName.innerHTML = currentUser["name"];
-  } catch (error) {
-    console.error("no user logged in");
-  }
+  let greetingName = document.getElementById("greeting-user");
+  greetingName.innerHTML = currentUser["name"];
 
   setTimeout(() => {
     if (window.innerWidth <= 1000) {
-    document.querySelector('.welcome').style.display = 'none';
+      document.querySelector('.welcome').style.display = 'none';
     }
   }, 2400);
 }
@@ -106,6 +102,7 @@ function loadTasksAwaitingFeedback() {
   }
 }
 
+
 function loadTasksTodo() {
 
   try {
@@ -127,7 +124,6 @@ function loadTasksDone() {
   }
 
 }
-
 
 
 function loadTaskUpcomingDeadline() {
@@ -197,7 +193,6 @@ function convertNumberInMonth(sortedDatesMonth) {
       return 'December';
   }
 }
-
 
 
 function switchToBoard() {
