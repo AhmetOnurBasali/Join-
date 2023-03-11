@@ -2,6 +2,13 @@ let disclaimerShowAgain = true
 let disclaimerUnderstood = false
 
 
+function initLogin(){
+  loadParms();
+  loadUsers();
+  animateImage(); 
+  initLocalLogin();
+}
+
 function understoodDisclaimer() {
   let checkbox = document.getElementById('disclaimerCheck').checked
   if (checkbox == true) {
