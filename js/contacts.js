@@ -2,6 +2,13 @@ let currentUserContacts = [];
 let currentSelectedID = [];
 
 
+async function initContacts() {
+  await init();
+  await loadContactsData()
+  await loadUsers();
+}
+
+
 async function loadContactsData() {
   await downloadFromServer();
   let item = await backend.getItem(`userID${currentUser["id"]}Contacts`);

@@ -2,12 +2,10 @@ let today = new Date();
 
 
 async function initSummary() {
-  await loadTasks();
+  await init();
   showGreetingDayTime();
   showGreetingUser();
   loadTasksLength();
-  setSideBarFocus();
-  getInitialForHeader()
   checkUndefined()
 }
 

@@ -18,20 +18,7 @@
   <script src="../js/login.js"></script>
 </head>
 
-<script>
-  let newArea = 'todo';
-
-  async function initTask() {
-    await initTemplates();
-    await openAddTask();
-    await loadCurrentUser();
-    await loadUsers();
-    await loadTasks();
-    await loadCategory();
-    setSideBarFocus();
-    getInitialForHeader();
-  }
-</script>
+<script> let newArea = 'todo'; </script>
 
 <body onload="initTask()">
   <div id="header"></div>
