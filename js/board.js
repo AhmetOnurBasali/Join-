@@ -469,7 +469,7 @@ function renderEditDetailsTaskHTML() {
         </div>
         <div class="inputContainer">
             <b class="padd4px">Description</b>
-            <textarea oninput="proofInput('msgBoxDescriptionEdit')" id="descriptionEdit" type="text">${allTasks[currentTaskID]['description']}</textarea>
+            <textarea oninput="proofInput('msgBoxDescriptionEdit')" class="description-textarea" id="descriptionEdit" type="text">${allTasks[currentTaskID]['description']}</textarea>
             <div class="transparentDiv">
                 <div class="requiredText" id="msgBoxDescriptionEdit"></div>  
             </div>
@@ -516,7 +516,7 @@ function renderEditDetailsTaskHTML() {
         <div>
             <div onclick="proofInput('msgBoxAssignedEdit')" class="input-container" id="input-container">
                 <b class="padd4px">Assigned to</b>
-                <div onclick="openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit', 'contactInitialsEdit')" id="contactDivEdit" class="openCategoryContainer">Select contact to assign 
+                <div onclick="openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit', 'contactInitialsEdit', 'input-container')" id="contactDivEdit" class="openCategoryContainer">Select contact to assign 
                     <svg id="arrayAssignedEdit" class="openArrayIcon" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.2 0H1.41421C0.523309 0 0.0771403 1.07714 0.707105 1.70711L6.29289 7.29289C6.68342 7.68342 7.31658 7.68342 7.70711 7.29289L13.2929 1.70711C13.9229 1.07714 13.4767 0 12.5858 0H11.8H7H2.2Z" fill="black"></path>
                     </svg>

@@ -242,8 +242,8 @@ function setPrioCheckBox(prio, taskEdit) {
 }
 
 function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
-  document.getElementById(`${uncheckBtn1}Btn`).checked = false;
-  document.getElementById(`${uncheckBtn2}Btn`).checked = false;
+  document.getElementById(`${uncheckBtn1}BtnEdit`).checked = false;
+  document.getElementById(`${uncheckBtn2}BtnEdit`).checked = false;
 
   document.getElementById(`svgLow${taskEdit}`).classList.remove("prioIconWhite");
   document.getElementById(`svgNormal${taskEdit}`).classList.remove("prioIconWhite");
@@ -524,24 +524,24 @@ function dropColorInInput() {
 
 
 //Assigned to section//
-function openAssignedTo(assignedToIconID, hideBoarderID, expandContactsID, showContactsID, contactInitialsID) {
+function openAssignedTo(assignedToIconID, hideBoarderID, expandContactsID, showContactsID, contactInitialsID, assignedToID) {
   let arrayAssigned = document.getElementById(assignedToIconID);
-  let inputContainer = document.getElementById("inputContainer");
+  let inputContainer = document.getElementById(assignedToID);
   arrayAssigned.classList.toggle("rotateIcon");
   if (slideAssignTo === false) {
-    inputContainer.classList.add('responsiveAssigned')
-    slideOutAssignedTo(hideBoarderID, expandContactsID);
+    inputContainer.classList.add('responsiveAssigned');
+    slideOutAssignedTo(hideBoarderID, expandContactsID, assignedToID);
     renderOpenAssignedTo(showContactsID, contactInitialsID);
     slideAssignTo = true;
   } else {
-    inputContainer.classList.remove('responsiveAssigned')
-    slideInAssignedTo(hideBoarderID, expandContactsID);
+    inputContainer.classList.remove('responsiveAssigned');
+    slideInAssignedTo(hideBoarderID, expandContactsID, assignedToID);
   }
 
 }
 
 
-function slideInAssignedTo(hideBoarderID, expandContactsID) {
+function slideInAssignedTo(hideBoarderID, expandContactsID, assignedToID) {
   let contactDiv = document.getElementById(hideBoarderID);
   contactDiv.classList.toggle("noneBottomBorder");
   let contactList = document.getElementById(expandContactsID);
@@ -549,13 +549,7 @@ function slideInAssignedTo(hideBoarderID, expandContactsID) {
   contactList.classList.remove("slide-out-top");
   contactList.classList.toggle("d-none");
   slideAssignTo = false;
-  if (hideBoarderID === 'contactDivEdit') {
-    assignedToBlockShiftIn('input-container');
-  }
-  if (hideBoarderID === 'contactDiv') {
-    assignedToBlockShiftIn('inputContainer');
-  }
-
+  assignedToBlockShiftIn(assignedToID);
 
 
 }
@@ -565,19 +559,14 @@ function assignedToBlockShiftIn(inputID) {
 }
 
 
-function slideOutAssignedTo(hideBoarderID, expandContactsID) {
+function slideOutAssignedTo(hideBoarderID, expandContactsID, assignedToID) {
   let contactDiv = document.getElementById(hideBoarderID);
   contactDiv.classList.toggle("noneBottomBorder");
   let contactList = document.getElementById(expandContactsID);
   contactList.classList.remove("slide-in-top");
   contactList.classList.add("slide-out-top");
   contactList.classList.toggle("d-none");
-  if (hideBoarderID === 'contactDivEdit') {
-    assignedToBlockShiftOut('input-container');
-  }
-  if (hideBoarderID === 'contactDiv') {
-    assignedToBlockShiftOut('inputContainer');
-  }
+  assignedToBlockShiftOut(assignedToID);
 }
 
 function assignedToBlockShiftOut(inputID) {
