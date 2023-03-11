@@ -11,6 +11,13 @@ let newSubtask = [];
 let selectedContacts = [];
 let allContacts = [];
 
+async function initTask() {
+  await init();
+  await openAddTask();
+  await loadUsers();
+  await loadCategory();
+}
+
 
 async function loadTasks() {
   await downloadFromServer();
