@@ -368,7 +368,6 @@ function renderCategorysHTML(c, category, color) {
     <div class="categoryTextColorPosi">
       <div style="border: 2px solid ${color};cursor:auto" class="colorCategory${color}"></div>
     </div>
-    <div onclick="deleteCategory(${c})">X</div>
   </div>`;
 }
 
