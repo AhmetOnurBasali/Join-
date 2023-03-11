@@ -7,6 +7,7 @@ async function initSummary() {
   showGreetingUser();
   loadTasksLength();
   setSideBarFocus();
+  getInitialForHeader()
 }
 
 

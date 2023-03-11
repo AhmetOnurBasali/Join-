@@ -58,10 +58,14 @@ async function setFocusContactContainer(id, selectedID) {
     document.getElementById(`${id}${selectedID}`).classList.add("focusContact");
     document.getElementById(`${id}${selectedID}`).classList.remove("contactContainerhover");
     if (previousID !== null && previousID !== selectedID) {
+       try {
         document.getElementById(`${id}${previousID}`).classList.remove("focusContact");
         document.getElementById(`${id}${previousID}`).classList.add("contactContainerhover");
         document.getElementById(`contactBubble${previousID}`).classList.remove("contactsBubbleBorder");
         document.getElementById(`${id}${selectedID}`).classList.remove("focusSidebar");
+       } catch (error) {
+        return
+       }
     }
 }
 
