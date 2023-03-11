@@ -10,13 +10,9 @@ let currentTaskID;
  * 
  */
 async function initBoard() {
-    await loadTasks();
     await init();
     await loadUsers();
-    await initTemplates();
     renderBoard();
-    setSideBarFocus();
-    getInitialForHeader()
 }
 
 
