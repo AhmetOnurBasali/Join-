@@ -8,6 +8,7 @@ async function initSummary() {
   loadTasksLength();
   setSideBarFocus();
   getInitialForHeader()
+  checkUndefined()
 }
 
 
