@@ -804,3 +804,25 @@ function clearPrioSVG() {
 function openAddTask() {
   document.getElementById("addTask").innerHTML = addTaskHTML();
 }
+
+
+
+// document.addEventListener("DOMContentLoaded", function() {
+//   document.addEventListener('click', function(event) {
+//     let assignedToDiv = document.getElementById('inputContainer');
+//     let categoryDiv = document.getElementById('openCategoryContainer');
+//     if (categoryDiv.contains(event.target)) {
+//       return;
+//     }
+//     if (assignedToDiv.contains(event.target)) {
+//       return
+//     }
+//     if (slideCategory === true && selectedCategory.innerHTML === "select a category") {
+//         openCategory();
+//     }
+//     if (slideAssignTo === true && selectedContacts) {
+//       openAssignedTo('arrayAssigned', 'contactDiv', 'contactList', 'contacts', 'contactInitials', 'inputContainer')
+//     }
+//   });
+// });
+
