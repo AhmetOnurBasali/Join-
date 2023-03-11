@@ -13,6 +13,7 @@ async function initTemplates() {
   }
   getInitialForHeader();
   setSideBarFocus();
+  showCreateTaskBtnMobile();
 }
 
 window.addEventListener('resize', function () {
@@ -34,7 +35,7 @@ function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
 }
 
-function barBottomHidden() {
+function navbarBottomHide() {
   if (window.innerWidth <= 1000) {
     let navbar = document.getElementById('navbar-bottom')
     navbar.classList.add("d-none")
@@ -64,7 +65,7 @@ function headerHTML() {
     <a id="helpIcon" class="help-img mobile-d-none" href="../html/help.html">
       <img src="../assets/img/infoIcon.svg">
     </a>
-    <div id="creatTaskBtnMobile" class="log-in"></div>
+    <div id="createTaskBtnMobile" class="log-in"></div>
     <div id="loginContainer" class="log-in">
       <div class="log-in-img">
         <div class="assignBubble noPadding" id="currentUserInitials"> Is </div>
@@ -339,7 +340,7 @@ function addTaskHTML() {
           </div>
         </div>
         <div>
-          <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
+          <button class="blueBtn mobile-d-none">Create Task <img src="../assets/img/check.svg"></button>
         </div>
       </div> 
     </div>

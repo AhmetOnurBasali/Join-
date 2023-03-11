@@ -91,6 +91,7 @@ function createTaskFromContacts(area, selectedID) {
   }
   users.push(contact);
   console.log(users);
+  
 }
 
 

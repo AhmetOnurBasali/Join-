@@ -1,36 +1,67 @@
 let previousID = null;
-
+let isAddTask = false;
 
 function setSideBarFocus() {
     let sectionPathname = window.location.pathname;
     let sections = sectionPathname.split('/');
     let sectionName = sections[sections.length - 1].replace('.html', '');
+    ifSummarySite(sectionName);
+    ifBoardSite(sectionName);
+    ifAddTaskSite(sectionName);
+    ifContactsSite(sectionName);
+    ifLegalSite(sectionName);
+    ifHelpSite(sectionName);
+}
+
+
+function ifSummarySite(sectionName) {
     if (sectionName === "summary") {
         setTimeout(() => {
             setFocus("summary", "Side");
         }, 50);
     }
+}
+
+
+function ifBoardSite(sectionName) {
     if (sectionName === "board") {
         setFocus("board", "Side");
     }
+}
+
+
+function ifAddTaskSite(sectionName) {
     if (sectionName === "addTask") {
         setTimeout(() => {
             setFocus("addTask", "Side");
         }, 50);
+        isAddTask = true;
     }
+}
+
+
+function ifContactsSite(sectionName) {
     if (sectionName === "contacts") {
         setTimeout(() => {
             setFocus("contacts", "Side");
         }, 50);
     }
+}
+
+
+function ifLegalSite(sectionName) {
     if (sectionName === "legal") {
         setTimeout(() => {
             setFocus("legal", "Side");
         }, 50);
     }
+}
+
+
+function ifHelpSite(sectionName) {
     if (sectionName === "help") {
-            let icon = document.getElementById('helpIcon')
-            icon.classList.add('d-none')
+        let icon = document.getElementById('helpIcon')
+        icon.classList.add('d-none')
     }
 }
 
@@ -39,7 +70,7 @@ function setFocus(id, selectedID) {
     if (id !== 'contactContainer') {
         setFocusSideSection(id, selectedID);
     }
-    
+
     setFocusContactContainer(id, selectedID);
     if (!isNaN(selectedID)) {
         previousID = selectedID;
@@ -58,14 +89,14 @@ async function setFocusContactContainer(id, selectedID) {
     document.getElementById(`${id}${selectedID}`).classList.add("focusContact");
     document.getElementById(`${id}${selectedID}`).classList.remove("contactContainerhover");
     if (previousID !== null && previousID !== selectedID) {
-       try {
-        document.getElementById(`${id}${previousID}`).classList.remove("focusContact");
-        document.getElementById(`${id}${previousID}`).classList.add("contactContainerhover");
-        document.getElementById(`contactBubble${previousID}`).classList.remove("contactsBubbleBorder");
-        document.getElementById(`${id}${selectedID}`).classList.remove("focusSidebar");
-       } catch (error) {
-        return
-       }
+        try {
+            document.getElementById(`${id}${previousID}`).classList.remove("focusContact");
+            document.getElementById(`${id}${previousID}`).classList.add("contactContainerhover");
+            document.getElementById(`contactBubble${previousID}`).classList.remove("contactsBubbleBorder");
+            document.getElementById(`${id}${selectedID}`).classList.remove("focusSidebar");
+        } catch (error) {
+        
+        }
     }
 }
 
@@ -73,7 +104,7 @@ async function setFocusContactContainer(id, selectedID) {
 function openLogout() {
     let logoutContainer = document.getElementById('headerPopupDiv')
     logoutContainer.classList.toggle('d-none')
-  
+
     document.addEventListener('click', handleClickOutside)
 }
 
@@ -121,26 +152,28 @@ if (nameToEdit) {
 }
 
 
-function  moveCreatTaskBtnMobile() {
-    let mobileBtn = document.getElementById('creatTaskBtnMobile')
+function showCreateTaskBtnMobile() {
+    let mobileBtn = document.getElementById('createTaskBtnMobile')
     let bubbleDiv = document.getElementById('loginContainer')
-    if (window.innerWidth <= 1000) {
+    if (window.innerWidth <= 1000 && isAddTask) {
         bubbleDiv.classList.add('d-none')
         mobileBtn.innerHTML = `
         <div onclick="createNewTask(event);">
             <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
         </div>`
-    }    
+    }
+    
 }
 
-function hiddenCreatTaskBtnMobile() {
-    let mobileBtn = document.getElementById('creatTaskBtnMobile')
+function hideCreateTaskBtnMobile() {
+    let mobileBtn = document.getElementById('createTaskBtnMobile')
     let bubbleDiv = document.getElementById('loginContainer')
     bubbleDiv.classList.remove('d-none')
     mobileBtn.innerHTML = ""
+    isAddTask = false;
 }
 
 function setFocusBubbleContact(selectedID) {
-         document.getElementById(`contactBubble${selectedID}`).focus();
-         document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
+    document.getElementById(`contactBubble${selectedID}`).focus();
+    document.getElementById(`contactBubble${selectedID}`).classList.add("contactsBubbleBorder");
 }
