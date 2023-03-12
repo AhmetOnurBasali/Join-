@@ -19,6 +19,7 @@ function ifSummarySite(sectionName) {
         setTimeout(() => {
             setFocus("summary", "Side");
         }, 50);
+        showGreetingUser();
     }
 }
 
@@ -104,9 +105,9 @@ async function setFocusContactContainer(id, selectedID) {
 function openLogout() {
     let logoutContainer = document.getElementById('headerPopupDiv')
     logoutContainer.classList.toggle('d-none')
-
     document.addEventListener('click', handleClickOutside)
 }
+
 
 function handleClickOutside(e) {//Die Funktion handleClickOutside wird aufgerufen, wenn es einen Klick gibt.
     let logoutContainer = document.getElementById('headerPopupDiv')//Der DOM-Element mit der ID headerPopupDiv wird in der Variable logoutContainer gespeichert.
@@ -155,14 +156,13 @@ if (nameToEdit) {
 function showCreateTaskBtnMobile() {
     let mobileBtn = document.getElementById('createTaskBtnMobile')
     let bubbleDiv = document.getElementById('loginContainer')
-    if (window.innerWidth <= 1000 && isAddTask) {
+    if (mobileWidth() && isAddTask) {
         bubbleDiv.classList.add('d-none')
         mobileBtn.innerHTML = `
         <div onclick="createNewTask(event);">
             <button class="blueBtn">Create Task <img src="../assets/img/check.svg"></button>
         </div>`
     }
-    
 }
 
 function hideCreateTaskBtnMobile() {

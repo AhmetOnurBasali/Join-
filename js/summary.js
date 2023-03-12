@@ -1,6 +1,9 @@
 let today = new Date();
 
-
+/**
+ * This function is used to initialise all functions thats needed for the summary page.
+ * 
+ */
 async function initSummary() {
   await init();
   showGreetingDayTime();
@@ -9,7 +12,9 @@ async function initSummary() {
   checkUndefined()
 }
 
-
+/**
+ * This function is used to show the greeting of the daytime to the user thats logged in.
+ */
 function showGreetingDayTime() {
   let greeting = document.getElementById("greeting");
   let localHours = new Date().getHours();
@@ -24,33 +29,46 @@ function showGreetingDayTime() {
   }
 }
 
-
+/**
+ * This function is used to show the name of the user as a greeting.
+ */
 function showGreetingUser() {
   let greetingName = document.getElementById("greeting-user");
   greetingName.innerHTML = currentUser["name"];
-
-  setTimeout(() => {
-    if (window.innerWidth <= 1000) {
+  let welcomeTimeout = setTimeout(function () {
+    if (!mobileWidth()) {
+      document.querySelector('.welcome').style.display = 'flex';
+      clearTimeout(welcomeTimeout);
+    } else {
       document.querySelector('.welcome').style.display = 'none';
     }
   }, 2300);
 }
 
-
+/**
+ * This function is used to load and show the number of tasks, that is in every section.
+ */
 function loadTasksLength() {
+  let countTimeout = 1700;
   loadTaskUpcomingDeadline();
-  setTimeout(() => {
+  if (!mobileWidth()) {
+    countTimeout = 0;
+  }
+   setTimeout(function () {
+    
     loadTasksInBoard();
     loadTasksInProgress();
     loadTasksAwaitingFeedback();
-    
     loadTasksTodo();
     loadTasksDone();
-  }, 1700);
-
+  }, countTimeout);
 }
 
-
+/**
+ * This function is used to count every task amount from 0 to the actual task value in that section.
+ * @param {int} num - This is the amount of the tasks in each section.
+ * @param {int} taskNumID - This is the ID of the element of each tasks section.
+ */
 function countTo(num, taskNumID) {
   let from = 0;
   let to = num;
@@ -59,7 +77,7 @@ function countTo(num, taskNumID) {
 
   if (from == to) {
     document.getElementById(taskNumID).innerHTML = from;
-    return;
+    // return;
   }
 
   let counter = setInterval(function () {
@@ -72,19 +90,21 @@ function countTo(num, taskNumID) {
   }, interval);
 }
 
-
+/**
+ * This function is used to check the length of all tasks from the board and call the function countTo.
+ */
 function loadTasksInBoard() {
   try {
     countTo(allTasks.length - 1, 'tasks-in-board');
   } catch (error) {
-    console.warn('no tasks');
+    console.log('no tasks');
   }
-
 }
 
-
+/**
+ * This function is used to filter the length of 'allTasks' in the 'inProgress' area and call the function countTo.
+ */
 function loadTasksInProgress() {
-
   try {
     let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
     countTo(inProgress.length, 'tasks-in-progress');
@@ -93,9 +113,10 @@ function loadTasksInProgress() {
   }
 }
 
-
+/**
+ * This function is used to filter the length of 'allTasks' in the 'awaitingFeedback' area and call the function countTo.
+ */
 function loadTasksAwaitingFeedback() {
-
   try {
     let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
     countTo(awaitingFeedback.length, 'tasks-awaiting-feedback');
@@ -104,9 +125,10 @@ function loadTasksAwaitingFeedback() {
   }
 }
 
-
+/**
+ * This function is used to filter the length of 'allTasks' in the 'todo' area and call the function countTo.
+ */
 function loadTasksTodo() {
-
   try {
     let todo = allTasks.filter((t) => t["area"] == "todo");
     countTo(todo.length, 'tasks-todo');
@@ -115,58 +137,70 @@ function loadTasksTodo() {
   }
 }
 
-
+/**
+ * This function is used to filter the length of 'allTasks' in the 'done' area and call the function countTo.
+ */
 function loadTasksDone() {
-
   try {
     let done = allTasks.filter((t) => t["area"] == "done");
     countTo(done.length, 'tasks-done');
   } catch (error) {
     console.log('no tasks in "done"');
   }
-
 }
 
-
+/**
+ * This function is used to filter the length of 'allTasks' with the 'urgent' priority and call the function countTo. It's also used to sort the urgent priority tasks and sort them from the clostest to the furthest date, by difference from today's date.
+ */
 function loadTaskUpcomingDeadline() {
   let prio;
   let tasksDate = [];
-
   try {
     prio = allTasks.filter((t) => t["prio"] == "urgent");
     countTo(prio.length, 'tasks-priority');
 
-
     for (let i = 0; i < prio.length; i++) {
       const taskDate = prio[i]['date'];
-
-
-      // Array mit Datumsangaben
       tasksDate.push(taskDate);
     }
 
-    // Array sortieren nach Differenz zum heutigen Datum
-    let sortedDates = tasksDate.sort(function (a, b) {
-      return dateDifference(a) - dateDifference(b);
-    });
-
-    // Ausgabe des dringendsten Tasks
-    sortedDatesConverted = sortedDates[0].split(/-/gi);
-    document.getElementById('tasks-date').innerHTML = convertNumberInMonth(sortedDatesConverted[1] - 1) + ' ' + sortedDatesConverted[2] + ', ' + sortedDatesConverted[0];
-
+    // Sort array by difference from today's date
+    let sortedDates = sortArrayByDifference(tasksDate);
+    mostUrgentTask(sortedDates);
   } catch (error) {
     console.log('no urgent tasks');
   }
 }
 
 
-// Funktion zur Berechnung der Differenz zwischen zwei Daten
+function sortArrayByDifference(tasksDate){
+  return tasksDate.sort(function (a, b) {
+  return dateDifference(a) - dateDifference(b);
+});
+}
+
+
+function mostUrgentTask(sortedDates){
+  sortedDatesConverted = sortedDates[0].split(/-/gi);
+  document.getElementById('tasks-date').innerHTML = convertNumberInMonth(sortedDatesConverted[1] - 1) + ' ' + sortedDatesConverted[2] + ', ' + sortedDatesConverted[0];
+}
+
+
+/**
+ * This function is used to returning the difference of the urgent task's date to the date today.
+ * @param {int} date - Date from a urgent task.
+ * @returns - Returns the difference of the urgent task's date to the date today.
+ */
 function dateDifference(date) {
   let difference = Math.abs(new Date(date) - today);
   return difference;
 }
 
-
+/**
+ * This function is used to convert the month's from a number to month's name.
+ * @param {int} sortedDatesMonth - Sorted months from the urgend task dates from 0 (January) to 11 (Dezember).
+ * @returns - Returns the month's name.
+ */
 function convertNumberInMonth(sortedDatesMonth) {
   switch (parseInt(sortedDatesMonth)) {
     case 0:
@@ -196,7 +230,9 @@ function convertNumberInMonth(sortedDatesMonth) {
   }
 }
 
-
+/**
+ * This function is used to switch to the board site.
+ */
 function switchToBoard() {
   setTimeout(() => {
     window.location.href = "../html/board.html";

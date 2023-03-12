@@ -25,6 +25,10 @@ function dateTodayISO() {
     return dateToday;
 }
 
+function mobileWidth(){
+    return window.innerWidth <= 1000;
+}
+
 
 function pad(num, size) {
     num = num.toString();
@@ -36,7 +40,7 @@ function pad(num, size) {
 function slideInAnimation(childID, parentID) {
     document.getElementById(parentID).classList.remove('visual-out');
     document.getElementById(parentID).classList.add('visual-in');
-    if (window.innerWidth <= 1000) {
+    if (mobileWidth()) {
         document.getElementById(childID).classList.add('slide-in-bottom');
         document.getElementById(childID).classList.remove('slide-out-bottom');
         if (childID == 'addTask') {
@@ -57,7 +61,7 @@ function slideInAnimation(childID, parentID) {
 function slideOutAnimation(childID, parentID) {
     document.getElementById(parentID).classList.remove('visual-in');
     document.getElementById(parentID).classList.add('visual-out');
-    if (window.innerWidth <= 1000) {
+    if (mobileWidth()) {
         document.getElementById(childID).classList.remove('slide-in-bottom');
         document.getElementById(childID).classList.add('slide-out-bottom');
         if (childID == 'addTask') {

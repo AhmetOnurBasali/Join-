@@ -16,68 +16,39 @@ async function initBoard() {
 }
 
 
-/**
- * 
- * 
- */
 function renderBoard() {
     let taskInput = document.getElementById('find-task');
     inputValueLC = taskInput.value.toLowerCase();
-    let areaToDo = document.getElementById('tasks-to-do');
-    let areaInProgress = document.getElementById('tasks-in-progress');
-    let areaAwaitingFeedback = document.getElementById('tasks-awaiting-feedback');
-    let areaDone = document.getElementById('tasks-done');
-    areaToDo.innerHTML = "";
-    areaInProgress.innerHTML = "";
-    areaAwaitingFeedback.innerHTML = "";
-    areaDone.innerHTML = "";
-
+    let areaToDoID = document.getElementById('tasks-to-do');
+    let areaInProgressID = document.getElementById('tasks-in-progress');
+    let areaAwaitingFeedbackID = document.getElementById('tasks-awaiting-feedback');
+    let areaDoneID = document.getElementById('tasks-done');
+    areaToDoID.innerHTML = "";
+    areaInProgressID.innerHTML = "";
+    areaAwaitingFeedbackID.innerHTML = "";
+    areaDoneID.innerHTML = "";
     try {
-        let todo = allTasks.filter((t) => t["area"] == "todo");
-        for (let i = 0; i < todo.length; i++) {
-            const task = todo[i];
-            const taskCategory = task['category'].toLowerCase();
-            const taskDescription = task['description'].toLowerCase();
-            const taskTitle = task['title'].toLowerCase();
-            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
-                renderCreatedTasks(areaToDo, task);
-            }
-        }
-        let inProgress = allTasks.filter((t) => t["area"] == "inProgress");
-        for (let i = 0; i < inProgress.length; i++) {
-            const task = inProgress[i];
-            const taskCategory = task['category'].toLowerCase();
-            const taskDescription = task['description'].toLowerCase();
-            const taskTitle = task['title'].toLowerCase();
-            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
-                renderCreatedTasks(areaInProgress, task);
-            }
-        }
-        let awaitingFeedback = allTasks.filter((t) => t["area"] == "awaitingFeedback");
-        for (let i = 0; i < awaitingFeedback.length; i++) {
-            const task = awaitingFeedback[i];
-            const taskCategory = task['category'].toLowerCase();
-            const taskDescription = task['description'].toLowerCase();
-            const taskTitle = task['title'].toLowerCase();
-            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
-                renderCreatedTasks(areaAwaitingFeedback, task);
-            }
-        }
-        let done = allTasks.filter((t) => t["area"] == "done");
-        for (let i = 0; i < done.length; i++) {
-            const task = done[i];
-            const taskCategory = task['category'].toLowerCase();
-            const taskDescription = task['description'].toLowerCase();
-            const taskTitle = task['title'].toLowerCase();
-            if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
-                renderCreatedTasks(areaDone, task);
-            }
-        }
+        filterAndSearch("todo", areaToDoID);
+        filterAndSearch("inProgress", areaInProgressID);
+        filterAndSearch("awaitingFeedback", areaAwaitingFeedbackID);
+        filterAndSearch("done", areaDoneID);
     } catch (error) {
         console.log('no Tasks created');
     }
+}
 
 
+function filterAndSearch(area, areaID) {
+    let areaArray = allTasks.filter((t) => t["area"] == area);
+    for (let i = 0; i < areaArray.length; i++) {
+        const task = areaArray[i];
+        const taskCategory = task['category'].toLowerCase();
+        const taskDescription = task['description'].toLowerCase();
+        const taskTitle = task['title'].toLowerCase();
+        if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
+            renderCreatedTasks(areaID, task);
+        }
+    }
 }
 
 
@@ -127,9 +98,7 @@ function allowDrop(ev, area, areaID) {
         highlightArea(areaID);
     } else if (area == allTasks[currentDraggedElement]['area'] && document.getElementById('task-preview') != null) {
         document.getElementById('task-preview').remove();
-
     }
-
 }
 
 
@@ -159,7 +128,6 @@ function checkDraggedTaskSize() {
 async function moveTo() {
     allTasks[currentDraggedElement]['area'] = currentAreaOndragover;
     renderBoard();
-
     await backend.setItem("allTasks", allTasks);
 }
 
@@ -170,10 +138,8 @@ function setTitleBg(task, eID) {
 
 
 function dragAnimation(id) {
-
     document.getElementById(`taskNumber_${id}`).style.rotate = '4deg';
     document.getElementById(`taskNumber_${id}`).style.opacity = '0.75';
-
 }
 
 
@@ -184,12 +150,16 @@ function addTaskBoard(area) {
     slideInAnimation('addTask', 'popup-add-task-board');
     document.getElementById('popup-add-task-board').classList.remove('d-none');
     addTaskCloseTopRight();
-
     document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
-
     navbarBottomHide();
     showCreateTaskBtnMobile();
-    body.style.overflow = "hidden"
+    preventScrolling();
+
+}
+
+
+function preventScrolling() {
+    return body.style.overflow = "hidden";
 }
 
 
@@ -198,34 +168,29 @@ function selectArea(area) {
 }
 
 
-function addTaskHTMLBoard() {
-    return `<div class="whiteBtn" onclick="closeAddTaskBoard(), clearTask()">Close 
-    <svg  width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path class="clearSvg" d="M12.5011 12.5001L17.7441 17.7431M7.25806 17.7431L12.5011 12.5001L7.25806 17.7431ZM17.7441 7.25708L12.5001 12.5001L17.7441 7.25708ZM12.5001 12.5001L7.25806 7.25708L12.5001 12.5001Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg></div>`;
-}
-
-
 function closeAddTaskBoard() {
     slideOutAnimation('addTask', 'popup-add-task-board');
     setTimeout(() => {
         document.getElementById('popup-add-task-board').classList.add('d-none');
     }, animationTimeout);
-    if (window.innerWidth <= 1000) {
+    if (mobileWidth()) {
         let navbar = document.getElementById('navbar-bottom')
         navbar.classList.remove("d-none")
         hideCreateTaskBtnMobile();
     }
-    body.style.overflow = "auto"
+    allowScrolling();
 }
 
+function allowScrolling() {
+    return body.style.overflow = "auto"
+}
 
 function doNotCloseAddTaskBoard(event) {
     event.stopPropagation();
 }
 
 
-//---------------------------Move to Mobile---------------------------
+//---------------------------Move to Area Mobile---------------------------
 function selectAreaOnMobile(taskID) {
     let moveToButtonIDs = ['mobile-move-todo', 'mobile-move-inProgress', 'mobile-move-awaitingFeedback', 'mobile-move-done'];
     for (let i = 0; i < moveToButtonIDs.length; i++) {
@@ -234,16 +199,14 @@ function selectAreaOnMobile(taskID) {
             document.getElementById(moveToButtonID).style.display = 'none';
         }
     }
-    
 }
 
 
-function moveToOnMobile(taskID, selectedArea){
+function moveToOnMobile(taskID, selectedArea) {
     allTasks[taskID]['area'] = selectedArea;
     renderBoard();
     openTaskDetailsFront(taskID);
     selectAreaOnMobile(taskID);
-
     backend.setItem("allTasks", allTasks);
 }
 
@@ -254,7 +217,7 @@ function openTaskDetailsFront(taskID) {
     document.getElementById('popup-task-details').classList.remove('d-none');
     slideInAnimation('task-details', 'popup-task-details');
     document.getElementById('task-details').innerHTML = renderTaskDetailsFrontHTML(currentTaskID);
-    document.getElementById('body').style.overflow = 'hidden';
+    preventScrolling();
     setTitleBg(allTasks[currentTaskID], 'task-details-category');
     renderAssignTo(allTasks[currentTaskID], 'task-details-assigned-to');
     renderSubtasks(allTasks[currentTaskID], 'task-details-subtasks');
@@ -264,13 +227,13 @@ function openTaskDetailsFront(taskID) {
 
 function renderSubtasks(task, eID) {
     document.getElementById(`${eID}${task['id']}`).innerHTML = '';
+
     for (let i = 0; i < task['openSubtask'].length; i++) {
         const openSubtask = task['openSubtask'][i];
         document.getElementById(`${eID}${task['id']}`).innerHTML += /*html*/`
          <div class="subtasks-details"><input class="checkbox-subtask" onclick="statusSubtask(${i}, 'openSubtask${i}_T${currentTaskID}')" type="checkbox" id="openSubtask${i}_T${currentTaskID}">${openSubtask}</div>
         `;
     }
-
     for (let i = 0; i < task['closedSubtask'].length; i++) {
         const closedSubtask = task['closedSubtask'][i];
         document.getElementById(`${eID}${task['id']}`).innerHTML += /*html*/`
@@ -304,13 +267,10 @@ function setPriorityBg() {
 function setPriorityBgColor() {
     switch (allTasks[currentTaskID]['prio']) {
         case 'low':
-
             return '#7AE229'
         case 'medium':
-
             return '#FFA800'
         case 'urgent':
-
             return '#FF3D00'
         default:
             break;
@@ -360,9 +320,7 @@ async function editExistingTask(event) {
     let proof = taskProofSectionEdit(editTask);
     if (proof === true) {
         editTaskData(editTask);
-        // clearContactCheckboxes();
     }
-
 }
 
 
@@ -389,8 +347,10 @@ function taskProofSectionEdit(editTask) {
     let prio = proofPrio(editTask, 'Edit');
     if (checkProofOfEdit(title, description, assigned, date, prio) === true) {
         return true;
+    }else{
+        return false;
     }
-    return false;
+    
 }
 
 
