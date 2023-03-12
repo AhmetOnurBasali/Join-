@@ -1,6 +1,9 @@
 let currentUserContacts = [];
 let currentSelectedID = [];
 
+let idForEditContact = null;
+
+let prevContact = null;
 
 async function initContacts() {
   await init();
@@ -83,15 +86,28 @@ function closeEditContact() {
 }
 
 
-function createTaskFromContacts(area, selectedID) {
+async function createTaskFromContacts(area, selectedID) {
   addTaskBoard(area);
+  await loadContactsData()
   let contact = currentUserContacts.find((u) => u.contactID == selectedID);
-  if (contact.contactID == 0) {
-    return
+  let proofData = proofContactDataForTask(contact)
+  if (proofData === true) {
+    users.push(contact);
+    categoryDivExists = true;
+    prevContact = contact;
   }
-  users.push(contact);
-  console.log(users);
-  categoryDivExists = true;
+}
+
+
+function proofContactDataForTask(contact) {
+  if (prevContact) {
+    users = users.filter((u) => u.contactID != prevContact.contactID);
+  }
+  if (contact.contactID == 0) {
+    return false;
+  } else {
+    return true
+  }
 }
 
 
@@ -182,8 +198,8 @@ function renderSelectedContact(contact, selectedID) {
   let emailSlide = document.getElementById("slideEmail");
   let phoneSlide = document.getElementById("slidePhone");
   let editSlide = document.getElementById("slideEditContact");
-  phoneSlide.innerHTML = `<number>+${contact.phone}</number>`;
-  emailSlide.innerHTML = `<a class="lightblueColor">${contact.email}</a>`;
+  phoneSlide.innerHTML = `+<a class="noDeco" title="click to Call" href="tel:${contact.phone}">${contact.phone}</a>`;
+  emailSlide.innerHTML = `<a class="noDeco" title="click to send email" class="" href="mailto:${contact.email}">${contact.email}</a>`;
   nameSlide.innerHTML = `<span class="slideNameSize">${contact.name}</span>`;
   initialsSlides.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
   contactsAddTask.innerHTML = `<div class="lightblueColor addTaskBtnCO add-task" onclick="createTaskFromContacts('todo', ${selectedID})"> <img src="../assets/img/plusIconBlue.svg">  add task</div>`
@@ -211,7 +227,7 @@ function loadCurrentDataContactEdit(contact, selectedID) {
   phoneEdit.value = `${formatedNumber}`;
   contactBubble.innerHTML = `<div style="background:${contact.color}" class="editContactsBubble">${contact.initialLetters}</div>`;
   setTimeout(() => { phoneEdit.type = "number"; }, 100);
-  currentSelectedID.push(selectedID);
+  idForEditContact = selectedID;
 }
 
 
@@ -219,24 +235,25 @@ function proofCurrentUser() {
   if (currentUser.name == "Guest User") {
     alert("The guest user can't Edit/Create a Contact.");
     return false;
-  } 
+  }
   return true
+}
+
+function findContactById(id) {
+  return currentUserContacts.find(contact => contact.contactID === id);
 }
 
 
 async function saveEdit(event) {
   event.preventDefault();
+  await loadContactsData()
   let userProof = proofCurrentUser()
-  let id = currentSelectedID;
-  let nameEdit = tryGetName();
-  currentUserContacts[id]["name"] = nameEdit;
-  let emailEdit = tryGetEmail();
-  currentUserContacts[id]["email"] = emailEdit;
-  let phoneEdit = tryGetPhone();
-  currentUserContacts[id]["phone"] = phoneEdit;
-  let nameInitials = getInitialLetters(nameEdit);
-  currentUserContacts[id]["initialLetters"] = nameInitials;
-  if (userProof && proofEditName() === true && proofEditEmail() === true && phoneEdit.length > 5 && phoneEdit.length < 16) {
+  let contactToEdit = findContactById(idForEditContact);
+  contactToEdit["name"] = tryGetName();
+  contactToEdit["email"] = tryGetEmail();
+  contactToEdit["phone"] = tryGetPhone();
+  contactToEdit["initialLetters"] = getInitialLetters(contactToEdit["name"]);
+  if (userProof && proofEditName() === true && proofEditEmail() === true && contactToEdit["phone"].length > 5 && contactToEdit["phone"].length < 16) {
     await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
     window.location.href = `contacts.html`;
   }

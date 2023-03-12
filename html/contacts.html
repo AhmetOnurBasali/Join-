@@ -17,6 +17,7 @@
     <script src="../js/templates.js"></script>
     <script src="../js/contacts.js"></script>
     <script src="../js/addTask.js"></script>
+    <script src="../js/addTaskMore.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/board.js"></script>
     <script src="../js/summary.js"></script>
@@ -165,7 +166,7 @@
     <div id="createContactPopup" class="createdContactPopupPosi d-none">
         <p class="addTaskPopup slidePopup">Contact succesfully created</p>
     </div>
-    <section onclick="closeAddTaskBoard()" id="popup-add-task-board" class="bg-popup d-none">
+    <section onclick="closeAddTaskBoard(), clearTask()" id="popup-add-task-board" class="bg-popup d-none">
         <div onclick="event.stopPropagation()" id="addTask" class="add-task-popup"></div>
     </section>
     <div id="navbar-bottom"></div>

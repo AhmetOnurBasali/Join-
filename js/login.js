@@ -2,12 +2,18 @@ let disclaimerShowAgain = true
 let disclaimerUnderstood = false
 
 
-function initLogin(){
+function initLogin() {
   loadParms();
   loadUsers();
-  animateImage(); 
+}
+
+
+function initIndex() {
+  animateImage();
+  initLogin()
   initLocalLogin();
 }
+
 
 function understoodDisclaimer() {
   let checkbox = document.getElementById('disclaimerCheck').checked
@@ -200,8 +206,7 @@ async function setNewUser(newName, newColor, newEmail, newPassword, newInitialLe
   await saveNewUser(userData);
   setTimeout(() => {
     window.location.href = "/index.html?msg=Your regrestation was successful";
-  }, 500);
-}
+  }, 500);}
 
 
 async function saveNewUser(userData) {
@@ -402,5 +407,3 @@ function getEmailRegEx() {
   let emailRegex = /^[.-\wäöüÄÖÜ_]+@[A-Za-z]+\.[A-Za-z]{2,}$/;
   return emailRegex;
 }
-
-
