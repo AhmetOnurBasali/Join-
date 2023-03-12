@@ -11,6 +11,7 @@ async function init() {
     loadTasks();
     setSideBarFocus();
     getInitialForHeader()
+    checkUndefined()
 }
 
 async function initHelpLegal() {
@@ -49,7 +50,6 @@ function slideInAnimation(childID, parentID) {
             document.getElementById(childID).classList.add('slide-in');
             document.getElementById(parentID).classList.remove('visual-in');
         }
-
     } else {
         document.getElementById(childID).classList.remove('slide-out');
         document.getElementById(childID).classList.add('slide-in');
@@ -74,11 +74,7 @@ function slideOutAnimation(childID, parentID) {
         document.getElementById(childID).classList.remove('slide-in');
         document.getElementById(childID).classList.add('slide-out');
     }
-
 }
-
-
-
 
 
 function checkUndefined() {

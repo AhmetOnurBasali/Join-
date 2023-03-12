@@ -91,7 +91,7 @@ function createTaskFromContacts(area, selectedID) {
   }
   users.push(contact);
   console.log(users);
-  
+  categoryDivExists = true;
 }
 
 
@@ -209,7 +209,7 @@ function loadCurrentDataContactEdit(contact, selectedID) {
   emailEdit.value = `${contact.email}`;
   let formatedNumber = contact.phone.split(" ")[0] + contact.phone.split(" ")[1];
   phoneEdit.value = `${formatedNumber}`;
-  contactBubble.innerHTML = `<div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}</div>`;
+  contactBubble.innerHTML = `<div style="background:${contact.color}" class="editContactsBubble">${contact.initialLetters}</div>`;
   setTimeout(() => { phoneEdit.type = "number"; }, 100);
   currentSelectedID.push(selectedID);
 }

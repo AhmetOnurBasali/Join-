@@ -16,6 +16,7 @@ async function initTemplates() {
   showCreateTaskBtnMobile();
 }
 
+
 window.addEventListener('resize', function () {
   let delay = 250 // delay between calls
   let throttled = false // are we currently throttled? 
@@ -31,6 +32,7 @@ window.addEventListener('resize', function () {
   }
 });
 
+
 function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
 }
@@ -41,6 +43,7 @@ function navbarBottomHide() {
     navbar.classList.add("d-none")
   }
 }
+
 
 function addTaskCloseTopRightHTML() {
   return `
@@ -137,6 +140,7 @@ function sidebarHTML() {
 </div>
     `;
 }
+
 
 function navbarMobileHTML() {
   return /*html*/`

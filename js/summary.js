@@ -9,7 +9,6 @@ async function initSummary() {
   showGreetingDayTime();
   showGreetingUser();
   loadTasksLength();
-  checkUndefined()
 }
 
 /**
