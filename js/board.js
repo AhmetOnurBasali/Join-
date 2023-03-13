@@ -355,12 +355,14 @@ function checkValueOfSubtasks(task) {
 
 
 async function editExistingTask(event) {
+    
     proofEvent(event);
     let editTask = getTaskDataEdit();
     let proof = taskProofSectionEdit(editTask);
     if (proof === true) {
         editTaskData(editTask);
     }
+    selectedContacts = [];
 }
 
 

@@ -243,14 +243,21 @@ function assignedToBlockShiftOut(inputID) {
 
 
 function renderOpenAssignedTo(showContactsID, contactInitialsID) {
-  selectedContacts = [];
+  if (contactInitialsID === 'contactInitialsEdit' && selectedContacts.length == 0) {
+    selectedContacts = allTasks[currentTaskID].assignedTo;
+  }else if(contactInitialsID === 'contactInitialsEdit'){
+    allTasks[currentTaskID].assignedTo = selectedContacts;
+  }
+  // selectedContacts = [];
+  
+
   let contacts = document.getElementById(showContactsID);
   contacts.innerHTML = "";
   let idHash = {};
   for (let i = 0; i < users.length; i++) {
     checked = false;
     let assignedData = getAssignedContacts(i);
-    filterRenderBubble(assignedData, contactInitialsID);
+    filterRenderBubble(assignedData);
     if (!idHash[users[i]['id']]) {
       contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID);
       idHash[users[i]['id']] = true;
@@ -259,16 +266,17 @@ function renderOpenAssignedTo(showContactsID, contactInitialsID) {
 }
 
 
-function filterRenderBubble(assignedData, contactInitialsID) {
-  // if (contactInitialsID === 'contactInitialsEdit') {
-  //   selectedContacts = allTasks[currentTaskID].assignedTo;
-  // }
+function filterRenderBubble(assignedData) {
+  
   for (let j = 0; j < selectedContacts.length; j++) {
     if (selectedContacts[j].name === assignedData.contactName) {
       checked = true;
       break;
+    } else {
+      checked = false;
     }
   }
+
 }
 
 
