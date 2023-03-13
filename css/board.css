@@ -995,6 +995,7 @@ h2 {
     .task-details-popup {
         width: 280px;
         /* height: 590px; */
+        margin-bottom: 120px;
     }
 
     .task-details-category {

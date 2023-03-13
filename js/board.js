@@ -7,7 +7,6 @@ let currentTaskID;
 
 /**
  * This function is used to initialise all functions thats needed for the board page.
- * 
  */
 async function initBoard() {
     await init();
@@ -16,6 +15,9 @@ async function initBoard() {
 }
 
 
+/**
+ * This function is used to clear the board and call the 'filterAndSearch' function.
+ */
 function renderBoard() {
     let taskInput = document.getElementById('find-task');
     inputValueLC = taskInput.value.toLowerCase();
@@ -38,6 +40,11 @@ function renderBoard() {
 }
 
 
+/**
+ * This function is used to filter and search tasks and call the 'renderCreatedTasks' function.
+ * @param {string} area - Identifies the area.
+ * @param {string} areaID - The ID of the area section.
+ */
 function filterAndSearch(area, areaID) {
     let areaArray = allTasks.filter((t) => t["area"] == area);
     for (let i = 0; i < areaArray.length; i++) {
@@ -52,6 +59,11 @@ function filterAndSearch(area, areaID) {
 }
 
 
+/**
+ * This function is used to render the filtered and searched tasks on the board.
+ * @param {string} area - Identifies the area.
+ * @param {JSONArray} task - Information of the current rendering task.
+ */
 async function renderCreatedTasks(area, task) {
     area.innerHTML += renderCreatedTasksInnerHTML(task);
     renderAssignTo(task, 'task-assigned-to');
@@ -60,6 +72,11 @@ async function renderCreatedTasks(area, task) {
 }
 
 
+/**
+ * This function is used to render the AssignTo bubbles of the users.
+ * @param {JSONArray} task - Information of the current rendering task.
+ * @param {string} eID - ID of the div that should be rendered the AssignTo bubble in.
+ */
 function renderAssignTo(task, eID) {
     let i;
     for (i = 0; i < task['assignedTo'].length; i++) {
@@ -77,6 +94,11 @@ function renderAssignTo(task, eID) {
 }
 
 
+/**
+ * This function is used to calculate the actual progress of the finished subtasks.
+ * @param {JSONArray} task - Information of the current rendering task.
+ * @returns The progress of the subtasks in %.
+ */
 function progressSubtasks(task) {
     if (task['closedSubtask'] == 0) {
         return 0;
@@ -88,6 +110,12 @@ function progressSubtasks(task) {
 
 
 //---------------------------Drag and Drop Tasks---------------------------
+/**
+ * This function is used to check if the dragged task could be drop in that area.
+ * @param {event} ev - Event
+ * @param {string} area - Identifies the area.
+ * @param {string} areaID - Element ID of a area.
+ */
 function allowDrop(ev, area, areaID) {
     ev.preventDefault();
     currentAreaOndragover = area;
@@ -102,11 +130,18 @@ function allowDrop(ev, area, areaID) {
 }
 
 
+/**
+ * This function is used to remove the task preview task.
+ */
 function disregardArea() {
     taskPreview = false;
 }
 
 
+/**
+ * This function is used to highlight the dragged over area with a preview style of a task.
+ * @param {string} areaID - Element ID of a area.
+ */
 function highlightArea(areaID) {
     document.getElementById(`${areaID}`).innerHTML += `<div class="task-preview" id="task-preview"></div>`;
     checkDraggedTaskSize();
@@ -114,9 +149,14 @@ function highlightArea(areaID) {
 }
 
 
+/**
+ * This function is used to set the current tasks id global.
+ * @param {string} id - The dragged tasks id.
+ */
 function startDragging(id) {
     currentDraggedElement = id;
 }
+
 
 
 function checkDraggedTaskSize() {
