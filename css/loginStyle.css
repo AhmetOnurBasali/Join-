@@ -449,6 +449,7 @@ input[type="text"] {
     left: 75px;
     height: 100px;
     width: 83px;
+    display: none;
   }
 }
 
@@ -465,10 +466,10 @@ a:hover .backColorMobile {
     /* opacity: 1; */
 
   }
-
   100% {
     /* opacity: 0; */
     background-color: rgba(245, 245, 245, 0);
+    
   }
 }
 
@@ -664,8 +665,11 @@ a:hover .backColorMobile {
       height: 55px;
       width: 45px;
       /* background: white; */
+      display: none;
     }
   }
+
+  
 
   .logoSVGPath {
     animation: animSVGColor 2s;

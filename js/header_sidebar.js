@@ -19,7 +19,7 @@ function ifSummarySite(sectionName) {
         setTimeout(() => {
             setFocus("summary", "Side");
         }, 50);
-        showGreetingUser();
+        // showGreetingUser();
     }
 }
 

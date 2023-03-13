@@ -35,7 +35,7 @@ function animateImage() {
   let bg = document.getElementById('joinEntranceBg');
   bg.classList.add('title-bg-hide');
   setTimeout(() => {
-    svg.classList.add('d-none');
+    // svg.classList.add('d-none');
     bg.classList.add('d-none');
     loginLogo.classList.remove('d-none')
   }, 1900);

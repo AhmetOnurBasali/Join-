@@ -44,6 +44,7 @@ function showGreetingUser() {
   }, 2300);
 }
 
+
 /**
  * This function is used to load and show the number of tasks, that is in every section.
  */
@@ -53,8 +54,8 @@ function loadTasksLength() {
   if (!mobileWidth()) {
     countTimeout = 0;
   }
-   setTimeout(function () {
-    
+  setTimeout(function () {
+
     loadTasksInBoard();
     loadTasksInProgress();
     loadTasksAwaitingFeedback();
@@ -172,14 +173,14 @@ function loadTaskUpcomingDeadline() {
 }
 
 
-function sortArrayByDifference(tasksDate){
+function sortArrayByDifference(tasksDate) {
   return tasksDate.sort(function (a, b) {
-  return dateDifference(a) - dateDifference(b);
-});
+    return dateDifference(a) - dateDifference(b);
+  });
 }
 
 
-function mostUrgentTask(sortedDates){
+function mostUrgentTask(sortedDates) {
   sortedDatesConverted = sortedDates[0].split(/-/gi);
   document.getElementById('tasks-date').innerHTML = convertNumberInMonth(sortedDatesConverted[1] - 1) + ' ' + sortedDatesConverted[2] + ', ' + sortedDatesConverted[0];
 }
