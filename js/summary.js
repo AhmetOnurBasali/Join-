@@ -17,15 +17,17 @@ async function initSummary() {
 function showGreetingDayTime() {
   let greeting = document.getElementById("greeting");
   let localHours = new Date().getHours();
-  if (localHours >= 0 && localHours < 5) {
-    greeting.innerHTML = 'Hello, ';
-  } else if (localHours >= 5 && localHours <= 11) {
-    greeting.innerHTML = 'Good Morning, ';
-  } else if (localHours >= 12 && localHours <= 17) {
-    greeting.innerHTML = 'Good Afternoon, ';
-  } else if (localHours >= 17 && localHours <= 23) {
-    greeting.innerHTML = 'Good Evening, ';
-  }
+  setTimeout(() => {
+    if (localHours >= 0 && localHours < 5) {
+      greeting.innerHTML = 'Hello, ';
+    } else if (localHours >= 5 && localHours <= 11) {
+      greeting.innerHTML = 'Good Morning, ';
+    } else if (localHours >= 12 && localHours <= 17) {
+      greeting.innerHTML = 'Good Afternoon, ';
+    } else if (localHours >= 17 && localHours <= 23) {
+      greeting.innerHTML = 'Good Evening, ';
+    }
+  }, 100);
 }
 
 /**
@@ -33,7 +35,10 @@ function showGreetingDayTime() {
  */
 function showGreetingUser() {
   let greetingName = document.getElementById("greeting-user");
-  greetingName.innerHTML = currentUser["name"];
+  setTimeout(() => {
+    greetingName.innerHTML = currentUser["name"];
+  }, 300);
+
   let welcomeTimeout = setTimeout(function () {
     if (!mobileWidth()) {
       document.querySelector('.welcome').style.display = 'flex';
