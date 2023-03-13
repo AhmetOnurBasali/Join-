@@ -243,6 +243,7 @@ function assignedToBlockShiftOut(inputID) {
 
 
 function renderOpenAssignedTo(showContactsID, contactInitialsID) {
+  selectedContacts = [];
   let contacts = document.getElementById(showContactsID);
   contacts.innerHTML = "";
   let idHash = {};
@@ -259,9 +260,9 @@ function renderOpenAssignedTo(showContactsID, contactInitialsID) {
 
 
 function filterRenderBubble(assignedData, contactInitialsID) {
-  if (contactInitialsID === 'contactInitialsEdit') {
-    selectedContacts = allTasks[currentTaskID].assignedTo;
-  }
+  // if (contactInitialsID === 'contactInitialsEdit') {
+  //   selectedContacts = allTasks[currentTaskID].assignedTo;
+  // }
   for (let j = 0; j < selectedContacts.length; j++) {
     if (selectedContacts[j].name === assignedData.contactName) {
       checked = true;

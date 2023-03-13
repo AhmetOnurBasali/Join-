@@ -9,20 +9,22 @@ body {
     position: absolute;
     top: 129px;
     left: 272px;
-    margin: 50px 0px 50px 80px;
-
+    margin: 0px 0px 50px 80px;
+    
 }
 
 
 .headline {
     display: flex;
     align-items: center;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 }
 
 h1 {
     font-size: 52px;
     margin-right: 50px;
+    margin-block-start: 20px;
+    margin-block-end: 20px;
 }
 
 h2 {
@@ -213,6 +215,11 @@ h2 {
     flex-direction: column;
     justify-content: center;
     margin-left: 50px;
+}
+
+.welcome span{
+    display: flex;
+    justify-content: center;
 }
 
 .greeting {
