@@ -289,9 +289,7 @@ function selectContact(contactName, contactColor, contactInitials, i, contactIni
     };
     selectedContacts.push(contact);
   } else {
-    selectedContacts = selectedContacts.filter(
-      (contact) => contact.name !== contactName
-    );
+    selectedContacts = selectedContacts.filter((contact) => contact.name !== contactName);
   }
   renderSelectContact(contactInitialsID);
 }
