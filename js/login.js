@@ -238,9 +238,11 @@ function proofName() {
   if (!regName.test(name)) {
     document.getElementById("name").focus();
     document.getElementById("name").classList.add("falseInput");
+    document.getElementById("falseName").classList.remove("d-none")
     return false;
   } else {
     document.getElementById("name").classList.remove("falseInput");
+    document.getElementById("falseName").classList.add("d-none")
     return true;
   }
 }
@@ -304,8 +306,10 @@ function proofEmail() {
   if (!regEmail.test(email)) {
     document.getElementById("email").focus();
     document.getElementById("email").classList.add("falseInput");
+    document.getElementById("falseEmail").classList.remove("d-none")
     return false;
   } else {
+    document.getElementById("falseEmail").classList.add("d-none")
     document.getElementById("email").classList.remove("falseInput");
     return true;
   }

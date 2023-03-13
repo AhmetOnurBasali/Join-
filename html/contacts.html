@@ -104,8 +104,13 @@
                         <img class="imgUserWhiteSize" src="../assets/img/userWhite.svg">
                     </div>
                     <form onsubmit="saveEdit(event)">
-                        <div class="inputsContainerEditSection">
-                            <input maxlength="18" id="editName" oninput="proofEditName()" class="inputCO nameIcon" placeholder="Edit name" type="text">
+                        <div class="inputsContainerEditSection">///hier
+                            <div class="editContactInputPosi">
+                                <input maxlength="18" id="editName" oninput="proofEditName()" class="inputCO nameIcon" placeholder="Edit name" type="text">
+                                <div class="transparentDiv d-none" id="falseEditName">
+                                  <div class="requiredText">input need First and last name</div>
+                                </div>
+                              </div>
                             <input maxlength="18" id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
                             <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5" class="inputCO phoneIcon" placeholder="Edit number">
                             <div class="saveContactBtnContainer">

@@ -12,6 +12,7 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
 .d-none {
   display: none !important;
 }
@@ -428,6 +429,16 @@ input[type="text"] {
   animation: slide-out-tl 2s;
 }
 
+.transparentDiv {
+  height: 1px;
+}
+
+.requiredText {
+  font-size: 10px;
+  color: red;
+  padding: 2px;
+}
+
 @keyframes slide-out-tl {
   0% {
     position: absolute;
@@ -466,10 +477,11 @@ a:hover .backColorMobile {
     /* opacity: 1; */
 
   }
+
   100% {
     /* opacity: 0; */
     background-color: rgba(245, 245, 245, 0);
-    
+
   }
 }
 
@@ -669,7 +681,7 @@ a:hover .backColorMobile {
     }
   }
 
-  
+
 
   .logoSVGPath {
     animation: animSVGColor 2s;
