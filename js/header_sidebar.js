@@ -51,10 +51,10 @@ function ifContactsSite(sectionName) {
 
 
 function ifLegalSite(sectionName) {
-    if (sectionName === "legal") {
+    if (sectionName === "legal" && window.innerWidth > 1000) {
         setTimeout(() => {
             setFocus("legal", "Side");
-        }, 50);
+        }, 10);
     }
 }
 
