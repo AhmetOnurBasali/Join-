@@ -423,12 +423,12 @@ input[type="number"]::-webkit-outer-spin-button {
   text-decoration: none;
 }
 
-.noDeco{
+.noDeco {
   text-decoration: none;
   color: black;
 }
 
-.noDeco:hover{
+.noDeco:hover {
   text-decoration: underline;
   color: #29ABE2;
 }
@@ -1138,4 +1138,24 @@ input[type="number"]::-webkit-outer-spin-button {
     align-items: center;
   }
 
+}
+
+@media only screen and (max-width: 374px) {
+  .placeHolderDIV {
+    max-height: max-content;
+    min-height: 700px;
+    margin-top: 122px;
+    height: 764px;
+    padding-bottom: 0;
+  }
+}
+
+@media only screen and (max-height: 668px) {
+  .placeHolderDIV {
+    max-height: max-content;
+    min-height: 700px;
+    margin-top: 162px;
+    height: 764px;
+    padding-bottom: 0;
+  }
 }

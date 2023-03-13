@@ -36,9 +36,9 @@
             <div class="blueLine"></div>
           </div>
         </div>
-        <input oninput="proofName()" type="" id="name" placeholder="Vor- und Nachname" class="inputText" required>
-        <input oninput="proofEmail()" type="" id="email" placeholder="Email" class="inputEmail" required>
-        <input type="password" id="password" placeholder="Password" required>
+        <input maxlength="18" oninput="proofName()" type="" id="name" placeholder="Vor- und Nachname" class="inputText" required>
+        <input maxlength="20" oninput="proofEmail()" type="" id="email" placeholder="Email" class="inputEmail" required>
+        <input maxlength="20" type="password" id="password" placeholder="Password" required>
         <div id="msgBox"></div>
         <button class="signUpBlueBtn">Sign up</button>
       </form>
