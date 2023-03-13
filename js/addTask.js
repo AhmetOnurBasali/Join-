@@ -433,16 +433,16 @@ function closeContactsAndAssignedToPopup(event) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
-  if (document.getElementById("task-details")) {
-    let editTaskDiv = document.getElementById("task-details");
-    editTaskDiv.addEventListener('click', function (event) {
-      if (slideCategory === true || slideAssignTo === true) {
-        closeEditAssignedToPopup(event)
-      }
-    });
-  };
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//   if (document.getElementById("task-details")) {
+//     let editTaskDiv = document.getElementById("task-details");
+//     editTaskDiv.addEventListener('click', function (event) {
+//       if (slideCategory === true || slideAssignTo === true) {
+//         closeEditAssignedToPopup(event)
+//       }
+//     });
+//   };
+// });
 
 
 function closeEditAssignedToPopup(event) {

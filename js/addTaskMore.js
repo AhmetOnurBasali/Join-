@@ -259,9 +259,9 @@ function renderOpenAssignedTo(showContactsID, contactInitialsID) {
 
 
 function filterRenderBubble(assignedData, contactInitialsID) {
-  if (contactInitialsID === 'contactInitialsEdit') {
-    selectedContacts = allTasks[currentTaskID].assignedTo;
-  }
+  // if (contactInitialsID === 'contactInitialsEdit') {
+  //   selectedContacts = allTasks[currentTaskID].assignedTo;
+  // }
   for (let j = 0; j < selectedContacts.length; j++) {
     if (selectedContacts[j].name === assignedData.contactName) {
       checked = true;

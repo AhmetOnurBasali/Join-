@@ -334,9 +334,11 @@ function proofEditName() {
   if (!regName.test(name)) {
     document.getElementById("editName").focus();
     document.getElementById("editName").classList.add("falseInput");
+     document.getElementById("falseEditName").classList.remove("d-none")
     return false;
   } else {
     document.getElementById("editName").classList.remove("falseInput");
+     document.getElementById("falseEditName").classList.add("d-none")
     return true;
   }
 }
