@@ -83,7 +83,7 @@ h2 {
     font-weight: 700;
     margin-left: 20px;
     border: #2A3647;
-    transition: ease-in-out 200ms;
+    transition: ease-in-out 125ms;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -922,6 +922,7 @@ h2 {
     .board {
         margin: 100px 0px 0px 0px;
         min-height: calc(100vh - 100px - 115px);
+        
     }
 
 
@@ -992,7 +993,7 @@ h2 {
 
     .task-details-popup {
         width: 280px;
-        height: 590px;
+        /* height: 590px; */
     }
 
     .task-details-category {

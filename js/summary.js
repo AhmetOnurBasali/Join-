@@ -76,7 +76,7 @@ function countTo(num, taskNumID) {
 
   if (from == to) {
     document.getElementById(taskNumID).innerHTML = from;
-    // return;
+    return;
   }
 
   let counter = setInterval(function () {

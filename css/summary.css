@@ -49,7 +49,7 @@ h2 {
     width: 170px;
     border-radius: 30px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    transition: 175ms ease-in-out;
+    transition: 125ms ease-in-out;
 }
 
 .tasks-position div:hover {
@@ -84,7 +84,7 @@ h2 {
     width: 560px;
     margin-top: 25px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    transition: 175ms ease-in-out;
+    transition: 125ms ease-in-out;
 }
 
 .tasks-priority:hover {
@@ -93,7 +93,7 @@ h2 {
     cursor: pointer;
     height: 180px;
     width: 570px;
-    transition: 175ms ease-in-out;
+    transition: 125ms ease-in-out;
 }
 
 .tasks-priority img {
@@ -179,7 +179,7 @@ h2 {
     display: flex;
     justify-content: center;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    transition: 175ms ease-in-out;
+    transition: 125ms ease-in-out;
 }
 
 .task-todo-done:hover {
@@ -189,7 +189,7 @@ h2 {
     cursor: pointer;
     width: calc(570px / 2);
     height: 180px;
-    transition: 175ms ease-in-out;
+    transition: 125ms ease-in-out;
 }
 
 
