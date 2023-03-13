@@ -165,6 +165,7 @@ function showCreateTaskBtnMobile() {
     }
 }
 
+
 function hideCreateTaskBtnMobile() {
     let mobileBtn = document.getElementById('createTaskBtnMobile')
     let bubbleDiv = document.getElementById('loginContainer')
@@ -172,6 +173,7 @@ function hideCreateTaskBtnMobile() {
     mobileBtn.innerHTML = ""
     isAddTask = false;
 }
+
 
 function setFocusBubbleContact(selectedID) {
     document.getElementById(`contactBubble${selectedID}`).focus();
