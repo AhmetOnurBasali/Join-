@@ -252,15 +252,12 @@ function setPrioCheckBox(prio, taskEdit) {
 function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
   document.getElementById(`${uncheckBtn1}Btn${taskEdit}`).checked = false;
   document.getElementById(`${uncheckBtn2}Btn${taskEdit}`).checked = false;
-
   document.getElementById(`svgLow${taskEdit}`).classList.remove("prioIconWhite");
   document.getElementById(`svgNormal${taskEdit}`).classList.remove("prioIconWhite");
   document.getElementById(`svgHigh${taskEdit}`).classList.remove("prioIconWhite");
-
   document.getElementById(`lowPrioText${taskEdit}`).style = "color: black;";
   document.getElementById(`normalPrioText${taskEdit}`).style = "color: black;";
   document.getElementById(`highPrioText${taskEdit}`).style = "color: black;";
-
   document.getElementById(`lowBtnContainer${taskEdit}`).classList.remove("prioLowContainerOnClick");
   document.getElementById(`normalBtnContainer${taskEdit}`).classList.remove("prioNormalContainerOnClick");
   document.getElementById(`highBtnContainer${taskEdit}`).classList.remove("prioHighContainerOnClick");
@@ -405,25 +402,55 @@ function checkSubtastText(i) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function(){
-let addTaskDiv = document.getElementById("addTask");
-addTaskDiv.addEventListener('click', function(event) {
-  if (slideCategory === true || slideAssignTo === true){
-    let assignedToDiv = document.getElementById('inputContainer');
-    let categoryDiv = document.getElementById('openCategoryContainer');
-    let createContactPopup = document.getElementById('createContactPopup');
-    if (categoryDiv.contains(event.target) || assignedToDiv.contains(event.target)) {
-      return;
-    }
-    if (createContactPopup) {
-      createContactPopup.classList.contains('d-none')
-    }
-    if (slideCategory === true && selectedCategory.innerHTML === "select a category") {
-      openCategory();
-    }
-    if (slideAssignTo === true && selectedContacts) {
-      openAssignedTo('arrayAssigned', 'contactDiv', 'contactList', 'contacts', 'contactInitials', 'inputContainer')
-    }
-  }
-});})
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.getElementById("addTask")) {
+    let addTaskDiv = document.getElementById("addTask");
+    addTaskDiv.addEventListener('click', function (event) {
+      if (slideCategory === true || slideAssignTo === true) {
+        closeContactsAndAssignedToPopup(event)
+      }
+    });
+  };
+});
 
+
+function closeContactsAndAssignedToPopup(event) {
+  let assignedToDiv = document.getElementById('inputContainer');
+  let categoryDiv = document.getElementById('openCategoryContainer');
+  let createContactPopup = document.getElementById('createContactPopup');
+  if (categoryDiv.contains(event.target) || assignedToDiv.contains(event.target)) {
+    return;
+  }
+  if (createContactPopup) {
+    createContactPopup.classList.contains('d-none')
+  }
+  if (slideCategory === true && selectedCategory.innerHTML === "select a category") {
+    openCategory();
+  }
+  if (slideAssignTo === true && selectedContacts) {
+    openAssignedTo('arrayAssigned', 'contactDiv', 'contactList', 'contacts', 'contactInitials', 'inputContainer')
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.getElementById("task-details")) {
+    let editTaskDiv = document.getElementById("task-details");
+    editTaskDiv.addEventListener('click', function (event) {
+      if (slideCategory === true || slideAssignTo === true) {
+        closeEditAssignedToPopup(event)
+      }
+    });
+  };
+});
+
+
+function closeEditAssignedToPopup(event) {
+  let assignedToDiv = document.getElementById('contactDivEdit');
+  if (assignedToDiv.contains(event.target)) {
+    return;
+  }
+  if (slideAssignTo === true && selectedContacts) {
+    openAssignedTo('arrayAssignedEdit', 'contactDivEdit', 'contactListEdit', 'contactsEdit', 'contactInitialsEdit', 'input-container')
+  }
+}

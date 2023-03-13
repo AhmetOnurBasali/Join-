@@ -9,6 +9,9 @@ a {
   color: #29abe2;
 }
 
+a:hover {
+  text-decoration: underline;
+}
 .d-none {
   display: none !important;
 }
@@ -453,6 +456,9 @@ input[type="text"] {
   animation: title-bg-hide 2s;
 }
 
+a:hover .backColorMobile {
+  fill: black !important;
+}
 
 @keyframes title-bg-hide {
   0% {
@@ -471,14 +477,13 @@ input[type="text"] {
   padding: 50px 240px 0px 240px;
 }
 
+
 .disclaimerBtnContainer {
   display: flex;
   justify-content: space-evenly;
   padding: 20px 0;
 
 }
-
-
 
 
 @keyframes slide-in-bottom {
