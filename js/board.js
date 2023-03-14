@@ -16,7 +16,9 @@ async function initBoard() {
 
 
 /**
- * This function is used to clear the board and call the 'filterAndSearch' function.
+ * Renders the Kanban board by filtering and searching tasks based on the current input value in the 'find-task' search field.
+ * The function clears the content of each board area before rendering the filtered and searched tasks.
+ * @throws {Error} - If there are no tasks created, a console message is logged and the error is thrown.
  */
 function renderBoard() {
     let taskInput = document.getElementById('find-task');
@@ -61,8 +63,8 @@ function filterAndSearch(area, areaID) {
 
 /**
  * This function is used to render the filtered and searched tasks on the board.
- * @param {string} area - Identifies the area.
- * @param {JSONArray} task - Information of the current rendering task.
+ * @param {Element} area - Identifies the area.
+ * @param {Object} task - Information of the current rendering task.
  */
 async function renderCreatedTasks(area, task) {
     area.innerHTML += renderCreatedTasksInnerHTML(task);
@@ -74,7 +76,7 @@ async function renderCreatedTasks(area, task) {
 
 /**
  * This function is used to render the AssignTo bubbles of the users.
- * @param {JSONArray} task - Information of the current rendering task.
+ * @param {Object} task - Information of the current rendering task.
  * @param {string} eID - ID of the div that should be rendered the AssignTo bubble in.
  */
 function renderAssignTo(task, eID) {
@@ -96,7 +98,7 @@ function renderAssignTo(task, eID) {
 
 /**
  * This function is used to calculate the actual progress of the finished subtasks.
- * @param {JSONArray} task - Information of the current rendering task.
+ * @param {Object} task - Information of the current rendering task.
  * @returns The progress of the subtasks in %.
  */
 function progressSubtasks(task) {

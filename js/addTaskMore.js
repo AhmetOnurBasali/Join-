@@ -226,7 +226,10 @@ function slideOutAssignedTo(hideBoarderID, expandContactsID, assignedToID) {
   assignedToBlockShiftOut(assignedToID);
 }
 
-
+/**
+ * This function is used to calculate the spacing of an HTML element based on the number of users in a list.
+ * @param {*} inputID - Die ID des HTML-Elements, für das der Abstand berechnet werden soll.
+ */
 function assignedToBlockShiftOut(inputID) {
   if (users.length === 1) {
     document.getElementById(inputID).style.marginBottom = '-25px';
@@ -244,11 +247,7 @@ function assignedToBlockShiftOut(inputID) {
 
 async function renderOpenAssignedTo(showContactsID, contactInitialsID) {
   await downloadFromServer();
-  if (contactInitialsID === 'contactInitialsEdit' && selectedContacts.length == 0) {
-    selectedContacts = allTasks[currentTaskID].assignedTo;
-  }else if(contactInitialsID === 'contactInitialsEdit'){
-    allTasks[currentTaskID].assignedTo = selectedContacts;
-  }
+  readWriteSelectedContacts(contactInitialsID);
   // selectedContacts = [];
   
 
@@ -266,6 +265,18 @@ async function renderOpenAssignedTo(showContactsID, contactInitialsID) {
   }
 }
 
+
+/**
+ * Reads or writes the selected contacts for a task based on the given ID of the contact initials element.
+ * @param {string} contactInitialsID - The ID of the contact initials element, which determines whether to read or write the selected contacts.
+ */
+function readWriteSelectedContacts(contactInitialsID){
+  if (contactInitialsID === 'contactInitialsEdit' && selectedContacts.length == 0) {
+    selectedContacts = allTasks[currentTaskID].assignedTo;
+  }else if(contactInitialsID === 'contactInitialsEdit'){
+    allTasks[currentTaskID].assignedTo = selectedContacts;
+  }
+}
 
 function filterRenderBubble(assignedData) {
   
