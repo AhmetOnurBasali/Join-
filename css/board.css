@@ -4,7 +4,6 @@ body {
     font-family: 'Inter';
 }
 
-
 h1 {
     font-size: 52px;
     margin-right: 50px;
@@ -246,13 +245,13 @@ h2 {
     margin-left: -5px;
 }
 
-.task-assigned-to div:nth-child(2) {
+/* .task-assigned-to div:nth-child(2) {
     background-color: #29ABE2 !important;
 }
 
 .task-assigned-to div:nth-child(3) {
     background-color: #2A3647 !important;
-}
+} */
 
 .task-assigned-to div {
     border-radius: 100%;
