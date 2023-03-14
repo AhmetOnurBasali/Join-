@@ -277,7 +277,6 @@ function addContactEmail(email) {
   let newEmail = email;
   let emailRegex = getEmailRegEx(newEmail);
   if (!emailRegex.test(newEmail)) {
-    proofEmail();
     return;
   } else {
     return newEmail;
@@ -291,6 +290,10 @@ function tryGetPhone() {
   if (newPhone === "" || newNumber == newPhone) {
     let phoneEdit = document.getElementById("editPhone").value;
     let editNumber = setPhoneNumber(phoneEdit);
+    if (editNumber === "") {
+    let x = document.getElementById("falseEditPhone")
+    x.classList.remove("d-none")
+    }
     return editNumber;
   }
   if (newPhone.length < 4) {
@@ -334,11 +337,11 @@ function proofEditName() {
   if (!regName.test(name)) {
     document.getElementById("editName").focus();
     document.getElementById("editName").classList.add("falseInput");
-     document.getElementById("falseEditName").classList.remove("d-none")
+    document.getElementById("falseEditName").classList.remove("d-none")
     return false;
   } else {
     document.getElementById("editName").classList.remove("falseInput");
-     document.getElementById("falseEditName").classList.add("d-none")
+    document.getElementById("falseEditName").classList.add("d-none")
     return true;
   }
 }
@@ -350,8 +353,10 @@ function proofEditEmail() {
   if (!regEmail.test(email)) {
     document.getElementById("editEmail").focus();
     document.getElementById("editEmail").classList.add("falseInput");
+    document.getElementById("falseEditEmail").classList.remove("d-none")
     return false;
   } else {
+    document.getElementById("falseEditEmail").classList.add("d-none")
     document.getElementById("editEmail").classList.remove("falseInput");
     return true;
   }

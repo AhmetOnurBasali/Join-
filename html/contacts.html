@@ -104,15 +104,25 @@
                         <img class="imgUserWhiteSize" src="../assets/img/userWhite.svg">
                     </div>
                     <form onsubmit="saveEdit(event)">
-                        <div class="inputsContainerEditSection">///hier
+                        <div class="inputsContainerEditSection">
                             <div class="editContactInputPosi">
                                 <input maxlength="18" id="editName" oninput="proofEditName()" class="inputCO nameIcon" placeholder="Edit name" type="text">
                                 <div class="transparentDiv d-none" id="falseEditName">
                                   <div class="requiredText">input need First and last name</div>
                                 </div>
-                              </div>
-                            <input maxlength="18" id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
-                            <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5" class="inputCO phoneIcon" placeholder="Edit number">
+                            </div>
+                            <div class="editContactInputPosi">
+                                <input maxlength="18" id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
+                                <div class="transparentDiv d-none" id="falseEditEmail">
+                                  <div class="requiredText">false email input</div>
+                                </div>
+                            </div>
+                            <div class="editContactInputPosi">
+                                <input id="editPhone" oninput="proofPhone('editPhone')" maxlength="15" minlength="5" class="inputCO phoneIcon" placeholder="Edit number">
+                                <div class="transparentDiv d-none" id="falseEditPhone">
+                                  <div class="requiredText">required input</div>
+                                </div>
+                            </div>
                             <div class="saveContactBtnContainer">
                                 <button class="saveContactBlueBtn">
                                     <b>Save</b>
