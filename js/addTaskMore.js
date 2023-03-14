@@ -242,7 +242,8 @@ function assignedToBlockShiftOut(inputID) {
 }
 
 
-function renderOpenAssignedTo(showContactsID, contactInitialsID) {
+async function renderOpenAssignedTo(showContactsID, contactInitialsID) {
+  await downloadFromServer();
   if (contactInitialsID === 'contactInitialsEdit' && selectedContacts.length == 0) {
     selectedContacts = allTasks[currentTaskID].assignedTo;
   }else if(contactInitialsID === 'contactInitialsEdit'){
@@ -258,7 +259,7 @@ function renderOpenAssignedTo(showContactsID, contactInitialsID) {
     checked = false;
     let assignedData = getAssignedContacts(i);
     filterRenderBubble(assignedData);
-    if (!idHash[users[i]['id']]) {
+    if (!idHash[users[i]['id']] || idHash[users[i]['contactID']] ) {
       contacts.innerHTML += renderOpenAssignedToHTML(assignedData, checked, i, contactInitialsID);
       idHash[users[i]['id']] = true;
     }

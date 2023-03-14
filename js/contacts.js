@@ -3,6 +3,7 @@ let currentSelectedID = [];
 
 let idForEditContact = null;
 
+let originalUsers = null;
 let prevContact = null;
 
 async function initContacts() {
@@ -86,16 +87,17 @@ function closeEditContact() {
 }
 
 
-async function createTaskFromContacts(area, selectedID) {
+async function createTaskFromContacts(area) {
   addTaskBoard(area);
-  await loadContactsData()
-  let contact = currentUserContacts.find((u) => u.contactID == selectedID);
-  let proofData = proofContactDataForTask(contact)
-  if (proofData === true) {
-    users.push(contact);
-    categoryDivExists = true;
-    prevContact = contact;
+  await loadContactsData();
+  if (originalUsers == null) {
+    originalUsers = users.concat();
+  } else {
+    users = originalUsers.concat();
   }
+  let contacts = currentUserContacts.filter((c) => c.contactID != 0);
+  users = users.concat(contacts);
+  categoryDivExists = true;
 }
 
 
@@ -103,10 +105,13 @@ function proofContactDataForTask(contact) {
   if (prevContact) {
     users = users.filter((u) => u.contactID != prevContact.contactID);
   }
-  if (contact.contactID == 0) {
-    return false;
+  if (contact.contactID != 0) {
+    users.push(contact);
+    categoryDivExists = true;
+    prevContact = contact;
+    return true;
   } else {
-    return true
+    return false;
   }
 }
 

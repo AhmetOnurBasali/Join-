@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="editContactInputPosi">
-                                <input maxlength="18" id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
+                                <input maxlength="20" id="editEmail" oninput="proofEditEmail()" class="inputCO emailIcon" placeholder="Edit email" type="email">
                                 <div class="transparentDiv d-none" id="falseEditEmail">
                                   <div class="requiredText">false email input</div>
                                 </div>
@@ -156,9 +156,19 @@
                     </div>
                     <form onsubmit="createNewContact(event)">
                         <div class="inputsContainer">
+                            <div class="editContactInputPosi">
                             <input maxlength="18" id="name" oninput="proofName()" class="inputCO nameIcon" placeholder="Name" type="text" required>
-                            <input maxlength="18" id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email" type="email" required>
-                            <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon" placeholder="number" type="number" required>
+                                    <div class="transparentDiv d-none" id="falseName">
+                                      <div class="requiredText">input need First and last name</div>
+                                    </div>
+                                </div>
+                            <div class="editContactInputPosi">
+                            <input maxlength="20" id="email" oninput="proofEmail()" class="inputCO emailIcon" placeholder="Email" type="email" required>
+                                <div class="transparentDiv d-none" id="falseEmail">
+                                  <div class="requiredText">false email input</div>
+                                </div>
+                            </div>
+                            <input id="phone" oninput="proofPhone('phone')" class="inputCO phoneIcon editContactInputPosi" placeholder="number" type="number" required>
                             <p id="phoneError" class="phoneError"></p>
                             <div class="addContactBtnContainer">
                                 <div onclick="clearContactsInputs()" class="cancelContactWhiteBtn">
