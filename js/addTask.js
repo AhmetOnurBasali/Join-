@@ -11,6 +11,12 @@ let newSubtask = [];
 let selectedContacts = [];
 let allContacts = [];
 
+
+/**
+ * Initializes the application by calling necessary functions.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function initTask() {
   await init();
   await openAddTask();
@@ -19,6 +25,13 @@ async function initTask() {
 }
 
 
+/**
+ * Loads tasks from the server. If "allTasks" can be retrieved from the backend, it is saved in allTasks. 
+ * If "allTasks" is a string, the result is parsed with JSON.parse(). 
+ * If "allTasks" cannot be retrieved from the backend, allTasks is set to an empty array. Finally, proofAndSetTasks() is called.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function loadTasks() {
   await downloadFromServer();
   let item = await backend.getItem("allTasks");
@@ -31,6 +44,11 @@ async function loadTasks() {
 }
 
 
+/**
+ * Ensures allTasks is not empty. If it is, allTasks is set to an array with one object (with some predefined properties). This object is then sent to the backend to update "allTasks".
+ * @async
+ * @returns {Promise<void>}
+ */
 async function proofAndSetTasks() {
   if (!allTasks) {
     allTasks = [{ id: 0, category: "Design", titleBg: "Red" }];
@@ -39,6 +57,12 @@ async function proofAndSetTasks() {
 }
 
 
+/**
+ * Creates a new task by validating and extracting task data from the UI and adding it to allTasks array using setTaskData(newTask).
+ * @async
+ * @param {Event} event - The event object.
+ * @returns {Promise<void>}
+ */
 async function createNewTask(event) {
   proofEvent(event);
   await loadTasks();
@@ -50,6 +74,11 @@ async function createNewTask(event) {
 }
 
 
+/**
+ * Checks if the event object is valid and prevents the default action.
+ * @param {Event} event - The event object.
+ * @returns {void}
+ */
 function proofEvent(event) {
   if (event) {
     event.preventDefault();
@@ -57,6 +86,11 @@ function proofEvent(event) {
 }
 
 
+/**
+ * Extracts new task data from the UI and returns it in an object.
+ * @async
+ * @returns {Promise<Object>} - The new task data in an object.
+ */
 async function getTaskData() {
   let prioNew = checkPrio('');
   let currentID = allTasks.length;
@@ -85,6 +119,12 @@ async function getTaskData() {
 }
 
 
+/**
+ * Validates if the title property is present in the task object. Returns true if the title is present, false otherwise.
+ * @param {Object} newTask - The task object to validate.
+ * @param {string} Edit - A string indicating the context in which the function is called, either "Task" for creating a new task or "Edit" for editing an existing task.
+ * @returns {boolean} - True if the title property is present, false otherwise.
+ */
 function taskProofSection(newTask) {
   let data = proofTaskData(newTask);
   let title = proofTitle(newTask, "Task");
@@ -101,12 +141,32 @@ function taskProofSection(newTask) {
 }
 
 
+/**
+ * Checks if all required fields (title, description, category, assigned, date, prio, subtask) are filled out. Returns true if all fields are filled, false otherwise.
+ * @param {Object} data - The object to check.
+ * @param {string} title - The title of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} category - The category of the task.
+ * @param {string} assigned - The assigned user of the task.
+ * @param {string} date - The due date of the task.
+ * @param {number} prio - The priority of the task.
+ * @param {Array} subtask - The subtasks of the task.
+ * @returns {boolean} True if all required fields are filled, false otherwise.
+ */
 function checkProofOf(data, title, description, category, assigned, date, prio, subtask) {
   return (data === true && title === true && description === true && category === true &&
     assigned === true && date === true && prio === true && subtask === true);
 }
 
 
+/**
+ * Validates the task object by checking if it contains all required properties.
+ * The function checks if the `newTask` object has a valid `creator` property and ensures that the `id` and `area` properties are defined. 
+ * If the `creator` property of `newTask` is equal to "Guest User", an alert message is displayed stating that a guest user cannot create a task.
+ * If the `id` property of `newTask` is undefined or the `area` property is falsy, the function logs an error message to the console and returns false.
+ * @param {Object} newTask - The task object to validate.
+ * @returns {boolean} - Returns true if the task object is valid, false otherwise.
+ */
 function proofTaskData(newTask) {
   if (newTask.creator == "Guest User") {
     alert("The guest user can't create a task.");
@@ -120,6 +180,13 @@ function proofTaskData(newTask) {
 }
 
 
+/**
+ * Validates if the title property is present in the task object. Returns true if the title is present, false otherwise.
+ * @async
+ * @param {Object} newTask - The task object to validate.
+ * @param {boolean} Edit - A boolean indicating if the task is being edited.
+ * @returns {boolean} - True if the title property is present, false otherwise.
+ */
 function proofTitle(newTask, Edit) {
   if (!newTask.title) {
     let msgBox = document.getElementById(`msgBoxTitle${Edit}`);
@@ -130,6 +197,12 @@ function proofTitle(newTask, Edit) {
 }
 
 
+/**
+ * Checks if a task's description has been provided.
+ * @param {Object} newTask - The task object containing the description.
+ * @param {string} Edit - A string indicating the context in which the function is called, either "Task" for creating a new task or "Edit" for editing an existing task.
+ * @returns {boolean} Returns false if the description is missing, otherwise true.
+ */
 function proofDescription(newTask, Edit) {
   if (!newTask.description) {
     let msgBox = document.getElementById(`msgBoxDescription${Edit}`);
@@ -140,6 +213,12 @@ function proofDescription(newTask, Edit) {
 }
 
 
+/**
+ * Checks if a task's category has been selected and if a background color has been set for the category.
+ * @param {Object} newTask - The task object containing the category and titleBg.
+ * @param {string} Edit - A string indicating the context in which the function is called, either "Task" for creating a new task or "Edit" for editing an existing task.
+ * @returns {boolean} Returns false if the category is missing or the titleBg is not set, otherwise true.
+ */
 function proofCategory(newTask, Edit) {
   if (newTask.category == "select a category" || newTask.category == "" || !newTask.titleBg) {
     let msgBox = document.getElementById(`msgBoxCategory${Edit}`);
@@ -150,6 +229,10 @@ function proofCategory(newTask, Edit) {
 }
 
 
+/**
+ * Validates if the assigned property (selectedContacts) contains at least one contact.
+ * @returns {boolean} - Returns false if no contacts are selected, otherwise true.
+ */
 function proofAssigned() {
   if (selectedContacts.length === 0) {
     let msgBox = document.getElementById("msgBoxAssignedTask");
@@ -160,6 +243,12 @@ function proofAssigned() {
 }
 
 
+/**
+ * Checks if a task's date has been selected.
+ * @param {Object} newTask - The task object containing the date.
+ * @param {string} Edit - A string indicating the context in which the function is called, either "Task" for creating a new task or "Edit" for editing an existing task.
+ * @returns {boolean} Returns false if the date is missing, otherwise true.
+ */
 function proofDate(newTask, Edit) {
   if (!newTask.date) {
     let msgBox = document.getElementById(`msgBoxDate${Edit}`);
@@ -170,6 +259,11 @@ function proofDate(newTask, Edit) {
 }
 
 
+/**
+ * Checks the priority of a task.
+ * @param {string} input - An empty string, used to check if a priority value is set. If not, a default priority is assigned.
+ * @returns {number} - Returns the priority value.
+ */
 function proofPrio(newTask, Edit) {
   if (!newTask.prio) {
     let msgBox = document.getElementById(`msgBoxPrio${Edit}`);
@@ -180,6 +274,10 @@ function proofPrio(newTask, Edit) {
 }
 
 
+/**
+ * Checks if a task's subtasks have been added.
+ * @returns {boolean} Returns false if no subtasks have been added, otherwise true.
+ */
 function proofSubtask() {
   if (newSubtask.length === 0 && newCreateSubtask.length === 0) {
     let msgBox = document.getElementById("msgBoxSubtask");
@@ -190,12 +288,20 @@ function proofSubtask() {
 }
 
 
+/**
+ * Shows a message in a specified element indicating that a field is required.
+ * @param {Object} msgBox - The element where the message should be displayed.
+ */
 function showRequiredText(msgBox) {
   msgBox.classList.remove("d-none");
   msgBox.innerHTML = "This field is required";
 }
 
 
+/**
+ * Removes the "required" message from the specified container if it's not empty. Otherwise, shows the container.
+ * @param {string} id - The ID of the container to check.
+ */
 function proofInput(id) {
   let requiredContainer = document.getElementById(id);
   if (requiredContainer.innerHTML != "") {
@@ -206,6 +312,11 @@ function proofInput(id) {
 }
 
 
+/**
+ * Adds the new task to the allTasks array and saves it to the backend. Then, displays a popup message and redirects to the board page after 1 second.
+ * @async
+ * @param {Object} newTask - The new task object to add.
+ */
 async function setTaskData(newTask) {
   allTasks.push(newTask);
   await backend.setItem("allTasks", allTasks);
@@ -217,6 +328,11 @@ async function setTaskData(newTask) {
 
 
 //Prio section//
+/**
+ * Checks which priority button is checked (urgent, medium, low) and returns the corresponding priority string.
+ * @param {string} edit - The edit ID of the priority button.
+ * @returns {string} The priority string (urgent, medium, low).
+ */
 function checkPrio(edit) {
   let urgentBtn = document.getElementById(`urgentBtn${edit}`);
   let mediumBtn = document.getElementById(`mediumBtn${edit}`);
@@ -233,6 +349,11 @@ function checkPrio(edit) {
 }
 
 
+/**
+ * Sets the priority checkbox for the specified priority (low, medium, high) and taskEdit ID.
+ * @param {string} prio - The priority string (low, medium, high).
+ * @param {string} taskEdit - The edit ID of the task.
+ */
 function setPrioCheckBox(prio, taskEdit) {
   if (prio === "low") {
     resetAllPrioBtn('medium', 'urgent', taskEdit);
@@ -249,6 +370,12 @@ function setPrioCheckBox(prio, taskEdit) {
 }
 
 
+/**
+ * Resets all priority buttons and checkboxes except for the specified buttons (uncheckBtn1 and uncheckBtn2) and taskEdit ID.
+ * @param {string} uncheckBtn1 - The ID of the first button to uncheck.
+ * @param {string} uncheckBtn2 - The ID of the second button to uncheck.
+ * @param {string} taskEdit - The edit ID of the task.
+ */
 function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
   document.getElementById(`${uncheckBtn1}Btn${taskEdit}`).checked = false;
   document.getElementById(`${uncheckBtn2}Btn${taskEdit}`).checked = false;
@@ -264,6 +391,11 @@ function resetAllPrioBtn(uncheckBtn1, uncheckBtn2, taskEdit) {
 }
 
 
+/**
+ * Sets the low priority button of a task to checked, and updates the corresponding SVG color,
+ * text color, and button color.
+ * @param {number} taskEdit - The ID of the task being edited.
+ */
 function setLowPrioBtn(taskEdit) {
   let lowBtn = document.getElementById(`lowBtn${taskEdit}`);
   lowBtn.checked = true;
@@ -273,6 +405,11 @@ function setLowPrioBtn(taskEdit) {
 }
 
 
+/**
+ * Sets the medium priority button of a task to checked, and updates the corresponding SVG color,
+ * text color, and button color.
+ * @param {number} taskEdit - The ID of the task being edited.
+ */
 function setNormalPrioBtn(taskEdit) {
   let mediumBtn = document.getElementById(`mediumBtn${taskEdit}`);
   mediumBtn.checked = true;
@@ -282,6 +419,11 @@ function setNormalPrioBtn(taskEdit) {
 }
 
 
+/**
+ * Sets the medium priority button of a task to checked, and updates the corresponding SVG color,
+ * text color, and button color.
+ * @param {number} taskEdit - The ID of the task being edited.
+ */
 function setHighPrioBtn(taskEdit) {
   let urgentBtn = document.getElementById(`urgentBtn${taskEdit}`);
   urgentBtn.checked = true;
@@ -291,54 +433,89 @@ function setHighPrioBtn(taskEdit) {
 }
 
 
+/**
+ * Adds the CSS class 'prioIconWhite' to the low priority SVG icon of a task, changing its color to white.
+ * @param {number} taskEdit - The ID of the task being edited.
+ */
 function setLowPrioSvgColor(taskEdit) {
   let svgLowColor = document.getElementById(`svgLow${taskEdit}`);
   svgLowColor.classList.add("prioIconWhite");
 }
 
 
+/**
+ * Changes the text color of the low priority button to white.
+ * @param {number} taskEdit - The ID of the task being edited.
+ */
 function setLowPrioTextColor(taskEdit) {
   let lowPrioText = document.getElementById(`lowPrioText${taskEdit}`);
   lowPrioText.style = "color: white;";
 }
 
 
+/**
+ * Adds the CSS class 'prioLowContainerOnClick' to the low priority button container, changing its color.
+ * @param {number} taskEdit - The ID of the task being edited.
+ */
 function setLowPrioBtnColor(taskEdit) {
   let lowContainer = document.getElementById(`lowBtnContainer${taskEdit}`);
   lowContainer.classList.add("prioLowContainerOnClick");
 }
 
 
+/**
+ * Adds the CSS class 'prioIconWhite' to the medium priority SVG icon of a task, changing its color to white.
+ * @param {number} taskEdit - The ID of the task being edited.
+ */
 function setNormalPrioSvgColor(taskEdit) {
   let svgNormalColor = document.getElementById(`svgNormal${taskEdit}`);
   svgNormalColor.classList.add("prioIconWhite");
 }
 
 
+/**
+ * Changes the text color of the medium priority button to white.
+ * @param {number} taskEdit - The ID of the task being edited.
+ */
 function setNormalPrioTextColor(taskEdit) {
   let normalPrioText = document.getElementById(`normalPrioText${taskEdit}`);
   normalPrioText.style = "color: white;";
 }
 
 
+/**
+ * Sets the color of the normal priority button and its container to indicate it is selected.
+ * @param {string} taskEdit - The ID of the task being edited.
+ */
 function setNormalPrioBtnColor(taskEdit) {
   let normalBtnContainer = document.getElementById(`normalBtnContainer${taskEdit}`);
   normalBtnContainer.classList.add("prioNormalContainerOnClick");
 }
 
-
+/**
+ * Sets the color of the high priority icon to indicate it is selected.
+ * @param {string} taskEdit - The ID of the task being edited.
+ */
 function setHighPrioSvgColor(taskEdit) {
   let svgHighColor = document.getElementById(`svgHigh${taskEdit}`);
   svgHighColor.classList.add("prioIconWhite");
 }
 
 
+/**
+ * Sets the color of the high priority text to white to indicate it is selected.
+ * @param {string} taskEdit - The ID of the task being edited.
+ */
 function setHighPrioTextColor(taskEdit) {
   let highPrioText = document.getElementById(`highPrioText${taskEdit}`);
   highPrioText.style = "color: white;";
 }
 
 
+/**
+ * Sets the color of the high priority button and its container to indicate it is selected.
+ * @param {string} taskEdit - The ID of the task being edited.
+ */
 function setHighPrioBtnColor(taskEdit) {
   let highBtnContainer = document.getElementById(`highBtnContainer${taskEdit}`);
   highBtnContainer.classList.add("prioHighContainerOnClick");
@@ -346,6 +523,9 @@ function setHighPrioBtnColor(taskEdit) {
 
 
 //Subtask section//
+/**
+ * Sets the subtask input field's background image and visibility of the input buttons container based on whether the input field is empty or not
+ */
 function setNewSubtask() {
   let subtask = document.getElementById("subtask");
   let subtaskBtns = document.getElementById("subtaskInputBtnsContainer");
@@ -360,6 +540,9 @@ function setNewSubtask() {
 }
 
 
+/**
+ * Clears the subtask input field and sets the subtask input field's background image and visibility of the input buttons container
+ */
 function closeNewSubtask() {
   let subtaskInput = document.getElementById("subtask");
   subtaskInput.value = "";
@@ -367,6 +550,9 @@ function closeNewSubtask() {
 }
 
 
+/**
+ * Adds a new subtask to the newCreateSubtask array and calls the renderNewSubtask function
+ */
 function acceptNewSubtask() {
   let subtaskInput = document.getElementById("subtask");
   let subtask = subtaskInput.value;
@@ -377,6 +563,9 @@ function acceptNewSubtask() {
 }
 
 
+/**
+ * Renders the newCreateSubtask array's subtasks dynamically to the HTML page
+ */
 function renderNewSubtask() {
   let subtaskCheckboxArea = document.getElementById("subtaskCheckboxArea");
   subtaskCheckboxArea.innerHTML = "";
@@ -388,6 +577,11 @@ function renderNewSubtask() {
 }
 
 
+/**
+ * Adds or removes the selected subtask from the newSubtask array when its checkbox is clicked
+ * @param {Event} event - The event object
+ * @param {string} subtask - The subtask string
+ */
 function checkSubtask(event, subtask) {
   let checkbox = event.target;
   if (checkbox.checked) {
@@ -396,12 +590,21 @@ function checkSubtask(event, subtask) {
 }
 
 
+/**
+ * Programmatically checks or unchecks the subtask's checkbox based on the text's click event
+ * @param {number} i - The subtask index number
+ */
 function checkSubtastText(i) {
   let checkbox = document.getElementById(`subtask${i}`);
   checkbox.click();
 }
 
 
+/** 
+* Sets an event listener to the "addTask" element and closes the "assignedTo" and "category" popups if they are open.
+* @global
+* @listens DOMContentLoaded
+*/
 document.addEventListener('DOMContentLoaded', function () {
   if (document.getElementById("addTask")) {
     let addTaskDiv = document.getElementById("addTask");
@@ -414,6 +617,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+/**
+ * Closes the category and assigned to popups when the user clicks outside of their respective containers
+ * @param {Event} event - The event object
+ */
 function closeContactsAndAssignedToPopup(event) {
   let assignedToDiv = document.getElementById('inputContainer');
   let categoryDiv = document.getElementById('openCategoryContainer');
@@ -433,6 +640,7 @@ function closeContactsAndAssignedToPopup(event) {
 }
 
 
+//--this is for board edittask--autoclose--//
 // document.addEventListener('DOMContentLoaded', function () {
 //   if (document.getElementById("task-details")) {
 //     let editTaskDiv = document.getElementById("task-details");
@@ -445,6 +653,10 @@ function closeContactsAndAssignedToPopup(event) {
 // });
 
 
+/**
+ * Closes the assigned to popup when the user clicks outside of its container
+ * @param {Event} event - The event object
+ */
 function closeEditAssignedToPopup(event) {
   let assignedToDiv = document.getElementById('contactDivEdit');
   if (assignedToDiv.contains(event.target)) {

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: contacts.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: contacts.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let currentUserContacts = [];
+let currentSelectedID = [];
+
+let idForEditContact = null;
+
+let originalUsers = null;
+let prevContact = null;
+
+/**
+ * Initializes the contacts by calling the init(), loadContactsData(), and loadUsers() functions.
+ * @async
+ */
+async function initContacts() {
+  await init();
+  await loadContactsData()
+  await loadUsers();
+}
+
+
+/**
+ * Loads the contacts data by calling the downloadFromServer() and proofContactsAvailable() functions,
+ * and then renders the contacts.
+ * @async
+ */
+async function loadContactsData() {
+  await downloadFromServer();
+  let item = await backend.getItem(`userID${currentUser["id"]}Contacts`);
+  currentUserContacts = item || [];
+  await proofContactsAvailable();
+  renderContacts();
+}
+
+
+/**
+ * Checks if there are no contacts and calls getCurrentUserData() to create a new contact if true.
+ * @async
+ */
+async function proofContactsAvailable() {
+  let contact;
+  if (noContacts() === true) {
+    let newContact = getCurrentUserData(contact)
+    setCurrentUserData(newContact)
+  }
+}
+
+
+/**
+ * Returns true if there are no current user contacts, otherwise returns false.
+ * @returns {boolean} Whether there are no current user contacts or not.
+ */
+function noContacts() {
+  if (currentUserContacts == null || currentUserContacts.length == 0 || currentUserContacts == undefined) {
+    return true
+  } else {
+    return false
+  }
+}
+
+
+/**
+ * Returns an object containing the current user's data as a contact.
+ * @param {object} contact - An object containing the current user's data.
+ * @returns {object} The current user's data as a contact object.
+ */
+function getCurrentUserData() {
+  let nameInitials = getInitialLetters(currentUser["name"]);
+  let initialsUpper = nameInitials.toUpperCase();
+  newContact = {
+    contactCreatorID: currentUser["id"],
+    name: currentUser["name"],
+    email: currentUser["email"],
+    phone: "Edit your Number",
+    initialLetters: initialsUpper,
+    color: currentUser["color"],
+    contactID: 0,
+  };
+  return newContact
+}
+
+
+/**
+ * Adds the new contact to the current user's contacts and saves it to the backend.
+ * @async
+ * @param {Object} newContact - The new contact to be added to the current user's contacts.
+ */
+async function setCurrentUserData(newContact) {
+  currentUserContacts.push(newContact);
+  await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
+}
+
+
+/**
+ * Closes the add new contact popup and hides it from view.
+ */
+function closeAddNewContact() {
+  slideOutAnimation('addContact', 'addContactPopup');
+  setTimeout(() => {
+    let container = document.getElementById("addContactPopup");
+    container.classList.add("d-none");
+  }, 750);
+}
+
+
+/**
+ * Opens the add new contact popup and shows it on the page.
+ */
+function openAddNewContact() {
+  let container = document.getElementById("addContactPopup");
+  container.classList.remove("d-none");
+  slideInAnimation('addContact', 'addContactPopup');
+}
+
+
+/**
+ * Closes the "edit contact" popup by animating it out and then hiding it.
+ */
+function closeEditContact() {
+  slideOutAnimation('editContact', 'editContactPopup');
+  setTimeout(() => {
+    let container = document.getElementById("editContactPopup");
+    container.classList.add("d-none");
+  }, 750);
+}
+
+
+/**
+ * Creates a new task board with the specified area and loads the contacts data.
+ * Then filters out the contacts with contactID of 0 and adds the remaining contacts to the users array.
+ * @async
+ * @param {string} area - The area of the new task board to be created.
+ */
+async function createTaskFromContacts(area) {
+  addTaskBoard(area);
+  await loadContactsData();
+  if (!originalUsers) originalUsers = [...users];
+  users = originalUsers.concat(currentUserContacts.filter((c) => c.contactID !== 0));
+  categoryDivExists = true;
+}
+
+
+/**
+ * Filters out the previous contact from the users array if it exists.
+ * If the specified contact has a contactID other than 0, adds it to the users array and sets the previous contact to the current one.
+ * @param {Object} contact - The contact to be checked and added to the users array if its contactID is not 0.
+ * @returns {boolean} Whether the contact has a contactID other than 0 or not.
+ */
+function proofContactDataForTask(contact) {
+  if (prevContact) {
+    users = users.filter((u) => u.contactID != prevContact.contactID);
+  }
+  if (contact.contactID != 0) {
+    users.push(contact);
+    categoryDivExists = true;
+    prevContact = contact;
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+/**
+ * Creates a new contact from the form data and saves it to the backend.
+ * If the form data is valid, calls the setNewContact() function to save the new contact.
+ * @async
+ * @param {Object} event - The form submission event.
+ */
+async function createNewContact(event) {
+  event.preventDefault();
+  let userProof = proofCurrentUser()
+  let nameInput = tryGetName();
+  let emailInput = tryGetEmail();
+  let numberInput = tryGetPhone();
+  let newColor = addUserColor();
+  let nameInitials = getInitialLetters(nameInput);
+  let currentContactID = currentUserContacts.length;
+  let data = { nameInput, emailInput, numberInput, newColor, nameInitials, currentContactID }
+  let newContact = makeDataToContact(data);
+  if (userProof &amp;&amp; proofEmail(emailInput) === true &amp;&amp; proofName(nameInput) === true &amp;&amp; numberInput.length > 5 &amp;&amp; numberInput.length &lt; 16) {
+    setNewContact(newContact)
+  }
+}
+
+
+/**
+ * Returns a new contact object with the specified data.
+ * @param {Object} data - The form data to be used to create the new contact object.
+ * @returns {Object} The new contact object with the specified data.
+ */
+function makeDataToContact(data) {
+  newContact = {
+    contactCreatorID: currentUser["id"],
+    name: data.nameInput,
+    email: data.emailInput,
+    phone: data.numberInput,
+    initialLetters: data.nameInitials,
+    color: data.newColor,
+    contactID: data.currentContactID,
+  };
+  return newContact
+}
+
+
+/**
+ * Adds the new contact to the current user's contacts and saves it to the backend.
+ * Then animates the "add new contact" popup out, shows the "contact created" popup,
+ * and redirects the user to the contacts page after 750 milliseconds.
+ * @async
+ * @param {Object} newContact - The new contact to be added to the current user's contacts.
+ */
+async function setNewContact(newContact) {
+  currentUserContacts.push(newContact);
+  await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
+  slideOutAnimation('addContact', 'addContactPopup');
+  let succesPopup = document.getElementById('createContactPopup')
+  succesPopup.classList.remove('d-none')
+  setTimeout(() => {
+    window.location.href = `contacts.html`;
+  }, 750);
+}
+
+
+/**
+ * Renders the contacts by calling the sortContacts() function, creating the HTML for each contact, and appending it to the contacts area.
+ */
+function renderContacts() {
+  sortContacts()
+  let dropArea = document.getElementById("contactsArea");
+  dropArea.innerHTML = "";
+  let currentLetter = "";
+  for (let i = 0; i &lt; currentUserContacts.length; i++) {
+    const contact = currentUserContacts[i];
+    let firstLetter = contact.name[0].toUpperCase();
+    if (firstLetter !== currentLetter) {
+      dropArea.innerHTML += `&lt;span class="firstletter">${firstLetter}&lt;/span>`;
+      currentLetter = firstLetter;
+    }
+    dropArea.innerHTML += renderContactsHTML(contact);
+  }
+}
+
+
+/**
+ * Sorts the user's contacts alphabetically by name, keeping the main contact (contactID 0) always at the first position.
+ */
+function sortContacts() {
+  currentUserContacts.sort((a, b) => {
+    if (a.contactID === 0) return -1;
+    if (b.contactID === 0) return 1;
+    return a.name.localeCompare(b.name);
+  });
+}
+
+
+/**
+ * Opens the selected contact and renders its details on the right section of the page.
+ * @param {number} id - The id of the selected contact.
+ * @param {number} selectedID - The id of the selected contact.
+ */
+function openContact(id, selectedID) {
+  setFocus(id, selectedID);
+  setFocusBubbleContact(selectedID)
+  let rightSection = document.getElementById("rightSectionCO");
+  rightSection.classList.remove("d-none");
+  let contactContainer = document.getElementById("slideContainer");
+  contactContainer.classList.remove("d-none");
+  let contact = currentUserContacts.find((u) => u.contactID == selectedID);
+  renderSelectedContact(contact, selectedID);
+}
+
+
+/**
+ * Renders the details of the selected contact on the right section of the page.
+ * @param {Object} contact - The selected contact object.
+ * @param {number} selectedID - The id of the selected contact.
+ */
+function renderSelectedContact(contact, selectedID) {
+  let initialsSlides = document.getElementById("slideContactsBubble");
+  let nameSlide = document.getElementById("slideName");
+  let emailSlide = document.getElementById("slideEmail");
+  let phoneSlide = document.getElementById("slidePhone");
+  let editSlide = document.getElementById("slideEditContact");
+  phoneSlide.innerHTML = `+&lt;a class="noDeco" title="click to Call" href="tel:${contact.phone}">${contact.phone}&lt;/a>`;
+  emailSlide.innerHTML = `&lt;a class="noDeco" title="click to send email" class="" href="mailto:${contact.email}">${contact.email}&lt;/a>`;
+  nameSlide.innerHTML = `&lt;span class="slideNameSize">${contact.name}&lt;/span>`;
+  initialsSlides.innerHTML = `&lt;div style="background:${contact.color}" class="slideContactsBubble">${contact.initialLetters}&lt;/div>`;
+  contactsAddTask.innerHTML = `&lt;div class="lightblueColor addTaskBtnCO add-task" onclick="createTaskFromContacts('todo', ${selectedID})"> &lt;img src="../assets/img/plusIconBlue.svg">  add task&lt;/div>`
+  editSlide.innerHTML = renderContactAddTaskHTML(selectedID);
+}
+
+
+/**
+ * Opens the edit contact popup and loads the current contact data in it.
+ * @param {number} selectedID - The id of the selected contact.
+ */
+function openEditContact(selectedID) {
+  slideInAnimation('editContact', 'editContactPopup');
+  let popupEditContainer = document.getElementById("editContactPopup");
+  popupEditContainer.classList.remove("d-none");
+  let contact = currentUserContacts.find((u) => u.contactID == selectedID);
+  loadCurrentDataContactEdit(contact, selectedID)
+}
+
+
+/**
+ * Loads the current data of the selected contact in the edit contact popup.
+ * @param {Object} contact - The selected contact object.
+ * @param {number} selectedID - The id of the selected contact.
+ */
+function loadCurrentDataContactEdit(contact, selectedID) {
+  let contactBubble = document.getElementById("bubbleInEditSection");
+  let emailEdit = document.getElementById("editEmail");
+  let phoneEdit = document.getElementById("editPhone");
+  let nameEdit = document.getElementById("editName");
+  nameEdit.value = `${contact.name}`
+  emailEdit.value = `${contact.email}`;
+  let formatedNumber = contact.phone.split(" ")[0] + contact.phone.split(" ")[1];
+  phoneEdit.value = `${formatedNumber}`;
+  contactBubble.innerHTML = `&lt;div style="background:${contact.color}" class="editContactsBubble">${contact.initialLetters}&lt;/div>`;
+  setTimeout(() => { phoneEdit.type = "number"; }, 100);
+  idForEditContact = selectedID;
+}
+
+
+/**
+ * Verifies if the current user is a guest user and returns a corresponding value.
+ * @returns {boolean} - True if the user is a guest, false otherwise.
+ */
+function proofCurrentUser() {
+  if (currentUser.name == "Guest User") {
+    alert("The guest user can't Edit/Create a Contact.");
+    return false;
+  }
+  return true
+}
+
+
+/**
+ * Searches for a contact with the specified ID in the currentUserContacts array and returns it.
+ * @param {number} id - The ID of the contact to be found.
+ * @returns {Object} - The contact object with the specified ID, or undefined if not found.
+ */
+function findContactById(id) {
+  return currentUserContacts.find(contact => contact.contactID === id);
+}
+
+
+/**
+ * Saves changes made to a contact's information to the user's contacts.
+ * @param {event} event - The form submission event.
+ * @returns {Promise&lt;void>} - A promise that resolves when the user's contacts have been updated.
+ */
+async function saveEdit(event) {
+  event.preventDefault();
+  await loadContactsData()
+  let userProof = proofCurrentUser()
+  let contactToEdit = findContactById(idForEditContact);
+  contactToEdit["name"] = tryGetName();
+  contactToEdit["email"] = tryGetEmail();
+  contactToEdit["phone"] = tryGetPhone();
+  contactToEdit["initialLetters"] = getInitialLetters(contactToEdit["name"]);
+  if (userProof &amp;&amp; proofEditName() === true &amp;&amp; proofEditEmail() === true &amp;&amp; contactToEdit["phone"].length > 5 &amp;&amp; contactToEdit["phone"].length &lt; 16) {
+    await backend.setItem(`userID${currentUser["id"]}Contacts`, currentUserContacts);
+    window.location.href = `contacts.html`;
+  }
+}
+
+
+/**
+ * Attempts to get the email from the "email" input field and, if empty, uses the email from the "editEmail" input field.
+ * @returns {string} - The retrieved email.
+ */
+function tryGetEmail() {
+  let newEmail = document.getElementById("email").value.toLowerCase();
+  addContactEmail(newEmail);
+  if (newEmail === "") {
+    let nameEdit = document.getElementById("editEmail").value.toLowerCase();
+    addContactEmail(nameEdit);
+    return nameEdit;
+  } else {
+    return newEmail;
+  }
+}
+
+
+/**
+ * Adds a new email to a contact's information.
+ * @param {string} email - The new email to add.
+ * @returns {string|undefined} - The new email added to the contact's information, or undefined if the email is invalid.
+ */
+function addContactEmail(email) {
+  let newEmail = email;
+  let emailRegex = getEmailRegEx(newEmail);
+  if (!emailRegex.test(newEmail)) {
+    return;
+  } else {
+    return newEmail;
+  }
+}
+
+
+/**
+ * Attempts to get the phone number from the "phone" input field and, if empty or equal to the edited phone number, uses the phone number from the "editPhone" input field.
+ * @returns {string} - The retrieved phone number.
+ */
+function tryGetPhone() {
+  let newPhone = document.getElementById("phone").value;
+  let newNumber = setPhoneNumber(newPhone);
+  if (newPhone === "" || newNumber == newPhone) {
+    let phoneEdit = document.getElementById("editPhone").value;
+    let editNumber = setPhoneNumber(phoneEdit);
+    if (editNumber === "") {
+      let x = document.getElementById("falseEditPhone")
+      x.classList.remove("d-none")
+    }
+    return editNumber;
+  }
+  if (newPhone.length &lt; 4) {
+    return false;
+  } else {
+    return newNumber;
+  }
+}
+
+
+/**
+ * Formats the phone number by removing any non-numeric characters and adding a space after the fourth digit.
+ * @param {string} numberInput - The phone number input string.
+ * @returns {string} The formatted phone number string.
+ */
+function setPhoneNumber(numberInput) {
+  let phoneNumber = numberInput.replace(/\D/g, "");
+  phoneNumber = `${phoneNumber}`;
+  phoneNumber = phoneNumber.replace(/(\d{4})(\d{1})/, "$1 $2");
+  return phoneNumber;
+}
+
+
+/**
+ * Attempts to get the name from the "name" input field and, if empty or already in title case, uses the name from the "editName" input field.
+ * @returns {string} - The retrieved name.
+ */
+function tryGetName() {
+  let name = document.getElementById("name").value.toLowerCase();
+  let newName = addContactName(name);
+  if (name === "" || newName === name) {
+    let nameEdit = document.getElementById("editName").value.toLowerCase();
+    let editName = addContactName(nameEdit);
+    return editName;
+  } else {
+    return newName;
+  }
+}
+
+
+/**
+ * Formats the name string by capitalizing the first letter of each word.
+ * @param {string} name - The name string.
+ * @returns {string} The formatted name string in title case.
+ */
+function addContactName(name) {
+  let newName = name.replace(/\b\w/g, (l) => l.toUpperCase());
+  return newName;
+}
+
+
+/**
+ * Validates the "editName" input field value to ensure it contains only alphabets and spaces, and each word starts with a capital letter.
+ * @returns {boolean} Whether the "editName" input field value is valid or not.
+ */
+function proofEditName() {
+  let regName = /^[\wäöüÄÖÜ]+(?: [\wäöüÄÖÜ]+)+$/;
+  let name = document.getElementById("editName").value;
+  if (!regName.test(name)) {
+    document.getElementById("editName").focus();
+    document.getElementById("editName").classList.add("falseInput");
+    document.getElementById("falseEditName").classList.remove("d-none")
+    return false;
+  } else {
+    document.getElementById("editName").classList.remove("falseInput");
+    document.getElementById("falseEditName").classList.add("d-none")
+    return true;
+  }
+}
+
+
+/**
+ * Validates the "editEmail" input field value to ensure it is a valid email address.
+ * @returns {boolean} Whether the "editEmail" input field value is a valid email address or not.
+ */
+function proofEditEmail() {
+  let regEmail = getEmailRegEx();
+  let email = document.getElementById("editEmail").value;
+  if (!regEmail.test(email)) {
+    document.getElementById("editEmail").focus();
+    document.getElementById("editEmail").classList.add("falseInput");
+    document.getElementById("falseEditEmail").classList.remove("d-none")
+    return false;
+  } else {
+    document.getElementById("falseEditEmail").classList.add("d-none")
+    document.getElementById("editEmail").classList.remove("falseInput");
+    return true;
+  }
+}
+
+
+/**
+ * Validates the input value of a phone number input field.
+ * @param {string} id - The ID of the phone number input field.
+ * @returns {boolean} Whether the input value is valid (i.e., contains between 5 and 15 numbers).
+ */
+function proofPhone(id) {
+  const phoneInput = document.getElementById(id);
+  const phoneError = document.getElementById("phoneError");
+  if (phoneInput.value.length &lt; 5) {
+    setMinTextForInput(id, phoneError)
+    return false;
+  } else if (phoneInput.value.length > 14) {
+    setMaxTextForInput(id, phoneError)
+    return false;
+  } else {
+    setNoneTextForInput(id, phoneError)
+    return true;
+  }
+}
+
+
+/**
+ * Sets an error message and highlights the input field if the phone number input is too short
+ * @param {string} id - The ID of the phone number input field
+ * @param {HTMLElement} phoneError - The HTML element where the error message should be displayed
+ */
+function setMinTextForInput(id, phoneError) {
+  document.getElementById(id).focus();
+  document.getElementById(id).classList.add("falseInput");
+  phoneError.innerText = "Phone number min 5 Numbers";
+}
+
+
+/**
+ * Sets an error message and highlights the input field if the phone number input is too long
+ * @param {string} id - The ID of the phone number input field
+ * @param {HTMLElement} phoneError - The HTML element where the error message should be displayed
+ */
+function setMaxTextForInput(id, phoneError) {
+  document.getElementById(id).focus();
+  document.getElementById(id).classList.add("falseInput");
+  phoneError.innerText = "Phone number max 15 Numbers";
+}
+
+
+/**
+ * Removes the error text and styling from an input field.
+ * @param {string} id - The ID of the input field.
+ * @param {HTMLElement} phoneError - The error message element.
+ */
+function setNoneTextForInput(id, phoneError) {
+  phoneError.innerText = "";
+  document.getElementById(id).classList.remove("falseInput");
+}
+
+
+/**
+ * Clears the input fields for name, email, and phone number, and closes the add contact modal
+ */
+function clearContactsInputs() {
+  let name = document.getElementById("name");
+  name.value = "";
+  let email = document.getElementById("email");
+  email.value = "";
+  let phone = document.getElementById("phone");
+  phone.value = "";
+  closeAddNewContact()
+}
+
+
+// Responsive //
+/**
+ * Hides the right section of the page when the media query matches a max-width of 1000px
+ */
+function backToContacts() {
+  let rightContactContainer = document.getElementById('rightSectionCO')
+  rightContactContainer.classList.add('d-none')
+}
+
+
+/**
+ * Toggles the visibility of certain elements on the page depending on whether the media query matches
+ * @param {MediaQueryListEvent} x - The media query list event that fired
+ */
+function myFunction(x) {
+  let textPosi = document.getElementById('textPosi')
+  let textPosiRE = document.getElementById('textPosiRE')
+  let sectionHidden = document.getElementById('rightSectionCO')
+  if (x.matches) { // If media query matches
+    textPosi.classList.add('d-none')
+    textPosiRE.classList.remove('d-none')
+    sectionHidden.classList.add('d-none')
+  } else {
+    textPosi.classList.remove('d-none')
+    textPosiRE.classList.add('d-none')
+    sectionHidden.classList.remove('d-none')
+  }
+}
+
+
+/**
+ * Sets a function to be executed after a specified amount of time has elapsed.
+ * @param {Function} fn - The function to be executed.
+ * @param {number} delay - The time to wait before executing the function, in milliseconds.
+ * @returns {number} - The numeric ID of the timeout, which can be used with `clearTimeout()`.
+ */
+setTimeout(() => {
+  let x = window.matchMedia("(max-width: 1000px)")
+  myFunction(x) // Call listener function at run time
+  x.addListener(myFunction) // Attach listener function on state changes
+}, 100);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addContactEmail">addContactEmail</a></li><li><a href="global.html#addContactName">addContactName</a></li><li><a href="global.html#backToContacts">backToContacts</a></li><li><a href="global.html#clearContactsInputs">clearContactsInputs</a></li><li><a href="global.html#closeAddNewContact">closeAddNewContact</a></li><li><a href="global.html#closeEditContact">closeEditContact</a></li><li><a href="global.html#createNewContact">createNewContact</a></li><li><a href="global.html#createTaskFromContacts">createTaskFromContacts</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#getCurrentUserData">getCurrentUserData</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#loadContactsData">loadContactsData</a></li><li><a href="global.html#loadCurrentDataContactEdit">loadCurrentDataContactEdit</a></li><li><a href="global.html#makeDataToContact">makeDataToContact</a></li><li><a href="global.html#myFunction">myFunction</a></li><li><a href="global.html#noContacts">noContacts</a></li><li><a href="global.html#openAddNewContact">openAddNewContact</a></li><li><a href="global.html#openContact">openContact</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#proofContactDataForTask">proofContactDataForTask</a></li><li><a href="global.html#proofContactsAvailable">proofContactsAvailable</a></li><li><a href="global.html#proofCurrentUser">proofCurrentUser</a></li><li><a href="global.html#proofEditEmail">proofEditEmail</a></li><li><a href="global.html#proofEditName">proofEditName</a></li><li><a href="global.html#proofPhone">proofPhone</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSelectedContact">renderSelectedContact</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#setCurrentUserData">setCurrentUserData</a></li><li><a href="global.html#setMaxTextForInput">setMaxTextForInput</a></li><li><a href="global.html#setMinTextForInput">setMinTextForInput</a></li><li><a href="global.html#setNewContact">setNewContact</a></li><li><a href="global.html#setNoneTextForInput">setNoneTextForInput</a></li><li><a href="global.html#setPhoneNumber">setPhoneNumber</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#tryGetEmail">tryGetEmail</a></li><li><a href="global.html#tryGetName">tryGetName</a></li><li><a href="global.html#tryGetPhone">tryGetPhone</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 14 2023 22:13:54 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

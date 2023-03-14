@@ -12,7 +12,6 @@ async function init() {
     await initTemplates();
     await loadTasks();
     await loadCurrentUser();
-    loadTasks();
     setSideBarFocus();
     getInitialForHeader()
     checkUndefined()
