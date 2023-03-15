@@ -22,8 +22,10 @@ async function initTemplates() {
 }
 
 
-// Event listener for the window resize event.
-// Throttles the initTemplates function call to improve performance.
+/**
+ * Event listener for the window resize event.
+ * Throttles the initTemplates function call to improve performance.
+ */
 window.addEventListener('resize', function () {
   let delay = 250 
   let throttled = false  
