@@ -177,7 +177,12 @@ function loadTaskUpcomingDeadline() {
   }
 }
 
-
+/**
+ * Sorts an array of task dates by their difference from the current date,
+    in ascending order.
+ * @param {Array} tasksDate - An array of task dates in the format YYYY-MM-DD.
+    @returns {Array} - The sorted array of task dates.
+ */
 function sortArrayByDifference(tasksDate) {
   return tasksDate.sort(function (a, b) {
     return dateDifference(a) - dateDifference(b);
@@ -185,6 +190,10 @@ function sortArrayByDifference(tasksDate) {
 }
 
 
+/**
+ * Displays the most urgent task date on the webpage.
+ * @param {Array} sortedDates - An array of task dates in the format YYYY-MM-DD, sorted in ascending order of their difference from the current date.
+ */
 function mostUrgentTask(sortedDates) {
   sortedDatesConverted = sortedDates[0].split(/-/gi);
   document.getElementById('tasks-date').innerHTML = convertNumberInMonth(sortedDatesConverted[1] - 1) + ' ' + sortedDatesConverted[2] + ', ' + sortedDatesConverted[0];

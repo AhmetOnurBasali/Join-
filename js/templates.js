@@ -1,5 +1,10 @@
 let animationTimeout;
 
+/**
+ * Initializes the HTML templates for the header, sidebar, and navbar based on the screen size.
+ * Sets focus on the sidebar and displays the create task button for mobile devices.
+ * @async
+ */
 async function initTemplates() {
   document.getElementById("header").innerHTML = headerHTML();
   if (mobileWidth()) {
@@ -17,27 +22,32 @@ async function initTemplates() {
 }
 
 
+/**
+ * Event listener for the window resize event.
+ * Throttles the initTemplates function call to improve performance.
+ */
 window.addEventListener('resize', function () {
-  let delay = 250 // delay between calls
-  let throttled = false // are we currently throttled? 
+  let delay = 250 
+  let throttled = false  
   if (!throttled) {
-    // actual callback action
     initTemplates();
-    // we're throttled!
     throttled = true;
-    // set a timeout to un-throttle
     setTimeout(function () {
       throttled = false;
     }, delay);
   }
 });
 
-
+/**
+ * Updates the HTML for the top right section of the add task form to show the close button.
+ */
 function addTaskCloseTopRight() {
   document.getElementById('headline-addtask').innerHTML = addTaskCloseTopRightHTML();
 }
 
-
+/**
+ * Hides the navbar at the bottom of the screen for mobile devices.
+ */
 function navbarBottomHide() {
   if (mobileWidth()) {
     let navbar = document.getElementById('navbar-bottom')
