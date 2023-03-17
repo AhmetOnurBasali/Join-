@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>setURL("https://gruppe-446.developerakademie.net/smallest_backend_ever");
+let users = [];
+let currentUser = [];
+let allTasks = [{ id: 0 }];
+let categoryColor = [];
+
+
+/**
+ * This function is used to load all important functions that is used on every site at the beginning.
+ */
+async function init() {
+    await initTemplates();
+    await loadTasks();
+    await loadCurrentUser();
+    setSideBarFocus();
+    getInitialForHeader()
+    checkUndefined()
+}
+
+
+/**
+ * Initializes the Help &amp; Legal page by loading necessary data and setting focus on the sidebar.
+ */
+async function initHelpLegal() {
+    await initTemplates();
+    await loadCurrentUser();
+    setSideBarFocus()
+    getInitialForHeader()
+}
+
+
+/**
+ * Returns the current date in ISO format (yyyy-mm-dd).
+ * @returns {string} - The current date in ISO format.
+ */
+function dateTodayISO() {
+    let dateToday = new Date().getFullYear() + '-' + pad((new Date().getMonth() + 1), 2) + '-' + new Date().getDate();
+    return dateToday;
+}
+
+
+/**
+ * Returns a boolean indicating whether the current window width is less than or equal to 1000 pixels, indicating a mobile device.
+ * @returns {boolean} - True if the window width is less than or equal to 1000 pixels, false otherwise.
+ */
+function mobileWidth(){
+    return window.innerWidth &lt;= 1000;
+}
+
+/**
+ * Pads a given number with leading zeroes to a specified length.
+ * @param {number} num - The number to pad.
+ * @param {number} size - The desired length of the resulting string.
+ * @returns {string} - The padded number as a string.
+ */
+function pad(num, size) {
+    num = num.toString();
+    while (num.length &lt; size) num = "0" + num;
+    return num;
+}
+
+
+/**
+ * Animates the sliding in of a child element within a parent element.
+ * @param {string} childID - The ID of the child element to slide in.
+ * @param {string} parentID - The ID of the parent element to slide into.
+ */
+function slideInAnimation(childID, parentID) {
+    document.getElementById(parentID).classList.remove('visual-out');
+    document.getElementById(parentID).classList.add('visual-in');
+    if (mobileWidth()) {
+        document.getElementById(childID).classList.add('slide-in-bottom');
+        document.getElementById(childID).classList.remove('slide-out-bottom');
+        if (childID == 'addTask') {
+            document.getElementById(childID).classList.remove('slide-in-bottom');
+            document.getElementById(childID).classList.remove('slide-out');
+            document.getElementById(childID).classList.add('slide-in');
+            document.getElementById(parentID).classList.remove('visual-in');
+        }
+    } else {
+        document.getElementById(childID).classList.remove('slide-out');
+        document.getElementById(childID).classList.add('slide-in');
+    }
+}
+
+/**
+ * Animates the sliding out of a child element within a parent element.
+ * @param {string} childID - The ID of the child element to slide in.
+ * @param {string} parentID - The ID of the parent element to slide into.
+ */
+function slideOutAnimation(childID, parentID) {
+    document.getElementById(parentID).classList.remove('visual-in');
+    document.getElementById(parentID).classList.add('visual-out');
+    if (mobileWidth()) {
+        document.getElementById(childID).classList.remove('slide-in-bottom');
+        document.getElementById(childID).classList.add('slide-out-bottom');
+        if (childID == 'addTask') {
+            document.getElementById(childID).classList.remove('slide-out-bottom');
+            document.getElementById(childID).classList.add('slide-out');
+            document.getElementById(childID).classList.remove('slide-in');
+            document.getElementById(parentID).classList.remove('visual-out');
+        }
+    } else {
+        document.getElementById(childID).classList.remove('slide-in');
+        document.getElementById(childID).classList.add('slide-out');
+    }
+}
+
+/**
+ * Checks if the initialLetters property of the currentUser object is undefined, and reloads the current page if it is
+ */
+function checkUndefined() {
+    if (currentUser.initialLetters === undefined) {
+        location.reload();
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkUndefined">checkUndefined</a></li><li><a href="global.html#dateTodayISO">dateTodayISO</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initHelpLegal">initHelpLegal</a></li><li><a href="global.html#mobileWidth">mobileWidth</a></li><li><a href="global.html#pad">pad</a></li><li><a href="global.html#slideInAnimation">slideInAnimation</a></li><li><a href="global.html#slideOutAnimation">slideOutAnimation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 14 2023 22:11:45 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
