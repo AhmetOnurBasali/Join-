@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: board.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: board.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+let currentDraggedElement;
+let currentAreaOndragover;
+let taskPreview;
+let newArea;
+let currentTaskID;
+
+/**
+ * This function is used to initialise all functions thats needed for the board page.
+ */
+async function initBoard() {
+    await init();
+    await loadUsers();
+    renderBoard();
+}
+
+
+/**
+ * Renders the Kanban board by filtering and searching tasks based on the current input value in the 'find-task' search field.
+ * The function clears the content of each board area before rendering the filtered and searched tasks.
+ * @throws {Error} - If there are no tasks created, a console message is logged and the error is thrown.
+ */
+function renderBoard() {
+    let taskInput = document.getElementById('find-task');
+    inputValueLC = taskInput.value.toLowerCase();
+    let areaToDoID = document.getElementById('tasks-to-do');
+    let areaInProgressID = document.getElementById('tasks-in-progress');
+    let areaAwaitingFeedbackID = document.getElementById('tasks-awaiting-feedback');
+    let areaDoneID = document.getElementById('tasks-done');
+    areaToDoID.innerHTML = "";
+    areaInProgressID.innerHTML = "";
+    areaAwaitingFeedbackID.innerHTML = "";
+    areaDoneID.innerHTML = "";
+    try {
+        filterAndSearch("todo", areaToDoID);
+        filterAndSearch("inProgress", areaInProgressID);
+        filterAndSearch("awaitingFeedback", areaAwaitingFeedbackID);
+        filterAndSearch("done", areaDoneID);
+    } catch (error) {
+        console.log('no Tasks created');
+    }
+}
+
+
+/**
+ * This function is used to filter and search tasks and call the 'renderCreatedTasks' function.
+ * @param {string} area - Identifies the area.
+ * @param {string} areaID - The ID of the area section.
+ */
+function filterAndSearch(area, areaID) {
+    let areaArray = allTasks.filter((t) => t["area"] == area);
+    for (let i = 0; i &lt; areaArray.length; i++) {
+        const task = areaArray[i];
+        const taskCategory = task['category'].toLowerCase();
+        const taskDescription = task['description'].toLowerCase();
+        const taskTitle = task['title'].toLowerCase();
+        if (taskCategory.includes(inputValueLC) || taskDescription.includes(inputValueLC) || taskTitle.includes(inputValueLC) || inputValueLC == '') {
+            renderCreatedTasks(areaID, task);
+        }
+    }
+}
+
+
+/**
+ * This function is used to render the filtered and searched tasks on the board.
+ * @param {Element} area - Identifies the area.
+ * @param {Object} task - Information of the current rendering task.
+ */
+async function renderCreatedTasks(area, task) {
+    area.innerHTML += renderCreatedTasksInnerHTML(task);
+    renderAssignTo(task, 'task-assigned-to');
+    checkValueOfSubtasks(task);
+    setTitleBg(task, 'task-category');
+}
+
+
+/**
+ * This function is used to render the AssignTo bubbles of the users.
+ * @param {Object} task - Information of the current rendering task.
+ * @param {string} eID - ID of the div that should be rendered the AssignTo bubble in.
+ */
+function renderAssignTo(task, eID) {
+    let i;
+    for (i = 0; i &lt; task['assignedTo'].length; i++) {
+        const assignedTo = task['assignedTo'][i]['initial'];
+        if (eID == 'task-assigned-to' &amp;&amp; i &lt; 2 || eID != 'task-assigned-to') {
+            document.getElementById(`${eID}${task['id']}`).innerHTML += `&lt;div style="background-color:${task['assignedTo'][i]['color']};">${assignedTo}&lt;/div>`;
+        }
+        if (eID == 'task-details-assigned-to') {
+            document.getElementById(`task-details-assigned-to-name${task['id']}`).innerHTML += `&lt;div>${task['assignedTo'][i]['name']}&lt;/div>`;
+        }
+    }
+    if (eID == 'task-assigned-to' &amp;&amp; i > 2) {
+        document.getElementById(`task-assigned-to${task['id']}`).innerHTML += `&lt;div style="background-color:#2A3647;">${i - 2}+&lt;/div>`;
+    }
+}
+
+
+/**
+ * This function is used to calculate the actual progress of the finished subtasks.
+ * @param {Object} task - Information of the current rendering task.
+ * @returns The progress of the subtasks in %.
+ */
+function progressSubtasks(task) {
+    if (task['closedSubtask'] == 0) {
+        return 0;
+    } else {
+        return 100 / (task['openSubtask'].length + task['closedSubtask'].length) * task['closedSubtask'].length;
+    }
+
+}
+
+
+//---------------------------Drag and Drop Tasks---------------------------
+
+/**
+ * Allows dropping a dragged element onto an area and updates the current area on dragover.
+ * If the area is different from the current area of the dragged element and taskPreview is false,
+ * highlights the area by showing a task preview. If the area is the same and a task preview is shown,
+ * removes the task preview.
+ * @param {Event} ev - The drag event.
+ * @param {string} area - The area where the element is being dragged to.
+ * @param {string} areaID - The ID of the area element.
+*/
+function allowDrop(ev, area, areaID) {
+    ev.preventDefault();
+    currentAreaOndragover = area;
+    if (area != allTasks[currentDraggedElement]['area'] &amp;&amp; taskPreview == false) {
+        if (document.getElementById('task-preview') != null) {
+            document.getElementById('task-preview').remove();
+        }
+        highlightArea(areaID);
+    } else if (area == allTasks[currentDraggedElement]['area'] &amp;&amp; document.getElementById('task-preview') != null) {
+        document.getElementById('task-preview').remove();
+    }
+}
+
+
+/**
+ * This function is used to remove the task preview task.
+ */
+function disregardArea() {
+    taskPreview = false;
+}
+
+
+/**
+ * This function is used to highlight the dragged over area with a preview style of a task.
+ * @param {string} areaID - Element ID of a area.
+ */
+function highlightArea(areaID) {
+    document.getElementById(`${areaID}`).innerHTML += `&lt;div class="task-preview" id="task-preview">&lt;/div>`;
+    checkDraggedTaskSize();
+    taskPreview = true;
+}
+
+
+/**
+ * This function is used to set the current tasks id global.
+ * @param {string} id - The dragged tasks id.
+ */
+function startDragging(id) {
+    currentDraggedElement = id;
+}
+
+
+/**
+ * Checks the size of the current dragged task element and sets the minimum height of the task preview element to match it.
+ */
+function checkDraggedTaskSize() {
+    let task = document.getElementById(`taskNumber_${currentDraggedElement}`);
+    let actTaskHeight = task.offsetHeight;
+    document.getElementById('task-preview').style.minHeight = actTaskHeight + 'px';
+}
+
+
+/**
+ * Moves the current dragged task element to the designated area and updates the board with the new order of tasks.
+ */
+async function moveTo() {
+    allTasks[currentDraggedElement]['area'] = currentAreaOndragover;
+    renderBoard();
+    await backend.setItem("allTasks", allTasks);
+}
+
+
+/**
+ * Sets the background color of the specified task element based on its "titleBg" property.
+ * @param {Object} task - The task object for which to set the background color.
+ * @param {string} eID - The ID of the element to set the background color on.
+ */
+function setTitleBg(task, eID) {
+    document.getElementById(`${eID}${task['id']}`).style.backgroundColor = `${task['titleBg']}`;
+}
+
+
+/**
+ * Applies a CSS animation to a dragged task.
+ * @param {number} id - The id of the task being dragged.
+ */
+function dragAnimation(id) {
+    document.getElementById(`taskNumber_${id}`).style.rotate = '4deg';
+    document.getElementById(`taskNumber_${id}`).style.opacity = '0.75';
+}
+
+
+/**
+ * Adds a task to a board and displays a popup window for creating the task.
+ * @param {string} area - The name of the board, where the task will be added.
+ */
+function addTaskBoard(area) {
+    isAddTask = true;
+    document.getElementById("addTask").innerHTML = addTaskHTML();
+    selectArea(area);
+    slideInAnimation('addTask', 'popup-add-task-board');
+    document.getElementById('popup-add-task-board').classList.remove('d-none');
+    addTaskCloseTopRight();
+    document.getElementById('close-add-task').innerHTML = addTaskHTMLBoard();
+    navbarBottomHide();
+    showCreateTaskBtnMobile();
+    preventScrolling();
+
+}
+
+
+/**
+ * Disables scrolling on the body element to prevent the user from scrolling while a popup window is open.
+ */
+function preventScrolling() {
+    return body.style.overflow = "hidden";
+}
+
+
+/**
+ * Sets the current board area where a new task will be added.
+ * @param {string} area - The name of the board area.
+ */
+function selectArea(area) {
+    newArea = area;
+}
+
+
+/**
+ * Closes the Add Task Board by sliding it out of view and adding a delay for the animation to finish.
+ * Restores the navbar and the Create Task button for mobile view.
+ * Allows the user to scroll again.
+ */
+function closeAddTaskBoard() {
+    slideOutAnimation('addTask', 'popup-add-task-board');
+    setTimeout(() => {
+        document.getElementById('popup-add-task-board').classList.add('d-none');
+    }, animationTimeout);
+    if (mobileWidth()) {
+        let navbar = document.getElementById('navbar-bottom')
+        navbar.classList.remove("d-none")
+        hideCreateTaskBtnMobile();
+    }
+    allowScrolling();
+}
+
+/**
+ * Allows the user to scroll again by setting the body's overflow property to "auto".
+ * @returns - body.style.overflow = "auto"
+ */
+function allowScrolling() {
+    return body.style.overflow = "auto";
+}
+
+
+/**
+ * Prevents the Add Task Board from closing when the user clicks inside it by stopping the propagation of the event.
+ * @param {Event} event - The click event that triggered the function.
+ */
+function doNotCloseAddTaskBoard(event) {
+    event.stopPropagation();
+}
+
+
+//---------------------------Move to Area Mobile---------------------------
+/**
+ * Hides the "move to" button for the current task's current area on mobile, to avoid duplicating it
+ * @param {string} taskID - the ID of the current task being moved
+ */
+function selectAreaOnMobile(taskID) {
+    let moveToButtonIDs = ['mobile-move-todo', 'mobile-move-inProgress', 'mobile-move-awaitingFeedback', 'mobile-move-done'];
+    for (let i = 0; i &lt; moveToButtonIDs.length; i++) {
+        const moveToButtonID = moveToButtonIDs[i];
+        if (moveToButtonID.includes(allTasks[taskID]['area'])) {
+            document.getElementById(moveToButtonID).style.display = 'none';
+        }
+    }
+}
+
+
+/**
+ * Moves the specified task to the selected area on mobile, updates the board and saves to backend
+ * @param {string} taskID - the ID of the task being moved
+ * @param {string} selectedArea - the area the task is being moved to
+ */
+function moveToOnMobile(taskID, selectedArea) {
+    allTasks[taskID]['area'] = selectedArea;
+    renderBoard();
+    openTaskDetailsFront(taskID);
+    selectAreaOnMobile(taskID);
+    backend.setItem("allTasks", allTasks);
+}
+
+
+//---------------------------Details Tasks---------------------------
+/**
+ * Displays the task details popup and renders the task details in it.
+ * @param {number} taskID - The ID of the task to display details for. 
+ */
+function openTaskDetailsFront(taskID) {
+    currentTaskID = taskID;
+    document.getElementById('popup-task-details').classList.remove('d-none');
+    slideInAnimation('task-details', 'popup-task-details');
+    document.getElementById('task-details').innerHTML = renderTaskDetailsFrontHTML(currentTaskID);
+    preventScrolling();
+    setTitleBg(allTasks[currentTaskID], 'task-details-category');
+    renderAssignTo(allTasks[currentTaskID], 'task-details-assigned-to');
+    renderSubtasks(allTasks[currentTaskID], 'task-details-subtasks');
+    setPriorityBg();
+}
+
+
+/**
+ * Renders the subtasks of a given task in the specified HTML element.
+ * @param {object} task - The task object containing the subtasks to render.
+ * @param {string} eID - The ID of the HTML element to render the subtasks in.
+ */
+function renderSubtasks(task, eID) {
+    document.getElementById(`${eID}${task['id']}`).innerHTML = '';
+
+    for (let i = 0; i &lt; task['openSubtask'].length; i++) {
+        const openSubtask = task['openSubtask'][i];
+        document.getElementById(`${eID}${task['id']}`).innerHTML += /*html*/`
+         &lt;div class="subtasks-details">&lt;input class="checkbox-subtask" onclick="statusSubtask(${i}, 'openSubtask${i}_T${currentTaskID}')" type="checkbox" id="openSubtask${i}_T${currentTaskID}">${openSubtask}&lt;/div>
+        `;
+    }
+    for (let i = 0; i &lt; task['closedSubtask'].length; i++) {
+        const closedSubtask = task['closedSubtask'][i];
+        document.getElementById(`${eID}${task['id']}`).innerHTML += /*html*/`
+        &lt;div class="subtasks-details">&lt;input class="checkbox-subtask" checked onchange="statusSubtask(${i}, 'closedSubtask${i}_T${currentTaskID}')" type="checkbox" id="closedSubtask${i}_T${currentTaskID}">${closedSubtask}&lt;/div>
+        `;
+    }
+}
+
+
+/**
+ * This asynchronous function updates the status of a subtask and re-renders the subtask list and board.
+ * @param {number} i - Index of the subtask to be updated.
+ * @param {string} subtaskID - The ID of the subtask element in the HTML.
+ */
+async function statusSubtask(i, subtaskID) {
+    let statusSubtask = document.getElementById(subtaskID);
+    if (statusSubtask.checked) {
+        allTasks[currentTaskID]['closedSubtask'].push(allTasks[currentTaskID]['openSubtask'][i]);
+        allTasks[currentTaskID]['openSubtask'].splice(i, 1);
+    } else {
+        allTasks[currentTaskID]['openSubtask'].push(allTasks[currentTaskID]['closedSubtask'][i]);
+        allTasks[currentTaskID]['closedSubtask'].splice(i, 1);
+    }
+
+    renderSubtasks(allTasks[currentTaskID], 'task-details-subtasks');
+    renderBoard();
+    await backend.setItem("allTasks", allTasks);
+}
+
+
+/**
+ * This function sets the background color of the task priority sign based on the priority level of the current task.
+ */
+function setPriorityBg() {
+    document.getElementById(`task-details-prio-sign${currentTaskID}`).style.backgroundColor = `${setPriorityBgColor()}`;
+}
+
+
+/**
+ * This function returns the background color for the priority sign based on the priority level of the current task.
+ * @returns {string} The background color for the priority sign as a string.
+ */
+function setPriorityBgColor() {
+    switch (allTasks[currentTaskID]['prio']) {
+        case 'low':
+            return '#7AE229'
+        case 'medium':
+            return '#FFA800'
+        case 'urgent':
+            return '#FF3D00'
+        default:
+            break;
+    }
+}
+
+/**
+ * Closes the task details popup and restores the body's overflow to 'auto'.
+ */
+function closeTaskDetails() {
+    document.getElementById('body').style.overflow = 'auto';
+    slideAssignTo = false;
+    slideCategory = false;
+    slideOutAnimation('task-details', 'popup-task-details');
+    setTimeout(() => {
+        document.getElementById('popup-task-details').classList.add('d-none');
+    }, animationTimeout);
+}
+
+/**
+ * Renders the task details popup with an editable form to edit the task's details.
+ */
+function editDetailsTask() {
+    document.getElementById('task-details').innerHTML = renderEditDetailsTaskHTML();
+    renderSelectContactEdit();
+    renderOpenAssignedTo('contactsEdit', 'contactInitialsEdit');
+    setPrioCheckBox(allTasks[currentTaskID]['prio'], 'Edit');
+}
+
+
+/**
+ * Renders the HTML for the select contact dropdown menu in the edit task details popup.
+ */
+function renderSelectContactEdit() {
+    let contactInitials = document.getElementById('contactInitialsEdit');
+    contactInitials.innerHTML = ``;
+    for (let i = 0; i &lt; allTasks[currentTaskID]['assignedTo'].length; i++) {
+        let color = allTasks[currentTaskID]['assignedTo'][i]['color'];
+        let initialLetters = allTasks[currentTaskID]['assignedTo'][i]['initial'];
+        contactInitials.innerHTML += renderSelectContactHTML(color, initialLetters);
+    }
+}
+
+
+/**
+ * Checks the value of openSubtask and closedSubtask arrays of a task and removes the task subtasks section from the DOM if the sum of both arrays is 0.
+ * @param {object} task - The task object to check its subtasks value.
+ */
+function checkValueOfSubtasks(task) {
+    if (task['openSubtask'].length + task['closedSubtask'].length == 0) {
+        document.getElementById(`task-subtasks${task['id']}`).remove();
+    }
+}
+
+
+/**
+ * Edits an existing task with the data entered in the edit task form and updates it in the allTasks array.
+ * @param {Event} event - The event object that triggered the function.
+ */
+function editExistingTask(event) {
+    proofEvent(event);
+    let editTask = getTaskDataEdit();
+    let proof = taskProofSectionEdit(editTask);
+    if (proof === true) {
+        editTaskData(editTask);
+    }
+    selectedContacts = [];
+}
+
+
+/**
+ * Gets the data entered in the edit task form and returns an object with the values.
+ * @returns {object} - An object with the values entered in the edit task form.
+ */
+function getTaskDataEdit() {
+    let titleEdit = document.getElementById("titleEdit").value;
+    let descriptionEdit = document.getElementById("descriptionEdit").value;
+    let dateEdit = document.getElementById("dateEdit").value;
+    let prioEdit = checkPrio('Edit');
+    return {
+        title: titleEdit,
+        description: descriptionEdit,
+        assignedTo: selectedContacts,
+        date: dateEdit,
+        prio: prioEdit,
+    };
+}
+
+
+/**
+ * Checks if the input values entered in the edit task form are valid, and returns true if they are.
+ * @param {object} editTask - An object with the edited task values entered in the form.
+ * @returns {boolean} - true if all input values are valid, false otherwise.
+ */
+function taskProofSectionEdit(editTask) {
+    let title = proofTitle(editTask, 'Edit');
+    let description = proofDescription(editTask, 'Edit');
+    let assigned = proofAssigned();
+    let date = proofDate(editTask, 'Edit');
+    let prio = proofPrio(editTask, 'Edit');
+    if (checkProofOfEdit(title, description, assigned, date, prio) === true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+/**
+ * Checks if all proof conditions are met and returns true if they are.
+ * @param {boolean} title - The title proof result.
+ * @param {boolean} description - The description proof result.
+ * @param {boolean} assigned - The assigned proof result.
+ * @param {boolean} date - The date proof result.
+ * @param {boolean} prio - The priority proof result.
+ * @returns {boolean} - true if all proof conditions are met, false otherwise.
+ */
+function checkProofOfEdit(title, description, assigned, date, prio) {
+    return (
+        title === true &amp;&amp;
+        description === true &amp;&amp;
+        assigned === true &amp;&amp;
+        date === true &amp;&amp;
+        prio === true
+    );
+}
+
+
+/**
+ * Edits the task data in the allTasks array with the data entered in the edit task form, saves it in the backend, and re-renders the board.
+ * @param {object} editTask - An object with the edited task values entered in the form.
+ */
+async function editTaskData(editTask) {
+    allTasks[currentTaskID]['title'] = editTask['title'];
+    allTasks[currentTaskID]['description'] = editTask['description'];
+    allTasks[currentTaskID]['date'] = editTask['date'];
+    allTasks[currentTaskID]['prio'] = editTask['prio'];
+    allTasks[currentTaskID]['assignedTo'] = editTask['assignedTo'];
+
+    await backend.setItem("allTasks", allTasks);
+    renderBoard();
+    console.log('task changed' + currentTaskID);
+    closeTaskDetails();
+}
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#acceptNewSubtask">acceptNewSubtask</a></li><li><a href="global.html#action">action</a></li><li><a href="global.html#addContactEmail">addContactEmail</a></li><li><a href="global.html#addContactName">addContactName</a></li><li><a href="global.html#addTaskBoard">addTaskBoard</a></li><li><a href="global.html#addTaskCloseTopRight">addTaskCloseTopRight</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserColor">addUserColor</a></li><li><a href="global.html#addUserEmail">addUserEmail</a></li><li><a href="global.html#addUserName">addUserName</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#allowScrolling">allowScrolling</a></li><li><a href="global.html#animateImage">animateImage</a></li><li><a href="global.html#assignedToBlockShiftIn">assignedToBlockShiftIn</a></li><li><a href="global.html#assignedToBlockShiftOut">assignedToBlockShiftOut</a></li><li><a href="global.html#backToContacts">backToContacts</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkDraggedTaskSize">checkDraggedTaskSize</a></li><li><a href="global.html#checkPrio">checkPrio</a></li><li><a href="global.html#checkProofOf">checkProofOf</a></li><li><a href="global.html#checkProofOfEdit">checkProofOfEdit</a></li><li><a href="global.html#checkSubtask">checkSubtask</a></li><li><a href="global.html#checkSubtastText">checkSubtastText</a></li><li><a href="global.html#checkValueOfSubtasks">checkValueOfSubtasks</a></li><li><a href="global.html#chooseCategory">chooseCategory</a></li><li><a href="global.html#clearColors">clearColors</a></li><li><a href="global.html#clearContactsInputs">clearContactsInputs</a></li><li><a href="global.html#clearDataAndInputs">clearDataAndInputs</a></li><li><a href="global.html#clearPrio">clearPrio</a></li><li><a href="global.html#clearPrioBtnWhite">clearPrioBtnWhite</a></li><li><a href="global.html#clearPrioSVG">clearPrioSVG</a></li><li><a href="global.html#clearPrioText">clearPrioText</a></li><li><a href="global.html#clearTask">clearTask</a></li><li><a href="global.html#closeAddNewContact">closeAddNewContact</a></li><li><a href="global.html#closeAddTaskBoard">closeAddTaskBoard</a></li><li><a href="global.html#closeContactsAndAssignedToPopup">closeContactsAndAssignedToPopup</a></li><li><a href="global.html#closeEditAssignedToPopup">closeEditAssignedToPopup</a></li><li><a href="global.html#closeEditContact">closeEditContact</a></li><li><a href="global.html#closeNewCategory">closeNewCategory</a></li><li><a href="global.html#closeNewSubtask">closeNewSubtask</a></li><li><a href="global.html#closeTaskDetails">closeTaskDetails</a></li><li><a href="global.html#convertNumberInMonth">convertNumberInMonth</a></li><li><a href="global.html#countTo">countTo</a></li><li><a href="global.html#createNewContact">createNewContact</a></li><li><a href="global.html#createNewTask">createNewTask</a></li><li><a href="global.html#createTaskFromContacts">createTaskFromContacts</a></li><li><a href="global.html#dateDifference">dateDifference</a></li><li><a href="global.html#disregardArea">disregardArea</a></li><li><a href="global.html#doNotCloseAddTaskBoard">doNotCloseAddTaskBoard</a></li><li><a href="global.html#dragAnimation">dragAnimation</a></li><li><a href="global.html#dropColorInInput">dropColorInInput</a></li><li><a href="global.html#editDetailsTask">editDetailsTask</a></li><li><a href="global.html#editExistingTask">editExistingTask</a></li><li><a href="global.html#editTaskData">editTaskData</a></li><li><a href="global.html#filterAndSearch">filterAndSearch</a></li><li><a href="global.html#filterRenderBubble">filterRenderBubble</a></li><li><a href="global.html#findContactById">findContactById</a></li><li><a href="global.html#getAssignedContacts">getAssignedContacts</a></li><li><a href="global.html#getCategorys">getCategorys</a></li><li><a href="global.html#getCurrentUserData">getCurrentUserData</a></li><li><a href="global.html#getEmailRegEx">getEmailRegEx</a></li><li><a href="global.html#getEmailUrlParameter">getEmailUrlParameter</a></li><li><a href="global.html#getInitialForHeader">getInitialForHeader</a></li><li><a href="global.html#getInitialLetters">getInitialLetters</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getResponse">getResponse</a></li><li><a href="global.html#getTaskData">getTaskData</a></li><li><a href="global.html#getTaskDataEdit">getTaskDataEdit</a></li><li><a href="global.html#goToEdit">goToEdit</a></li><li><a href="global.html#handleClickOutside">handleClickOutside</a></li><li><a href="global.html#hideCreateTaskBtnMobile">hideCreateTaskBtnMobile</a></li><li><a href="global.html#highlightArea">highlightArea</a></li><li><a href="global.html#ifAddTaskSite">ifAddTaskSite</a></li><li><a href="global.html#ifBoardSite">ifBoardSite</a></li><li><a href="global.html#ifContactsSite">ifContactsSite</a></li><li><a href="global.html#ifHelpSite">ifHelpSite</a></li><li><a href="global.html#ifLegalSite">ifLegalSite</a></li><li><a href="global.html#ifSummarySite">ifSummarySite</a></li><li><a href="global.html#indexOfCategory">indexOfCategory</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#initIndex">initIndex</a></li><li><a href="global.html#initLocalLogin">initLocalLogin</a></li><li><a href="global.html#initLogin">initLogin</a></li><li><a href="global.html#initSummary">initSummary</a></li><li><a href="global.html#initTask">initTask</a></li><li><a href="global.html#initTemplates">initTemplates</a></li><li><a href="global.html#loadCategory">loadCategory</a></li><li><a href="global.html#loadContactsData">loadContactsData</a></li><li><a href="global.html#loadCurrentDataContactEdit">loadCurrentDataContactEdit</a></li><li><a href="global.html#loadCurrentUser">loadCurrentUser</a></li><li><a href="global.html#loadJSONFromServer">loadJSONFromServer</a></li><li><a href="global.html#loadLocalDisclaimer">loadLocalDisclaimer</a></li><li><a href="global.html#loadLocalRememberUser">loadLocalRememberUser</a></li><li><a href="global.html#loadParms">loadParms</a></li><li><a href="global.html#loadSecondParms">loadSecondParms</a></li><li><a href="global.html#loadTaskUpcomingDeadline">loadTaskUpcomingDeadline</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#loadTasksAwaitingFeedback">loadTasksAwaitingFeedback</a></li><li><a href="global.html#loadTasksDone">loadTasksDone</a></li><li><a href="global.html#loadTasksInBoard">loadTasksInBoard</a></li><li><a href="global.html#loadTasksInProgress">loadTasksInProgress</a></li><li><a href="global.html#loadTasksLength">loadTasksLength</a></li><li><a href="global.html#loadTasksTodo">loadTasksTodo</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#loginAsGuest">loginAsGuest</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lsRememberMe">lsRememberMe</a></li><li><a href="global.html#makeDataToContact">makeDataToContact</a></li><li><a href="global.html#mostUrgentTask">mostUrgentTask</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#moveToOnMobile">moveToOnMobile</a></li><li><a href="global.html#myFunction">myFunction</a></li><li><a href="global.html#navbarBottomHide">navbarBottomHide</a></li><li><a href="global.html#newCategory">newCategory</a></li><li><a href="global.html#noContacts">noContacts</a></li><li><a href="global.html#onPageLoad">onPageLoad</a></li><li><a href="global.html#onSubmit">onSubmit</a></li><li><a href="global.html#openAddNewContact">openAddNewContact</a></li><li><a href="global.html#openAddTask">openAddTask</a></li><li><a href="global.html#openAssignedTo">openAssignedTo</a></li><li><a href="global.html#openCategory">openCategory</a></li><li><a href="global.html#openContact">openContact</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openLogout">openLogout</a></li><li><a href="global.html#openTaskDetailsFront">openTaskDetailsFront</a></li><li><a href="global.html#preventScrolling">preventScrolling</a></li><li><a href="global.html#progressSubtasks">progressSubtasks</a></li><li><a href="global.html#proofAndSetTasks">proofAndSetTasks</a></li><li><a href="global.html#proofAssigned">proofAssigned</a></li><li><a href="global.html#proofCategory">proofCategory</a></li><li><a href="global.html#proofContactDataForTask">proofContactDataForTask</a></li><li><a href="global.html#proofContactsAvailable">proofContactsAvailable</a></li><li><a href="global.html#proofCurrentUser">proofCurrentUser</a></li><li><a href="global.html#proofDate">proofDate</a></li><li><a href="global.html#proofDescription">proofDescription</a></li><li><a href="global.html#proofDisclaimer">proofDisclaimer</a></li><li><a href="global.html#proofDisclaimerAgain">proofDisclaimerAgain</a></li><li><a href="global.html#proofEditEmail">proofEditEmail</a></li><li><a href="global.html#proofEditName">proofEditName</a></li><li><a href="global.html#proofEmail">proofEmail</a></li><li><a href="global.html#proofEvent">proofEvent</a></li><li><a href="global.html#proofInput">proofInput</a></li><li><a href="global.html#proofName">proofName</a></li><li><a href="global.html#proofPhone">proofPhone</a></li><li><a href="global.html#proofPrio">proofPrio</a></li><li><a href="global.html#proofSubtask">proofSubtask</a></li><li><a href="global.html#proofTaskData">proofTaskData</a></li><li><a href="global.html#proofTitle">proofTitle</a></li><li><a href="global.html#proofUsers">proofUsers</a></li><li><a href="global.html#readWriteSelectedContacts">readWriteSelectedContacts</a></li><li><a href="global.html#renderAssignTo">renderAssignTo</a></li><li><a href="global.html#renderBoard">renderBoard</a></li><li><a href="global.html#renderCategorys">renderCategorys</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderCreatedTasks">renderCreatedTasks</a></li><li><a href="global.html#renderNewCategory">renderNewCategory</a></li><li><a href="global.html#renderNewSubtask">renderNewSubtask</a></li><li><a href="global.html#renderOldCategory">renderOldCategory</a></li><li><a href="global.html#renderOpenAssignedTo">renderOpenAssignedTo</a></li><li><a href="global.html#renderSelectContact">renderSelectContact</a></li><li><a href="global.html#renderSelectContactEdit">renderSelectContactEdit</a></li><li><a href="global.html#renderSelectedContact">renderSelectedContact</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#resetAllPrioBtn">resetAllPrioBtn</a></li><li><a href="global.html#saveEdit">saveEdit</a></li><li><a href="global.html#saveJSONToServer">saveJSONToServer</a></li><li><a href="global.html#saveNewUser">saveNewUser</a></li><li><a href="global.html#selectArea">selectArea</a></li><li><a href="global.html#selectAreaOnMobile">selectAreaOnMobile</a></li><li><a href="global.html#selectContact">selectContact</a></li><li><a href="global.html#selectContactName">selectContactName</a></li><li><a href="global.html#setColor">setColor</a></li><li><a href="global.html#setCurrentUser">setCurrentUser</a></li><li><a href="global.html#setCurrentUserData">setCurrentUserData</a></li><li><a href="global.html#setFocus">setFocus</a></li><li><a href="global.html#setFocusBubbleContact">setFocusBubbleContact</a></li><li><a href="global.html#setFocusContactContainer">setFocusContactContainer</a></li><li><a href="global.html#setFocusSideSection">setFocusSideSection</a></li><li><a href="global.html#setGuestUser">setGuestUser</a></li><li><a href="global.html#setHighPrioBtn">setHighPrioBtn</a></li><li><a href="global.html#setHighPrioBtnColor">setHighPrioBtnColor</a></li><li><a href="global.html#setHighPrioSvgColor">setHighPrioSvgColor</a></li><li><a href="global.html#setHighPrioTextColor">setHighPrioTextColor</a></li><li><a href="global.html#setLoginEmail">setLoginEmail</a></li><li><a href="global.html#setLoginPassword">setLoginPassword</a></li><li><a href="global.html#setLowPrioBtn">setLowPrioBtn</a></li><li><a href="global.html#setLowPrioBtnColor">setLowPrioBtnColor</a></li><li><a href="global.html#setLowPrioSvgColor">setLowPrioSvgColor</a></li><li><a href="global.html#setLowPrioTextColor">setLowPrioTextColor</a></li><li><a href="global.html#setMaxTextForInput">setMaxTextForInput</a></li><li><a href="global.html#setMinTextForInput">setMinTextForInput</a></li><li><a href="global.html#setNewCategory">setNewCategory</a></li><li><a href="global.html#setNewContact">setNewContact</a></li><li><a href="global.html#setNewSubtask">setNewSubtask</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setNoneTextForInput">setNoneTextForInput</a></li><li><a href="global.html#setNormalPrioBtn">setNormalPrioBtn</a></li><li><a href="global.html#setNormalPrioBtnColor">setNormalPrioBtnColor</a></li><li><a href="global.html#setNormalPrioSvgColor">setNormalPrioSvgColor</a></li><li><a href="global.html#setNormalPrioTextColor">setNormalPrioTextColor</a></li><li><a href="global.html#setOldCategory">setOldCategory</a></li><li><a href="global.html#setPhoneNumber">setPhoneNumber</a></li><li><a href="global.html#setPrioCheckBox">setPrioCheckBox</a></li><li><a href="global.html#setPriorityBg">setPriorityBg</a></li><li><a href="global.html#setPriorityBgColor">setPriorityBgColor</a></li><li><a href="global.html#setSecondParms">setSecondParms</a></li><li><a href="global.html#setSideBarFocus">setSideBarFocus</a></li><li><a href="global.html#setTaskData">setTaskData</a></li><li><a href="global.html#setTitleBg">setTitleBg</a></li><li><a href="global.html#showCreateTaskBtnMobile">showCreateTaskBtnMobile</a></li><li><a href="global.html#showEye">showEye</a></li><li><a href="global.html#showGreetingDayTime">showGreetingDayTime</a></li><li><a href="global.html#showGreetingUser">showGreetingUser</a></li><li><a href="global.html#showLock">showLock</a></li><li><a href="global.html#showPassword">showPassword</a></li><li><a href="global.html#showRequiredText">showRequiredText</a></li><li><a href="global.html#slideInAssignedTo">slideInAssignedTo</a></li><li><a href="global.html#slideInCategory">slideInCategory</a></li><li><a href="global.html#slideOutAssignedTo">slideOutAssignedTo</a></li><li><a href="global.html#slideOutCategory">slideOutCategory</a></li><li><a href="global.html#sortArrayByDifference">sortArrayByDifference</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#statusSubtask">statusSubtask</a></li><li><a href="global.html#switchToBoard">switchToBoard</a></li><li><a href="global.html#taskProofSection">taskProofSection</a></li><li><a href="global.html#taskProofSectionEdit">taskProofSectionEdit</a></li><li><a href="global.html#toggleOpenFunction">toggleOpenFunction</a></li><li><a href="global.html#tryGetEmail">tryGetEmail</a></li><li><a href="global.html#tryGetName">tryGetName</a></li><li><a href="global.html#tryGetPhone">tryGetPhone</a></li><li><a href="global.html#tryToSendEmail">tryToSendEmail</a></li><li><a href="global.html#understoodDisclaimer">understoodDisclaimer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Mar 17 2023 21:53:43 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

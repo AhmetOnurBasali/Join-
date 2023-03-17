@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: changePassword.js</title>
+    <title>JSDoc: Source: mini_backend.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: changePassword.js</h1>
+    <h1 class="page-title">Source: mini_backend.js</h1>
 
     
 
@@ -26,68 +26,113 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let email = "";
+            <pre class="prettyprint source linenums"><code>let jsonFromServer = {};
+let BASE_SERVER_URL;
+
+const backend = {
+    setItem: function(key, item) {
+        jsonFromServer[key] = item;
+        return saveJSONToServer();
+    },
+    getItem: function(key) {
+        if (!jsonFromServer[key]) {
+            return null;
+        }
+        return jsonFromServer[key];
+    },
+    deleteItem: function(key) {
+        delete jsonFromServer[key];
+        return saveJSONToServer();
+    }
+};
+window.onload = async function() {
+    downloadFromServer();
+}
+
+async function downloadFromServer() {
+    let result = await loadJSONFromServer();
+    jsonFromServer = JSON.parse(result);
+    console.log('Loaded', result);
+}
+
+function setURL(url) {
+    BASE_SERVER_URL = url;
+}
 
 /**
- * Function that loads the users and sets the email variable based on the URL parameter
- * @returns {Promise&lt;void>}
+ * Loads a JSON or JSON Array to the Server
+ * payload {JSON | Array} - The payload you want to store
  */
-async function onPageLoad() {
-  await loadUsers();
-  email = getEmailUrlParameter();
+
+async function loadJSONFromServer() {
+    let response = await fetch(BASE_SERVER_URL + '/nocors.php?json=database&amp;noache=' + (new Date().getTime()));
+    return await response.text();
+
+}
+
+function loadJSONFromServerOld() {
+    return new Promise(function(resolve, reject) {
+        let xhttp = new XMLHttpRequest();
+        let proxy = determineProxySettings();
+        let serverURL = proxy + BASE_SERVER_URL + '/nocors.php?json=database&amp;noache=' + (new Date().getTime());
+
+
+
+
+        xhttp.open('GET', serverURL);
+
+        xhttp.onreadystatechange = function(oEvent) {
+            if (xhttp.readyState === 4) {
+                if (xhttp.status >= 200 &amp;&amp; xhttp.status &lt;= 399) {
+                    resolve(xhttp.responseText);
+                } else {
+                    reject(xhttp.statusText);
+                }
+            }
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.send();
+
+    });
 }
 
 
 /**
- * Function that extracts the email parameter from the URL and formats it
- * @returns {string} - the formatted email parameter with the first letter in uppercase
+ * Saves a JSON or JSON Array to the Server
  */
-function getEmailUrlParameter() {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const currentEmail = urlParams.get("email");
-  const emailToLowerCase = currentEmail.toLowerCase();
-  const email = emailToLowerCase.replace(/^\w/, (c) => c.toUpperCase());
-  return email;
+function saveJSONToServer() {
+    return new Promise(function(resolve, reject) {
+        let xhttp = new XMLHttpRequest();
+        let proxy = determineProxySettings();
+        let serverURL = proxy + BASE_SERVER_URL + '/save_json.php';
+        xhttp.open('POST', serverURL);
+
+        xhttp.onreadystatechange = function(oEvent) {
+            if (xhttp.readyState === 4) {
+                if (xhttp.status >= 200 &amp;&amp; xhttp.status &lt;= 399) {
+                    resolve(xhttp.responseText);
+                } else {
+                    reject(xhttp.statusText);
+                }
+            }
+        };
+
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.send(JSON.stringify(jsonFromServer));
+
+    });
 }
 
 
-/**
- * Function that handles the form submission to change the user password
- * @param {Event} event - the form submission event
- * @returns {Promise&lt;void>}
- */
-async function onSubmit(event) {
-  event.preventDefault();
-  let newPassword = document.getElementById("newPassword").value;
-  let confirmNewPassword = document.getElementById("confirmNewPassword");
-  let emailFound = users.find((u) => u.email == email);
-  if (emailFound &amp;&amp; newPassword === confirmNewPassword.value) {
-    await changePassword(emailFound, newPassword);
-  } else {
-    msgBox.innerHTML = "Make sure the second password you typed matches the first";
-    confirmNewPassword.classList.add("falseInput");
-  }
-}
+function determineProxySettings() {
+    return '';
 
-
-/**
- * Function that changes the password for a given user and saves the changes to the backend
- * @param {Object} emailFound - the user object with the matching email
- * @param {string} newPassword - the new password for the user
- * @returns {Promise&lt;void>}
- */
-async function changePassword(emailFound, newPassword) {
-  emailFound["password"] = newPassword;
-  if (emailFound["password"] === newPassword) {
-    let popUp = document.getElementById("popUpPasswordChange");
-    popUp.classList.remove("d-none");
-    await backend.setItem("users", users);
-    setTimeout(() => {
-      popUp.classList.add("d-none");
-      window.location.href = "/index.html?msg=password was change";
-    }, 1500);
-  }
+    if (window.location.href.indexOf('.developerakademie.com') > -1) {
+        return '';
+    } else {
+        return 'https://cors-anywhere.herokuapp.com/';
+    }
 }
 </code></pre>
         </article>
