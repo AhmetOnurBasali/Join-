@@ -1,3 +1,11 @@
+/**
+ * Handles the form submission event, preventing the default form submission behavior.
+ * Validates the user's email, retrieves a response from the server, and attempts to send an email.
+ * @async
+ * @function onSubmit
+ * @param {Event} event - The form submission event.
+ * @returns {Promise<void>} - A promise that resolves once the email has been sent or an error occurs.
+ */
 async function onSubmit(event) {
   event.preventDefault();
   let user = proofEmail();
@@ -10,6 +18,10 @@ async function onSubmit(event) {
 }
 
 
+/**
+ * Validates the user's email by retrieving a user object from the users array that matches the email entered.
+ * @returns {Object|null} - The user object, or null if the email is not found.
+ */
 function proofEmail() {
   let emailInput = document.getElementById("email").value.toLowerCase();
   let email = emailInput.replace(/^\w/, (c) => c.toUpperCase());
@@ -18,6 +30,12 @@ function proofEmail() {
 }
 
 
+/**
+ * Sends a request to the server to send an email, using the data from the submitted form.
+ * @async
+ * @param {Event} event - The form submission event.
+ * @returns {Promise<Response>} - A promise that resolves with the response from the server.
+ */
 async function getResponse(event) {
   let formData = new FormData(event.target);
   let response = await action(formData);
@@ -25,6 +43,12 @@ async function getResponse(event) {
 }
 
 
+/**
+ * Displays a message indicating whether the email was successfully sent, and redirects the user to the getEmail.html page.
+ * @async
+ * @param {Response} response - The response from the server.
+ * @returns {Promise<void>} - A promise that resolves once the message has been displayed.
+ */
 async function tryToSendEmail(response) {
   let popUp = document.getElementById("popUpEmailSend");
   popUp.classList.toggle("d-none", !response.ok);
@@ -34,6 +58,11 @@ async function tryToSendEmail(response) {
 }
 
 
+/**
+ * Sends a request to the server using the provided form data.
+ * @param {FormData} formData - The data from the submitted form.
+ * @returns {Promise<Response>} - A promise that resolves with the response from the server.
+ */
 function action(formData) {
   const input = "https://gruppe-446.developerakademie.net/html/send_mail.php";
   const requestInit = {
